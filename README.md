@@ -12,7 +12,7 @@ flutter run
 
 Sprite images of characters in four directions are used, Sprite animation is performed during movement.
 
-<img width="400" src="https://github.com/flame-games/player_move/blob/main/assets/images/sp_player.png">
+<img width="300" src="https://github.com/flame-games/player_move/blob/main/assets/images/sp_player.png">
 
 ## Input Reference
 
