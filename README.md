@@ -23,6 +23,16 @@ Sprite images of characters in four directions are used, Sprite animation is per
 | right  | LogicalKeyboardKey keyD | right |
 | Down   | LogicalKeyboardKey keyS | Down  |
 
+## Contributor
+
+### copyright holder
+
+Retro Character Sprite Sheet
+
+[isaiah658](https://openclipart.org/detail/248259/retro-character-sprite-sheet)
+
+I appreciate it very much.
+
 
 ## Author
 
