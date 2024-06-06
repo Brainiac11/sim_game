@@ -16,9 +16,10 @@ class MainGame extends FlameGame with KeyboardEvents {
   }
 
   @override
-  KeyEventResult onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+  KeyEventResult onKeyEvent(
+      RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     final isKeyDown = event is RawKeyDownEvent;
-    Direction? keyDirection = null;
+    Direction? keyDirection;
 
     if (event.logicalKey == LogicalKeyboardKey.keyA) {
       keyDirection = Direction.left;
