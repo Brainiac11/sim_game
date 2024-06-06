@@ -4,6 +4,8 @@ This sample uses [Flame](https://github.com/flame-engine), Flutter's frame game 
 
 <img width="400" src="https://user-images.githubusercontent.com/1584153/227727144-bae6429f-a64f-4464-be9d-275ffb01cc4a.png">
 
+Click here to see a [sample](https://flame-games.github.io/player_move/) of how it works on the web.
+
 ## Usage
 
 ```
