@@ -1,10 +1,12 @@
 import 'dart:math';
+import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'direction.dart';
 
 class Joypad extends StatefulWidget {
-  final ValueChanged<Direction>? onDirectionChanged;
+  final ValueChanged<Vector2>? onDirectionChanged;
 
   const Joypad({Key? key, this.onDirectionChanged}) : super(key: key);
 
@@ -13,7 +15,8 @@ class Joypad extends StatefulWidget {
 }
 
 class JoypadState extends State<Joypad> {
-  Direction direction = Direction.none;
+  // Direction direction = Direction.none;
+  Vector2 direction = Vector2(0, 0);
   Offset delta = Offset.zero;
 
   @override
@@ -56,7 +59,7 @@ class JoypadState extends State<Joypad> {
   }
 
   void updateDelta(Offset newDelta) {
-    final newDirection = getDirectionFromOffset(newDelta);
+    final newDirection = getVectorFromOffset(newDelta);
 
     if (newDirection != direction) {
       direction = newDirection;
@@ -79,6 +82,13 @@ class JoypadState extends State<Joypad> {
       return Direction.up;
     }
     return Direction.none;
+  }
+
+  Vector2 getVectorFromOffset(Offset offset) {
+    if (offset.distance >= 1) {
+      return Vector2(offset.dx, offset.dy);
+    }
+    return Vector2(0, 0);
   }
 
   void onDragDown(DragDownDetails d) {

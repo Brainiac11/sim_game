@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flame/palette.dart';
 import 'package:flame/game.dart';
 import 'helpers/joypad.dart';
 
@@ -27,12 +25,23 @@ class MainGameState extends State<MainGamePage> {
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: const EdgeInsets.all(32.0),
-                child:
-                Joypad(onDirectionChanged: game.onJoyPadDirectionChanged),
+                child: Joypad(
+                  onDirectionChanged: game.onJoyPadDirectionChanged,
+                  key: const Key("Translational"),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: Joypad(
+                  onDirectionChanged: game.onJoyPadRotationChanged,
+                  key: const Key("Rotational"),
+                ),
               ),
             )
           ],
-        )
-    );
+        ));
   }
 }

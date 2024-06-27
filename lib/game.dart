@@ -2,45 +2,51 @@ import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:player_move/components/robot/robot.dart';
 
 import 'helpers/direction.dart';
 import 'components/player.dart';
 
 class MainGame extends FlameGame with KeyboardEvents {
   final Player _player = Player();
-
+  final Robot _robot = Robot();
   @override
   Future<void> onLoad() async {
     super.onLoad();
     add(_player);
+    add(_robot);
   }
 
   @override
   KeyEventResult onKeyEvent(
       RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     final isKeyDown = event is RawKeyDownEvent;
-    Direction? keyDirection;
+    Vector2? keyDirection;
 
     if (event.logicalKey == LogicalKeyboardKey.keyA) {
-      keyDirection = Direction.left;
+      keyDirection = Vector2(-1, 0);
     } else if (event.logicalKey == LogicalKeyboardKey.keyD) {
-      keyDirection = Direction.right;
+      keyDirection = Vector2(1, 0);
     } else if (event.logicalKey == LogicalKeyboardKey.keyW) {
-      keyDirection = Direction.up;
+      keyDirection = Vector2(0, -1);
     } else if (event.logicalKey == LogicalKeyboardKey.keyS) {
-      keyDirection = Direction.down;
+      keyDirection = Vector2(0, 1);
     }
 
     if (isKeyDown && keyDirection != null) {
       _player.direction = keyDirection;
     } else if (_player.direction == keyDirection) {
-      _player.direction = Direction.none;
+      _player.direction = Vector2(0, 0);
     }
-
     return super.onKeyEvent(event, keysPressed);
   }
 
-  void onJoyPadDirectionChanged(Direction direction) {
+  void onJoyPadDirectionChanged(Vector2 direction) {
     _player.direction = direction;
+    _robot.direction = direction;
+  }
+
+  void onJoyPadRotationChanged(Vector2 rotation) {
+    _robot.rotation = rotation;
   }
 }

@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
+import 'package:flutter/foundation.dart';
+import 'package:player_move/components/robot/robot.dart';
 import '../helpers/direction.dart';
 import 'package:flame/sprite.dart';
 
@@ -12,12 +16,13 @@ class Player extends SpriteAnimationComponent with HasGameRef {
   late final SpriteAnimation _runRightAnimation;
   late final SpriteAnimation _standingAnimation;
 
-  Direction direction = Direction.none;
+  // Direction direction = Direction.none;
+  Vector2 direction = Vector2(0, 0);
 
   Player()
       : super(
-    size: Vector2(42.0, 55.0),
-  );
+          size: Vector2(42.0, 55.0),
+        );
 
   @override
   Future<void> onLoad() async {
@@ -26,32 +31,30 @@ class Player extends SpriteAnimationComponent with HasGameRef {
   }
 
   @override
-  void update(double delta) {
-    super.update(delta);
-    movePlayer(delta);
+  void update(double dt) {
+    super.update(dt);
+    movePlayer(dt);
   }
 
   void movePlayer(double delta) {
-    switch (direction) {
-      case Direction.up:
-        animation = _runUpAnimation;
-        moveUp(delta);
-        break;
-      case Direction.down:
-        animation = _runDownAnimation;
-        moveDown(delta);
-        break;
-      case Direction.left:
-        animation = _runLeftAnimation;
-        moveLeft(delta);
-        break;
-      case Direction.right:
-        animation = _runRightAnimation;
-        moveRight(delta);
-        break;
-      case Direction.none:
-        animation = _standingAnimation;
-        break;
+    double x = direction.screenAngle();
+
+    x = x * radians2Degrees;
+
+    if (direction.y < 0 && x >= -45 && x < 45) {
+      animation = _runUpAnimation;
+      moveUp(delta);
+    } else if (direction.y > 0 && x >= 135 || x < -135) {
+      animation = _runDownAnimation;
+      moveDown(delta);
+    } else if (x >= -135 && x < -45) {
+      animation = _runLeftAnimation;
+      moveLeft(delta);
+    } else if (x >= 45 && x < 135) {
+      animation = _runRightAnimation;
+      moveRight(delta);
+    } else {
+      animation = _standingAnimation;
     }
   }
 
