@@ -1,7 +1,7 @@
 import 'package:flutter/animation.dart';
 
-class AccelerationCurve {
-  AccelerationCurve({
+class TestAccelerationCurve {
+  TestAccelerationCurve({
     required this.speedRange,
     required this.timeRange,
     required this.curve,

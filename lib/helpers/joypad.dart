@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'direction.dart';
 
 class Joypad extends StatefulWidget {
@@ -22,8 +21,8 @@ class JoypadState extends State<Joypad> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120,
-      width: 120,
+      height: 180,
+      width: 180,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(60),

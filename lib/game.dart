@@ -4,7 +4,6 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:player_move/components/robot/robot.dart';
 
-import 'helpers/direction.dart';
 import 'components/player.dart';
 
 class MainGame extends FlameGame with KeyboardEvents {

@@ -1,9 +1,5 @@
-import 'dart:math';
 
 import 'package:flame/components.dart';
-import 'package:flutter/foundation.dart';
-import 'package:player_move/components/robot/robot.dart';
-import '../helpers/direction.dart';
 import 'package:flame/sprite.dart';
 
 class Player extends SpriteAnimationComponent with HasGameRef {
