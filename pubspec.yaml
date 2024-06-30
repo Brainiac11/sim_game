@@ -11,6 +11,7 @@ dependencies:
   go_router: ^14.2.0
   flame_forge2d: ^0.18.1
   flame: ^1.18.0
+  flutter_joystick: ^0.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
