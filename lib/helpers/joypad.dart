@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 class Joypad extends StatefulWidget {
   final ValueChanged<Vector2>? onDirectionChanged;
 
-  const Joypad({Key? key, this.onDirectionChanged}) : super(key: key);
+  const Joypad({super.key, this.onDirectionChanged});
 
   @override
   JoypadState createState() => JoypadState();

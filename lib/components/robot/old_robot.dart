@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
-import 'package:player_move/components/robot/drivetrain/swerve_drivetrain.dart';
 
 class OldRobot extends RectangleComponent with HasGameRef {
     OldRobot({required this.drivetrain})

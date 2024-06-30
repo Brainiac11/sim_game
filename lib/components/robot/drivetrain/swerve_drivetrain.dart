@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 
 class SwerveDrivetrain extends Drivetrain {
