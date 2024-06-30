@@ -1,14 +1,23 @@
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/drivetrain/swerve_drivetrain.dart';
 
 class Robot extends RectangleComponent with HasGameRef {
+    Robot({required this.drivetrain})
+      : super(
+          anchor: Anchor.center,
+          size: Vector2.all(100),
+          position: Vector2(100, 100),
+          priority: 10,
+        );
   final double _maxTranslationalSpeed = 10;
   final double _maxRotationalSpeed = .002;
   double dt = 0;
+  Drivetrain drivetrain;
   Vector2 direction = Vector2(0, 0);
   Vector2 rotation = Vector2(0, 0);
-  Vector2 acceleration = Vector2.zero();
   // Paint paint = Paint();
 
   // NEW IDEA
@@ -17,13 +26,7 @@ class Robot extends RectangleComponent with HasGameRef {
   // Acceleration: Vector multiplied by a value derived from the dot product of the old and the new force
   // Directional Changes: Use moveTo method in Vector2 class to smoothly move the angle
 
-  Robot()
-      : super(
-          anchor: Anchor.center,
-          size: Vector2.all(100),
-          position: Vector2(100, 100),
-          priority: 10,
-        );
+
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -38,8 +41,9 @@ class Robot extends RectangleComponent with HasGameRef {
     //   print(direction.screenAngle() * radians2Degrees);
     // }
     // double angleRadians = rotation.screenAngle();
-    _moveRotational(rotation, dt);
-    _moveTranslational(direction, dt);
+    drivetrain.moveDrivetrain([direction, rotation], dt);
+    // _moveRotational(rotation, dt);
+    // _moveTranslational(direction, dt);
   }
 
   // double Vec

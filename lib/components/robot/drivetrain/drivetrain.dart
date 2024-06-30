@@ -4,10 +4,10 @@ abstract class Drivetrain {
   late Vector2 direction;
   late double x;
   late double y;
-  void moveDrivetrain(Vector2 newDirection) {
-    direction = newDirection;
+  void moveDrivetrain(List<Vector2> newDirections, double dt) {
+    direction = newDirections.first;
 
-    x += direction.x / 3600;
-    y += direction.y / 3600;
+    x += direction.x / 3600 * dt;
+    y += direction.y / 3600 * dt;
   }
 }

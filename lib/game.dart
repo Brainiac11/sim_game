@@ -2,13 +2,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:player_move/components/robot/drivetrain/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/robot.dart';
 
 import 'components/player.dart';
 
 class MainGame extends FlameGame with KeyboardEvents {
   final Player _player = Player();
-  final Robot _robot = Robot();
+  final Robot _robot = Robot(drivetrain: SwerveDrivetrain(rotational: Vector2(0, 0), direction: Vector2(0, 0)));
   @override
   Future<void> onLoad() async {
     super.onLoad();
