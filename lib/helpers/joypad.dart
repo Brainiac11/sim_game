@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'direction.dart';
 
 class Joypad extends StatefulWidget {
   final ValueChanged<Vector2>? onDirectionChanged;
@@ -68,19 +67,6 @@ class JoypadState extends State<Joypad> {
     setState(() {
       delta = newDelta;
     });
-  }
-
-  Direction getDirectionFromOffset(Offset offset) {
-    if (offset.dx > 20) {
-      return Direction.right;
-    } else if (offset.dx < -20) {
-      return Direction.left;
-    } else if (offset.dy > 20) {
-      return Direction.down;
-    } else if (offset.dy < -20) {
-      return Direction.up;
-    }
-    return Direction.none;
   }
 
   Vector2 getVectorFromOffset(Offset offset) {
