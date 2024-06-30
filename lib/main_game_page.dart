@@ -21,23 +21,23 @@ class MainGameState extends State<MatchPage> {
         body: Stack(
           children: [
             GameWidget(game: game),
-            Align(
+            const Align(
               alignment: Alignment.bottomRight,
               child: Padding(
-                padding: const EdgeInsets.all(32.0),
+                padding: EdgeInsets.all(32.0),
                 child: Joypad(
-                  // onDirectionChanged: game.onJoyPadDirectionChanged,
-                  key: const Key("Translational"),
+                  onDirectionChanged: game.onJoyPadDirectionChanged,
+                  key: Key("Translational"),
                 ),
               ),
             ),
-            Align(
+            const Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
-                padding: const EdgeInsets.all(32.0),
+                padding: EdgeInsets.all(32.0),
                 child: Joypad(
-                  // onDirectionChanged: game.onJoyPadRotationChanged,
-                  key: const Key("Rotational"),
+                  onDirectionChanged: game.onJoyPadRotationChanged,
+                  key: Key("Rotational"),
                 ),
               ),
             )

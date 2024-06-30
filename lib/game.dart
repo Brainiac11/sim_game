@@ -44,6 +44,10 @@ class RoboticsGame extends Forge2DGame {
   // void onJoyPadRotationChanged(Vector2 rotation) {
   //   _robot.rotation = rotation;
   // }
+
+  void onJoyPadDirectionChanged(Vector2 value) {}
+
+  void onJoyPadRotationChanged(Vector2 value) {}
 }
 
 // Helper component that paints a black background

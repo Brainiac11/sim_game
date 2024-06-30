@@ -13,7 +13,6 @@ class Joypad extends StatefulWidget {
 }
 
 class JoypadState extends State<Joypad> {
-  // Direction direction = Direction.none;
   Vector2 direction = Vector2(0, 0);
   Offset delta = Offset.zero;
 
