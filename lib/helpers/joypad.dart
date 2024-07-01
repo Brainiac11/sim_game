@@ -69,10 +69,10 @@ class JoypadState extends State<Joypad> {
   }
 
   Vector2 getVectorFromOffset(Offset offset) {
-    if (offset.distance >= 1) {
+    if (offset.distance >= 1 || offset == Offset.zero) {
       return Vector2(offset.dx, offset.dy);
     }
-    return Vector2(0, 0);
+    return Vector2.zero();
   }
 
   void onDragDown(DragDownDetails d) {
@@ -85,6 +85,7 @@ class JoypadState extends State<Joypad> {
 
   void onDragEnd(DragEndDetails d) {
     updateDelta(Offset.zero);
+    direction = getVectorFromOffset(Offset.zero);
   }
 
   void calculateDelta(Offset offset) {

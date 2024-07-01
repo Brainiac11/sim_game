@@ -2,6 +2,7 @@ import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
@@ -24,6 +25,7 @@ class RoboticsGame extends Forge2DGame {
     add(fps);
     add(totalBodies);
     world.add(robot);
+    world.debugColor.blue;
   }
 
   @override
@@ -48,11 +50,36 @@ class RoboticsGame extends Forge2DGame {
   // }
 
   void onJoyPadDirectionChanged(Vector2 value) {
-    robot.acceleration = value;
+    if (kDebugMode) {
+      print(robot.body.linearVelocity.length);
+    }
+    robot.fixtureDef.friction = 1;
+
+    robot.body.applyLinearImpulse(value * 4);
+    robot.body.inverseInertia = 10;
+    // if (robot.body.linearVelocity.length != maximumTranslationalLength) {
+    //   value.scale(scaleMath(
+    //       maximumTranslationalLength, robot.body.linearVelocity.length));
+
+    // }
+    robot.body.linearVelocity.clampLength(0, maximumTranslationalLength);
+    if (robot.body.linearVelocity.length > value.length * 4) {
+      robot.body.linearDamping = 1;
+    } else {
+      robot.body.linearDamping = 0;
+    }
+
+    // robot.body.linearVelocity.moveToTarget(value, 1);
   }
 
   void onJoyPadRotationChanged(Vector2 value) {
-    robot.changeAngle(value.screenAngle());
+    robot.body.angularVelocity = value.x * rotationalScale;
+    // robot.body.inverseInertia = 1;
+  }
+
+  double scaleMath(double maximum, double current) {
+    double percent = (maximum - current) / 100;
+    return 100 - percent;
   }
 }
 

@@ -18,15 +18,8 @@ class Robot extends BodyComponent {
     // RectangleComponent shape2 = RectangleComponent.square(size: 10, anchor: Anchor.center);
     fixtureDef = FixtureDef(shape)
       ..density = 15
-      ..friction = .4
+      ..friction = 1
       ..restitution = 0.1;
     return world.createBody(robotDef)..createFixture(fixtureDef);
-  }
-
-  void changeAngle(double screenAngle) {
-    robotDef.angle = screenAngle;
-    if (kDebugMode) {
-      print(robotDef.angle * radians2Degrees);
-    }
   }
 }
