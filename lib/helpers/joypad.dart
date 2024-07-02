@@ -29,6 +29,7 @@ class JoypadState extends State<Joypad> {
           onPanDown: onDragDown,
           onPanUpdate: onDragUpdate,
           onPanEnd: onDragEnd,
+          onPanCancel: onDragCancel,
           child: Container(
             decoration: BoxDecoration(
               color: const Color(0x88ffffff),
@@ -84,6 +85,11 @@ class JoypadState extends State<Joypad> {
   }
 
   void onDragEnd(DragEndDetails d) {
+    updateDelta(Offset.zero);
+    direction = getVectorFromOffset(Offset.zero);
+  }
+
+  void onDragCancel() {
     updateDelta(Offset.zero);
     direction = getVectorFromOffset(Offset.zero);
   }
