@@ -14,10 +14,10 @@ class Robot extends BodyComponent {
       position: Vector2(worldSize.x / 100, worldSize.y / 100),
       type: BodyType.dynamic,
     );
-    shape = PolygonShape()..setAsBox(5, 5, Vector2(10, 10), 0);
+    shape = PolygonShape()..setAsBox(3, 3, Vector2(0, 0), 0);
     // RectangleComponent shape2 = RectangleComponent.square(size: 10, anchor: Anchor.center);
     fixtureDef = FixtureDef(shape)
-      ..density = 2
+      ..density = 1.5
       ..friction = 1
       ..restitution = 0;
     return world.createBody(robotDef)..createFixture(fixtureDef);

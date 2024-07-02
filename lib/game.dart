@@ -7,16 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:player_move/components/border.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
+import 'package:player_move/helpers/joypad.dart';
 
 class RoboticsGame extends Forge2DGame {
   // final Robot _robot = Robot(drivetrain: SwerveDrivetrain());
   final fps = FpsTextComponent(position: Vector2(5, worldSize.y));
   final totalBodies = TextComponent(position: Vector2(5, 200));
-
   Robot robot = Robot();
 
   RoboticsGame() : super(zoom: 10, gravity: Vector2.zero());
-
   @override
   Future<void> onLoad() async {
     await super.onLoad();
@@ -26,10 +25,10 @@ class RoboticsGame extends Forge2DGame {
     camera.viewport = FixedResolutionViewport(resolution: screenSize);
     add(_Background(size: screenSize));
 
-    add(fps);
-    add(totalBodies);
-    world.add(BorderEdge());
-    world.add(robot);
+    await add(fps);
+    await add(totalBodies);
+    await world.add(BorderEdge());
+    await world.add(robot);
   }
 
   @override
@@ -38,11 +37,9 @@ class RoboticsGame extends Forge2DGame {
     // Updated the number of bodies in the world
     totalBodies.text = 'Bodies: ${world.children.length}';
 
-    try {
-      if (kDebugMode) {
-        print(robot.body.angularVelocity);
-      }
-    } catch (E) {}
+    if (kDebugMode) {
+      // print(robot.body.angularVelocity);
+    }
   }
 
   @override
@@ -59,16 +56,20 @@ class RoboticsGame extends Forge2DGame {
   //   robot.rotation = rotation;
   // }
 
-  void onJoyPadDirectionChanged(Vector2 value) {
-    robot.body.applyLinearImpulse(value * 4);
+  void linearMovement(Vector2 value) {
+    robot.body.applyLinearImpulse(value * 40);
     // robot.body.inverseInertia = 10;
     // if (robot.body.linearVelocity.length != maximumTranslationalLength) {
     //   value.scale(scaleMath(
     //       maximumTranslationalLength, robot.body.linearVelocity.length));
 
     // }
+
+    if (kDebugMode) {
+      print(value.length);
+    }
     robot.body.linearVelocity.clampLength(0, maximumTranslationalLength);
-    if (robot.body.linearVelocity.length > value.length * 4) {
+    if (robot.body.linearVelocity.length > value.length * 40) {
       robot.body.linearDamping = 5;
     } else {
       robot.body.linearDamping = 0;
@@ -77,16 +78,16 @@ class RoboticsGame extends Forge2DGame {
     // robot.body.linearVelocity.moveToTarget(value, 1);
   }
 
-  void onJoyPadRotationChanged(Vector2 value) {
+  void angularMovement(Vector2 value) {
     robot.body.angularVelocity
         .clamp(-maximumRotationalLength, maximumRotationalLength);
-    robot.body.applyAngularImpulse(value.x * 10);
+    robot.body.applyAngularImpulse(value.x * 70);
     // robot.body.applyTorque(value.x * 1000);
 
-    if (robot.body.angularVelocity > value.x * 10) {
-      robot.body.angularDamping = 5;
+    if (robot.body.angularVelocity > value.x * 70) {
+      robot.body.angularDamping = 12;
     } else {
-      robot.body.angularDamping = 1;
+      robot.body.angularDamping = 8;
     }
   }
 

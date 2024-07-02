@@ -2,11 +2,11 @@ import 'dart:math';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_joystick/flutter_joystick.dart';
 
 class Joypad extends StatefulWidget {
-  final ValueChanged<Vector2>? onDirectionChanged;
-
-  const Joypad({super.key, this.onDirectionChanged});
+  ValueSetter<Vector2>? getDirection;
+  Joypad({super.key, required this.getDirection});
 
   @override
   JoypadState createState() => JoypadState();
@@ -14,93 +14,36 @@ class Joypad extends StatefulWidget {
 
 class JoypadState extends State<Joypad> {
   Vector2 direction = Vector2(0, 0);
-  Offset delta = Offset.zero;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 180,
-      width: 180,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(80),
-        ),
-        child: GestureDetector(
-          onPanDown: onDragDown,
-          onPanUpdate: onDragUpdate,
-          onPanEnd: onDragEnd,
-          onPanCancel: onDragCancel,
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0x88ffffff),
-              borderRadius: BorderRadius.circular(80),
-            ),
-            child: Center(
-              child: Transform.translate(
-                offset: delta,
-                child: SizedBox(
-                  height: 80,
-                  width: 80,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xccffffff),
-                      borderRadius: BorderRadius.circular(80),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+    return Joystick(
+      key: const Key("Joystick"),
+      listener: listener,
+      period: const Duration(milliseconds: 10),
+      stick: JoystickStick(
+        size: 85,
+        decoration: JoystickStickDecoration(
+          color: Colors.white70,
+          shadowColor: Colors.transparent,
         ),
       ),
+      base: JoystickBase(
+        size: 180,
+        decoration: JoystickBaseDecoration(
+          color: Colors.transparent,
+          drawOuterCircle: false,
+          drawArrows: false,
+          drawInnerCircle: false,
+          drawMiddleCircle: false,
+        ),
+      ),
+      includeInitialAnimation: false,
     );
   }
 
-  void updateDelta(Offset newDelta) {
-    final newDirection = getVectorFromOffset(newDelta);
-
-    if (newDirection != direction) {
-      direction = newDirection;
-      widget.onDirectionChanged!(direction);
-    }
-
-    setState(() {
-      delta = newDelta;
-    });
-  }
-
-  Vector2 getVectorFromOffset(Offset offset) {
-    if (offset.distance >= 1 || offset == Offset.zero) {
-      return Vector2(offset.dx, offset.dy);
-    }
-    return Vector2.zero();
-  }
-
-  void onDragDown(DragDownDetails d) {
-    calculateDelta(d.localPosition);
-  }
-
-  void onDragUpdate(DragUpdateDetails d) {
-    calculateDelta(d.localPosition);
-  }
-
-  void onDragEnd(DragEndDetails d) {
-    updateDelta(Offset.zero);
-    direction = getVectorFromOffset(Offset.zero);
-  }
-
-  void onDragCancel() {
-    updateDelta(Offset.zero);
-    direction = getVectorFromOffset(Offset.zero);
-  }
-
-  void calculateDelta(Offset offset) {
-    final newDelta = offset - const Offset(60, 60);
-    updateDelta(
-      Offset.fromDirection(
-        newDelta.direction,
-        min(30, newDelta.distance),
-      ),
-    );
+  void listener(StickDragDetails details) {
+    direction = Vector2(details.x, details.y);
+    widget.getDirection!(direction);
   }
 }
