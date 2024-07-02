@@ -78,17 +78,16 @@ class RoboticsGame extends Forge2DGame {
   }
 
   void onJoyPadRotationChanged(Vector2 value) {
-    robot.body.angularVelocity.clamp(0, maximumRotationalLength * 4);
-    // robot.body.applyAngularImpulse(value.length);
-    robot.body.applyTorque(value.x * 100);
-    robot.body.
+    robot.body.angularVelocity
+        .clamp(-maximumRotationalLength, maximumRotationalLength);
+    robot.body.applyAngularImpulse(value.x * 10);
+    // robot.body.applyTorque(value.x * 1000);
 
-    if (robot.body.angularVelocity > value.x * 100) {
+    if (robot.body.angularVelocity > value.x * 10) {
       robot.body.angularDamping = 5;
     } else {
       robot.body.angularDamping = 1;
     }
-    // robot.body.inverseInertia = 1;
   }
 
   double scaleMath(double maximum, double current) {
