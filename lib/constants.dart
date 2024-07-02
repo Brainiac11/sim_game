@@ -22,3 +22,4 @@ final screenSize = Vector2(widthDP, heightDP);
 final worldSize = Vector2(widthDP / 10, heightDP / 10);
 const rotationalScale = 0.1;
 const maximumTranslationalLength = 40.0;
+const maximumRotationalLength = 10.0;

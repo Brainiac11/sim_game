@@ -4,6 +4,7 @@ import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:player_move/components/border.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
 
@@ -20,15 +21,15 @@ class RoboticsGame extends Forge2DGame {
   Future<void> onLoad() async {
     await super.onLoad();
     if (kDebugMode) {
-      print("Whatsp pap " + screenSize.x.toString());
+      print("Whatsp pap ${screenSize.x}");
     }
     camera.viewport = FixedResolutionViewport(resolution: screenSize);
     add(_Background(size: screenSize));
 
     add(fps);
     add(totalBodies);
+    world.add(BorderEdge());
     world.add(robot);
-    world.debugColor.blue;
   }
 
   @override
@@ -36,6 +37,12 @@ class RoboticsGame extends Forge2DGame {
     super.update(dt);
     // Updated the number of bodies in the world
     totalBodies.text = 'Bodies: ${world.children.length}';
+
+    try {
+      if (kDebugMode) {
+        print(robot.body.angularVelocity);
+      }
+    } catch (E) {}
   }
 
   @override
@@ -53,10 +60,6 @@ class RoboticsGame extends Forge2DGame {
   // }
 
   void onJoyPadDirectionChanged(Vector2 value) {
-    if (kDebugMode) {
-      print(robot.body.linearVelocity.length);
-    }
-
     robot.body.applyLinearImpulse(value * 4);
     // robot.body.inverseInertia = 10;
     // if (robot.body.linearVelocity.length != maximumTranslationalLength) {
@@ -75,7 +78,16 @@ class RoboticsGame extends Forge2DGame {
   }
 
   void onJoyPadRotationChanged(Vector2 value) {
-    robot.body.angularVelocity = value.x * rotationalScale;
+    robot.body.angularVelocity.clamp(0, maximumRotationalLength * 4);
+    // robot.body.applyAngularImpulse(value.length);
+    robot.body.applyTorque(value.x * 100);
+    robot.body.
+
+    if (robot.body.angularVelocity > value.x * 100) {
+      robot.body.angularDamping = 5;
+    } else {
+      robot.body.angularDamping = 1;
+    }
     // robot.body.inverseInertia = 1;
   }
 

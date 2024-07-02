@@ -38,12 +38,12 @@ class JoypadState extends State<Joypad> {
               child: Transform.translate(
                 offset: delta,
                 child: SizedBox(
-                  height: 60,
-                  width: 60,
+                  height: 80,
+                  width: 80,
                   child: Container(
                     decoration: BoxDecoration(
                       color: const Color(0xccffffff),
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(80),
                     ),
                   ),
                 ),
