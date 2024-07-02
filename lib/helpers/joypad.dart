@@ -23,7 +23,7 @@ class JoypadState extends State<Joypad> {
       width: 180,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(60),
+          borderRadius: BorderRadius.circular(80),
         ),
         child: GestureDetector(
           onPanDown: onDragDown,
@@ -32,7 +32,7 @@ class JoypadState extends State<Joypad> {
           child: Container(
             decoration: BoxDecoration(
               color: const Color(0x88ffffff),
-              borderRadius: BorderRadius.circular(60),
+              borderRadius: BorderRadius.circular(80),
             ),
             child: Center(
               child: Transform.translate(
@@ -43,7 +43,7 @@ class JoypadState extends State<Joypad> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: const Color(0xccffffff),
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(40),
                     ),
                   ),
                 ),

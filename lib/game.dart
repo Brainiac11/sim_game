@@ -19,6 +19,9 @@ class RoboticsGame extends Forge2DGame {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+    if (kDebugMode) {
+      print("Whatsp pap " + screenSize.x.toString());
+    }
     camera.viewport = FixedResolutionViewport(resolution: screenSize);
     add(_Background(size: screenSize));
 
@@ -53,10 +56,9 @@ class RoboticsGame extends Forge2DGame {
     if (kDebugMode) {
       print(robot.body.linearVelocity.length);
     }
-    robot.fixtureDef.friction = 1;
 
     robot.body.applyLinearImpulse(value * 4);
-    robot.body.inverseInertia = 10;
+    // robot.body.inverseInertia = 10;
     // if (robot.body.linearVelocity.length != maximumTranslationalLength) {
     //   value.scale(scaleMath(
     //       maximumTranslationalLength, robot.body.linearVelocity.length));
@@ -64,7 +66,7 @@ class RoboticsGame extends Forge2DGame {
     // }
     robot.body.linearVelocity.clampLength(0, maximumTranslationalLength);
     if (robot.body.linearVelocity.length > value.length * 4) {
-      robot.body.linearDamping = 1;
+      robot.body.linearDamping = 5;
     } else {
       robot.body.linearDamping = 0;
     }

@@ -11,13 +11,13 @@ class Robot extends BodyComponent {
   @override
   Body createBody() {
     robotDef = BodyDef(
-      position: Vector2(worldSize.x / 2, 0),
+      position: Vector2(worldSize.x / 100, worldSize.y / 100),
       type: BodyType.dynamic,
     );
     shape = PolygonShape()..setAsBox(5, 5, Vector2(10, 10), 0);
     // RectangleComponent shape2 = RectangleComponent.square(size: 10, anchor: Anchor.center);
     fixtureDef = FixtureDef(shape)
-      ..density = 15
+      ..density = 1
       ..friction = 1
       ..restitution = 0.1;
     return world.createBody(robotDef)..createFixture(fixtureDef);
