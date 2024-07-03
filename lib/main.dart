@@ -23,7 +23,8 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return const HomePage();
       },
-    )
+    ),
+    //GoRoute(path: '/settings', builder: (BuildContext context, GoRouterState state) { return const SettingsPage()}),
   ],
 );
 
