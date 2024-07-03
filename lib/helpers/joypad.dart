@@ -1,19 +1,17 @@
-import 'dart:math';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 
 class Joypad extends StatefulWidget {
-  ValueSetter<Vector2>? getDirection;
-  Joypad({super.key, required this.getDirection});
+  final ValueSetter<Vector2>? getDirection;
+  const Joypad({super.key, required this.getDirection});
 
   @override
   JoypadState createState() => JoypadState();
 }
 
 class JoypadState extends State<Joypad> {
-  Vector2 direction = Vector2(0, 0);
+  Vector2 direction = Vector2.zero();
 
   @override
   Widget build(BuildContext context) {

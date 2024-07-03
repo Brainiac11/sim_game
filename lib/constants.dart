@@ -18,8 +18,8 @@ double heightDP = sizeDP.height;
 //Safe area paddings in logical pixels
 var paddingDP = MediaQueryData.fromView(view).padding;
 
-final screenSize = Vector2(widthDP, heightDP);
-final worldSize = Vector2(widthDP / 10, heightDP / 10);
-const rotationalScale = 1;
-const maximumTranslationalLength = 40.0;
-const maximumRotationalLength = 8.0;
+final kScreenSize = Vector2(widthDP, heightDP);
+final kWorldSize = Vector2(widthDP / 10, heightDP / 10);
+const kRotationalScale = 1;
+const kMaxTranslationalSpeed = 40.0;
+const kMaxRotationalSpeed = 8.0;

@@ -6,13 +6,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:player_move/components/border.dart';
 import 'package:player_move/components/robot/robot.dart';
+import 'package:player_move/components/robot/robot_constants.dart';
 import 'package:player_move/constants.dart';
-import 'package:player_move/helpers/joypad.dart';
 
 class RoboticsGame extends Forge2DGame {
   // final Robot _robot = Robot(drivetrain: SwerveDrivetrain());
-  final fps = FpsTextComponent(position: Vector2(5, worldSize.y));
-  final totalBodies = TextComponent(position: Vector2(5, 200));
+  final fps = FpsTextComponent(position: Vector2(5, kWorldSize.y));
+  final totalBodies = TextComponent(position: Vector2(5, kWorldSize.x * 2));
   Robot robot = Robot();
 
   RoboticsGame() : super(zoom: 10, gravity: Vector2.zero());
@@ -20,15 +20,17 @@ class RoboticsGame extends Forge2DGame {
   Future<void> onLoad() async {
     await super.onLoad();
     if (kDebugMode) {
-      print("Whatsp pap ${screenSize.x}");
+      print("Screen Size: (${kScreenSize.x} , ${kScreenSize.y})");
     }
-    camera.viewport = FixedResolutionViewport(resolution: screenSize);
-    add(_Background(size: screenSize));
+    camera.viewport = FixedResolutionViewport(resolution: kScreenSize);
+    add(_Background(size: kScreenSize));
 
     await add(fps);
     await add(totalBodies);
     await world.add(BorderEdge());
     await world.add(robot);
+    robot.body.angularDamping = kAngularIdleDeccelerationRate;
+    robot.body.linearDamping = kTranslationalIdleDeccelerationRate;
   }
 
   @override
@@ -37,9 +39,7 @@ class RoboticsGame extends Forge2DGame {
     // Updated the number of bodies in the world
     totalBodies.text = 'Bodies: ${world.children.length}';
 
-    if (kDebugMode) {
-      // print(robot.body.angularVelocity);
-    }
+    if (kDebugMode) {}
   }
 
   @override
@@ -48,46 +48,29 @@ class RoboticsGame extends Forge2DGame {
     return Colors.red;
   }
 
-  // void onJoyPadDirectionChanged(Vector2 direction) {
-  //   robot.direction = direction;
-  // }
-
-  // void onJoyPadRotationChanged(Vector2 rotation) {
-  //   robot.rotation = rotation;
-  // }
-
   void linearMovement(Vector2 value) {
-    robot.body.applyLinearImpulse(value * 40);
-    // robot.body.inverseInertia = 10;
-    // if (robot.body.linearVelocity.length != maximumTranslationalLength) {
-    //   value.scale(scaleMath(
-    //       maximumTranslationalLength, robot.body.linearVelocity.length));
-
-    // }
+    robot.body.applyLinearImpulse(value * kTranslationalAccelerationRate);
 
     if (kDebugMode) {
       print(value.length);
     }
-    robot.body.linearVelocity.clampLength(0, maximumTranslationalLength);
-    if (robot.body.linearVelocity.length > value.length * 40) {
-      robot.body.linearDamping = 5;
+    robot.body.linearVelocity.clampLength(0, kMaxTranslationalSpeed);
+    if (robot.body.linearVelocity.length >
+        value.length * kTranslationalAccelerationRate) {
+      robot.body.linearDamping = kTranslationalDeccelerationRate;
     } else {
-      robot.body.linearDamping = 0;
+      robot.body.linearDamping = kTranslationalIdleDeccelerationRate;
     }
-
-    // robot.body.linearVelocity.moveToTarget(value, 1);
   }
 
   void angularMovement(Vector2 value) {
-    robot.body.angularVelocity
-        .clamp(-maximumRotationalLength, maximumRotationalLength);
-    robot.body.applyAngularImpulse(value.x * 70);
-    // robot.body.applyTorque(value.x * 1000);
+    robot.body.angularVelocity.clamp(-kMaxRotationalSpeed, kMaxRotationalSpeed);
+    robot.body.applyAngularImpulse(value.x * kAngularAccelerationRate);
 
-    if (robot.body.angularVelocity > value.x * 70) {
-      robot.body.angularDamping = 12;
+    if (robot.body.angularVelocity > value.x * kAngularAccelerationRate) {
+      robot.body.angularDamping = kAngularDeccelerationRate;
     } else {
-      robot.body.angularDamping = 8;
+      robot.body.angularDamping = kAngularIdleDeccelerationRate;
     }
   }
 
