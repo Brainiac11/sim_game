@@ -1,9 +1,9 @@
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:player_move/game.dart';
-import 'package:player_move/main_game_page.dart';
+import 'package:player_move/constants.dart';
+import 'package:player_move/home_page.dart';
+import 'package:player_move/match_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,15 +13,15 @@ void main() {
 final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
-      path: '/',
+      path: '/match',
       builder: (BuildContext context, GoRouterState state) {
         return const MatchPage();
       },
     ),
     GoRoute(
-      path: '/game',
+      path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return GameWidget(game: RoboticsGame());
+        return const HomePage();
       },
     )
   ],
@@ -40,6 +40,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Robotics Game',
       routerConfig: router,
+      theme: kTheme,
     );
   }
 }

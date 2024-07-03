@@ -8,10 +8,10 @@ class MatchPage extends StatefulWidget {
   const MatchPage({super.key});
 
   @override
-  MainGameState createState() => MainGameState();
+  MatchPageState createState() => MatchPageState();
 }
 
-class MainGameState extends State<MatchPage> {
+class MatchPageState extends State<MatchPage> {
   RoboticsGame game = RoboticsGame();
 
   @override

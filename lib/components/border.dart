@@ -1,33 +1,55 @@
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flutter/material.dart';
 import 'package:player_move/constants.dart';
-import 'package:player_move/helpers/position.dart';
 
 class BorderEdge extends BodyComponent {
+  BorderEdge({required this.valueKey});
+  ValueKey<String> valueKey;
   late Shape shape;
   late FixtureDef fixtureDef;
   late BodyDef borderDef;
-  PositionEdge positionEdge = PositionEdge.bottom;
 
-  Vector2 positionFromEnum(PositionEdge position) {
-    switch (position) {
-      case PositionEdge.top:
-        return Vector2(0, kWorldSize.y);
-      case PositionEdge.bottom:
-        return Vector2(kWorldSize.x, kWorldSize.y);
-      case PositionEdge.left:
-        return Vector2(kWorldSize.y, kWorldSize.y);
-      case PositionEdge.right:
-        return Vector2(0, kWorldSize.x);
+  void keyBasedDecision(ValueKey<String> key) {
+    switch (key.value) {
+      case "Right":
+        borderDef = BodyDef(
+          position: Vector2(kWorldSize.y, -kWorldSize.y / 2),
+          type: BodyType.static,
+        );
+        shape = EdgeShape()..set(Vector2.zero(), Vector2(0, kWorldSize.y));
+        break;
+      case "Left":
+        borderDef = BodyDef(
+          position: Vector2(-kWorldSize.y, kWorldSize.y / 2),
+          type: BodyType.static,
+        );
+        shape = EdgeShape()..set(Vector2.zero(), Vector2(0, -kWorldSize.y));
+        break;
+      case "Top":
+        borderDef = BodyDef(
+          position: Vector2(-kWorldSize.x / 2, -kWorldSize.y / 2),
+          type: BodyType.static,
+        );
+        shape = EdgeShape()..set(Vector2.zero(), Vector2(kWorldSize.x, 0));
+        break;
+      case "Bottom":
+        borderDef = BodyDef(
+          position: Vector2(-kWorldSize.x / 2, kWorldSize.y / 2),
+          type: BodyType.static,
+        );
+        shape = EdgeShape()..set(Vector2.zero(), Vector2(kWorldSize.x, 0));
+        break;
     }
   }
 
   @override
   Body createBody() {
-    borderDef = BodyDef(
-      position: Vector2(kWorldSize.y, -kWorldSize.x / 4),
-      type: BodyType.static,
-    );
-    shape = EdgeShape()..set(Vector2.zero(), Vector2(0, kWorldSize.y));
+    keyBasedDecision(valueKey);
+    // borderDef = BodyDef(
+    //   position: Vector2(kWorldSize.y, -kWorldSize.y / 2),
+    //   type: BodyType.static,
+    // );
+    // shape = EdgeShape()..set(Vector2.zero(), Vector2(0, kWorldSize.y));
     fixtureDef = FixtureDef(shape);
     return world.createBody(borderDef)..createFixture(fixtureDef);
   }

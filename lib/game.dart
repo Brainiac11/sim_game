@@ -27,7 +27,10 @@ class RoboticsGame extends Forge2DGame {
 
     await add(fps);
     await add(totalBodies);
-    await world.add(BorderEdge());
+    await world.add(BorderEdge(valueKey: const ValueKey("Top")));
+    await world.add(BorderEdge(valueKey: const ValueKey("Bottom")));
+    await world.add(BorderEdge(valueKey: const ValueKey("Right")));
+    await world.add(BorderEdge(valueKey: const ValueKey("Left")));
     await world.add(robot);
     robot.body.angularDamping = kAngularIdleDeccelerationRate;
     robot.body.linearDamping = kTranslationalIdleDeccelerationRate;
@@ -67,16 +70,11 @@ class RoboticsGame extends Forge2DGame {
     robot.body.angularVelocity.clamp(-kMaxRotationalSpeed, kMaxRotationalSpeed);
     robot.body.applyAngularImpulse(value.x * kAngularAccelerationRate);
 
-    if (robot.body.angularVelocity > value.x * kAngularAccelerationRate) {
+    if (robot.body.angularVelocity > value.x.abs() * kAngularAccelerationRate) {
       robot.body.angularDamping = kAngularDeccelerationRate;
     } else {
       robot.body.angularDamping = kAngularIdleDeccelerationRate;
     }
-  }
-
-  double scaleMath(double maximum, double current) {
-    double percent = (maximum - current) / 100;
-    return 100 - percent;
   }
 }
 

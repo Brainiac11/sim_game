@@ -1,10 +1,10 @@
 const double kDensity = 1.5;
 const double kFriction = 1;
-const double kRestitution = 0.0;
-const double kHalfWidth = 3;
-const double kHalfHeight = 3;
-const double kTranslationalAccelerationRate = 40;
-const double kAngularAccelerationRate = 70;
+const double kRestitution = 0.05;
+const double kHalfWidth = 3.1;
+const double kHalfHeight = 3.1;
+const double kTranslationalAccelerationRate = 35;
+const double kAngularAccelerationRate = 80;
 const double kTranslationalDeccelerationRate = 5;
 const double kTranslationalIdleDeccelerationRate = 0;
 const double kAngularDeccelerationRate = 12;

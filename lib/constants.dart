@@ -23,3 +23,13 @@ final kWorldSize = Vector2(widthDP / 10, heightDP / 10);
 const kRotationalScale = 1;
 const kMaxTranslationalSpeed = 40.0;
 const kMaxRotationalSpeed = 8.0;
+
+Brightness kSystemBrightness = PlatformDispatcher.instance.platformBrightness;
+
+ThemeData kTheme = ThemeData.from(
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: Colors.blue[900]!,
+    brightness: kSystemBrightness,
+    dynamicSchemeVariant: DynamicSchemeVariant.expressive,
+  ),
+);
