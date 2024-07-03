@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/home_page.dart';
 import 'package:player_move/match_page.dart';
+import 'package:player_move/settings_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,12 @@ final GoRouter router = GoRouter(
         return const HomePage();
       },
     ),
-    //GoRoute(path: '/settings', builder: (BuildContext context, GoRouterState state) { return const SettingsPage()}),
+    GoRoute(
+      path: '/settings',
+      builder: (BuildContext context, GoRouterState state) {
+        return const SettingsPage();
+      },
+    ),
   ],
 );
 

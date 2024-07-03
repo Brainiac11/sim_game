@@ -14,6 +14,7 @@ class HomePageState extends State<HomePage> {
     if (kDebugMode) {
       print("Going to Settings");
     }
+    router.go("/settings");
   }
 
   @override
