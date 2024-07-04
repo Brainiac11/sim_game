@@ -1,12 +1,16 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:player_move/setting.dart';
 
 class Settings {
-  late Brightness _brightness;
-  late ThemeData _theme;
-  late bool _haptics;
-  late bool _infiniteMode;
-
-  var dict = {"brightness": "_brightness", "theme": "_theme"};
+  List<Setting> settings = List.from(<Setting>[
+    Setting(settingKey: "brightness", settingValue: Brightness.dark)
+  ]);
+  late Brightness brightness;
+  late ThemeData theme;
+  late bool haptics;
+  late bool infiniteMode;
+  List<String> prefsSettingsNames = List<String>.from(
+    ["brightness", "theme", "haptics", "infinite"],
+    growable: false,
+  );
 }

@@ -1,8 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
-  late SharedPreferences prefs;
-  void loadPrefs() async {
+  static late SharedPreferences prefs;
+  static void loadPrefs() async {
     prefs = await SharedPreferences.getInstance();
   }
 }
