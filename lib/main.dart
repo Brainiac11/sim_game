@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/home_page.dart';
 import 'package:player_move/match_page.dart';
+import 'package:player_move/settings_controller.dart';
 import 'package:player_move/settings_page.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+part 'main.g.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const App());
+  runApp(
+    const ProviderScope(
+      child: App(),
+    ),
+  );
+}
+
+@riverpod
+SettingsController settings(SettingsRef ref) {
+  return SettingsController();
 }
 
 final GoRouter router = GoRouter(

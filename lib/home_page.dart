@@ -1,15 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/main.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<StatefulWidget> createState() => HomePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => HomePageState();
 }
 
-class HomePageState extends State<HomePage> {
+class HomePageState extends ConsumerState<HomePage> {
   void goToSettings() {
     if (kDebugMode) {
       print("Going to Settings");
