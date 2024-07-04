@@ -5,8 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/home_page.dart';
 import 'package:player_move/match_page.dart';
-import 'package:player_move/settings_controller.dart';
-import 'package:player_move/settings_page.dart';
+import 'package:player_move/settings/settings_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'main.g.dart';
 
@@ -17,11 +16,6 @@ void main() {
       child: App(),
     ),
   );
-}
-
-@riverpod
-SettingsController settings(SettingsRef ref) {
-  return SettingsController();
 }
 
 final GoRouter router = GoRouter(

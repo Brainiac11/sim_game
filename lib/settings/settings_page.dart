@@ -2,23 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/main.dart';
 import 'package:player_move/prefs.dart';
+import 'package:player_move/settings/settings_notifier.dart';
+import 'package:player_move/settings_controller.g.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SettingsPage extends ConsumerStatefulWidget {
+class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => SettingsPageState();
-}
-
-class SettingsPageState extends ConsumerState<SettingsPage> {
   void onSettingsChanged(String key, Object setting) async {
-    // Preferences().prefs.setStringList(key);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
@@ -40,10 +37,11 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
           SettingsSection(
             title: const Text('Common'),
             tiles: <SettingsTile>[
-              SettingsTile.navigation(
-                leading: const Icon(Icons.language),
-                title: const Text('Language'),
-                value: const Text('English'),
+              SettingsTile.switchTile(
+                leading: const Icon(Icons.numbers),
+                title: const Text('Infinite Mode'),
+                onToggle: (value) {},
+                initialValue: true,
               ),
               SettingsTile.switchTile(
                 onToggle: (value) {},
