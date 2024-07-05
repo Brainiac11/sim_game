@@ -1,21 +1,27 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:player_move/main.dart';
-import 'package:player_move/prefs.dart';
-import 'package:player_move/settings/settings_notifier.dart';
-import 'package:player_move/settings_controller.g.dart';
-import 'package:settings_ui/settings_ui.dart';
+import 'package:player_move/providers/settings/settings.dart';
+import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
-  void onSettingsChanged(String key, Object setting) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    bool infiniteMode = ref.watch(settingsNotifierProvider).infiniteMode;
+    void onInfiniteModeToggle(Settings? settings, Settings settings2) {
+      if (kDebugMode) {
+        print("infiniteMode: ${settings!.infiniteMode.toString()}");
+      }
+      infiniteMode = settings!.infiniteMode;
+    }
+
+    final provider = ref.listen(settingsNotifierProvider, onInfiniteModeToggle);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
@@ -38,10 +44,15 @@ class SettingsPage extends ConsumerWidget {
             title: const Text('Common'),
             tiles: <SettingsTile>[
               SettingsTile.switchTile(
+                onPressed: (context) {},
                 leading: const Icon(Icons.numbers),
                 title: const Text('Infinite Mode'),
-                onToggle: (value) {},
-                initialValue: true,
+                onToggle: (bool value) {
+                  // return value;
+                  // ref.read(settingsNotifierProvider).infiniteMode = value;
+                  ref.read(settingsNotifierProvider).infiniteMode = value;
+                },
+                initialValue: infiniteMode,
               ),
               SettingsTile.switchTile(
                 onToggle: (value) {},

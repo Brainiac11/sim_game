@@ -13,7 +13,7 @@ dependencies:
   flame: ^1.18.0
   flutter_joystick: ^0.2.0
   flutter_animate: ^4.5.0
-  settings_ui: ^2.0.2
+  flutter_settings_ui: ^3.0.1
   shared_preferences: ^2.2.3
   provider: ^6.1.2
   flutter_riverpod: ^2.5.1

@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:player_move/main.dart';
-import 'helpers/joypad.dart';
+import '../helpers/joypad.dart';
 
-import 'game.dart';
+import '../game.dart';
 
 class MatchPage extends StatefulWidget {
   const MatchPage({super.key});

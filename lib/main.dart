@@ -3,11 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:player_move/constants.dart';
-import 'package:player_move/home_page.dart';
-import 'package:player_move/match_page.dart';
-import 'package:player_move/settings/settings_page.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-part 'main.g.dart';
+import 'package:player_move/pages/home_page.dart';
+import 'package:player_move/pages/match_page.dart';
+import 'package:player_move/pages/settings_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
