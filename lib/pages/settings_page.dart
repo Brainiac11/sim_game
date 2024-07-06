@@ -7,20 +7,24 @@ import 'package:player_move/providers/settings/settings.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SettingsPage extends ConsumerWidget {
+class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    bool infiniteMode = ref.watch(settingsNotifierProvider).infiniteMode;
-    void onInfiniteModeToggle(Settings? settings, Settings settings2) {
-      if (kDebugMode) {
-        print("infiniteMode: ${settings!.infiniteMode.toString()}");
-      }
-      infiniteMode = settings!.infiniteMode;
-    }
+  ConsumerState<ConsumerStatefulWidget> createState() => SettingsPageState();
+}
 
-    final provider = ref.listen(settingsNotifierProvider, onInfiniteModeToggle);
+class SettingsPageState extends ConsumerState<SettingsPage> {
+  @override
+  Widget build(BuildContext context) {
+    final Settings settings = ref.watch(settingsProvider).settings;
+    void onInfiniteModeToggle(bool toggle) {
+      ref.read(settingsProvider).updateInfiniteMode(toggle);
+      if (kDebugMode) {
+        print(
+            "infiniteMode: ${ref.read(settingsProvider).settings.infiniteMode.toString()}");
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -29,6 +33,7 @@ class SettingsPage extends ConsumerWidget {
         leading: TextButton(
           onPressed: () {
             router.go('/');
+            super.deactivate();
           },
           child: const Icon(
             Icons.arrow_back_rounded,
@@ -48,11 +53,9 @@ class SettingsPage extends ConsumerWidget {
                 leading: const Icon(Icons.numbers),
                 title: const Text('Infinite Mode'),
                 onToggle: (bool value) {
-                  // return value;
-                  // ref.read(settingsNotifierProvider).infiniteMode = value;
-                  ref.read(settingsNotifierProvider).infiniteMode = value;
+                  onInfiniteModeToggle(value);
                 },
-                initialValue: infiniteMode,
+                initialValue: settings.infiniteMode,
               ),
               SettingsTile.switchTile(
                 onToggle: (value) {},
