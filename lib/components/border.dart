@@ -1,5 +1,6 @@
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
@@ -12,10 +13,21 @@ class BorderEdge extends BodyComponent with RiverpodComponentMixin {
   late BodyDef borderDef;
 
   ThemeMode themeMode = ThemeMode.system;
+  @override
+  void onMount() {
+    addToGameWidgetBuild(() {
+      // ref.listen(settingsProvider, (settings, setting) {
+      //   setting.settings.isDarkMode
+      //       ? themeMode = ThemeMode.dark
+      //       : themeMode = ThemeMode.light;
+      // });
+      ref.watch(settingsProvider).settings.isDarkMode
+          ? themeMode = ThemeMode.dark
+          : themeMode = ThemeMode.light;
+    });
+    super.onMount();
+  }
 
-  // ref.watch(settingsProvider).settings.isDarkMode
-  //     ? themeMode = ThemeMode.dark
-  //     : themeMode = ThemeMode.light;
   void keyBasedDecision(ValueKey<String> key) {
     switch (key.value) {
       case "Right":
@@ -67,7 +79,7 @@ class BorderEdge extends BodyComponent with RiverpodComponentMixin {
   @override
   void render(Canvas canvas) {
     super.paint.color =
-        themeMode == ThemeMode.dark ? Colors.white : Colors.black;
+        (themeMode == ThemeMode.dark ? Colors.white : Colors.black);
     super.render(canvas);
   }
 }

@@ -10,3 +10,7 @@ Currently, RiverPod is being actively implemented to allow for easier future dev
 
 The simulator has realistic physics on acceleration, inertia, and collisions. 
 I hope you enjoy it!
+
+
+**Credits**
+Cresendo Field Images: https://www.chiefdelphi.com/t/2024-crescendo-top-down-field-renders/447764

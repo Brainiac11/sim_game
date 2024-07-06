@@ -3,16 +3,35 @@ import 'dart:async';
 import 'package:flame/src/components/core/component.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:player_move/components/robot/robot_constants.dart';
 import 'package:player_move/constants.dart';
+import 'package:player_move/providers/settings/settings_notifier.dart';
 
 class Robot extends BodyComponent with RiverpodComponentMixin {
+  Robot({super.key});
+
   Vector2 acceleration = Vector2.zero();
   late PolygonShape shape;
   late FixtureDef fixtureDef;
   late BodyDef robotDef;
-  ThemeMode themeMode = ThemeMode.system;
+  late ThemeMode themeMode;
+
+  @override
+  void onMount() {
+    addToGameWidgetBuild(() {
+      // ref.listen(settingsProvider, (settings, setting) {
+      //   setting.settings.isDarkMode
+      //       ? themeMode = ThemeMode.dark
+      //       : themeMode = ThemeMode.light;
+      // });
+      ref.watch(settingsProvider).settings.isDarkMode
+          ? themeMode = ThemeMode.dark
+          : themeMode = ThemeMode.light;
+    });
+    super.onMount();
+  }
 
   @override
   Body createBody() {
@@ -32,7 +51,7 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
   @override
   void render(Canvas canvas) {
     super.paint.color =
-        (themeMode == ThemeMode.dark ? Colors.white : Colors.black);
+        themeMode == ThemeMode.dark ? Colors.white : Colors.black;
     super.render(canvas);
   }
 }

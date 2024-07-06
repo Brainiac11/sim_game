@@ -16,7 +16,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   // final Robot _robot = Robot(drivetrain: SwerveDrivetrain());
   final fps = FpsTextComponent(position: Vector2(5, kWorldSize.y));
   final totalBodies = TextComponent(position: Vector2(5, kWorldSize.x * 2));
-  Robot robot = Robot();
+  late Robot robot;
 
   RoboticsGame() : super(zoom: 10, gravity: Vector2.zero());
   @override
@@ -34,7 +34,8 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     await world.add(BorderEdge(valueKey: const ValueKey("Bottom")));
     await world.add(BorderEdge(valueKey: const ValueKey("Right")));
     await world.add(BorderEdge(valueKey: const ValueKey("Left")));
-    await world.add(robot);
+    robot = Robot();
+    await super.world.add(robot);
     robot.body.angularDamping = kAngularIdleDeccelerationRate;
     robot.body.linearDamping = kTranslationalIdleDeccelerationRate;
   }
