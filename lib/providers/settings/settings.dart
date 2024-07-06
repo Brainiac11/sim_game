@@ -1,3 +1,5 @@
+import 'package:player_move/main.dart';
+import 'package:player_move/providers/preferences/preferences_notifier.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings {
@@ -10,6 +12,21 @@ class Settings {
     this.haptics = true,
     this.isDarkMode = false,
   });
+
+  factory Settings.fromPreferences(Future<SharedPreferences> preferences) {
+    Settings settings = Settings();
+    preferences.then((prefs) {
+      settings.haptics = prefs.getBool("haptics") ?? true;
+      settings.infiniteMode = prefs.getBool("infiniteMode") ?? true;
+      settings.isDarkMode = prefs.getBool("isDarkMode") ?? false;
+    });
+
+    return settings;
+  }
+
+  static Future<SharedPreferences> getSharedPreferences() async {
+    return SharedPreferences.getInstance();
+  }
 
   Settings copy({
     bool? infiniteMode,

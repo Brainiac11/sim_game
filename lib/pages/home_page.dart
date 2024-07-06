@@ -18,11 +18,14 @@ class HomePageState extends ConsumerState<HomePage> {
       print("Going to Settings");
     }
     router.go("/settings");
+    super.deactivate();
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(settingsProvider).settings;
+    setState(() {
+      ref.watch(settingsProvider).settings;
+    });
     return Scaffold(
       appBar: AppBar(
         leading: TextButton.icon(
@@ -46,6 +49,7 @@ class HomePageState extends ConsumerState<HomePage> {
                   print("Hello");
                 }
                 router.go('/match');
+                super.deactivate();
               },
               child: const Text("Go to Game"),
             ),

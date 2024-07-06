@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +11,9 @@ import 'package:player_move/pages/match_page.dart';
 import 'package:player_move/pages/settings_page.dart';
 import 'package:player_move/providers/settings/settings.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+part 'main.g.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +50,14 @@ final GoRouter router = GoRouter(
   ],
 );
 
+@riverpod
+SharedPreferences? preferences(PreferencesRef ref) {
+  SharedPreferences.getInstance().then((value) {
+    return value;
+  });
+  return null;
+}
+
 class App extends ConsumerStatefulWidget {
   const App({super.key});
 
@@ -53,8 +66,23 @@ class App extends ConsumerStatefulWidget {
 }
 
 class _AppState extends ConsumerState<App> {
+  ThemeMode themeMode = ThemeMode.system;
   @override
   Widget build(BuildContext context) {
+    ref.watch(settingsProvider).settings.isDarkMode
+        ? setState(() {
+            themeMode = ThemeMode.dark;
+            if (kDebugMode) {
+              print(themeMode);
+            }
+          })
+        : setState(() {
+            themeMode = ThemeMode.light;
+            if (kDebugMode) {
+              print(themeMode);
+            }
+          });
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -64,10 +92,8 @@ class _AppState extends ConsumerState<App> {
       title: 'Robotics Game',
       routerConfig: router,
       theme: kTheme,
-      darkTheme: kTheme,
-      themeMode: ref.watch(settingsProvider).settings.isDarkMode
-          ? ThemeMode.dark
-          : ThemeMode.light,
+      darkTheme: kTheme.copyWith(brightness: Brightness.dark),
+      themeMode: themeMode,
     );
   }
 }
