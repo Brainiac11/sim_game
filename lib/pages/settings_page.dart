@@ -19,10 +19,26 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
   Widget build(BuildContext context) {
     final Settings settings = ref.watch(settingsProvider).settings;
     void onInfiniteModeToggle(bool toggle) {
-      ref.read(settingsProvider).updateInfiniteMode(toggle);
+      setState(() => ref.read(settingsProvider).updateInfiniteMode(toggle));
       if (kDebugMode) {
         print(
             "infiniteMode: ${ref.read(settingsProvider).settings.infiniteMode.toString()}");
+      }
+    }
+
+    void onDarkModeToggle(bool toggle) {
+      setState(() => ref.read(settingsProvider).updateDarkMode(toggle));
+      if (kDebugMode) {
+        print(
+            "dark mode: ${ref.read(settingsProvider).settings.isDarkMode.toString()}");
+      }
+    }
+
+    void onHapticsToggle(bool toggle) {
+      setState(() => ref.read(settingsProvider).updateHaptics(toggle));
+      if (kDebugMode) {
+        print(
+            "haptics: ${ref.read(settingsProvider).settings.haptics.toString()}");
       }
     }
 
@@ -33,7 +49,6 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
         leading: TextButton(
           onPressed: () {
             router.go('/');
-            super.deactivate();
           },
           child: const Icon(
             Icons.arrow_back_rounded,
@@ -49,6 +64,23 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
             title: const Text('Common'),
             tiles: <SettingsTile>[
               SettingsTile.switchTile(
+                onToggle: (value) {
+                  onDarkModeToggle(value);
+                },
+                initialValue: settings.isDarkMode,
+                leading: const Icon(Icons.nightlight_round),
+                title: const Text('Dark Mode'),
+              ),
+              SettingsTile.switchTile(
+                onPressed: (context) {},
+                leading: const Icon(Icons.vibration_rounded),
+                title: const Text('Haptics'),
+                onToggle: (bool value) {
+                  onHapticsToggle(value);
+                },
+                initialValue: settings.haptics,
+              ),
+              SettingsTile.switchTile(
                 onPressed: (context) {},
                 leading: const Icon(Icons.numbers),
                 title: const Text('Infinite Mode'),
@@ -56,12 +88,6 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                   onInfiniteModeToggle(value);
                 },
                 initialValue: settings.infiniteMode,
-              ),
-              SettingsTile.switchTile(
-                onToggle: (value) {},
-                initialValue: true,
-                leading: const Icon(Icons.format_paint),
-                title: const Text('Enable custom theme'),
               ),
             ],
           ),

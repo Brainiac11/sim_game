@@ -29,7 +29,6 @@ Brightness kSystemBrightness = PlatformDispatcher.instance.platformBrightness;
 ThemeData kTheme = ThemeData.from(
   colorScheme: ColorScheme.fromSeed(
     seedColor: Colors.blue[900]!,
-    brightness: kSystemBrightness,
-    dynamicSchemeVariant: DynamicSchemeVariant.expressive,
+    dynamicSchemeVariant: DynamicSchemeVariant.tonalSpot,
   ),
 );

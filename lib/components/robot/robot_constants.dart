@@ -6,6 +6,6 @@ const double kHalfHeight = 3.1;
 const double kTranslationalAccelerationRate = 35;
 const double kAngularAccelerationRate = 80;
 const double kTranslationalDeccelerationRate = 5;
-const double kTranslationalIdleDeccelerationRate = 0;
+const double kTranslationalIdleDeccelerationRate = 0.1;
 const double kAngularDeccelerationRate = 12;
 const double kAngularIdleDeccelerationRate = 5;
