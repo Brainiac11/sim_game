@@ -1,3 +1,4 @@
+import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
@@ -15,6 +16,8 @@ class MatchPage extends StatefulWidget {
 
 class MatchPageState extends State<MatchPage> {
   RoboticsGame game = RoboticsGame();
+  final GlobalKey<RiverpodAwareGameWidgetState> gameWidgetKey =
+      GlobalKey<RiverpodAwareGameWidgetState>();
 
   @override
   void activate() {
@@ -45,7 +48,10 @@ class MatchPageState extends State<MatchPage> {
       backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
       body: Stack(
         children: [
-          GameWidget(game: game),
+          RiverpodAwareGameWidget(
+            game: game,
+            key: gameWidgetKey,
+          ),
           Align(
             alignment: Alignment.topLeft,
             child: BackButton(

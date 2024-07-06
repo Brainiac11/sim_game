@@ -1,6 +1,6 @@
 const double kDensity = 1.5;
 const double kFriction = 1;
-const double kRestitution = 0.05;
+const double kRestitution = 0.02;
 const double kHalfWidth = 3.1;
 const double kHalfHeight = 3.1;
 const double kTranslationalAccelerationRate = 35;

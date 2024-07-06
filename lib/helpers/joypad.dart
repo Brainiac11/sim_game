@@ -1,8 +1,10 @@
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:player_move/providers/settings/settings_notifier.dart';
 
-class Joypad extends StatefulWidget {
+class Joypad extends ConsumerStatefulWidget {
   final ValueSetter<Vector2>? getDirection;
   const Joypad({super.key, required this.getDirection});
 
@@ -10,11 +12,20 @@ class Joypad extends StatefulWidget {
   JoypadState createState() => JoypadState();
 }
 
-class JoypadState extends State<Joypad> {
+class JoypadState extends ConsumerState<Joypad> {
   Vector2 direction = Vector2.zero();
+  ThemeMode themeMode = ThemeMode.system;
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(settingsProvider).settings.isDarkMode
+        ? setState(() {
+            themeMode = ThemeMode.dark;
+          })
+        : setState(() {
+            themeMode = ThemeMode.light;
+          });
+
     return Joystick(
       key: const Key("Joystick"),
       listener: listener,
@@ -22,7 +33,7 @@ class JoypadState extends State<Joypad> {
       stick: JoystickStick(
         size: 85,
         decoration: JoystickStickDecoration(
-          color: Colors.white70,
+          color: themeMode == ThemeMode.dark ? Colors.white70 : Colors.black87,
           shadowColor: Colors.transparent,
         ),
       ),

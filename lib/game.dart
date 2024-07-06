@@ -8,10 +8,11 @@ import 'package:player_move/components/border.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/components/robot/robot_constants.dart';
 import 'package:player_move/constants.dart';
+import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 
-class RoboticsGame extends Forge2DGame {
+class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   // final Robot _robot = Robot(drivetrain: SwerveDrivetrain());
   final fps = FpsTextComponent(position: Vector2(5, kWorldSize.y));
   final totalBodies = TextComponent(position: Vector2(5, kWorldSize.x * 2));
@@ -81,12 +82,18 @@ class RoboticsGame extends Forge2DGame {
 }
 
 // Helper component that paints a black background
-class _Background extends PositionComponent {
+class _Background extends PositionComponent with RiverpodComponentMixin {
   _Background({super.size});
+  ThemeMode themeMode = ThemeMode.system;
 
   @override
   void render(Canvas canvas) {
+    ref.watch(settingsProvider).settings.isDarkMode
+        ? themeMode = ThemeMode.dark
+        : themeMode = ThemeMode.light;
     canvas.drawRect(
-        Rect.fromLTWH(0, 0, size.x, size.y), Paint()..color = Colors.black);
+        Rect.fromLTWH(0, 0, size.x, size.y),
+        Paint()
+          ..color = themeMode == ThemeMode.dark ? Colors.black : Colors.white);
   }
 }
