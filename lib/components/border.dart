@@ -20,9 +20,7 @@ class BorderEdge extends BodyComponent with RiverpodComponentMixin {
       //       ? themeMode = ThemeMode.dark
       //       : themeMode = ThemeMode.light;
       // });
-      ref.watch(settingsProvider).settings.isDarkMode
-          ? themeMode = ThemeMode.dark
-          : themeMode = ThemeMode.light;
+      themeMode = ref.watch(settingsNotifierProvider).themeMode;
     });
     super.onMount();
   }

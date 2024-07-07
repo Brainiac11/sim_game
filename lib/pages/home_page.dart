@@ -23,7 +23,7 @@ class HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      ref.watch(settingsProvider).settings;
+      ref.watch(settingsNotifierProvider);
     });
     return Scaffold(
       appBar: AppBar(

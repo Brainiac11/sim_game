@@ -14,33 +14,21 @@ class SettingsPage extends ConsumerStatefulWidget {
 }
 
 class SettingsPageState extends ConsumerState<SettingsPage> {
+  void onInfiniteModeToggle(bool toggle) {
+    setState(() => ref.read(settingsNotifierProvider).infiniteMode = toggle);
+  }
+
+  void onDarkModeToggle(bool toggle) {
+    setState(() => ref.read(settingsNotifierProvider).themeMode =
+        toggle ? ThemeMode.dark : ThemeMode.light);
+  }
+
+  void onHapticsToggle(bool toggle) {
+    setState(() => ref.read(settingsNotifierProvider).haptics = toggle);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Settings settings = ref.watch(settingsProvider).settings;
-    void onInfiniteModeToggle(bool toggle) {
-      setState(() => ref.read(settingsProvider).updateInfiniteMode(toggle));
-      if (kDebugMode) {
-        print(
-            "infiniteMode: ${ref.read(settingsProvider).settings.infiniteMode.toString()}");
-      }
-    }
-
-    void onDarkModeToggle(bool toggle) {
-      setState(() => ref.read(settingsProvider).updateDarkMode(toggle));
-      if (kDebugMode) {
-        print(
-            "dark mode: ${ref.read(settingsProvider).settings.isDarkMode.toString()}");
-      }
-    }
-
-    void onHapticsToggle(bool toggle) {
-      setState(() => ref.read(settingsProvider).updateHaptics(toggle));
-      if (kDebugMode) {
-        print(
-            "haptics: ${ref.read(settingsProvider).settings.haptics.toString()}");
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
@@ -66,7 +54,8 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                 onToggle: (value) {
                   onDarkModeToggle(value);
                 },
-                initialValue: settings.isDarkMode,
+                initialValue: ref.watch(settingsNotifierProvider).themeMode ==
+                    ThemeMode.dark,
                 leading: const Icon(Icons.nightlight_round),
                 title: const Text('Dark Mode'),
               ),
@@ -77,7 +66,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                 onToggle: (bool value) {
                   onHapticsToggle(value);
                 },
-                initialValue: settings.haptics,
+                initialValue: ref.watch(settingsNotifierProvider).haptics,
               ),
               SettingsTile.switchTile(
                 onPressed: (context) {},
@@ -86,7 +75,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                 onToggle: (bool value) {
                   onInfiniteModeToggle(value);
                 },
-                initialValue: settings.infiniteMode,
+                initialValue: ref.watch(settingsNotifierProvider).infiniteMode,
               ),
             ],
           ),

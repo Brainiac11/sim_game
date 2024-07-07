@@ -1,44 +1,41 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:player_move/main.dart';
+import 'package:player_move/providers/preferences/preferences_notifier.dart';
+import 'package:riverpod/src/framework.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:player_move/providers/settings/settings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+part 'settings_notifier.g.dart';
 
-class SettingsNotifier extends ChangeNotifier {
-  Settings settings = Settings.fromPreferences(Settings.getSharedPreferences());
-
-  void updateHaptics(bool isHapticsEnabled) {
-    if (settings.haptics != isHapticsEnabled) {
-      settings.haptics = isHapticsEnabled;
-      Settings.getSharedPreferences().then(
-        (value) {
-          value.setBool("haptics", isHapticsEnabled);
-        },
-      );
-      notifyListeners();
-    }
+@riverpod
+class SettingsNotifier extends _$SettingsNotifier {
+  @override
+  Future<AppSettings> build() {
+    SharedPreferences prefs = ref.read(prefsProvider).value;
+    return AppSettings.fromSharedPreferences(prefs);
   }
 
-  void updateInfiniteMode(bool isInfiniteModeEnabled) {
-    if (settings.infiniteMode != isInfiniteModeEnabled) {
-      settings.infiniteMode = isInfiniteModeEnabled;
-      Settings.getSharedPreferences().then((value) {
-        value.setBool("infiniteMode", isInfiniteModeEnabled);
-      });
-      notifyListeners();
-    }
+  SharedPreferences? _getPrefs() {
+    SharedPreferences.getInstance().then((value) {
+      return value;
+    });
+    return null;
   }
 
-  void updateDarkMode(bool isDarkModeEnabled) {
-    if (settings.isDarkMode != isDarkModeEnabled) {
-      settings.isDarkMode = isDarkModeEnabled;
-      Settings.getSharedPreferences().then((value) {
-        value.setBool("isDarkMode", isDarkModeEnabled);
-      });
-      notifyListeners();
-    }
+  void updateThemeMode(ThemeMode themeMode) {
+    state.themeMode = themeMode;
+  }
+
+  void updateHaptics(bool haptics) {
+    state.haptics = haptics;
+  }
+
+  void updateInfiniteMode(bool infiniteMode) {
+    state.infiniteMode = infiniteMode;
+  }
+
+  void updateLanguage(String language) {
+    state.language = language;
   }
 }
-
-final settingsProvider = ChangeNotifierProvider<SettingsNotifier>((ref) {
-  return SettingsNotifier();
-});

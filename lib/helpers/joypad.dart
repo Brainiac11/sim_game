@@ -18,13 +18,9 @@ class JoypadState extends ConsumerState<Joypad> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(settingsProvider).settings.isDarkMode
-        ? setState(() {
-            themeMode = ThemeMode.dark;
-          })
-        : setState(() {
-            themeMode = ThemeMode.light;
-          });
+    setState(() {
+      themeMode = ref.watch(settingsNotifierProvider).themeMode;
+    });
 
     return Joystick(
       key: const Key("Joystick"),

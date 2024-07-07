@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,22 +63,12 @@ class App extends ConsumerStatefulWidget {
 }
 
 class _AppState extends ConsumerState<App> {
-  ThemeMode themeMode = ThemeMode.system;
+  late ThemeMode themeMode;
   @override
   Widget build(BuildContext context) {
-    ref.watch(settingsProvider).settings.isDarkMode
-        ? setState(() {
-            themeMode = ThemeMode.dark;
-            if (kDebugMode) {
-              print(themeMode);
-            }
-          })
-        : setState(() {
-            themeMode = ThemeMode.light;
-            if (kDebugMode) {
-              print(themeMode);
-            }
-          });
+    setState(() {
+      themeMode = ref.watch(settingsNotifierProvider).themeMode;
+    });
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,

@@ -1,4 +1,3 @@
-
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
   late PolygonShape shape;
   late FixtureDef fixtureDef;
   late BodyDef robotDef;
-  late ThemeMode themeMode;
+  ThemeMode themeMode = ThemeMode.system;
 
   @override
   void onMount() {
@@ -23,9 +22,7 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
       //       ? themeMode = ThemeMode.dark
       //       : themeMode = ThemeMode.light;
       // });
-      ref.watch(settingsProvider).settings.isDarkMode
-          ? themeMode = ThemeMode.dark
-          : themeMode = ThemeMode.light;
+      themeMode = ref.watch(settingsNotifierProvider).themeMode;
     });
     super.onMount();
   }
