@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
@@ -92,9 +94,12 @@ class _Background extends PositionComponent with RiverpodComponentMixin {
     ref.watch(settingsProvider).settings.isDarkMode
         ? themeMode = ThemeMode.dark
         : themeMode = ThemeMode.light;
-    canvas.drawRect(
-        Rect.fromLTWH(0, 0, size.x, size.y),
-        Paint()
-          ..color = themeMode == ThemeMode.dark ? Colors.black : Colors.white);
+    // canvas.drawRect(
+    //     Rect.fromLTWH(0, 0, size.x, size.y),
+    //     Paint()
+    //       ..color = themeMode == ThemeMode.dark ? Colors.black : Colors.white);
+    PictureRecorder recorder = PictureRecorder();
+
+    canvas.drawPicture(recorder.endRecording());
   }
 }
