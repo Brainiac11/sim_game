@@ -1,7 +1,6 @@
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flame/game.dart';
 import 'package:player_move/main.dart';
 import '../helpers/joypad.dart';
 

@@ -1,10 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:player_move/providers/preferences/preferences_notifier.dart';
 import 'package:player_move/providers/settings/settings.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsNotifier extends ChangeNotifier {
   Settings settings = Settings.fromPreferences(Settings.getSharedPreferences());

@@ -5,7 +5,6 @@ import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:player_move/main.dart';
 import 'package:player_move/providers/settings/settings.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});

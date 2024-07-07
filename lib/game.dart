@@ -1,4 +1,6 @@
-import 'dart:ui';
+import 'dart:async';
+import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
@@ -6,12 +8,12 @@ import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:player_move/components/border.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/components/robot/robot_constants.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 
 class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
@@ -21,6 +23,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   late Robot robot;
 
   RoboticsGame() : super(zoom: 10, gravity: Vector2.zero());
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
@@ -89,17 +92,49 @@ class _Background extends PositionComponent with RiverpodComponentMixin {
   _Background({super.size});
   ThemeMode themeMode = ThemeMode.system;
 
+  Future<ui.Image> loadImage(String asset) async {
+    ByteData data = await rootBundle.load(asset);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return fi.image;
+  }
+
+  ui.Image? loadSyncImage(String asset) {
+    loadImage(asset).then((value) {
+      return value;
+    });
+    return null;
+  }
+
+  late ui.Image fieldImage;
+  // late Vector2 resizeField;
+
+  @override
+  FutureOr<void> onLoad() async {
+    // resizeField = Vector2.;
+    fieldImage = await loadImage(themeMode == ThemeMode.dark
+        ? "assets/images/dark_field.png"
+        : "assets/images/light_field.png");
+    fieldImage = await fieldImage.resize(Vector2(
+        kScreenSize.y / kScreenSize.x * fieldImage.width,
+        kScreenSize.y / kScreenSize.x * fieldImage.height));
+    return super.onLoad();
+  }
+
   @override
   void render(Canvas canvas) {
-    ref.watch(settingsProvider).settings.isDarkMode
-        ? themeMode = ThemeMode.dark
-        : themeMode = ThemeMode.light;
+    // ref.watch(settingsProvider).settings.isDarkMode
+    //     ? themeMode = ThemeMode.dark
+    //     : themeMode = ThemeMode.light;
     // canvas.drawRect(
     //     Rect.fromLTWH(0, 0, size.x, size.y),
     //     Paint()
     //       ..color = themeMode == ThemeMode.dark ? Colors.black : Colors.white);
-    PictureRecorder recorder = PictureRecorder();
 
-    canvas.drawPicture(recorder.endRecording());
+    // Image fieldImage = Image.file(themeMode == ThemeMode.dark
+    //     ? File("dark_field.png")
+    //     : File("light_field.png"));
+
+    canvas.drawImage(fieldImage, Offset.zero, Paint());
   }
 }

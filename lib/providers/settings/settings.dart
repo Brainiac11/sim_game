@@ -1,5 +1,3 @@
-import 'package:player_move/main.dart';
-import 'package:player_move/providers/preferences/preferences_notifier.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings {
