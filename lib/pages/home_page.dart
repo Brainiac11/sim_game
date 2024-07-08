@@ -17,14 +17,12 @@ class HomePageState extends ConsumerState<HomePage> {
       print("Going to Settings");
     }
     router.go("/settings");
-    super.deactivate();
+    super.reassemble();
   }
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      ref.watch(settingsNotifierProvider);
-    });
+    final settings = ref.watch(settingsNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         leading: TextButton.icon(

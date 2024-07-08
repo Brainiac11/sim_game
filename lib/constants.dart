@@ -30,5 +30,6 @@ ThemeData kTheme = ThemeData.from(
   colorScheme: ColorScheme.fromSeed(
     seedColor: Colors.blue[900]!,
     dynamicSchemeVariant: DynamicSchemeVariant.tonalSpot,
+    brightness: Brightness.light,
   ),
 );

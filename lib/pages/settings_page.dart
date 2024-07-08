@@ -29,7 +29,14 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
     void onDarkModeToggle(bool toggle) {
       ThemeMode theme = (toggle ? ThemeMode.dark : ThemeMode.light);
       notifier.updateThemeMode(theme);
-      setState(() => {});
+    }
+
+    void onInfiniteModeToggle(bool toggle) {
+      notifier.updateInfiniteMode(toggle);
+    }
+
+    void onHapticsToggle(bool toggle) {
+      notifier.updateHaptics(toggle);
     }
 
     return Scaffold(

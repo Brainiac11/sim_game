@@ -32,7 +32,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
       print("Screen Size: (${kScreenSize.x} , ${kScreenSize.y})");
     }
     camera.viewport = FixedResolutionViewport(resolution: kScreenSize);
-    await add(_Background(size: kScreenSize));
+    await world.add(_Background(size: kScreenSize));
 
     await add(fps);
     await add(totalBodies);
@@ -90,7 +90,9 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
 
 // Helper component that paints a black background
 class _Background extends PositionComponent with RiverpodComponentMixin {
-  _Background({super.size});
+  _Background({super.size}) {
+    // settings = ref.watch(settingsNotifierProvider);
+  }
   late AppSettings settings;
 
   Future<ui.Image> loadImage(String asset) async {
@@ -112,14 +114,17 @@ class _Background extends PositionComponent with RiverpodComponentMixin {
 
   @override
   FutureOr<void> onLoad() async {
-    // resizeField = Vector2.;
-    // settings = await ref.watch(settingsNotifierProvider);
-    fieldImage = await loadImage(ThemeMode.dark == ThemeMode.dark
-        ? "assets/images/dark_field.png"
-        : "assets/images/light_field.png");
-    fieldImage = await fieldImage.resize(Vector2(
-        kScreenSize.y / kScreenSize.x * fieldImage.width,
-        kScreenSize.y / kScreenSize.x * fieldImage.height));
+    if (kDebugMode) {
+      print(ref.read(settingsNotifierProvider));
+    }
+    if (true) {
+      fieldImage = await loadImage(ThemeMode.dark == ThemeMode.dark
+          ? "assets/images/dark_field.png"
+          : "assets/images/light_field.png");
+      fieldImage = await fieldImage.resize(Vector2(
+          kScreenSize.y / kScreenSize.x * fieldImage.width,
+          kScreenSize.y / kScreenSize.x * fieldImage.height));
+    }
     return await super.onLoad();
   }
 

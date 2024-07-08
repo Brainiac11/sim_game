@@ -28,9 +28,11 @@ class SettingsNotifier extends _$SettingsNotifier {
     final haptics = prefs.getBool("haptics") ?? true;
     final infiniteMode = prefs.getBool("infiniteMode") ?? false;
     state = state.copyWith(
-        themeMode: themeMode == "system"
+        themeMode: themeMode == "ThemeMode.system"
             ? ThemeMode.system
-            : (themeMode == "dark" ? ThemeMode.dark : ThemeMode.light),
+            : (themeMode == "ThemeMode.dark"
+                ? ThemeMode.dark
+                : ThemeMode.light),
         language: language,
         haptics: haptics,
         infiniteMode: infiniteMode);
@@ -44,6 +46,7 @@ class SettingsNotifier extends _$SettingsNotifier {
     if (kDebugMode) {
       print("ThemeMode in Prefs: ${prefs.getString('themeMode')}");
     }
+    ref.notifyListeners();
   }
 
   void updateHaptics(bool haptics) async {

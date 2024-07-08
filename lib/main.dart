@@ -7,10 +7,10 @@ import 'package:player_move/constants.dart';
 import 'package:player_move/pages/home_page.dart';
 import 'package:player_move/pages/match_page.dart';
 import 'package:player_move/pages/settings_page.dart';
+import 'package:player_move/providers/settings/settings.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-part 'main.g.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,40 +47,28 @@ final GoRouter router = GoRouter(
   ],
 );
 
-@riverpod
-SharedPreferences? preferences(PreferencesRef ref) {
-  SharedPreferences.getInstance().then((value) {
-    return value;
-  });
-  return null;
-}
-
-class App extends ConsumerStatefulWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AppState();
-}
-
-class _AppState extends ConsumerState<App> {
-  late ThemeMode themeMode;
-  @override
-  Widget build(BuildContext context) {
-    setState(() {
-      themeMode = ref.watch(settingsNotifierProvider).themeMode;
-    });
-
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(settingsNotifierProvider);
+    final notifier = ref.read(settingsNotifierProvider.notifier);
+    // notifier.build();
+    if (kDebugMode) {
+      print(settings.themeMode.toString());
+    }
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Robotics Game',
+      title: 'Robotics Games',
       routerConfig: router,
-      theme: kTheme,
-      darkTheme: kTheme.copyWith(brightness: Brightness.dark),
-      themeMode: themeMode,
+      // theme: kTheme,
+      theme: kTheme.copyWith(brightness: Brightness.dark),
+      // themeMode: settings.themeMode,
     );
   }
 }
