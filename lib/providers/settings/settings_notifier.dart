@@ -11,31 +11,56 @@ part 'settings_notifier.g.dart';
 @riverpod
 class SettingsNotifier extends _$SettingsNotifier {
   @override
-  Future<AppSettings> build() {
-    SharedPreferences prefs = ref.read(prefsProvider).value;
-    return AppSettings.fromSharedPreferences(prefs);
+  AppSettings build() {
+    _loadSettings();
+    return AppSettings(
+      themeMode: ThemeMode.system,
+      haptics: true,
+      infiniteMode: true,
+      language: "en",
+    );
   }
 
-  SharedPreferences? _getPrefs() {
-    SharedPreferences.getInstance().then((value) {
-      return value;
-    });
-    return null;
+  Future<void> _loadSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    final themeMode = prefs.getString('themeMode');
+    final language = prefs.getString('language') ?? 'en';
+    final haptics = prefs.getBool("haptics") ?? true;
+    final infiniteMode = prefs.getBool("infiniteMode") ?? false;
+    state = state.copyWith(
+        themeMode: themeMode == "system"
+            ? ThemeMode.system
+            : (themeMode == "dark" ? ThemeMode.dark : ThemeMode.light),
+        language: language,
+        haptics: haptics,
+        infiniteMode: infiniteMode);
   }
 
-  void updateThemeMode(ThemeMode themeMode) {
-    state.themeMode = themeMode;
+  void updateThemeMode(ThemeMode themeMode) async {
+    state = state.copyWith(themeMode: themeMode);
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('themeMode', state.themeMode.toString());
+
+    if (kDebugMode) {
+      print("ThemeMode in Prefs: ${prefs.getString('themeMode')}");
+    }
   }
 
-  void updateHaptics(bool haptics) {
-    state.haptics = haptics;
+  void updateHaptics(bool haptics) async {
+    state = state.copyWith(haptics: haptics);
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('haptics', state.haptics);
   }
 
-  void updateInfiniteMode(bool infiniteMode) {
-    state.infiniteMode = infiniteMode;
+  void updateInfiniteMode(bool infiniteMode) async {
+    state = state.copyWith(infiniteMode: infiniteMode);
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('infiniteMode', state.infiniteMode);
   }
 
-  void updateLanguage(String language) {
-    state.language = language;
+  void updateLanguage(String language) async {
+    state = state.copyWith(language: language);
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('language', state.language);
   }
 }

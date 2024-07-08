@@ -18,17 +18,20 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
     setState(() => ref.read(settingsNotifierProvider).infiniteMode = toggle);
   }
 
-  void onDarkModeToggle(bool toggle) {
-    setState(() => ref.read(settingsNotifierProvider).themeMode =
-        toggle ? ThemeMode.dark : ThemeMode.light);
-  }
-
   void onHapticsToggle(bool toggle) {
     setState(() => ref.read(settingsNotifierProvider).haptics = toggle);
   }
 
   @override
   Widget build(BuildContext context) {
+    final settings = ref.watch(settingsNotifierProvider);
+    final notifier = ref.read(settingsNotifierProvider.notifier);
+    void onDarkModeToggle(bool toggle) {
+      ThemeMode theme = (toggle ? ThemeMode.dark : ThemeMode.light);
+      notifier.updateThemeMode(theme);
+      setState(() => {});
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
@@ -54,8 +57,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                 onToggle: (value) {
                   onDarkModeToggle(value);
                 },
-                initialValue: ref.watch(settingsNotifierProvider).themeMode ==
-                    ThemeMode.dark,
+                initialValue: settings.themeMode == ThemeMode.dark,
                 leading: const Icon(Icons.nightlight_round),
                 title: const Text('Dark Mode'),
               ),

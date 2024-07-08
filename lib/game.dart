@@ -13,6 +13,7 @@ import 'package:player_move/components/border.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/components/robot/robot_constants.dart';
 import 'package:player_move/constants.dart';
+import 'package:player_move/providers/settings/settings.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 
@@ -31,7 +32,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
       print("Screen Size: (${kScreenSize.x} , ${kScreenSize.y})");
     }
     camera.viewport = FixedResolutionViewport(resolution: kScreenSize);
-    add(_Background(size: kScreenSize));
+    await add(_Background(size: kScreenSize));
 
     await add(fps);
     await add(totalBodies);
@@ -90,7 +91,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
 // Helper component that paints a black background
 class _Background extends PositionComponent with RiverpodComponentMixin {
   _Background({super.size});
-  ThemeMode themeMode = ThemeMode.system;
+  late AppSettings settings;
 
   Future<ui.Image> loadImage(String asset) async {
     ByteData data = await rootBundle.load(asset);
@@ -112,13 +113,14 @@ class _Background extends PositionComponent with RiverpodComponentMixin {
   @override
   FutureOr<void> onLoad() async {
     // resizeField = Vector2.;
-    fieldImage = await loadImage(themeMode == ThemeMode.dark
+    // settings = await ref.watch(settingsNotifierProvider);
+    fieldImage = await loadImage(ThemeMode.dark == ThemeMode.dark
         ? "assets/images/dark_field.png"
         : "assets/images/light_field.png");
     fieldImage = await fieldImage.resize(Vector2(
         kScreenSize.y / kScreenSize.x * fieldImage.width,
         kScreenSize.y / kScreenSize.x * fieldImage.height));
-    return super.onLoad();
+    return await super.onLoad();
   }
 
   @override
