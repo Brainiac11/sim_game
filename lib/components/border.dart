@@ -29,14 +29,14 @@ class BorderEdge extends BodyComponent with RiverpodComponentMixin {
     switch (key.value) {
       case "Right":
         borderDef = BodyDef(
-          position: Vector2(kWorldSize.y, -kWorldSize.y / 2),
+          position: Vector2(kWorldSize.y - 7, -kWorldSize.y / 2),
           type: BodyType.static,
         );
         shape = EdgeShape()..set(Vector2.zero(), Vector2(0, kWorldSize.y));
         break;
       case "Left":
         borderDef = BodyDef(
-          position: Vector2(-kWorldSize.y, kWorldSize.y / 2),
+          position: Vector2(-kWorldSize.y + 7, kWorldSize.y / 2),
           type: BodyType.static,
         );
         shape = EdgeShape()..set(Vector2.zero(), Vector2(0, -kWorldSize.y));

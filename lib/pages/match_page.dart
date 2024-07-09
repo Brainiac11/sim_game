@@ -15,8 +15,6 @@ class MatchPage extends StatefulWidget {
 
 class MatchPageState extends State<MatchPage> {
   RoboticsGame game = RoboticsGame();
-  final GlobalKey<RiverpodAwareGameWidgetState> gameWidgetKey =
-      GlobalKey<RiverpodAwareGameWidgetState>();
 
   @override
   void activate() {
@@ -43,8 +41,10 @@ class MatchPageState extends State<MatchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<RiverpodAwareGameWidgetState> gameWidgetKey =
+        GlobalKey<RiverpodAwareGameWidgetState>();
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
+      // backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
       body: Stack(
         children: [
           RiverpodAwareGameWidget(

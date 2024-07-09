@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
+import 'dart:ui';
 
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
@@ -9,6 +10,7 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:player_move/components/border.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/components/robot/robot_constants.dart';
@@ -32,10 +34,10 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
       print("Screen Size: (${kScreenSize.x} , ${kScreenSize.y})");
     }
     camera.viewport = FixedResolutionViewport(resolution: kScreenSize);
-    await world.add(_Background(size: kScreenSize));
 
     await add(fps);
     await add(totalBodies);
+    await add(_Background(size: kScreenSize));
     await world.add(BorderEdge(valueKey: const ValueKey("Top")));
     await world.add(BorderEdge(valueKey: const ValueKey("Bottom")));
     await world.add(BorderEdge(valueKey: const ValueKey("Right")));
@@ -90,14 +92,18 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
 
 // Helper component that paints a black background
 class _Background extends PositionComponent with RiverpodComponentMixin {
-  _Background({super.size}) {
-    // settings = ref.watch(settingsNotifierProvider);
-  }
+  _Background({super.size});
   late AppSettings settings;
+  ThemeMode themeMode = ThemeMode.dark;
 
   Future<ui.Image> loadImage(String asset) async {
     ByteData data = await rootBundle.load(asset);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
+    ui.Codec codec = await ui.instantiateImageCodec(
+      allowUpscaling: true,
+      data.buffer.asUint8List(),
+      targetHeight: kScreenSize.y.toInt(),
+      targetWidth: kScreenSize.x.toInt(),
+    );
     ui.FrameInfo fi = await codec.getNextFrame();
     return fi.image;
   }
@@ -109,39 +115,43 @@ class _Background extends PositionComponent with RiverpodComponentMixin {
     return null;
   }
 
+  FutureOr<void> updateFieldImage(ThemeMode themeMode) async {
+    if (kDebugMode) {
+      print("Field Image Theme Mode: ${themeMode.toString()}");
+    }
+    fieldImage = await loadImage(themeMode == ThemeMode.dark
+        ? "assets/images/dark_field.png"
+        : "assets/images/light_field.png");
+    // fieldImage = await fieldImage.resize(Vector2(
+    //     ,
+    // const MediaQueryData().devicePixelRatio * fieldImage.height));
+  }
+
   late ui.Image fieldImage;
-  // late Vector2 resizeField;
 
   @override
-  FutureOr<void> onLoad() async {
-    if (kDebugMode) {
-      print(ref.read(settingsNotifierProvider));
-    }
-    if (true) {
-      fieldImage = await loadImage(ThemeMode.dark == ThemeMode.dark
-          ? "assets/images/dark_field.png"
-          : "assets/images/light_field.png");
-      fieldImage = await fieldImage.resize(Vector2(
-          kScreenSize.y / kScreenSize.x * fieldImage.width,
-          kScreenSize.y / kScreenSize.x * fieldImage.height));
-    }
-    return await super.onLoad();
+  void onMount() {
+    addToGameWidgetBuild(() {
+      themeMode = ref.watch(settingsNotifierProvider).themeMode;
+      updateFieldImage(themeMode);
+    });
+
+    super.onMount();
   }
 
   @override
-  void render(Canvas canvas) {
-    // ref.watch(settingsProvider).settings.isDarkMode
-    //     ? themeMode = ThemeMode.dark
-    //     : themeMode = ThemeMode.light;
-    // canvas.drawRect(
-    //     Rect.fromLTWH(0, 0, size.x, size.y),
-    //     Paint()
-    //       ..color = themeMode == ThemeMode.dark ? Colors.black : Colors.white);
+  FutureOr<void> onLoad() async {
+    // updateFieldImage(ThemeMode.dark);
 
-    // Image fieldImage = Image.file(themeMode == ThemeMode.dark
-    //     ? File("dark_field.png")
-    //     : File("light_field.png"));
+    return super.onLoad();
+  }
 
-    canvas.drawImage(fieldImage, Offset.zero, Paint());
+  @override
+  FutureOr<void> render(Canvas canvas) async {
+// Find a better way to implement this
+// Currently just a bandaid
+    try {
+      canvas.drawImage(fieldImage, Offset.zero, Paint());
+    } catch (e) {}
   }
 }
