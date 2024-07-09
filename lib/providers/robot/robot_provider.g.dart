@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'settings_notifier.dart';
+part of 'robot_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$settingsNotifierHash() => r'79c4911ce8c0c0c5307d486b0df27ba9e657ccd2';
+String _$robotProviderHash() => r'c977f961b585854f2835b3d81f3d44523c0fc8b4';
 
-/// See also [SettingsNotifier].
-@ProviderFor(SettingsNotifier)
-final settingsNotifierProvider =
-    AutoDisposeNotifierProvider<SettingsNotifier, AppSettings>.internal(
-  SettingsNotifier.new,
-  name: r'settingsNotifierProvider',
+/// See also [RobotProvider].
+@ProviderFor(RobotProvider)
+final robotProviderProvider =
+    AutoDisposeNotifierProvider<RobotProvider, RobotConstants>.internal(
+  RobotProvider.new,
+  name: r'robotProviderProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$settingsNotifierHash,
+      : _$robotProviderHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SettingsNotifier = AutoDisposeNotifier<AppSettings>;
+typedef _$RobotProvider = AutoDisposeNotifier<RobotConstants>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

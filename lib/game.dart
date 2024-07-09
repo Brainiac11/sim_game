@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/robot/robot.dart';
-import 'package:player_move/components/robot/robot_constants.dart';
+import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/providers/settings/settings.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
@@ -31,6 +31,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     if (kDebugMode) {
       print("Screen Size: (${kScreenSize.x} , ${kScreenSize.y})");
     }
+
     camera.viewport = FixedResolutionViewport(resolution: kScreenSize);
 
     if (kDebugMode) {
@@ -44,8 +45,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     await world.add(BorderEdge(borderKey: const ValueKey("Left")));
     robot = Robot();
     await world.add(robot);
-    robot.body.angularDamping = kAngularIdleDeccelerationRate;
-    robot.body.linearDamping = kTranslationalIdleDeccelerationRate;
+    robot.createBody();
   }
 
   @override
@@ -63,30 +63,12 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     return Colors.red;
   }
 
-  void linearMovement(Vector2 value) {
-    robot.body.applyLinearImpulse(value * kTranslationalAccelerationRate);
-
-    if (kDebugMode) {
-      print(value.length);
-    }
-    robot.body.linearVelocity.clampLength(0, kMaxTranslationalSpeed);
-    if (robot.body.linearVelocity.length >
-        value.length * kTranslationalAccelerationRate) {
-      robot.body.linearDamping = kTranslationalDeccelerationRate;
-    } else {
-      robot.body.linearDamping = kTranslationalIdleDeccelerationRate;
-    }
+  void linearMovement(Vector2 value) async {
+    await robot.linearMovement(value);
   }
 
-  void angularMovement(Vector2 value) {
-    robot.body.angularVelocity.clamp(-kMaxRotationalSpeed, kMaxRotationalSpeed);
-    robot.body.applyAngularImpulse(value.x * kAngularAccelerationRate);
-
-    if (robot.body.angularVelocity > value.x.abs() * kAngularAccelerationRate) {
-      robot.body.angularDamping = kAngularDeccelerationRate;
-    } else {
-      robot.body.angularDamping = kAngularIdleDeccelerationRate;
-    }
+  void angularMovement(Vector2 value) async {
+    await robot.angularMovement(value);
   }
 }
 

@@ -50,17 +50,20 @@ class SettingsNotifier extends _$SettingsNotifier {
     state = state.copyWith(haptics: haptics);
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('haptics', state.haptics);
+    ref.notifyListeners();
   }
 
   void updateInfiniteMode(bool infiniteMode) async {
     state = state.copyWith(infiniteMode: infiniteMode);
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('infiniteMode', state.infiniteMode);
+    ref.notifyListeners();
   }
 
   void updateLanguage(String language) async {
     state = state.copyWith(language: language);
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('language', state.language);
+    ref.notifyListeners();
   }
 }

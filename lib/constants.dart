@@ -21,8 +21,8 @@ var paddingDP = MediaQueryData.fromView(view).padding;
 final kScreenSize = Vector2(widthDP, heightDP);
 final kWorldSize = Vector2(widthDP / 10, heightDP / 10);
 const kRotationalScale = 1;
-const kMaxTranslationalSpeed = 40.0;
-const kMaxRotationalSpeed = 8.0;
+// const kMaxTranslationalSpeed = 40.0;
+// const kMaxRotationalSpeed = 8.0;
 
 Brightness kSystemBrightness = PlatformDispatcher.instance.platformBrightness;
 
