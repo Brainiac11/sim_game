@@ -1,8 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:player_move/main.dart';
-import 'package:player_move/providers/preferences/preferences_notifier.dart';
-import 'package:riverpod/src/framework.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:player_move/providers/settings/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';

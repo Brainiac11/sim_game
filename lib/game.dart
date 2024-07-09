@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:ui' as ui;
 import 'dart:ui';
 
@@ -10,8 +9,7 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:player_move/components/border.dart';
+import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/components/robot/robot_constants.dart';
 import 'package:player_move/constants.dart';
@@ -35,15 +33,17 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     }
     camera.viewport = FixedResolutionViewport(resolution: kScreenSize);
 
-    await add(fps);
-    await add(totalBodies);
+    if (kDebugMode) {
+      await add(fps);
+      await add(totalBodies);
+    }
     await add(_Background(size: kScreenSize));
-    await world.add(BorderEdge(valueKey: const ValueKey("Top")));
-    await world.add(BorderEdge(valueKey: const ValueKey("Bottom")));
-    await world.add(BorderEdge(valueKey: const ValueKey("Right")));
-    await world.add(BorderEdge(valueKey: const ValueKey("Left")));
+    await world.add(BorderEdge(borderKey: const ValueKey("Top")));
+    await world.add(BorderEdge(borderKey: const ValueKey("Bottom")));
+    await world.add(BorderEdge(borderKey: const ValueKey("Right")));
+    await world.add(BorderEdge(borderKey: const ValueKey("Left")));
     robot = Robot();
-    await super.world.add(robot);
+    await world.add(robot);
     robot.body.angularDamping = kAngularIdleDeccelerationRate;
     robot.body.linearDamping = kTranslationalIdleDeccelerationRate;
   }
