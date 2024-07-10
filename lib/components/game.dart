@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame/text.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,8 @@ import 'package:flame_riverpod/flame_riverpod.dart';
 class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   // final Robot _robot = Robot(drivetrain: SwerveDrivetrain());
   final fps = FpsTextComponent(position: Vector2(5, kWorldSize.y));
-  final totalBodies = TextComponent(position: Vector2(5, kWorldSize.x * 2));
+  final totalBodies =
+      TextComponent(position: Vector2(5, kWorldSize.x * 2), priority: 1);
   late Robot robot;
 
   RoboticsGame() : super(zoom: 10, gravity: Vector2.zero());
@@ -34,16 +36,15 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
 
     camera.viewport = FixedResolutionViewport(resolution: kScreenSize);
 
-    if (kDebugMode) {
-      await add(fps);
-      await add(totalBodies);
-    }
+    await add(fps);
+    await add(totalBodies);
+
     await add(_Background(size: kScreenSize));
     await world.add(BorderEdge(borderKey: const ValueKey("Top")));
     await world.add(BorderEdge(borderKey: const ValueKey("Bottom")));
     await world.add(BorderEdge(borderKey: const ValueKey("Right")));
     await world.add(BorderEdge(borderKey: const ValueKey("Left")));
-    robot = Robot();
+    robot = Robot(ref: ref);
     await world.add(robot);
   }
 

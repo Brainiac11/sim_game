@@ -16,10 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Customization {
-  Motor get drivetrainMotor => throw _privateConstructorUsedError;
-  set drivetrainMotor(Motor value) => throw _privateConstructorUsedError;
-  Wheel get drivetrainWheel => throw _privateConstructorUsedError;
-  set drivetrainWheel(Wheel value) => throw _privateConstructorUsedError;
   Drivetrain get drivetrain => throw _privateConstructorUsedError;
   set drivetrain(Drivetrain value) => throw _privateConstructorUsedError;
 
@@ -34,8 +30,7 @@ abstract class $CustomizationCopyWith<$Res> {
           Customization value, $Res Function(Customization) then) =
       _$CustomizationCopyWithImpl<$Res, Customization>;
   @useResult
-  $Res call(
-      {Motor drivetrainMotor, Wheel drivetrainWheel, Drivetrain drivetrain});
+  $Res call({Drivetrain drivetrain});
 }
 
 /// @nodoc
@@ -51,19 +46,9 @@ class _$CustomizationCopyWithImpl<$Res, $Val extends Customization>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? drivetrainMotor = null,
-    Object? drivetrainWheel = null,
     Object? drivetrain = null,
   }) {
     return _then(_value.copyWith(
-      drivetrainMotor: null == drivetrainMotor
-          ? _value.drivetrainMotor
-          : drivetrainMotor // ignore: cast_nullable_to_non_nullable
-              as Motor,
-      drivetrainWheel: null == drivetrainWheel
-          ? _value.drivetrainWheel
-          : drivetrainWheel // ignore: cast_nullable_to_non_nullable
-              as Wheel,
       drivetrain: null == drivetrain
           ? _value.drivetrain
           : drivetrain // ignore: cast_nullable_to_non_nullable
@@ -80,8 +65,7 @@ abstract class _$$CustomizationImplCopyWith<$Res>
       __$$CustomizationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {Motor drivetrainMotor, Wheel drivetrainWheel, Drivetrain drivetrain});
+  $Res call({Drivetrain drivetrain});
 }
 
 /// @nodoc
@@ -95,19 +79,9 @@ class __$$CustomizationImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? drivetrainMotor = null,
-    Object? drivetrainWheel = null,
     Object? drivetrain = null,
   }) {
     return _then(_$CustomizationImpl(
-      drivetrainMotor: null == drivetrainMotor
-          ? _value.drivetrainMotor
-          : drivetrainMotor // ignore: cast_nullable_to_non_nullable
-              as Motor,
-      drivetrainWheel: null == drivetrainWheel
-          ? _value.drivetrainWheel
-          : drivetrainWheel // ignore: cast_nullable_to_non_nullable
-              as Wheel,
       drivetrain: null == drivetrain
           ? _value.drivetrain
           : drivetrain // ignore: cast_nullable_to_non_nullable
@@ -119,21 +93,14 @@ class __$$CustomizationImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CustomizationImpl implements _Customization {
-  _$CustomizationImpl(
-      {required this.drivetrainMotor,
-      required this.drivetrainWheel,
-      required this.drivetrain});
+  _$CustomizationImpl({required this.drivetrain});
 
-  @override
-  Motor drivetrainMotor;
-  @override
-  Wheel drivetrainWheel;
   @override
   Drivetrain drivetrain;
 
   @override
   String toString() {
-    return 'Customization(drivetrainMotor: $drivetrainMotor, drivetrainWheel: $drivetrainWheel, drivetrain: $drivetrain)';
+    return 'Customization(drivetrain: $drivetrain)';
   }
 
   @JsonKey(ignore: true)
@@ -144,17 +111,9 @@ class _$CustomizationImpl implements _Customization {
 }
 
 abstract class _Customization implements Customization {
-  factory _Customization(
-      {required Motor drivetrainMotor,
-      required Wheel drivetrainWheel,
-      required Drivetrain drivetrain}) = _$CustomizationImpl;
+  factory _Customization({required Drivetrain drivetrain}) =
+      _$CustomizationImpl;
 
-  @override
-  Motor get drivetrainMotor;
-  set drivetrainMotor(Motor value);
-  @override
-  Wheel get drivetrainWheel;
-  set drivetrainWheel(Wheel value);
   @override
   Drivetrain get drivetrain;
   set drivetrain(Drivetrain value);

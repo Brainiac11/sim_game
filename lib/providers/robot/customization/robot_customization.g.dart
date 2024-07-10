@@ -6,21 +6,22 @@ part of 'robot_customization.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$customizationHash() => r'de1410be5f1000bd8601303a5e3e784a5817b416';
+String _$robotCustomizationHash() =>
+    r'31efa10618bd74a27b4414ec08c48c302e378b2e';
 
-/// See also [Customization].
-@ProviderFor(Customization)
-final customizationProvider =
-    AutoDisposeNotifierProvider<Customization, dynamic>.internal(
-  Customization.new,
-  name: r'customizationProvider',
+/// See also [RobotCustomization].
+@ProviderFor(RobotCustomization)
+final robotCustomizationProvider =
+    AutoDisposeNotifierProvider<RobotCustomization, Customization>.internal(
+  RobotCustomization.new,
+  name: r'robotCustomizationProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$customizationHash,
+      : _$robotCustomizationHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Customization = AutoDisposeNotifier<dynamic>;
+typedef _$RobotCustomization = AutoDisposeNotifier<Customization>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

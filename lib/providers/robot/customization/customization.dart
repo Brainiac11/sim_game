@@ -8,8 +8,6 @@ part 'customization.freezed.dart';
 @unfreezed
 abstract class Customization with _$Customization {
   factory Customization({
-    required Motor drivetrainMotor,
-    required Wheel drivetrainWheel,
     required Drivetrain drivetrain,
   }) = _Customization;
 }
