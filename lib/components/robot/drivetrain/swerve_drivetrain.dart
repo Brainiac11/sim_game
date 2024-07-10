@@ -7,15 +7,10 @@ import 'package:player_move/components/robot/wheels/wheel.dart';
 
 class SwerveDrivetrain extends Drivetrain {
   Wheel wheel;
-  WidgetRef ref;
-  dynamic constants;
-  SwerveDrivetrain(
-      {required this.ref,
-      required super.motors,
-      required this.wheel,
-      required this.constants}) {
-    wheel.updateTotalAcceleration(ref, constants);
-  }
+  SwerveDrivetrain({
+    required super.motors,
+    required this.wheel,
+  });
 
   @override
   void firstJoystickMovement(Vector2 value, Body body, dynamic constants) {
@@ -45,5 +40,10 @@ class SwerveDrivetrain extends Drivetrain {
     } else {
       body.angularDamping = constants.kAngularIdleDeccelerationRate;
     }
+  }
+
+  @override
+  String toString() {
+    return ["SwerveDrivetrain", wheel.toString()].toString();
   }
 }

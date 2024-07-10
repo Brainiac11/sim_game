@@ -3,15 +3,17 @@ import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:riverpod/src/provider.dart';
 
 class NeoMotor extends Motor {
-  WidgetRef ref;
-  Provider provider;
-  NeoMotor({required this.ref, required this.provider})
-      : super(acceleration: 14, maximumSpeed: 10, cost: 10);
+  NeoMotor() : super(acceleration: 14, maximumSpeed: 10, cost: 10);
   @override
-  void updateTotalAcceleration(WidgetRef ref, Provider provider) {}
+  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
 
   @override
-  void updateTotalMaxSpeed(WidgetRef ref, Provider provider) {
+  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {
     // TODO: implement updateTotalMaxSpeed
+  }
+
+  @override
+  String toString() {
+    return "NEO";
   }
 }

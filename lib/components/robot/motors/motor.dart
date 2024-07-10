@@ -16,11 +16,17 @@ abstract class Motor {
   });
 
   @mustBeOverridden
-  void updateTotalAcceleration(WidgetRef ref, Provider provider) {}
+  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
 
   @mustBeOverridden
-  void updateTotalMaxSpeed(WidgetRef ref, Provider provider) {}
+  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {}
 
   /// Will integrate later
-  void updateTotalCost(WidgetRef ref, Provider provider) {}
+  void updateTotalCost(WidgetRef ref, dynamic constants) {}
+
+  @mustBeOverridden
+  @override
+  String toString() {
+    return "";
+  }
 }

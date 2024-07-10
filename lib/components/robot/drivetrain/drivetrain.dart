@@ -13,4 +13,10 @@ abstract class Drivetrain {
 
   @mustBeOverridden
   void secondJoystickMovement(Vector2 value, Body body, dynamic constants) {}
+
+  @mustBeOverridden
+  @override
+  String toString() {
+    return "";
+  }
 }

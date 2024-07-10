@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/src/consumer.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 
 class BilletWheel extends Wheel {
@@ -8,5 +9,10 @@ class BilletWheel extends Wheel {
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic provider) {
     ref.read(provider);
+  }
+
+  @override
+  String toString() {
+    return "Billet";
   }
 }

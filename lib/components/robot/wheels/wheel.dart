@@ -15,4 +15,10 @@ abstract class Wheel {
 
   /// will implement later
   void updateTotalCost(WidgetRef ref, dynamic constants) {}
+
+  @mustBeOverridden
+  @override
+  String toString() {
+    return "";
+  }
 }
