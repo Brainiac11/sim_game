@@ -1,13 +1,16 @@
 import 'package:flame/components.dart';
+import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:player_move/components/robot/motors/motor.dart';
 
 abstract class Drivetrain {
-  late Vector2 direction;
-  late double x;
-  late double y;
-  void moveDrivetrain(List<Vector2> newDirections, double dt) {
-    direction = newDirections.first;
+  Motor motors;
 
-    x += direction.x / 3600 * dt;
-    y += direction.y / 3600 * dt;
-  }
+  Drivetrain({required this.motors});
+
+  @mustBeOverridden
+  void firstJoystickMovement(Vector2 value, Body body, dynamic constants) {}
+
+  @mustBeOverridden
+  void secondJoystickMovement(Vector2 value, Body body, dynamic constants) {}
 }

@@ -1,45 +1,49 @@
+import 'package:flame/components.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:forge2d/src/dynamics/body.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/wheels/wheel.dart';
 
 class SwerveDrivetrain extends Drivetrain {
-  // SwerveDrivetrain({required this.rotational, required this.direction});
+  Wheel wheel;
+  WidgetRef ref;
+  dynamic constants;
+  SwerveDrivetrain(
+      {required this.ref,
+      required super.motors,
+      required this.wheel,
+      required this.constants}) {
+    wheel.updateTotalAcceleration(ref, constants);
+  }
 
-  // @override
-  // // ignore: overridden_fields
-  // Vector2 direction;
+  @override
+  void firstJoystickMovement(Vector2 value, Body body, dynamic constants) {
+    body.applyLinearImpulse(value * constants.kTranslationalAccelerationRate);
 
-  // Vector2 rotational;
+    if (kDebugMode) {
+      print(value.length);
+    }
+    body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
+    if (body.linearVelocity.length >
+        value.length * constants.kTranslationalAccelerationRate) {
+      body.linearDamping = constants.kTranslationalDeccelerationRate;
+    } else {
+      body.linearDamping = constants.kTranslationalIdleDeccelerationRate;
+    }
+  }
 
-  // /// The angle of the drivetrain relative to the screen in radians
-  // double screenAngle = 0;
+  @override
+  void secondJoystickMovement(Vector2 value, Body body, dynamic constants) {
+    body.angularVelocity
+        .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
+    body.applyAngularImpulse(value.x * constants.kAngularAccelerationRate);
 
-  // // arb time values
-  // late AccelerationController translationalAccelerationController =
-  //     AccelerationController(
-  //         rawVector: direction, maxSpeed: direction, accelerationTime: 0.01);
-
-  // // arb time values
-  // late AccelerationController rotationalAccelerationController =
-  //     AccelerationController(
-  //         rawVector: rotational, maxSpeed: rotational, accelerationTime: 0.005);
-
-  // @override
-  // void moveDrivetrain(List<Vector2> newDirections, double dt) {
-  //   translateDrivetrain(newDirections.first);
-  //   rotateDrivetrain(newDirections.last);
-  //   screenAngle = rotational.screenAngle();
-  // }
-
-  // void translateDrivetrain(Vector2 newTranslational){
-  //   translationalAccelerationController.rawVector = newTranslational;
-  //   translationalAccelerationController.maxSpeed = newTranslational; // For simplicity sake we will do this for now
-  //   translationalAccelerationController.accelerate(0);
-  //   direction = translationalAccelerationController.currentVector;
-  // }
-
-  // void rotateDrivetrain(Vector2 newRotational) {
-  //   rotationalAccelerationController.rawVector = newRotational;
-  //   rotationalAccelerationController.maxSpeed = newRotational; // For simplicity sake we will do this for now
-  //   rotationalAccelerationController.accelerate(0);
-  //   rotational = rotationalAccelerationController.currentVector;
-  // }
+    if (body.angularVelocity >
+        value.x.abs() * constants.kAngularAccelerationRate) {
+      body.angularDamping = constants.kAngularDeccelerationRate;
+    } else {
+      body.angularDamping = constants.kAngularIdleDeccelerationRate;
+    }
+  }
 }

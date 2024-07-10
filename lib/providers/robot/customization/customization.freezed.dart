@@ -16,8 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Customization {
-  bool get underBumperIntake => throw _privateConstructorUsedError;
-  set underBumperIntake(bool value) => throw _privateConstructorUsedError;
+  Motor get drivetrainMotor => throw _privateConstructorUsedError;
+  set drivetrainMotor(Motor value) => throw _privateConstructorUsedError;
+  Wheel get drivetrainWheel => throw _privateConstructorUsedError;
+  set drivetrainWheel(Wheel value) => throw _privateConstructorUsedError;
+  Drivetrain get drivetrain => throw _privateConstructorUsedError;
+  set drivetrain(Drivetrain value) => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CustomizationCopyWith<Customization> get copyWith =>
@@ -30,7 +34,8 @@ abstract class $CustomizationCopyWith<$Res> {
           Customization value, $Res Function(Customization) then) =
       _$CustomizationCopyWithImpl<$Res, Customization>;
   @useResult
-  $Res call({bool underBumperIntake});
+  $Res call(
+      {Motor drivetrainMotor, Wheel drivetrainWheel, Drivetrain drivetrain});
 }
 
 /// @nodoc
@@ -46,13 +51,23 @@ class _$CustomizationCopyWithImpl<$Res, $Val extends Customization>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? underBumperIntake = null,
+    Object? drivetrainMotor = null,
+    Object? drivetrainWheel = null,
+    Object? drivetrain = null,
   }) {
     return _then(_value.copyWith(
-      underBumperIntake: null == underBumperIntake
-          ? _value.underBumperIntake
-          : underBumperIntake // ignore: cast_nullable_to_non_nullable
-              as bool,
+      drivetrainMotor: null == drivetrainMotor
+          ? _value.drivetrainMotor
+          : drivetrainMotor // ignore: cast_nullable_to_non_nullable
+              as Motor,
+      drivetrainWheel: null == drivetrainWheel
+          ? _value.drivetrainWheel
+          : drivetrainWheel // ignore: cast_nullable_to_non_nullable
+              as Wheel,
+      drivetrain: null == drivetrain
+          ? _value.drivetrain
+          : drivetrain // ignore: cast_nullable_to_non_nullable
+              as Drivetrain,
     ) as $Val);
   }
 }
@@ -65,7 +80,8 @@ abstract class _$$CustomizationImplCopyWith<$Res>
       __$$CustomizationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool underBumperIntake});
+  $Res call(
+      {Motor drivetrainMotor, Wheel drivetrainWheel, Drivetrain drivetrain});
 }
 
 /// @nodoc
@@ -79,13 +95,23 @@ class __$$CustomizationImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? underBumperIntake = null,
+    Object? drivetrainMotor = null,
+    Object? drivetrainWheel = null,
+    Object? drivetrain = null,
   }) {
     return _then(_$CustomizationImpl(
-      underBumperIntake: null == underBumperIntake
-          ? _value.underBumperIntake
-          : underBumperIntake // ignore: cast_nullable_to_non_nullable
-              as bool,
+      drivetrainMotor: null == drivetrainMotor
+          ? _value.drivetrainMotor
+          : drivetrainMotor // ignore: cast_nullable_to_non_nullable
+              as Motor,
+      drivetrainWheel: null == drivetrainWheel
+          ? _value.drivetrainWheel
+          : drivetrainWheel // ignore: cast_nullable_to_non_nullable
+              as Wheel,
+      drivetrain: null == drivetrain
+          ? _value.drivetrain
+          : drivetrain // ignore: cast_nullable_to_non_nullable
+              as Drivetrain,
     ));
   }
 }
@@ -93,14 +119,21 @@ class __$$CustomizationImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CustomizationImpl implements _Customization {
-  _$CustomizationImpl({required this.underBumperIntake});
+  _$CustomizationImpl(
+      {required this.drivetrainMotor,
+      required this.drivetrainWheel,
+      required this.drivetrain});
 
   @override
-  bool underBumperIntake;
+  Motor drivetrainMotor;
+  @override
+  Wheel drivetrainWheel;
+  @override
+  Drivetrain drivetrain;
 
   @override
   String toString() {
-    return 'Customization(underBumperIntake: $underBumperIntake)';
+    return 'Customization(drivetrainMotor: $drivetrainMotor, drivetrainWheel: $drivetrainWheel, drivetrain: $drivetrain)';
   }
 
   @JsonKey(ignore: true)
@@ -111,12 +144,20 @@ class _$CustomizationImpl implements _Customization {
 }
 
 abstract class _Customization implements Customization {
-  factory _Customization({required bool underBumperIntake}) =
-      _$CustomizationImpl;
+  factory _Customization(
+      {required Motor drivetrainMotor,
+      required Wheel drivetrainWheel,
+      required Drivetrain drivetrain}) = _$CustomizationImpl;
 
   @override
-  bool get underBumperIntake;
-  set underBumperIntake(bool value);
+  Motor get drivetrainMotor;
+  set drivetrainMotor(Motor value);
+  @override
+  Wheel get drivetrainWheel;
+  set drivetrainWheel(Wheel value);
+  @override
+  Drivetrain get drivetrain;
+  set drivetrain(Drivetrain value);
   @override
   @JsonKey(ignore: true)
   _$$CustomizationImplCopyWith<_$CustomizationImpl> get copyWith =>

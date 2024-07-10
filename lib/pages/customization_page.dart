@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
@@ -16,7 +17,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsNotifierProvider);
     final robot = ref.watch(robotProviderProvider);
-    
-    return 
+
+    return Scaffold();
   }
 }
