@@ -12,38 +12,30 @@ import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
 class Robot extends BodyComponent with RiverpodComponentMixin {
-  Robot({super.key});
+  Robot({super.key}) {
+    super.bodyDef =
+        BodyDef(active: false, isAwake: false, position: Vector2(-100, -100));
+  }
 
   Vector2 acceleration = Vector2.zero();
   late PolygonShape shape;
-  late FixtureDef fixtureDef;
-  late BodyDef robotDef;
-  ThemeMode themeMode = ThemeMode.system;
-  late RobotConstants constants = RobotConstants(
-    kDensity: 0,
-    kFriction: 0,
-    kRestitution: 0,
-    kHalfWidth: 0,
-    kHalfHeight: 0,
-    kMaxTranslationalSpeed: 0,
-    kMaxAngularSpeed: 0,
-    kTranslationalAccelerationRate: 0,
-    kAngularAccelerationRate: 0,
-    kTranslationalDeccelerationRate: 0,
-    kTranslationalIdleDeccelerationRate: 0,
-    kAngularDeccelerationRate: 0,
-    kAngularIdleDeccelerationRate: 0,
+  FixtureDef? fixtureDef;
+  BodyDef robotDef = BodyDef(
+    position: Vector2(kWorldSize.x / 100, kWorldSize.y / 100),
+    type: BodyType.dynamic,
   );
+  ThemeMode themeMode = ThemeMode.system;
+  late RobotConstants constants;
 
   @override
   void onMount() {
-    addToGameWidgetBuild(() {
+    addToGameWidgetBuild(() async {
       // ref.listen(settingsProvider, (settings, setting) {
       //   setting.settings.isDarkMode
       //       ? themeMode = ThemeMode.dark
       //       : themeMode = ThemeMode.light;
       // });
-      constants = ref.watch(robotProviderProvider);
+      constants = await ref.watch(robotProviderProvider);
       themeMode = ref.watch(settingsNotifierProvider).themeMode;
       shape = PolygonShape()
         ..setAsBox(
@@ -53,22 +45,13 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
         ..density = constants.kDensity
         ..friction = constants.kFriction
         ..restitution = constants.kRestitution;
+      super.bodyDef = robotDef;
+      super.body = world.createBody(robotDef)..createFixture(fixtureDef!);
     });
-
     super.onMount();
   }
 
-  @override
-  Body createBody() {
-    robotDef = BodyDef(
-      position: Vector2(kWorldSize.x / 100, kWorldSize.y / 100),
-      type: BodyType.dynamic,
-    );
-    return world.createBody(robotDef)
-      ..createFixture(FixtureDef(PolygonShape()..setAsBoxXY(0.5, 0.5)));
-  }
-
-  FutureOr<void> linearMovement(Vector2 value) async {
+  void linearMovement(Vector2 value) {
     body.applyLinearImpulse(value * constants.kTranslationalAccelerationRate);
 
     if (kDebugMode) {
@@ -83,7 +66,7 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
     }
   }
 
-  FutureOr<void> angularMovement(Vector2 value) async {
+  void angularMovement(Vector2 value) {
     body.angularVelocity
         .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
     body.applyAngularImpulse(value.x * constants.kAngularAccelerationRate);
@@ -98,14 +81,8 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
 
   @override
   void render(Canvas canvas) {
-    try {
-      if (super.fixtureDefs!.first != fixtureDef) {
-        super.fixtureDefs!.clear();
-        super.fixtureDefs!.first = fixtureDef;
-        super.paint.color =
-            themeMode == ThemeMode.dark ? Colors.white : Colors.black;
-        super.render(canvas);
-      }
-    } catch (e) {}
+    super.paint.color =
+        themeMode == ThemeMode.dark ? Colors.white : Colors.black;
+    super.render(canvas);
   }
 }

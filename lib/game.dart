@@ -45,7 +45,6 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     await world.add(BorderEdge(borderKey: const ValueKey("Left")));
     robot = Robot();
     await world.add(robot);
-    robot.createBody();
   }
 
   @override
@@ -63,12 +62,12 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     return Colors.red;
   }
 
-  void linearMovement(Vector2 value) async {
-    await robot.linearMovement(value);
+  void linearMovement(Vector2 value) {
+    robot.linearMovement(value);
   }
 
-  void angularMovement(Vector2 value) async {
-    await robot.angularMovement(value);
+  void angularMovement(Vector2 value) {
+    robot.angularMovement(value);
   }
 }
 
