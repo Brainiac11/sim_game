@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/drivetrain/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/motors/neo_1.1_motor.dart';
@@ -15,21 +12,54 @@ part 'robot_customization.g.dart';
 class RobotCustomization extends _$RobotCustomization {
   @override
   Customization build() {
+    _loadSettings();
     return Customization(
       drivetrain: SwerveDrivetrain(motors: NeoMotor(), wheel: BilletWheel()),
     );
+  }
+
+  Future<void> _loadSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> drivetrain = prefs.getStringList("drivetrain") ??
+        SwerveDrivetrain(motors: NeoMotor(), wheel: BilletWheel())
+            .toString()
+            .split(',');
+    List<String> dtL = drivetrain.toList(growable: false);
+    Drivetrain dt;
+    switch (dtL[0]) {
+      case "SwerveDrivetrain":
+        dt = SwerveDrivetrain(motors: NeoMotor(), wheel: BilletWheel());
+        break;
+      default:
+        dt = SwerveDrivetrain(motors: NeoMotor(), wheel: BilletWheel());
+    }
+    switch (dtL[1]) {
+      case "NEO":
+        dt.motors = NeoMotor();
+        break;
+      default:
+        dt.motors = NeoMotor();
+    }
+
+    if (dt.runtimeType == SwerveDrivetrain) {
+      switch (dtL[2]) {
+        case "Billet":
+          dt = SwerveDrivetrain(motors: dt.motors, wheel: BilletWheel());
+      }
+    }
+
+    if (kDebugMode) {
+      print("Drivetrain Config: ${dt.toString()}");
+    }
+
+    state = state.copyWith(drivetrain: dt);
   }
 
   void updateDrivetrain(Drivetrain drivetrain) async {
     state = state.copyWith(drivetrain: drivetrain);
     final prefs = await SharedPreferences.getInstance();
 
-    prefs.setStringList('drivetrain', [
-      state.drivetrain
-          .toString()
-          .split(',')
-          .join(state.drivetrain.motors.toString())
-    ]);
+    prefs.setStringList('drivetrain', state.drivetrain.toString().split(','));
 
     if (kDebugMode) {
       print(

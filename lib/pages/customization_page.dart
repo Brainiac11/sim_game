@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
@@ -18,6 +18,8 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
     final settings = ref.watch(settingsNotifierProvider);
     final robot = ref.watch(robotProviderProvider);
 
-    return Scaffold();
+    return Scaffold(
+      body: Column(),
+    );
   }
 }

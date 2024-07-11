@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forge2d/src/dynamics/body.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
@@ -44,6 +43,6 @@ class SwerveDrivetrain extends Drivetrain {
 
   @override
   String toString() {
-    return ["SwerveDrivetrain", wheel.toString()].toString();
+    return ["SwerveDrivetrain", motors.toString(), wheel.toString()].toString();
   }
 }
