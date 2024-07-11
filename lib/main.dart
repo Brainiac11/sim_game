@@ -4,9 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:player_move/constants.dart';
+import 'package:player_move/pages/customization_page.dart';
 import 'package:player_move/pages/home_page.dart';
 import 'package:player_move/pages/match_page.dart';
 import 'package:player_move/pages/settings_page.dart';
+import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
 void main() {
@@ -32,6 +34,13 @@ final GoRouter router = GoRouter(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
         return const HomePage();
+      },
+    ),
+    GoRoute(
+      name: "Customization",
+      path: '/customization',
+      builder: (BuildContext context, GoRouterState state) {
+        return const RobotCustomizationScreen();
       },
     ),
     GoRoute(

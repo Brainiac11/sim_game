@@ -50,6 +50,12 @@ class HomePageState extends ConsumerState<HomePage> {
               },
               child: const Text("Go to Game"),
             ),
+            ElevatedButton(
+              onPressed: () {
+                router.go("/customization");
+              },
+              child: const Text("Go to Customization"),
+            )
           ],
         ),
       ),
