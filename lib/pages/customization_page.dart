@@ -27,17 +27,14 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
   late List<Object> cardIndexList;
 
   Widget generateCards(int index) {
-    switch (cardIndexList[index].runtimeType) {
-      case Drivetrain:
-        print("drivetrain");
-        switch (cardIndexList[index].runtimeType) {
-          case SwerveDrivetrain:
-            print("Swerve");
-            return CustomizationCard(key: Key("SwerveDrivetrain"));
-        }
-        break;
+    Object c = cardIndexList[index].runtimeType;
+    switch (c) {
+      case SwerveDrivetrain:
+        print("Swerve");
+        return CustomizationCard(key: Key("SwerveDrivetrain"));
       default:
-        return Placeholder();
+        print("defaulting ${c.toString()}");
+        break;
     }
     return Placeholder();
   }
