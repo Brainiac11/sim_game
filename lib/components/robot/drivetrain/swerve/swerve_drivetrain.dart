@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:forge2d/src/dynamics/body.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
-import 'package:player_move/components/robot/drivetrain/swerve/gear_ratios/gear_ratio.dart';
+import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 
 class SwerveDrivetrain extends Drivetrain {
