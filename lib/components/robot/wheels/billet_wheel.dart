@@ -1,3 +1,4 @@
+import 'package:flutter/src/widgets/image.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 
@@ -14,4 +15,7 @@ class BilletWheel extends Wheel {
   String toString() {
     return "Billet";
   }
+
+  @override
+  Image toImage() {}
 }
