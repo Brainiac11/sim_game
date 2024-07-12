@@ -8,7 +8,6 @@ import 'package:player_move/pages/customization_page.dart';
 import 'package:player_move/pages/home_page.dart';
 import 'package:player_move/pages/match_page.dart';
 import 'package:player_move/pages/settings_page.dart';
-import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
 void main() {

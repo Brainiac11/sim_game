@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CustomizationCard extends ConsumerStatefulWidget {
@@ -21,7 +20,7 @@ class CustomizationCardState extends ConsumerState<CustomizationCard> {
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         position: DecorationPosition.background,
-        child: Column(
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(

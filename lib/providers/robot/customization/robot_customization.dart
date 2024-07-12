@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
-import 'package:player_move/components/robot/drivetrain/swerve_drivetrain.dart';
+import 'package:player_move/components/robot/gear_ratios/l_2_gear_ratio.dart';
+import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/motors/neo_1.1_motor.dart';
 import 'package:player_move/components/robot/wheels/billet_wheel.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
@@ -14,24 +15,30 @@ class RobotCustomization extends _$RobotCustomization {
   Customization build() {
     _loadSettings();
     return Customization(
-      drivetrain: SwerveDrivetrain(motors: NeoMotor(), wheel: BilletWheel()),
+      drivetrain: SwerveDrivetrain(
+          motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio()),
     );
   }
 
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     final List<String> drivetrain = prefs.getStringList("drivetrain") ??
-        SwerveDrivetrain(motors: NeoMotor(), wheel: BilletWheel())
+        SwerveDrivetrain(
+                motors: NeoMotor(),
+                wheel: BilletWheel(),
+                gearRatio: L2GearRatio())
             .toString()
             .split(',');
     List<String> dtL = drivetrain.toList(growable: false);
     Drivetrain dt;
     switch (dtL[0]) {
       case "SwerveDrivetrain":
-        dt = SwerveDrivetrain(motors: NeoMotor(), wheel: BilletWheel());
+        dt = SwerveDrivetrain(
+            motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio());
         break;
       default:
-        dt = SwerveDrivetrain(motors: NeoMotor(), wheel: BilletWheel());
+        dt = SwerveDrivetrain(
+            motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio());
     }
     switch (dtL[1]) {
       case "NEO":
@@ -44,7 +51,19 @@ class RobotCustomization extends _$RobotCustomization {
     if (dt.runtimeType == SwerveDrivetrain) {
       switch (dtL[2]) {
         case "Billet":
-          dt = SwerveDrivetrain(motors: dt.motors, wheel: BilletWheel());
+          dt = SwerveDrivetrain(
+            motors: dt.motors,
+            wheel: BilletWheel(),
+            gearRatio: L2GearRatio(),
+          );
+      }
+      switch (dtL[3]) {
+        case "L2":
+          dt = SwerveDrivetrain(
+            motors: dt.motors,
+            wheel: BilletWheel(),
+            gearRatio: L2GearRatio(),
+          );
       }
     }
 

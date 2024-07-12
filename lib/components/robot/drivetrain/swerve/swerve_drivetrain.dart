@@ -2,13 +2,16 @@ import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:forge2d/src/dynamics/body.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/drivetrain/swerve/gear_ratios/gear_ratio.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 
 class SwerveDrivetrain extends Drivetrain {
   Wheel wheel;
+  GearRatio gearRatio;
   SwerveDrivetrain({
     required super.motors,
     required this.wheel,
+    required this.gearRatio,
   });
 
   @override
@@ -43,6 +46,11 @@ class SwerveDrivetrain extends Drivetrain {
 
   @override
   String toString() {
-    return ["SwerveDrivetrain", motors.toString(), wheel.toString()].toString();
+    return [
+      "SwerveDrivetrain",
+      motors.toString(),
+      wheel.toString(),
+      gearRatio.toString()
+    ].toString();
   }
 }

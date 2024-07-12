@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/drivetrain/swerve_drivetrain.dart';
 import 'package:player_move/custom_widgets/customization_card.dart';
 import 'package:player_move/main.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
-import 'package:player_move/providers/robot/robot_provider.dart';
-import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class RobotCustomizationScreen extends ConsumerStatefulWidget {
@@ -31,12 +27,12 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
     switch (c) {
       case SwerveDrivetrain:
         print("Swerve");
-        return CustomizationCard(key: Key("SwerveDrivetrain"));
+        return const CustomizationCard(key: Key("SwerveDrivetrain"));
       default:
         print("defaulting ${c.toString()}");
         break;
     }
-    return Placeholder();
+    return const Placeholder();
   }
 
   @override
@@ -51,7 +47,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
           Align(
             alignment: Alignment.topLeft,
             child: BackButton(
-              style: ButtonStyle(),
+              style: const ButtonStyle(),
               onPressed: () {
                 HapticFeedback.selectionClick();
                 router.go('/');
