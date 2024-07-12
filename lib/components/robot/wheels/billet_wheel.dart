@@ -17,5 +17,7 @@ class BilletWheel extends Wheel {
   }
 
   @override
-  Image toImage() {}
+  Image toImage() {
+    return Image.asset("billet_wheel.png");
+  }
 }

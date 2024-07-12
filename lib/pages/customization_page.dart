@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/drivetrain/swerve_drivetrain.dart';
 import 'package:player_move/custom_widgets/customization_card.dart';
 import 'package:player_move/main.dart';
+import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -21,8 +24,27 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
     HapticFeedback.selectionClick();
   }
 
+  late List<Object> cardIndexList;
+
+  Widget generateCards(int index) {
+    switch (cardIndexList[index].runtimeType) {
+      case Drivetrain:
+        print("drivetrain");
+        switch (cardIndexList[index].runtimeType) {
+          case SwerveDrivetrain:
+            print("Swerve");
+            return CustomizationCard(key: Key("SwerveDrivetrain"));
+        }
+        break;
+      default:
+        return Placeholder();
+    }
+    return Placeholder();
+  }
+
   @override
   Widget build(BuildContext context) {
+    cardIndexList = [ref.read(robotCustomizationProvider).drivetrain];
     // final settings = ref.watch(settingsNotifierProvider);
     // final robot = ref.watch(robotProviderProvider);
 
@@ -40,12 +62,10 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
             ),
           ),
           CarouselSlider(
-            items: [
-              CustomizationCard(),
-              CustomizationCard(),
-              CustomizationCard(),
-              CustomizationCard(),
-            ],
+            items: List.generate(
+              cardIndexList.length,
+              generateCards,
+            ),
             options: CarouselOptions(
               height: MediaQuery.of(context).size.height / 1.5,
               aspectRatio: 3 / 2,
