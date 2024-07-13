@@ -1,7 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:player_move/components/robot/drivetrain/swerve_drivetrain.dart';
+import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/custom_widgets/customization_card.dart';
 import 'package:player_move/main.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
@@ -26,10 +27,14 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
     Object c = cardIndexList[index].runtimeType;
     switch (c) {
       case SwerveDrivetrain:
-        print("Swerve");
-        return const CustomizationCard(key: Key("SwerveDrivetrain"));
+        if (kDebugMode) {
+          print("Swerve");
+        }
+        return const CustomizationCard(key: Key("Swerve Drivetrain"));
       default:
-        print("defaulting ${c.toString()}");
+        if (kDebugMode) {
+          print("defaulting ${c.toString()}");
+        }
         break;
     }
     return const Placeholder();
