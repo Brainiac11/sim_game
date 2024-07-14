@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:player_move/main.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
@@ -16,7 +17,8 @@ class HomePageState extends ConsumerState<HomePage> {
     if (kDebugMode) {
       print("Going to Settings");
     }
-    router.go("/settings");
+    // router.go("/settings");
+    context.go("/settings");
     super.reassemble();
   }
 
@@ -45,14 +47,14 @@ class HomePageState extends ConsumerState<HomePage> {
                 if (kDebugMode) {
                   print("Hello");
                 }
-                router.go('/match');
+                context.go('/match');
                 super.deactivate();
               },
               child: const Text("Go to Game"),
             ),
             ElevatedButton(
               onPressed: () {
-                router.go("/customization");
+                context.go("/customization");
               },
               child: const Text("Go to Customization"),
             )

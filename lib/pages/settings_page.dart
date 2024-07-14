@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
+import 'package:go_router/go_router.dart';
 import 'package:player_move/main.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
@@ -43,7 +44,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
         elevation: 0,
         leading: TextButton(
           onPressed: () {
-            router.go('/');
+            context.go('/');
           },
           child: const Icon(
             Icons.arrow_back_rounded,

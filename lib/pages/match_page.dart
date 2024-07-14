@@ -1,6 +1,7 @@
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:player_move/main.dart';
 import '../helpers/joypad.dart';
 
@@ -59,7 +60,7 @@ class MatchPageState extends State<MatchPage> {
                 iconColor: WidgetStateProperty.all(Colors.white),
               ),
               onPressed: () {
-                router.go('/');
+                context.go('/');
               },
             ),
           ),

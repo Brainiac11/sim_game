@@ -1,12 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
+import 'package:player_move/constants.dart';
 import 'package:player_move/custom_widgets/customization_card.dart';
 import 'package:player_move/main.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:player_move/providers/settings/settings_notifier.dart';
 
 class RobotCustomizationScreen extends ConsumerStatefulWidget {
   const RobotCustomizationScreen({super.key});
@@ -30,7 +34,29 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
         if (kDebugMode) {
           print("Swerve");
         }
-        return const CustomizationCard(key: Key("Swerve Drivetrain"));
+        return CustomizationCard(
+          key: const Key("Swerve Drivetrain"),
+          widgetsList: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Text(
+                  "Drivetrain",
+                  style: TextStyle(),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text("Swerve"),
+                ),
+              ],
+            ),
+          ],
+        );
       default:
         if (kDebugMode) {
           print("defaulting ${c.toString()}");
@@ -55,7 +81,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
               style: const ButtonStyle(),
               onPressed: () {
                 HapticFeedback.selectionClick();
-                router.go('/');
+                context.go('/');
               },
             ),
           ),

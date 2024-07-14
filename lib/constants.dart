@@ -32,4 +32,5 @@ ThemeData kTheme = ThemeData.from(
     dynamicSchemeVariant: DynamicSchemeVariant.tonalSpot,
     brightness: Brightness.light,
   ),
+  useMaterial3: true,
 );
