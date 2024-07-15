@@ -36,44 +36,44 @@
       "tertiary": "#ff6b5778",
       "tertiaryContainer": "#fff2daff"
     },
-    "height": 36,
+    "height": 36.0,
     "layoutBehavior": "padded",
-    "minWidth": 88,
+    "minWidth": 88.0,
     "padding": {
-      "bottom": 0,
-      "left": 16,
-      "right": 16,
-      "top": 0
+      "bottom": 0.0,
+      "left": 16.0,
+      "right": 16.0,
+      "top": 0.0
     },
     "shape": {
       "borderRadius": {
         "bottomLeft": {
           "type": "elliptical",
-          "x": 2,
-          "y": 2
+          "x": 2.0,
+          "y": 2.0
         },
         "bottomRight": {
           "type": "elliptical",
-          "x": 2,
-          "y": 2
+          "x": 2.0,
+          "y": 2.0
         },
         "topLeft": {
           "type": "elliptical",
-          "x": 2,
-          "y": 2
+          "x": 2.0,
+          "y": 2.0
         },
         "topRight": {
           "type": "elliptical",
-          "x": 2,
-          "y": 2
+          "x": 2.0,
+          "y": 2.0
         },
         "type": "only"
       },
       "side": {
         "color": "#ff000000",
-        "strokeAlign": -1,
+        "strokeAlign": -1.0,
         "style": "none",
-        "width": 0
+        "width": 0.0
       },
       "type": "rounded"
     },
@@ -147,7 +147,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 16,
+      "fontSize": 16.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.5,
@@ -158,7 +158,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 14,
+      "fontSize": 14.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.25,
@@ -169,7 +169,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 12,
+      "fontSize": 12.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.4,
@@ -180,7 +180,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 96,
+      "fontSize": 96.0,
       "fontWeight": "w300",
       "inherit": false,
       "letterSpacing": -1.5,
@@ -191,7 +191,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 60,
+      "fontSize": 60.0,
       "fontWeight": "w300",
       "inherit": false,
       "letterSpacing": -0.5,
@@ -202,10 +202,10 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 48,
+      "fontSize": 48.0,
       "fontWeight": "w400",
       "inherit": false,
-      "letterSpacing": 0,
+      "letterSpacing": 0.0,
       "textBaseline": "alphabetic"
     },
     "headlineLarge": {
@@ -213,7 +213,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 40,
+      "fontSize": 40.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.25,
@@ -224,7 +224,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 34,
+      "fontSize": 34.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.25,
@@ -235,10 +235,10 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 24,
+      "fontSize": 24.0,
       "fontWeight": "w400",
       "inherit": false,
-      "letterSpacing": 0,
+      "letterSpacing": 0.0,
       "textBaseline": "alphabetic"
     },
     "labelLarge": {
@@ -246,7 +246,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 14,
+      "fontSize": 14.0,
       "fontWeight": "w500",
       "inherit": false,
       "letterSpacing": 1.25,
@@ -257,7 +257,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 11,
+      "fontSize": 11.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 1.5,
@@ -268,7 +268,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 10,
+      "fontSize": 10.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 1.5,
@@ -279,7 +279,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 20,
+      "fontSize": 20.0,
       "fontWeight": "w500",
       "inherit": false,
       "letterSpacing": 0.15,
@@ -290,7 +290,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 16,
+      "fontSize": 16.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.15,
@@ -301,7 +301,7 @@
       "decoration": "none",
       "decorationColor": "#fff8f9ff",
       "fontFamily": "Segoe UI",
-      "fontSize": 14,
+      "fontSize": 14.0,
       "fontWeight": "w500",
       "inherit": false,
       "letterSpacing": 0.1,
@@ -319,7 +319,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 16,
+      "fontSize": 16.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.5,
@@ -330,7 +330,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 14,
+      "fontSize": 14.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.25,
@@ -341,7 +341,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 12,
+      "fontSize": 12.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.4,
@@ -352,7 +352,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 96,
+      "fontSize": 96.0,
       "fontWeight": "w300",
       "inherit": false,
       "letterSpacing": -1.5,
@@ -363,7 +363,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 60,
+      "fontSize": 60.0,
       "fontWeight": "w300",
       "inherit": false,
       "letterSpacing": -0.5,
@@ -374,10 +374,10 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 48,
+      "fontSize": 48.0,
       "fontWeight": "w400",
       "inherit": false,
-      "letterSpacing": 0,
+      "letterSpacing": 0.0,
       "textBaseline": "alphabetic"
     },
     "headlineLarge": {
@@ -385,7 +385,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 40,
+      "fontSize": 40.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.25,
@@ -396,7 +396,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 34,
+      "fontSize": 34.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.25,
@@ -407,10 +407,10 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 24,
+      "fontSize": 24.0,
       "fontWeight": "w400",
       "inherit": false,
-      "letterSpacing": 0,
+      "letterSpacing": 0.0,
       "textBaseline": "alphabetic"
     },
     "labelLarge": {
@@ -418,7 +418,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 14,
+      "fontSize": 14.0,
       "fontWeight": "w500",
       "inherit": false,
       "letterSpacing": 1.25,
@@ -429,7 +429,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 11,
+      "fontSize": 11.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 1.5,
@@ -440,7 +440,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 10,
+      "fontSize": 10.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 1.5,
@@ -451,7 +451,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 20,
+      "fontSize": 20.0,
       "fontWeight": "w500",
       "inherit": false,
       "letterSpacing": 0.15,
@@ -462,7 +462,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 16,
+      "fontSize": 16.0,
       "fontWeight": "w400",
       "inherit": false,
       "letterSpacing": 0.15,
@@ -473,7 +473,7 @@
       "decoration": "none",
       "decorationColor": "#ff191c20",
       "fontFamily": "Segoe UI",
-      "fontSize": 14,
+      "fontSize": 14.0,
       "fontWeight": "w500",
       "inherit": false,
       "letterSpacing": 0.1,
@@ -590,7 +590,7 @@
     },
     "dense": {
       "bodyLarge": {
-        "fontSize": 16,
+        "fontSize": 16.0,
         "fontWeight": "w400",
         "height": 1.5,
         "inherit": false,
@@ -599,7 +599,7 @@
         "textBaseline": "ideographic"
       },
       "bodyMedium": {
-        "fontSize": 14,
+        "fontSize": 14.0,
         "fontWeight": "w400",
         "height": 1.43,
         "inherit": false,
@@ -608,7 +608,7 @@
         "textBaseline": "ideographic"
       },
       "bodySmall": {
-        "fontSize": 12,
+        "fontSize": 12.0,
         "fontWeight": "w400",
         "height": 1.33,
         "inherit": false,
@@ -617,7 +617,7 @@
         "textBaseline": "ideographic"
       },
       "displayLarge": {
-        "fontSize": 57,
+        "fontSize": 57.0,
         "fontWeight": "w400",
         "height": 1.12,
         "inherit": false,
@@ -626,52 +626,52 @@
         "textBaseline": "ideographic"
       },
       "displayMedium": {
-        "fontSize": 45,
+        "fontSize": 45.0,
         "fontWeight": "w400",
         "height": 1.16,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "ideographic"
       },
       "displaySmall": {
-        "fontSize": 36,
+        "fontSize": 36.0,
         "fontWeight": "w400",
         "height": 1.22,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "ideographic"
       },
       "headlineLarge": {
-        "fontSize": 32,
+        "fontSize": 32.0,
         "fontWeight": "w400",
         "height": 1.25,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "ideographic"
       },
       "headlineMedium": {
-        "fontSize": 28,
+        "fontSize": 28.0,
         "fontWeight": "w400",
         "height": 1.29,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "ideographic"
       },
       "headlineSmall": {
-        "fontSize": 24,
+        "fontSize": 24.0,
         "fontWeight": "w400",
         "height": 1.33,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "ideographic"
       },
       "labelLarge": {
-        "fontSize": 14,
+        "fontSize": 14.0,
         "fontWeight": "w500",
         "height": 1.43,
         "inherit": false,
@@ -680,7 +680,7 @@
         "textBaseline": "ideographic"
       },
       "labelMedium": {
-        "fontSize": 12,
+        "fontSize": 12.0,
         "fontWeight": "w500",
         "height": 1.33,
         "inherit": false,
@@ -689,7 +689,7 @@
         "textBaseline": "ideographic"
       },
       "labelSmall": {
-        "fontSize": 11,
+        "fontSize": 11.0,
         "fontWeight": "w500",
         "height": 1.45,
         "inherit": false,
@@ -698,16 +698,16 @@
         "textBaseline": "ideographic"
       },
       "titleLarge": {
-        "fontSize": 22,
+        "fontSize": 22.0,
         "fontWeight": "w400",
         "height": 1.27,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "ideographic"
       },
       "titleMedium": {
-        "fontSize": 16,
+        "fontSize": 16.0,
         "fontWeight": "w500",
         "height": 1.5,
         "inherit": false,
@@ -716,7 +716,7 @@
         "textBaseline": "ideographic"
       },
       "titleSmall": {
-        "fontSize": 14,
+        "fontSize": 14.0,
         "fontWeight": "w500",
         "height": 1.43,
         "inherit": false,
@@ -727,7 +727,7 @@
     },
     "englishLike": {
       "bodyLarge": {
-        "fontSize": 16,
+        "fontSize": 16.0,
         "fontWeight": "w400",
         "height": 1.5,
         "inherit": false,
@@ -736,7 +736,7 @@
         "textBaseline": "alphabetic"
       },
       "bodyMedium": {
-        "fontSize": 14,
+        "fontSize": 14.0,
         "fontWeight": "w400",
         "height": 1.43,
         "inherit": false,
@@ -745,7 +745,7 @@
         "textBaseline": "alphabetic"
       },
       "bodySmall": {
-        "fontSize": 12,
+        "fontSize": 12.0,
         "fontWeight": "w400",
         "height": 1.33,
         "inherit": false,
@@ -754,7 +754,7 @@
         "textBaseline": "alphabetic"
       },
       "displayLarge": {
-        "fontSize": 57,
+        "fontSize": 57.0,
         "fontWeight": "w400",
         "height": 1.12,
         "inherit": false,
@@ -763,52 +763,52 @@
         "textBaseline": "alphabetic"
       },
       "displayMedium": {
-        "fontSize": 45,
+        "fontSize": 45.0,
         "fontWeight": "w400",
         "height": 1.16,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "displaySmall": {
-        "fontSize": 36,
+        "fontSize": 36.0,
         "fontWeight": "w400",
         "height": 1.22,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "headlineLarge": {
-        "fontSize": 32,
+        "fontSize": 32.0,
         "fontWeight": "w400",
         "height": 1.25,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "headlineMedium": {
-        "fontSize": 28,
+        "fontSize": 28.0,
         "fontWeight": "w400",
         "height": 1.29,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "headlineSmall": {
-        "fontSize": 24,
+        "fontSize": 24.0,
         "fontWeight": "w400",
         "height": 1.33,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "labelLarge": {
-        "fontSize": 14,
+        "fontSize": 14.0,
         "fontWeight": "w500",
         "height": 1.43,
         "inherit": false,
@@ -817,7 +817,7 @@
         "textBaseline": "alphabetic"
       },
       "labelMedium": {
-        "fontSize": 12,
+        "fontSize": 12.0,
         "fontWeight": "w500",
         "height": 1.33,
         "inherit": false,
@@ -826,7 +826,7 @@
         "textBaseline": "alphabetic"
       },
       "labelSmall": {
-        "fontSize": 11,
+        "fontSize": 11.0,
         "fontWeight": "w500",
         "height": 1.45,
         "inherit": false,
@@ -835,16 +835,16 @@
         "textBaseline": "alphabetic"
       },
       "titleLarge": {
-        "fontSize": 22,
+        "fontSize": 22.0,
         "fontWeight": "w400",
         "height": 1.27,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "titleMedium": {
-        "fontSize": 16,
+        "fontSize": 16.0,
         "fontWeight": "w500",
         "height": 1.5,
         "inherit": false,
@@ -853,7 +853,7 @@
         "textBaseline": "alphabetic"
       },
       "titleSmall": {
-        "fontSize": 14,
+        "fontSize": 14.0,
         "fontWeight": "w500",
         "height": 1.43,
         "inherit": false,
@@ -864,7 +864,7 @@
     },
     "tall": {
       "bodyLarge": {
-        "fontSize": 16,
+        "fontSize": 16.0,
         "fontWeight": "w400",
         "height": 1.5,
         "inherit": false,
@@ -873,7 +873,7 @@
         "textBaseline": "alphabetic"
       },
       "bodyMedium": {
-        "fontSize": 14,
+        "fontSize": 14.0,
         "fontWeight": "w400",
         "height": 1.43,
         "inherit": false,
@@ -882,7 +882,7 @@
         "textBaseline": "alphabetic"
       },
       "bodySmall": {
-        "fontSize": 12,
+        "fontSize": 12.0,
         "fontWeight": "w400",
         "height": 1.33,
         "inherit": false,
@@ -891,7 +891,7 @@
         "textBaseline": "alphabetic"
       },
       "displayLarge": {
-        "fontSize": 57,
+        "fontSize": 57.0,
         "fontWeight": "w400",
         "height": 1.12,
         "inherit": false,
@@ -900,52 +900,52 @@
         "textBaseline": "alphabetic"
       },
       "displayMedium": {
-        "fontSize": 45,
+        "fontSize": 45.0,
         "fontWeight": "w400",
         "height": 1.16,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "displaySmall": {
-        "fontSize": 36,
+        "fontSize": 36.0,
         "fontWeight": "w400",
         "height": 1.22,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "headlineLarge": {
-        "fontSize": 32,
+        "fontSize": 32.0,
         "fontWeight": "w400",
         "height": 1.25,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "headlineMedium": {
-        "fontSize": 28,
+        "fontSize": 28.0,
         "fontWeight": "w400",
         "height": 1.29,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "headlineSmall": {
-        "fontSize": 24,
+        "fontSize": 24.0,
         "fontWeight": "w400",
         "height": 1.33,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "labelLarge": {
-        "fontSize": 14,
+        "fontSize": 14.0,
         "fontWeight": "w500",
         "height": 1.43,
         "inherit": false,
@@ -954,7 +954,7 @@
         "textBaseline": "alphabetic"
       },
       "labelMedium": {
-        "fontSize": 12,
+        "fontSize": 12.0,
         "fontWeight": "w500",
         "height": 1.33,
         "inherit": false,
@@ -963,7 +963,7 @@
         "textBaseline": "alphabetic"
       },
       "labelSmall": {
-        "fontSize": 11,
+        "fontSize": 11.0,
         "fontWeight": "w500",
         "height": 1.45,
         "inherit": false,
@@ -972,16 +972,16 @@
         "textBaseline": "alphabetic"
       },
       "titleLarge": {
-        "fontSize": 22,
+        "fontSize": 22.0,
         "fontWeight": "w400",
         "height": 1.27,
         "inherit": false,
         "leadingDistribution": "even",
-        "letterSpacing": 0,
+        "letterSpacing": 0.0,
         "textBaseline": "alphabetic"
       },
       "titleMedium": {
-        "fontSize": 16,
+        "fontSize": 16.0,
         "fontWeight": "w500",
         "height": 1.5,
         "inherit": false,
@@ -990,7 +990,7 @@
         "textBaseline": "alphabetic"
       },
       "titleSmall": {
-        "fontSize": 14,
+        "fontSize": 14.0,
         "fontWeight": "w500",
         "height": 1.43,
         "inherit": false,

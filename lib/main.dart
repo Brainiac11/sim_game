@@ -15,13 +15,18 @@ import 'package:player_move/providers/settings/settings_notifier.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
-  final themeJson = jsonDecode(themeStr);
-  final theme = ThemeDecoder.decodeThemeData(themeJson)!;
+  var themeStr =
+      await rootBundle.loadString('assets/appainter_theme_light.json');
+  var themeJson = jsonDecode(themeStr);
+  final themeLight = ThemeDecoder.decodeThemeData(themeJson)!;
+  themeStr = await rootBundle.loadString('assets/appainter_theme_dark.json');
+  themeJson = jsonDecode(themeStr);
+  final themeDark = ThemeDecoder.decodeThemeData(themeJson)!;
   runApp(
     ProviderScope(
       child: App(
-        themeData: theme,
+        themeData: themeLight,
+        darkThemeData: themeDark,
       ),
     ),
   );
@@ -31,7 +36,8 @@ void main() async {
 
 class App extends ConsumerWidget {
   final ThemeData themeData;
-  App({super.key, required this.themeData});
+  final ThemeData darkThemeData;
+  App({super.key, required this.themeData, required this.darkThemeData});
   GoRouter router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
@@ -79,8 +85,8 @@ class App extends ConsumerWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: true,
       title: 'Robotics Games',
-      theme: themeData.copyWith(brightness: Brightness.dark),
-      darkTheme: themeData.copyWith(brightness: Brightness.dark),
+      theme: themeData,
+      darkTheme: darkThemeData,
       themeMode: settings.themeMode,
       routerConfig: router,
     );
