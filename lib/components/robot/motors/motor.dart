@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,8 +26,7 @@ abstract class Motor {
   /// Will integrate later
   void updateTotalCost(WidgetRef ref, dynamic constants) {}
 
-  @mustBeOverridden
-  Image toImage() {
+  static Image toImage() {
     return Image.asset("");
   }
 
