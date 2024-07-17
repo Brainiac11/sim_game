@@ -82,6 +82,9 @@ class App extends ConsumerWidget {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.immersiveSticky,
+    );
     return MaterialApp.router(
       debugShowCheckedModeBanner: true,
       title: 'Robotics Games',

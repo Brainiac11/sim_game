@@ -42,7 +42,10 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
               children: [
                 const Text(
                   "Drivetrain",
-                  style: TextStyle(),
+                  style: TextStyle(
+                    fontSize: TextSelectionToolbar.kHandleSize,
+                    fontFamily: appFlavor,
+                  ),
                 ),
               ],
             ),
@@ -52,6 +55,33 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
                 ElevatedButton(
                   onPressed: () {},
                   child: const Text("Swerve"),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text("Motors"),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text("Gearing"),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text("Wheels"),
                 ),
               ],
             ),

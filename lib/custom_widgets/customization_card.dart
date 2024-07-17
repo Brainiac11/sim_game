@@ -13,8 +13,11 @@ class CustomizationCard extends StatelessWidget {
     return SizedBox.expand(
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.blue,
-          border: Border.all(),
+          color: Theme.of(context).colorScheme.primaryContainer,
+          border: Border.all(
+            width: 0,
+            color: Theme.of(context).colorScheme.primaryContainer,
+          ),
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         position: DecorationPosition.background,
