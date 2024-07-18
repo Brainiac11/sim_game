@@ -11,6 +11,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/l_2_gear_ratio.dart';
+import 'package:player_move/components/robot/gear_ratios/l_3_gear_ratio.dart';
+import 'package:player_move/components/robot/gear_ratios/l_4_gear_ratio.dart';
 import 'package:player_move/components/robot/motors/neo_1.1_motor.dart';
 import 'package:player_move/components/robot/wheels/billet_wheel.dart';
 import 'package:player_move/constants.dart';
@@ -45,17 +47,20 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
         return CustomizationCard(
           key: const Key("Swerve Drivetrain"),
           widgetsList: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Text(
-                  "Drivetrain",
-                  style: TextStyle(
-                    fontSize: TextSelectionToolbar.kHandleSize,
-                    fontFamily: appFlavor,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Text(
+                    "Drivetrain",
+                    style: TextStyle(
+                      fontSize: TextSelectionToolbar.kHandleSize,
+                      fontFamily: appFlavor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -87,6 +92,15 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
                         NeoMotor();
                   },
                   icon: returnImages(NeoMotor),
+                  padding: const EdgeInsets.all(0),
+                  style: Theme.of(context).iconButtonTheme.style,
+                  isSelected: ref
+                          .read(robotCustomizationProvider)
+                          .drivetrain
+                          .motors
+                          .runtimeType ==
+                      NeoMotor,
+                  disabledColor: Colors.black38,
                   // iconSize: Theme.of(context).buttonTheme.minWidth,
                 ),
               ],
@@ -102,15 +116,35 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                IconButton(
+                TextButton(
+                  style: Theme.of(context).textButtonTheme.style,
                   onPressed: () {
                     SwerveDrivetrain swerve = ref
                         .read(robotCustomizationProvider)
                         .drivetrain as SwerveDrivetrain;
                     swerve.gearRatio = L2GearRatio();
                   },
-                  icon: const Icon(Icons.abc),
-                  // iconSize: Theme.of(context).buttonTheme.minWidth,
+                  child: Text(L2GearRatio().toString()),
+                ),
+                TextButton(
+                  style: Theme.of(context).textButtonTheme.style,
+                  onPressed: () {
+                    SwerveDrivetrain swerve = ref
+                        .read(robotCustomizationProvider)
+                        .drivetrain as SwerveDrivetrain;
+                    swerve.gearRatio = L3GearRatio();
+                  },
+                  child: Text(L3GearRatio().toString()),
+                ),
+                TextButton(
+                  style: Theme.of(context).textButtonTheme.style,
+                  onPressed: () {
+                    SwerveDrivetrain swerve = ref
+                        .read(robotCustomizationProvider)
+                        .drivetrain as SwerveDrivetrain;
+                    swerve.gearRatio = L4GearRatio();
+                  },
+                  child: Text(L4GearRatio().toString()),
                 ),
               ],
             ),
@@ -184,7 +218,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
               generateCards,
             ),
             options: CarouselOptions(
-              height: MediaQuery.of(context).size.height / 1.5,
+              height: MediaQuery.of(context).size.height / 1.2,
               aspectRatio: 3 / 2,
               viewportFraction: 0.4,
               initialPage: 0,
