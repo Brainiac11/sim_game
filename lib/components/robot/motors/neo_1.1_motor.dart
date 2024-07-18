@@ -1,3 +1,5 @@
+import 'package:flame/extensions.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/image.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
@@ -19,14 +21,11 @@ class NeoMotor extends Motor {
     return "NEO";
   }
 
-  static ImageIcon toImage() {
-    return ImageIcon(
-      Image.asset(
-        "assets/images/NEO_11_motor.png",
-        fit: BoxFit.contain,
-        color: null,
-      ).image,
-      color: null,
+  static Image toImage(BuildContext context) {
+    return Image.asset(
+      "assets/images/NEO_11_motor.png",
+      height: MediaQuery.of(context).size.shortestSide / 6,
+      width: MediaQuery.of(context).size.shortestSide / 6,
     );
   }
 }

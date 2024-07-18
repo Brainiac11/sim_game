@@ -10,7 +10,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
+import 'package:player_move/components/robot/gear_ratios/l_2_gear_ratio.dart';
 import 'package:player_move/components/robot/motors/neo_1.1_motor.dart';
+import 'package:player_move/components/robot/wheels/billet_wheel.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/custom_widgets/customization_card.dart';
 import 'package:player_move/main.dart';
@@ -80,9 +82,12 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    ref.read(robotCustomizationProvider).drivetrain.motors =
+                        NeoMotor();
+                  },
                   icon: returnImages(NeoMotor),
-                  iconSize: Theme.of(context).buttonTheme.minWidth,
+                  // iconSize: Theme.of(context).buttonTheme.minWidth,
                 ),
               ],
             ),
@@ -94,6 +99,21 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
               height: Theme.of(context).dividerTheme.space,
             ),
             const Text("Gearing"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    SwerveDrivetrain swerve = ref
+                        .read(robotCustomizationProvider)
+                        .drivetrain as SwerveDrivetrain;
+                    swerve.gearRatio = L2GearRatio();
+                  },
+                  icon: const Icon(Icons.abc),
+                  // iconSize: Theme.of(context).buttonTheme.minWidth,
+                ),
+              ],
+            ),
             Divider(
               thickness: Theme.of(context).dividerTheme.thickness,
               indent: Theme.of(context).dividerTheme.indent,
@@ -101,7 +121,22 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
               color: Theme.of(context).dividerTheme.color,
               height: Theme.of(context).dividerTheme.space,
             ),
-            const Text("Wheel")
+            const Text("Wheel"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    SwerveDrivetrain swerve = ref
+                        .read(robotCustomizationProvider)
+                        .drivetrain as SwerveDrivetrain;
+                    swerve.wheel = BilletWheel();
+                  },
+                  icon: const Icon(Icons.wheelchair_pickup),
+                  // iconSize: Theme.of(context).buttonTheme.minWidth,
+                ),
+              ],
+            ),
           ],
         );
       default:
@@ -113,14 +148,14 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
     return const Placeholder();
   }
 
-  ImageIcon returnImages(Type type) {
+  Image returnImages(Type type) {
     switch (type) {
       case NeoMotor:
-        ImageIcon image = NeoMotor.toImage();
+        Image image = NeoMotor.toImage(context);
 
         return image;
       default:
-        return NeoMotor.toImage();
+        return NeoMotor.toImage(context);
     }
   }
 
