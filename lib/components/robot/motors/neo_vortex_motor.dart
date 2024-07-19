@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 
@@ -19,5 +21,10 @@ class VortexMotor extends Motor {
   @override
   void updateTotalCost(WidgetRef ref, constants) {
     // TODO: implement updateTotalCost
+  }
+
+  @override
+  String toJson() {
+    return jsonEncode({"motor": "Vortex"});
   }
 }

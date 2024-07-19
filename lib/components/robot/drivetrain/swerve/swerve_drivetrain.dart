@@ -46,12 +46,17 @@ class SwerveDrivetrain extends Drivetrain {
     }
   }
 
+  @override
   String toJson() {
-    return jsonEncode([
-      "SwerveDrivetrain",
-      motors.toString(),
-      wheel.toString(),
-      gearRatio.toString()
-    ]);
+    String json = jsonEncode({
+      "drivetrain": "SwerveDrivetrain",
+      "motor": motors.toString(),
+      "wheel": wheel.toString(),
+      "gear ratio": gearRatio.toString()
+    });
+    if (kDebugMode) {
+      print("Swerve Json: " + json);
+    }
+    return json;
   }
 }

@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+part 'motor.g.dart';
 
-abstract class Motor {
+@JsonSerializable()
+class Motor {
   final double acceleration;
   final double maximumSpeed;
   final double cost;
@@ -18,13 +22,19 @@ abstract class Motor {
   });
 
   @mustBeOverridden
-  void updateTotalAcceleration(WidgetRef ref, dynamic constants);
+  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {
+    // TODO: implement updateTotalAcceleration
+  }
 
   @mustBeOverridden
-  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants);
+  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {
+    // TODO: implement updateTotalMaxSpeed
+  }
 
   /// Will integrate later
-  void updateTotalCost(WidgetRef ref, dynamic constants);
+  void updateTotalCost(WidgetRef ref, dynamic constants) {
+    // TODO: implement updateTotalCost
+  }
 
   static Image toImage() {
     return Image.asset("");
@@ -34,5 +44,24 @@ abstract class Motor {
   @override
   String toString() {
     return "";
+  }
+
+  @mustBeOverridden
+  String toJson() {
+    return jsonEncode("");
+  }
+}
+
+class MotorConvertable extends JsonConverter<String, Object?> {
+  @override
+  String fromJson(Object? json) {
+    // TODO: implement fromJson
+    throw UnimplementedError();
+  }
+
+  @override
+  Object? toJson(String object) {
+    // TODO: implement toJson
+    throw UnimplementedError();
   }
 }

@@ -87,10 +87,9 @@ class SwervePage extends ConsumerWidget {
                 SwerveDrivetrain swerve = ref
                     .read(robotCustomizationProvider)
                     .drivetrain as SwerveDrivetrain;
-                swerve.gearRatio = L2GearRatio();
                 ref
-                    .read(robotCustomizationProvider.notifier)
-                    .updateDrivetrain(swerve);
+                    .watch(robotCustomizationProvider.notifier)
+                    .updateDrivetrain(swerve..gearRatio = L2GearRatio());
               },
               child: Text(L2GearRatio().toString()),
             ),
@@ -100,10 +99,10 @@ class SwervePage extends ConsumerWidget {
                 SwerveDrivetrain swerve = ref
                     .read(robotCustomizationProvider)
                     .drivetrain as SwerveDrivetrain;
-                swerve.gearRatio = L3GearRatio();
+                // swerve.gearRatio = L3GearRatio();
                 ref
-                    .read(robotCustomizationProvider.notifier)
-                    .updateDrivetrain(swerve);
+                    .watch(robotCustomizationProvider.notifier)
+                    .updateDrivetrain(swerve..gearRatio = L3GearRatio());
               },
               child: Text(L3GearRatio().toString()),
             ),
@@ -115,11 +114,11 @@ class SwervePage extends ConsumerWidget {
                     .drivetrain as SwerveDrivetrain;
                 // swerve.gearRatio = L4GearRatio();
                 ref
-                    .read(robotCustomizationProvider.notifier)
+                    .watch(robotCustomizationProvider.notifier)
                     .updateDrivetrain(swerve..gearRatio = L4GearRatio());
 
                 if (kDebugMode) {
-                  print("WOW" + swerve.gearRatio.toString());
+                  print("WOW${swerve.gearRatio}");
                 }
               },
               child: Text(L4GearRatio().toString()),

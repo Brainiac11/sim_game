@@ -28,10 +28,11 @@ class RobotCustomization extends _$RobotCustomization {
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     final String drivetrain = prefs.getString("drivetrain") ??
-        jsonEncode(SwerveDrivetrain(
-            motors: NeoMotor(),
-            wheel: BilletWheel(),
-            gearRatio: L2GearRatio()));
+        SwerveDrivetrain(
+                motors: NeoMotor(),
+                wheel: BilletWheel(),
+                gearRatio: L2GearRatio())
+            .toJson();
     String dtL = jsonDecode(drivetrain);
     if (kDebugMode) {
       print("CHAT " + dtL);
@@ -101,7 +102,7 @@ class RobotCustomization extends _$RobotCustomization {
     if (kDebugMode) {
       print(
           "Drivetrain Config: ${(dt as SwerveDrivetrain).gearRatio.toString()}");
-      print("Gear Ratio Config: ${dtL[3].toString()}");
+      print("Gear Ratio Config: ${dtL}");
     }
 
     state = state.copyWith(drivetrain: dt);
