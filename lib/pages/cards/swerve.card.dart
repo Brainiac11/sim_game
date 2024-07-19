@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -87,6 +88,9 @@ class SwervePage extends ConsumerWidget {
                     .read(robotCustomizationProvider)
                     .drivetrain as SwerveDrivetrain;
                 swerve.gearRatio = L2GearRatio();
+                ref
+                    .read(robotCustomizationProvider.notifier)
+                    .updateDrivetrain(swerve);
               },
               child: Text(L2GearRatio().toString()),
             ),
@@ -97,6 +101,9 @@ class SwervePage extends ConsumerWidget {
                     .read(robotCustomizationProvider)
                     .drivetrain as SwerveDrivetrain;
                 swerve.gearRatio = L3GearRatio();
+                ref
+                    .read(robotCustomizationProvider.notifier)
+                    .updateDrivetrain(swerve);
               },
               child: Text(L3GearRatio().toString()),
             ),
@@ -106,7 +113,14 @@ class SwervePage extends ConsumerWidget {
                 SwerveDrivetrain swerve = ref
                     .read(robotCustomizationProvider)
                     .drivetrain as SwerveDrivetrain;
-                swerve.gearRatio = L4GearRatio();
+                // swerve.gearRatio = L4GearRatio();
+                ref
+                    .read(robotCustomizationProvider.notifier)
+                    .updateDrivetrain(swerve..gearRatio = L4GearRatio());
+
+                if (kDebugMode) {
+                  print("WOW" + swerve.gearRatio.toString());
+                }
               },
               child: Text(L4GearRatio().toString()),
             ),

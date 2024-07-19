@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/l_2_gear_ratio.dart';
@@ -25,14 +27,16 @@ class RobotCustomization extends _$RobotCustomization {
 
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    final List<String> drivetrain = prefs.getStringList("drivetrain") ??
-        SwerveDrivetrain(
-                motors: NeoMotor(),
-                wheel: BilletWheel(),
-                gearRatio: L2GearRatio())
-            .toString()
-            .split();
-    List<String> dtL = drivetrain.toList(growable: false);
+    final String drivetrain = prefs.getString("drivetrain") ??
+        jsonEncode(SwerveDrivetrain(
+            motors: NeoMotor(),
+            wheel: BilletWheel(),
+            gearRatio: L2GearRatio()));
+    String dtL = jsonDecode(drivetrain);
+    if (kDebugMode) {
+      print("CHAT " + dtL);
+      print("IN THE " + drivetrain);
+    }
     Drivetrain dt;
     switch (dtL[0]) {
       case "SwerveDrivetrain":
@@ -62,6 +66,7 @@ class RobotCustomization extends _$RobotCustomization {
       }
       switch (dtL[3]) {
         case "L2":
+          print("Boo");
           dt = SwerveDrivetrain(
             motors: dt.motors,
             wheel: (dt as SwerveDrivetrain).wheel,
@@ -87,7 +92,7 @@ class RobotCustomization extends _$RobotCustomization {
           dt = SwerveDrivetrain(
             motors: dt.motors,
             wheel: (dt as SwerveDrivetrain).wheel,
-            gearRatio: L4GearRatio(),
+            gearRatio: L2GearRatio(),
           );
           break;
       }
@@ -100,17 +105,17 @@ class RobotCustomization extends _$RobotCustomization {
     }
 
     state = state.copyWith(drivetrain: dt);
+    // state.drivetrain = dt;
   }
 
   void updateDrivetrain(Drivetrain drivetrain) async {
     state = state.copyWith(drivetrain: drivetrain);
     final prefs = await SharedPreferences.getInstance();
 
-    prefs.setStringList('drivetrain', state.drivetrain.toString().split(','));
+    prefs.setString('drivetrain', jsonEncode(state.drivetrain));
 
     if (kDebugMode) {
-      print(
-          "Drivetrain in Prefs: ${prefs.getStringList('drivetrain').toString()}");
+      print("Drivetrain in Prefs: ${prefs.getString('drivetrain')}");
     }
     ref.notifyListeners();
   }

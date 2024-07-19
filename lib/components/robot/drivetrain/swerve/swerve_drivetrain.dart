@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:forge2d/src/dynamics/body.dart';
@@ -44,13 +46,12 @@ class SwerveDrivetrain extends Drivetrain {
     }
   }
 
-  @override
-  String toString() {
-    return [
+  String toJson() {
+    return jsonEncode([
       "SwerveDrivetrain",
       motors.toString(),
       wheel.toString(),
       gearRatio.toString()
-    ].toString();
+    ]);
   }
 }
