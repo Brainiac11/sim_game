@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/image.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
@@ -16,8 +17,16 @@ class BilletWheel extends Wheel {
     return "Billet";
   }
 
+  static Image toImage(BuildContext context) {
+    return Image.asset(
+      "assets/images/billet_wheel.png",
+      height: MediaQuery.of(context).size.shortestSide / 7,
+      width: MediaQuery.of(context).size.shortestSide / 7,
+    );
+  }
+
   @override
-  Image toImage() {
-    return Image.asset("billet_wheel.png");
+  void updateTotalCost(WidgetRef ref, constants) {
+    // TODO: implement updateTotalCost
   }
 }

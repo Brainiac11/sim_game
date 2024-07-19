@@ -2,11 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/l_2_gear_ratio.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
+import 'package:player_move/components/robot/gear_ratios/l_4_gear_ratio.dart';
 import 'package:player_move/components/robot/motors/neo_1.1_motor.dart';
 import 'package:player_move/components/robot/wheels/billet_wheel.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../components/robot/gear_ratios/l_3_gear_ratio.dart';
 part 'robot_customization.g.dart';
 
 @riverpod
@@ -28,7 +31,7 @@ class RobotCustomization extends _$RobotCustomization {
                 wheel: BilletWheel(),
                 gearRatio: L2GearRatio())
             .toString()
-            .split(',');
+            .split();
     List<String> dtL = drivetrain.toList(growable: false);
     Drivetrain dt;
     switch (dtL[0]) {
@@ -54,21 +57,46 @@ class RobotCustomization extends _$RobotCustomization {
           dt = SwerveDrivetrain(
             motors: dt.motors,
             wheel: BilletWheel(),
-            gearRatio: L2GearRatio(),
+            gearRatio: (dt as SwerveDrivetrain).gearRatio,
           );
       }
       switch (dtL[3]) {
         case "L2":
           dt = SwerveDrivetrain(
             motors: dt.motors,
-            wheel: BilletWheel(),
+            wheel: (dt as SwerveDrivetrain).wheel,
             gearRatio: L2GearRatio(),
           );
+          break;
+        case "L3":
+          dt = SwerveDrivetrain(
+            motors: dt.motors,
+            wheel: (dt as SwerveDrivetrain).wheel,
+            gearRatio: L3GearRatio(),
+          );
+          break;
+        case "L4":
+          dt = SwerveDrivetrain(
+            motors: dt.motors,
+            wheel: (dt as SwerveDrivetrain).wheel,
+            gearRatio: L4GearRatio(),
+          );
+          break;
+        default:
+          print(dtL[3]);
+          dt = SwerveDrivetrain(
+            motors: dt.motors,
+            wheel: (dt as SwerveDrivetrain).wheel,
+            gearRatio: L4GearRatio(),
+          );
+          break;
       }
     }
 
     if (kDebugMode) {
-      print("Drivetrain Config: ${dt.toString()}");
+      print(
+          "Drivetrain Config: ${(dt as SwerveDrivetrain).gearRatio.toString()}");
+      print("Gear Ratio Config: ${dtL[3].toString()}");
     }
 
     state = state.copyWith(drivetrain: dt);

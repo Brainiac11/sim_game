@@ -15,4 +15,9 @@ class VortexMotor extends Motor {
   String toString() {
     return "Vortex";
   }
+
+  @override
+  void updateTotalCost(WidgetRef ref, constants) {
+    // TODO: implement updateTotalCost
+  }
 }

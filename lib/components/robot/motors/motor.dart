@@ -18,13 +18,13 @@ abstract class Motor {
   });
 
   @mustBeOverridden
-  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
+  void updateTotalAcceleration(WidgetRef ref, dynamic constants);
 
   @mustBeOverridden
-  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {}
+  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants);
 
   /// Will integrate later
-  void updateTotalCost(WidgetRef ref, dynamic constants) {}
+  void updateTotalCost(WidgetRef ref, dynamic constants);
 
   static Image toImage() {
     return Image.asset("");

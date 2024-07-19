@@ -1,10 +1,6 @@
-import 'package:flame/extensions.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/image.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
-import 'package:player_move/constants.dart';
 
 class NeoMotor extends Motor {
   NeoMotor() : super(acceleration: 14, maximumSpeed: 10, cost: 10);
@@ -24,8 +20,13 @@ class NeoMotor extends Motor {
   static Image toImage(BuildContext context) {
     return Image.asset(
       "assets/images/NEO_11_motor.png",
-      height: MediaQuery.of(context).size.shortestSide / 6,
-      width: MediaQuery.of(context).size.shortestSide / 6,
+      height: MediaQuery.of(context).size.shortestSide / 7,
+      width: MediaQuery.of(context).size.shortestSide / 7,
     );
+  }
+
+  @override
+  void updateTotalCost(WidgetRef ref, constants) {
+    // TODO: implement updateTotalCost
   }
 }

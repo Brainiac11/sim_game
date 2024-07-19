@@ -12,19 +12,16 @@ abstract class Wheel {
   Wheel({required this.acceleration, required this.cost});
 
   @mustBeOverridden
-  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
+  void updateTotalAcceleration(WidgetRef ref, dynamic constants);
 
   /// will implement later
-  void updateTotalCost(WidgetRef ref, dynamic constants) {}
+  void updateTotalCost(WidgetRef ref, dynamic constants);
 
-  @mustBeOverridden
-  Image toImage() {
+  static Image toImage(BuildContext context) {
     return Image.asset("");
   }
 
   @mustBeOverridden
   @override
-  String toString() {
-    return "";
-  }
+  String toString();
 }
