@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -8,7 +6,18 @@ part 'neo_1.1_motor.g.dart';
 
 @JsonSerializable()
 class NeoMotor extends Motor {
-  NeoMotor() : super(acceleration: 14, maximumSpeed: 10, cost: 10);
+  static const double kAcceleration = 14;
+  static const double kMaximumSpeed = 10;
+  static const double kCost = 10;
+  NeoMotor()
+      : super(
+            acceleration: kAcceleration,
+            maximumSpeed: kMaximumSpeed,
+            cost: kCost);
+
+  @JsonValue("NEO")
+  final String name = "NEO";
+
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
 

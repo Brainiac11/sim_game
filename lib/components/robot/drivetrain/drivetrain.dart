@@ -1,11 +1,10 @@
-import 'dart:convert';
 
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 part 'drivetrain.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Drivetrain {
   Motor motors;
 

@@ -4,8 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/L2/l_2_gear_ratio.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
-import 'package:player_move/components/robot/gear_ratios/L3/l_3_gear_ratio.dart';
-import 'package:player_move/components/robot/gear_ratios/L4/l_4_gear_ratio.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
 import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
@@ -26,18 +24,17 @@ class RobotCustomization extends _$RobotCustomization {
 
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    final Object drivetrain = jsonDecode(prefs.getString("drivetrain") ??
-        SwerveDrivetrain(
-          motors: NeoMotor(),
-          wheel: BilletWheel(),
-          gearRatio: L2GearRatio(),
-        ).toJson().toString());
+    final Map<String, dynamic> drivetrain = SwerveDrivetrain(
+      motors: NeoMotor(),
+      wheel: BilletWheel(),
+      gearRatio: L2GearRatio(),
+    ).toJson();
 
     if (kDebugMode) {
-      print("Decoded Json  ${drivetrain.runtimeType.toString()}");
+      print("Decoded Json  ${drivetrain.toString()}");
       print("Json runtime type ${drivetrain.runtimeType}");
     }
-    Drivetrain dt = Drivetrain.fromJson(drivetrain as Map<String, dynamic>);
+    Drivetrain dt = SwerveDrivetrain.fromJson(drivetrain);
     // switch (dtL[0]) {
     //   case "SwerveDrivetrain":
     //     dt = SwerveDrivetrain(
@@ -109,7 +106,7 @@ class RobotCustomization extends _$RobotCustomization {
       print("Gear Ratio Config: ${dt.runtimeType}");
     }
 
-    state = state.copyWith(drivetrain: drivetrain as Drivetrain);
+    state = state.copyWith(drivetrain: dt);
 
     // state.drivetrain = dt;
   }

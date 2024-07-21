@@ -20,6 +20,7 @@ class BilletWheel extends Wheel {
   factory BilletWheel.fromJson(Map<String, dynamic> json) =>
       _$BilletWheelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$BilletWheelToJson(this);
 
   @override

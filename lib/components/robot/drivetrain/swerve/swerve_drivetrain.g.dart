@@ -15,7 +15,7 @@ SwerveDrivetrain _$SwerveDrivetrainFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SwerveDrivetrainToJson(SwerveDrivetrain instance) =>
     <String, dynamic>{
-      'motors': instance.motors,
-      'wheel': instance.wheel,
-      'gearRatio': instance.gearRatio,
+      'motors': instance.motors.toJson(),
+      'wheel': instance.wheel.toJson(),
+      'gearRatio': instance.gearRatio.toJson(),
     };

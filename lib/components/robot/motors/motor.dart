@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,14 +6,14 @@ part 'motor.g.dart';
 
 @JsonSerializable()
 class Motor {
-  final double acceleration;
-  final double maximumSpeed;
-  final double cost;
+  double acceleration = 0;
+  double maximumSpeed = 0;
+  double cost = 0;
 
   /// Optional for now, will integrate down the line
   final double energy = 0;
 
-  const Motor({
+  Motor({
     required this.acceleration,
     required this.maximumSpeed,
     required this.cost,

@@ -37,5 +37,6 @@ class L2GearRatio extends GearRatio {
 
   factory L2GearRatio.fromJson(Map<String, dynamic> json) =>
       _$L2GearRatioFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$L2GearRatioToJson(this);
 }

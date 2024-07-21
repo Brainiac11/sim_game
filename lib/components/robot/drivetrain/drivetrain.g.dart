@@ -12,5 +12,5 @@ Drivetrain _$DrivetrainFromJson(Map<String, dynamic> json) => Drivetrain(
 
 Map<String, dynamic> _$DrivetrainToJson(Drivetrain instance) =>
     <String, dynamic>{
-      'motors': instance.motors,
+      'motors': instance.motors.toJson(),
     };

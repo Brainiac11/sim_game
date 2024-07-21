@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
@@ -37,5 +36,6 @@ class VortexMotor extends Motor {
 
   factory VortexMotor.fromJson(Map<String, dynamic> json) =>
       _$VortexMotorFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$VortexMotorToJson(this);
 }

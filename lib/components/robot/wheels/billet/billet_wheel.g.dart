@@ -6,7 +6,12 @@ part of 'billet_wheel.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BilletWheel _$BilletWheelFromJson(Map<String, dynamic> json) => BilletWheel();
+BilletWheel _$BilletWheelFromJson(Map<String, dynamic> json) => BilletWheel()
+  ..acceleration = (json['acceleration'] as num).toDouble()
+  ..cost = (json['cost'] as num).toDouble();
 
 Map<String, dynamic> _$BilletWheelToJson(BilletWheel instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'acceleration': instance.acceleration,
+      'cost': instance.cost,
+    };

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:forge2d/src/dynamics/body.dart';
@@ -10,7 +8,7 @@ import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 part 'swerve_drivetrain.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class SwerveDrivetrain extends Drivetrain {
   Wheel wheel;
   GearRatio gearRatio;

@@ -5,8 +5,8 @@ part 'wheel.g.dart';
 
 @JsonSerializable()
 class Wheel {
-  final double acceleration;
-  final double cost;
+  double acceleration = 0;
+  double cost = 0;
 
   // will implement later
   final double endurance = 0;
