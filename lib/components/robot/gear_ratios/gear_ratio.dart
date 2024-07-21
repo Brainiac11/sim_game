@@ -1,7 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+part 'gear_ratio.g.dart';
 
-abstract class GearRatio {
+@JsonSerializable()
+class GearRatio {
+  GearRatio();
   @mustBeOverridden
   final double acceleration = 0;
 
@@ -25,4 +28,9 @@ abstract class GearRatio {
   String toString() {
     return "";
   }
+
+  factory GearRatio.fromJson(Map<String, dynamic> json) =>
+      _$GearRatioFromJson(json);
+  @mustBeOverridden
+  Map<String, dynamic> toJson() => _$GearRatioToJson(this);
 }

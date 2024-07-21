@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
+part 'drivetrain.g.dart';
 
-abstract class Drivetrain {
+@JsonSerializable()
+class Drivetrain {
   Motor motors;
 
   Drivetrain({required this.motors});
@@ -15,8 +17,7 @@ abstract class Drivetrain {
   @mustBeOverridden
   void secondJoystickMovement(Vector2 value, Body body, dynamic constants) {}
 
-  @mustBeOverridden
-  dynamic toJson() {
-    return jsonEncode("");
-  }
+  factory Drivetrain.fromJson(Map<String, dynamic> json) =>
+      _$DrivetrainFromJson(json);
+  Map<String, dynamic> toJson() => _$DrivetrainToJson(this);
 }
