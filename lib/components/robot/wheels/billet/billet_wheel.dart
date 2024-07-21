@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 part 'billet_wheel.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class BilletWheel extends Wheel {
   static const String kName = "Billet";
   static const double kAcceleration = 11;
@@ -20,12 +20,8 @@ class BilletWheel extends Wheel {
   factory BilletWheel.fromJson(Map<String, dynamic> json) =>
       _$BilletWheelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$BilletWheelToJson(this);
-
   @override
-  String toString() {
-    return "Billet";
-  }
+  Map<String, dynamic> toJson() => _$BilletWheelToJson(this);
 
   static Image toImage(BuildContext context) {
     return Image.asset(

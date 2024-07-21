@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 part 'neo_1.1_motor.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class NeoMotor extends Motor {
   static const double kAcceleration = 14;
   static const double kMaximumSpeed = 10;
@@ -24,11 +24,6 @@ class NeoMotor extends Motor {
   @override
   void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {
     // TODO: implement updateTotalMaxSpeed
-  }
-
-  @override
-  String toString() {
-    return "NEO";
   }
 
   static Image toImage(BuildContext context) {

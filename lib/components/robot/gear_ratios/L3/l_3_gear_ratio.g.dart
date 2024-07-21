@@ -6,7 +6,7 @@ part of 'l_3_gear_ratio.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-L3GearRatio _$L3GearRatioFromJson(Map<String, dynamic> json) => L3GearRatio();
+L3GearRatio _$L3GearRatioFromJson(Map json) => L3GearRatio();
 
 Map<String, dynamic> _$L3GearRatioToJson(L3GearRatio instance) =>
     <String, dynamic>{};

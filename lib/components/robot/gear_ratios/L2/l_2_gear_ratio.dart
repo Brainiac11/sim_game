@@ -3,17 +3,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
 part 'l_2_gear_ratio.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class L2GearRatio extends GearRatio {
-  L2GearRatio() : super();
-  @override
-  double get acceleration => 10;
-
-  @override
-  double get experience => 14;
-
-  @override
-  double get maxSpeed => 5;
+  static const String kName = "L2";
+  L2GearRatio()
+      : super(acceleration: 10, maxSpeed: 14, experience: 5, name: kName);
 
   @override
   void updateMaxSpeed(WidgetRef ref, constants) {
@@ -28,11 +22,6 @@ class L2GearRatio extends GearRatio {
   @override
   void updateTotalExperience(WidgetRef ref, constants) {
     // TODO: implement updateTotalExperience
-  }
-
-  @override
-  String toString() {
-    return "L2";
   }
 
   factory L2GearRatio.fromJson(Map<String, dynamic> json) =>

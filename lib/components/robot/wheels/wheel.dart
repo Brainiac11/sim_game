@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
-// part 'wheel.g.dart';
 
+// part 'wheel.g.dart';
+@JsonSerializable(explicitToJson: true, anyMap: true)
 abstract class Wheel {
   double acceleration = 0;
   double cost = 0;
@@ -24,10 +25,6 @@ abstract class Wheel {
     return Image.asset("");
   }
 
-  @mustBeOverridden
-  @override
-  String toString();
-
   factory Wheel.fromJson(Map<String, dynamic> json) {
     switch (json["name"]) {
       case "Billet":
@@ -37,5 +34,5 @@ abstract class Wheel {
     }
   }
   @mustBeOverridden
-  Map<String, dynamic> toJson() => Map();
+  Map<String, dynamic> toJson();
 }

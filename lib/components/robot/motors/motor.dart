@@ -41,12 +41,6 @@ abstract class Motor {
     return Image.asset("");
   }
 
-  @mustBeOverridden
-  @override
-  String toString() {
-    return "";
-  }
-
   factory Motor.fromJson(Map<String, dynamic> json) {
     switch (json["name"]) {
       case "NEO":
@@ -56,12 +50,5 @@ abstract class Motor {
     }
   }
   @mustBeOverridden
-  Map<String, dynamic> toJson() {
-    switch (name) {
-      case "NEO":
-        return NeoMotor().toJson();
-      default:
-        return NeoMotor().toJson();
-    }
-  }
+  Map<String, dynamic> toJson();
 }

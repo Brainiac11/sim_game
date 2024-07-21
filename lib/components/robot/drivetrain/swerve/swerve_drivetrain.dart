@@ -8,7 +8,7 @@ import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 part 'swerve_drivetrain.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class SwerveDrivetrain extends Drivetrain {
   Wheel wheel;
   GearRatio gearRatio;

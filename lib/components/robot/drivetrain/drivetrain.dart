@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, anyMap: true)
 abstract class Drivetrain {
   Motor motors;
   String name;
@@ -24,6 +24,8 @@ abstract class Drivetrain {
         return SwerveDrivetrain.fromJson(json);
     }
   }
+  Map<String, dynamic> toJson();
+
   // @mustBeOverridden
   // Map<String, dynamic> toJson() {
   //   switch (name) {
