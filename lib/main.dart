@@ -11,6 +11,7 @@ import 'package:player_move/pages/home_page.dart';
 import 'package:player_move/pages/match_page.dart';
 import 'package:player_move/pages/settings_page.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
+import 'package:shared_preferences_tools/shared_preferences_tools.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,7 @@ void main() async {
   themeStr = await rootBundle.loadString('assets/appainter_theme_dark.json');
   themeJson = jsonDecode(themeStr);
   final themeDark = ThemeDecoder.decodeThemeData(themeJson)!;
+  await SharedPreferencesToolsDebug.init();
   runApp(
     ProviderScope(
       child: App(

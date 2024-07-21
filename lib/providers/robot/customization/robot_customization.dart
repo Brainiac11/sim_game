@@ -4,14 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/l_2_gear_ratio.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
+import 'package:player_move/components/robot/gear_ratios/l_3_gear_ratio.dart';
 import 'package:player_move/components/robot/gear_ratios/l_4_gear_ratio.dart';
 import 'package:player_move/components/robot/motors/neo_1.1_motor.dart';
 import 'package:player_move/components/robot/wheels/billet_wheel.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../components/robot/gear_ratios/l_3_gear_ratio.dart';
 part 'robot_customization.g.dart';
 
 @riverpod
@@ -29,14 +28,15 @@ class RobotCustomization extends _$RobotCustomization {
     final prefs = await SharedPreferences.getInstance();
     final String drivetrain = prefs.getString("drivetrain") ??
         SwerveDrivetrain(
-                motors: NeoMotor(),
-                wheel: BilletWheel(),
-                gearRatio: L2GearRatio())
-            .toJson();
-    String dtL = jsonDecode(drivetrain);
+          motors: NeoMotor(),
+          wheel: BilletWheel(),
+          gearRatio: L2GearRatio(),
+        ).toJson();
+    final dtL = jsonDecode(drivetrain);
+
     if (kDebugMode) {
-      print("CHAT " + dtL);
-      print("IN THE " + drivetrain);
+      print("Decoded Json $dtL   ${dtL.runtimeType.toString()}");
+      print("Json runtime type ${dtL.runtimeType}");
     }
     Drivetrain dt;
     switch (dtL[0]) {
@@ -45,6 +45,9 @@ class RobotCustomization extends _$RobotCustomization {
             motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio());
         break;
       default:
+        if (kDebugMode) {
+          print("defaulting drivetrain");
+        }
         dt = SwerveDrivetrain(
             motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio());
     }
@@ -67,7 +70,9 @@ class RobotCustomization extends _$RobotCustomization {
       }
       switch (dtL[3]) {
         case "L2":
-          print("Boo");
+          if (kDebugMode) {
+            print("Boo");
+          }
           dt = SwerveDrivetrain(
             motors: dt.motors,
             wheel: (dt as SwerveDrivetrain).wheel,
@@ -102,7 +107,7 @@ class RobotCustomization extends _$RobotCustomization {
     if (kDebugMode) {
       print(
           "Drivetrain Config: ${(dt as SwerveDrivetrain).gearRatio.toString()}");
-      print("Gear Ratio Config: ${dtL}");
+      print("Gear Ratio Config: $dtL");
     }
 
     state = state.copyWith(drivetrain: dt);

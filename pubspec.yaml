@@ -24,6 +24,7 @@ dependencies:
   json_annotation: ^4.9.0
   carousel_slider: ^4.2.1
   json_theme: ^6.4.1
+  shared_preferences_tools: ^1.0.3
   # image: ^4.2.0
 dev_dependencies:
   flutter_test:

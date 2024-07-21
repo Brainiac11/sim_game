@@ -7,13 +7,10 @@ import 'package:player_move/components/robot/gear_ratios/l_2_gear_ratio.dart';
 import 'package:player_move/components/robot/gear_ratios/l_3_gear_ratio.dart';
 import 'package:player_move/components/robot/gear_ratios/l_4_gear_ratio.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
-import 'package:player_move/components/robot/wheels/billet_wheel.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 import 'package:player_move/custom_widgets/customization_card.dart';
 import 'package:player_move/pages/cards/sub_cards/motors.sub.card.dart';
 import 'package:player_move/pages/cards/sub_cards/wheels.sub.card.dart';
-import 'package:player_move/pages/cards/swerve.card.dart';
-import 'package:player_move/pages/customization_page.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 
 class SwervePage extends ConsumerWidget {
