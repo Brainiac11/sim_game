@@ -8,15 +8,16 @@ import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 part 'swerve_drivetrain.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class SwerveDrivetrain extends Drivetrain {
   Wheel wheel;
   GearRatio gearRatio;
+  static const String kName = "SwerveDrivetrain";
   SwerveDrivetrain({
     required super.motors,
     required this.wheel,
     required this.gearRatio,
-  });
+  }) : super(name: kName);
 
   @override
   void firstJoystickMovement(Vector2 value, Body body, dynamic constants) {
@@ -48,10 +49,9 @@ class SwerveDrivetrain extends Drivetrain {
     }
   }
 
-  @override
   factory SwerveDrivetrain.fromJson(Map<String, dynamic> json) =>
       _$SwerveDrivetrainFromJson(json);
-  @override
+
   Map<String, dynamic> toJson() => _$SwerveDrivetrainToJson(this);
 
   // @override

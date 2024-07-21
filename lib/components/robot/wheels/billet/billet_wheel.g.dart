@@ -8,10 +8,12 @@ part of 'billet_wheel.dart';
 
 BilletWheel _$BilletWheelFromJson(Map<String, dynamic> json) => BilletWheel()
   ..acceleration = (json['acceleration'] as num).toDouble()
-  ..cost = (json['cost'] as num).toDouble();
+  ..cost = (json['cost'] as num).toDouble()
+  ..name = json['name'] as String;
 
 Map<String, dynamic> _$BilletWheelToJson(BilletWheel instance) =>
     <String, dynamic>{
       'acceleration': instance.acceleration,
       'cost': instance.cost,
+      'name': instance.name,
     };

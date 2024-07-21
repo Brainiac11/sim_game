@@ -9,14 +9,14 @@ class NeoMotor extends Motor {
   static const double kAcceleration = 14;
   static const double kMaximumSpeed = 10;
   static const double kCost = 10;
+  static const String kName = "NEO";
   NeoMotor()
       : super(
-            acceleration: kAcceleration,
-            maximumSpeed: kMaximumSpeed,
-            cost: kCost);
-
-  @JsonValue("NEO")
-  final String name = "NEO";
+          acceleration: kAcceleration,
+          maximumSpeed: kMaximumSpeed,
+          cost: kCost,
+          name: kName,
+        );
 
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
@@ -44,9 +44,9 @@ class NeoMotor extends Motor {
     // TODO: implement updateTotalCost
   }
 
-  @override
   factory NeoMotor.fromJson(Map<String, dynamic> json) =>
       _$NeoMotorFromJson(json);
+
   @override
   Map<String, dynamic> toJson() => _$NeoMotorToJson(this);
 }

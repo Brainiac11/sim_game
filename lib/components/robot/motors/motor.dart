@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'motor.g.dart';
+import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
+// part 'motor.g.dart';
 
-@JsonSerializable()
-class Motor {
+@JsonSerializable(explicitToJson: true, anyMap: true)
+abstract class Motor {
   double acceleration = 0;
   double maximumSpeed = 0;
   double cost = 0;
+  String name = "";
 
   /// Optional for now, will integrate down the line
   final double energy = 0;
@@ -17,6 +19,7 @@ class Motor {
     required this.acceleration,
     required this.maximumSpeed,
     required this.cost,
+    required this.name,
   });
 
   @mustBeOverridden
@@ -44,7 +47,21 @@ class Motor {
     return "";
   }
 
-  factory Motor.fromJson(Map<String, dynamic> json) => _$MotorFromJson(json);
+  factory Motor.fromJson(Map<String, dynamic> json) {
+    switch (json["name"]) {
+      case "NEO":
+        return NeoMotor.fromJson(json);
+      default:
+        return NeoMotor.fromJson(json);
+    }
+  }
   @mustBeOverridden
-  Map<String, dynamic> toJson() => _$MotorToJson(this);
+  Map<String, dynamic> toJson() {
+    switch (name) {
+      case "NEO":
+        return NeoMotor().toJson();
+      default:
+        return NeoMotor().toJson();
+    }
+  }
 }

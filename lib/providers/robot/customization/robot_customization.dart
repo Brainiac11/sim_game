@@ -102,7 +102,7 @@ class RobotCustomization extends _$RobotCustomization {
 
     if (kDebugMode) {
       print(
-          "Drivetrain Config: ${(dt as SwerveDrivetrain).gearRatio.toString()}");
+          "Drivetrain Config: ${(dt as SwerveDrivetrain).motors.runtimeType}");
       print("Gear Ratio Config: ${dt.runtimeType}");
     }
 

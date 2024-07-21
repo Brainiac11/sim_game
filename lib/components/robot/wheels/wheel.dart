@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'wheel.g.dart';
+import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
+// part 'wheel.g.dart';
 
-@JsonSerializable()
-class Wheel {
+abstract class Wheel {
   double acceleration = 0;
   double cost = 0;
+  String name = "";
 
   // will implement later
   final double endurance = 0;
 
-  Wheel({required this.acceleration, required this.cost});
+  Wheel({required this.acceleration, required this.cost, required this.name});
 
   @mustBeOverridden
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
@@ -27,7 +28,14 @@ class Wheel {
   @override
   String toString();
 
-  factory Wheel.fromJson(Map<String, dynamic> json) => _$WheelFromJson(json);
+  factory Wheel.fromJson(Map<String, dynamic> json) {
+    switch (json["name"]) {
+      case "Billet":
+        return BilletWheel.fromJson(json);
+      default:
+        return BilletWheel.fromJson(json);
+    }
+  }
   @mustBeOverridden
-  Map<String, dynamic> toJson() => _$WheelToJson(this);
+  Map<String, dynamic> toJson() => Map();
 }

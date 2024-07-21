@@ -6,10 +6,10 @@ part 'billet_wheel.g.dart';
 
 @JsonSerializable()
 class BilletWheel extends Wheel {
-  BilletWheel() : super(acceleration: 11, cost: 4);
-
-  @JsonKey(name: "name")
-  final String name = "Billet";
+  static const String kName = "Billet";
+  static const double kAcceleration = 11;
+  static const double kCost = 4;
+  BilletWheel() : super(acceleration: kAcceleration, cost: kCost, name: kName);
 
   /// Need to update
   @override
@@ -20,7 +20,6 @@ class BilletWheel extends Wheel {
   factory BilletWheel.fromJson(Map<String, dynamic> json) =>
       _$BilletWheelFromJson(json);
 
-  @override
   Map<String, dynamic> toJson() => _$BilletWheelToJson(this);
 
   @override
