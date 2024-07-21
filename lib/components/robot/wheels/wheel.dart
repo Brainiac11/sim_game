@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+part 'wheel.g.dart';
 
-abstract class Wheel {
+@JsonSerializable()
+class Wheel {
   final double acceleration;
   final double cost;
 
@@ -12,10 +14,10 @@ abstract class Wheel {
   Wheel({required this.acceleration, required this.cost});
 
   @mustBeOverridden
-  void updateTotalAcceleration(WidgetRef ref, dynamic constants);
+  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
 
   /// will implement later
-  void updateTotalCost(WidgetRef ref, dynamic constants);
+  void updateTotalCost(WidgetRef ref, dynamic constants) {}
 
   static Image toImage(BuildContext context) {
     return Image.asset("");
@@ -24,4 +26,8 @@ abstract class Wheel {
   @mustBeOverridden
   @override
   String toString();
+
+  factory Wheel.fromJson(Map<String, dynamic> json) => _$WheelFromJson(json);
+  @mustBeOverridden
+  Map<String, dynamic> toJson() => _$WheelToJson(this);
 }

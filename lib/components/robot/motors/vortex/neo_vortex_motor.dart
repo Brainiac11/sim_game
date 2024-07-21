@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
+part 'neo_vortex_motor.g.dart';
 
-class NeoMotor extends Motor {
-  NeoMotor() : super(acceleration: 14, maximumSpeed: 10, cost: 10);
+@JsonSerializable()
+class VortexMotor extends Motor {
+  VortexMotor() : super(acceleration: 14, maximumSpeed: 10, cost: 10);
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
 
@@ -16,7 +19,7 @@ class NeoMotor extends Motor {
 
   @override
   String toString() {
-    return "NEO";
+    return "Vortex";
   }
 
   static Image toImage(BuildContext context) {
@@ -32,8 +35,7 @@ class NeoMotor extends Motor {
     // TODO: implement updateTotalCost
   }
 
-  @override
-  String toJson() {
-    return jsonEncode({"motor": "NEO"});
-  }
+  factory VortexMotor.fromJson(Map<String, dynamic> json) =>
+      _$VortexMotorFromJson(json);
+  Map<String, dynamic> toJson() => _$VortexMotorToJson(this);
 }

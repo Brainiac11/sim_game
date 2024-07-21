@@ -1,7 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
+part 'l_3_gear_ratio.g.dart';
 
-class L2GearRatio extends GearRatio {
+@JsonSerializable()
+class L3GearRatio extends GearRatio {
+  L3GearRatio() : super();
   @override
   double get acceleration => 10;
 
@@ -28,6 +32,10 @@ class L2GearRatio extends GearRatio {
 
   @override
   String toString() {
-    return "L2";
+    return "L3";
   }
+
+  factory L3GearRatio.fromJson(Map<String, dynamic> json) =>
+      _$L3GearRatioFromJson(json);
+  Map<String, dynamic> toJson() => _$L3GearRatioToJson(this);
 }

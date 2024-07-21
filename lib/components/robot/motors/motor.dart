@@ -46,22 +46,7 @@ class Motor {
     return "";
   }
 
+  factory Motor.fromJson(Map<String, dynamic> json) => _$MotorFromJson(json);
   @mustBeOverridden
-  String toJson() {
-    return jsonEncode("");
-  }
-}
-
-class MotorConvertable extends JsonConverter<String, Object?> {
-  @override
-  String fromJson(Object? json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
-  }
-
-  @override
-  Object? toJson(String object) {
-    // TODO: implement toJson
-    throw UnimplementedError();
-  }
+  Map<String, dynamic> toJson() => _$MotorToJson(this);
 }

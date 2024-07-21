@@ -7,7 +7,7 @@ part of 'robot_customization.dart';
 // **************************************************************************
 
 String _$robotCustomizationHash() =>
-    r'79253838611e9c6b08782ec8dbd50552b8f6ab14';
+    r'd2c3e9c17c8454ef6b7c8d9b0efb159467e62445';
 
 /// See also [RobotCustomization].
 @ProviderFor(RobotCustomization)

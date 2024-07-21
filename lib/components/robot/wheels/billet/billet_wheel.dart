@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
+part 'billet_wheel.g.dart';
 
+@JsonSerializable()
 class BilletWheel extends Wheel {
   BilletWheel() : super(acceleration: 11, cost: 4);
+
+  @JsonKey(name: "name")
+  final String name = "Billet";
 
   /// Need to update
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic provider) {
     ref.read(provider);
   }
+
+  factory BilletWheel.fromJson(Map<String, dynamic> json) =>
+      _$BilletWheelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BilletWheelToJson(this);
 
   @override
   String toString() {

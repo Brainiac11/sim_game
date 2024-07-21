@@ -1,15 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
+part 'l_4_gear_ratio.g.dart';
 
-class L3GearRatio extends GearRatio {
+@JsonSerializable()
+class L4GearRatio extends GearRatio {
+  L4GearRatio() : super();
   @override
-  double get acceleration => 12;
+  double get acceleration => 10;
 
   @override
-  double get experience => 20;
+  double get experience => 14;
 
   @override
-  double get maxSpeed => 7;
+  double get maxSpeed => 5;
 
   @override
   void updateMaxSpeed(WidgetRef ref, constants) {
@@ -28,6 +32,10 @@ class L3GearRatio extends GearRatio {
 
   @override
   String toString() {
-    return "L3";
+    return "L4";
   }
+
+  factory L4GearRatio.fromJson(Map<String, dynamic> json) =>
+      _$L4GearRatioFromJson(json);
+  Map<String, dynamic> toJson() => _$L4GearRatioToJson(this);
 }

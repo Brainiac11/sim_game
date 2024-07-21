@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
-import 'package:player_move/components/robot/gear_ratios/l_2_gear_ratio.dart';
+import 'package:player_move/components/robot/gear_ratios/L2/l_2_gear_ratio.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
-import 'package:player_move/components/robot/gear_ratios/l_3_gear_ratio.dart';
-import 'package:player_move/components/robot/gear_ratios/l_4_gear_ratio.dart';
-import 'package:player_move/components/robot/motors/neo_1.1_motor.dart';
-import 'package:player_move/components/robot/wheels/billet_wheel.dart';
+import 'package:player_move/components/robot/gear_ratios/L3/l_3_gear_ratio.dart';
+import 'package:player_move/components/robot/gear_ratios/L4/l_4_gear_ratio.dart';
+import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
+import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,91 +26,91 @@ class RobotCustomization extends _$RobotCustomization {
 
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    final String drivetrain = prefs.getString("drivetrain") ??
+    final Object drivetrain = jsonDecode(prefs.getString("drivetrain") ??
         SwerveDrivetrain(
           motors: NeoMotor(),
           wheel: BilletWheel(),
           gearRatio: L2GearRatio(),
-        ).toJson();
-    final dtL = jsonDecode(drivetrain);
+        ).toJson().toString());
 
     if (kDebugMode) {
-      print("Decoded Json $dtL   ${dtL.runtimeType.toString()}");
-      print("Json runtime type ${dtL.runtimeType}");
+      print("Decoded Json  ${drivetrain.runtimeType.toString()}");
+      print("Json runtime type ${drivetrain.runtimeType}");
     }
-    Drivetrain dt;
-    switch (dtL[0]) {
-      case "SwerveDrivetrain":
-        dt = SwerveDrivetrain(
-            motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio());
-        break;
-      default:
-        if (kDebugMode) {
-          print("defaulting drivetrain");
-        }
-        dt = SwerveDrivetrain(
-            motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio());
-    }
-    switch (dtL[1]) {
-      case "NEO":
-        dt.motors = NeoMotor();
-        break;
-      default:
-        dt.motors = NeoMotor();
-    }
+    Drivetrain dt = Drivetrain.fromJson(drivetrain as Map<String, dynamic>);
+    // switch (dtL[0]) {
+    //   case "SwerveDrivetrain":
+    //     dt = SwerveDrivetrain(
+    //         motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio());
+    //     break;
+    //   default:
+    //     if (kDebugMode) {
+    //       print("defaulting drivetrain");
+    //     }
+    //     dt = SwerveDrivetrain(
+    //         motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio());
+    // }
+    // switch (dtL[1]) {
+    //   case "NEO":
+    //     dt.motors = NeoMotor();
+    //     break;
+    //   default:
+    //     dt.motors = NeoMotor();
+    // }
 
-    if (dt.runtimeType == SwerveDrivetrain) {
-      switch (dtL[2]) {
-        case "Billet":
-          dt = SwerveDrivetrain(
-            motors: dt.motors,
-            wheel: BilletWheel(),
-            gearRatio: (dt as SwerveDrivetrain).gearRatio,
-          );
-      }
-      switch (dtL[3]) {
-        case "L2":
-          if (kDebugMode) {
-            print("Boo");
-          }
-          dt = SwerveDrivetrain(
-            motors: dt.motors,
-            wheel: (dt as SwerveDrivetrain).wheel,
-            gearRatio: L2GearRatio(),
-          );
-          break;
-        case "L3":
-          dt = SwerveDrivetrain(
-            motors: dt.motors,
-            wheel: (dt as SwerveDrivetrain).wheel,
-            gearRatio: L3GearRatio(),
-          );
-          break;
-        case "L4":
-          dt = SwerveDrivetrain(
-            motors: dt.motors,
-            wheel: (dt as SwerveDrivetrain).wheel,
-            gearRatio: L4GearRatio(),
-          );
-          break;
-        default:
-          print(dtL[3]);
-          dt = SwerveDrivetrain(
-            motors: dt.motors,
-            wheel: (dt as SwerveDrivetrain).wheel,
-            gearRatio: L2GearRatio(),
-          );
-          break;
-      }
-    }
+    // if (dt.runtimeType == SwerveDrivetrain) {
+    //   switch (dtL[2]) {
+    //     case "Billet":
+    //       dt = SwerveDrivetrain(
+    //         motors: dt.motors,
+    //         wheel: BilletWheel(),
+    //         gearRatio: (dt as SwerveDrivetrain).gearRatio,
+    //       );
+    //   }
+    //   switch (dtL[3]) {
+    //     case "L2":
+    //       if (kDebugMode) {
+    //         print("Boo");
+    //       }
+    //       dt = SwerveDrivetrain(
+    //         motors: dt.motors,
+    //         wheel: (dt as SwerveDrivetrain).wheel,
+    //         gearRatio: L2GearRatio(),
+    //       );
+    //       break;
+    //     case "L3":
+    //       dt = SwerveDrivetrain(
+    //         motors: dt.motors,
+    //         wheel: (dt as SwerveDrivetrain).wheel,
+    //         gearRatio: L3GearRatio(),
+    //       );
+    //       break;
+    //     case "L4":
+    //       dt = SwerveDrivetrain(
+    //         motors: dt.motors,
+    //         wheel: (dt as SwerveDrivetrain).wheel,
+    //         gearRatio: L4GearRatio(),
+    //       );
+    //       break;
+    //     default:
+    //       print(dtL[3]);
+    //       dt = SwerveDrivetrain(
+    //         motors: dt.motors,
+    //         wheel: (dt as SwerveDrivetrain).wheel,
+    //         gearRatio: L2GearRatio(),
+    //       );
+    //       break;
+    //   }
+    // }
 
     if (kDebugMode) {
       print(
           "Drivetrain Config: ${(dt as SwerveDrivetrain).gearRatio.toString()}");
-      print("Gear Ratio Config: $dtL");
+      print("Gear Ratio Config: ${dt.runtimeType}");
     }
 
-    state = state.copyWith(drivetrain: dt);
+    state = state.copyWith(drivetrain: drivetrain as Drivetrain);
+
     // state.drivetrain = dt;
   }
 
