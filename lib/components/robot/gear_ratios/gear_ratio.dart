@@ -11,13 +11,13 @@ abstract class GearRatio {
       required this.maxSpeed,
       required this.experience,
       required this.name});
-  final double acceleration;
+  double acceleration = 0;
 
-  final double maxSpeed;
+  double maxSpeed = 0;
 
-  final double experience;
+  double experience = 0;
 
-  final String name;
+  String name = "";
 
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
 
@@ -40,5 +40,6 @@ abstract class GearRatio {
         return L2GearRatio.fromJson(json);
     }
   }
+  @mustBeOverridden
   Map<String, dynamic> toJson();
 }

@@ -64,7 +64,9 @@ class SwervePage extends ConsumerWidget {
             SwerveDrivetrain swerve = ref
                 .read(robotCustomizationProvider)
                 .drivetrain as SwerveDrivetrain;
-            swerve.motors = motor;
+            ref
+                .watch(robotCustomizationProvider.notifier)
+                .updateDrivetrain(swerve..motors = motor);
           },
         ),
         Divider(
@@ -88,7 +90,7 @@ class SwervePage extends ConsumerWidget {
                     .watch(robotCustomizationProvider.notifier)
                     .updateDrivetrain(swerve..gearRatio = L2GearRatio());
               },
-              child: Text(L2GearRatio().toString()),
+              child: Text(L2GearRatio().name),
             ),
             TextButton(
               style: Theme.of(context).textButtonTheme.style,
@@ -101,7 +103,7 @@ class SwervePage extends ConsumerWidget {
                     .watch(robotCustomizationProvider.notifier)
                     .updateDrivetrain(swerve..gearRatio = L3GearRatio());
               },
-              child: Text(L3GearRatio().toString()),
+              child: Text(L3GearRatio().name),
             ),
             TextButton(
               style: Theme.of(context).textButtonTheme.style,
@@ -118,7 +120,7 @@ class SwervePage extends ConsumerWidget {
                   print("WOW${swerve.gearRatio}");
                 }
               },
-              child: Text(L4GearRatio().toString()),
+              child: Text(L4GearRatio().name),
             ),
           ],
         ),

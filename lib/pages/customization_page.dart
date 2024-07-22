@@ -18,19 +18,6 @@ class RobotCustomizationScreen extends ConsumerStatefulWidget {
       RobotCustomizationState();
 }
 
-Image returnImages(Type type, BuildContext context) {
-  switch (type) {
-    case NeoMotor:
-      Image image = NeoMotor.toImage(context);
-      return image;
-    case BilletWheel:
-      Image image = BilletWheel.toImage(context);
-      return image;
-    default:
-      return NeoMotor.toImage(context);
-  }
-}
-
 class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
   dynamic onPageChanged(int page, CarouselPageChangedReason reason) {
     HapticFeedback.selectionClick();

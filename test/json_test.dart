@@ -17,21 +17,6 @@ import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
 void main() {
   group('JSON Serialization', () {
     test('SwerveDrivetrain serialization and deserialization', () {
-      // Sample JSON string
-      // String jsonString = '''
-      // {
-      //   "id": "123",
-      //   "type": "concrete",
-      //   "customField": {
-      //     "name": "Custom Name",
-      //     "value": 42
-      //   },
-      //   "nestedObject": {
-      //     "name": "Nested Name"
-      //   }
-      // }
-      // ''';
-
       Map<String, dynamic> userMap = SwerveDrivetrain(
               motors: NeoMotor(),
               gearRatio: L2GearRatio(),

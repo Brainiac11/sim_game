@@ -24,11 +24,14 @@ class RobotCustomization extends _$RobotCustomization {
 
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    final Map<String, dynamic> drivetrain = SwerveDrivetrain(
+    String defaultSwerve = jsonEncode(SwerveDrivetrain(
       motors: NeoMotor(),
       wheel: BilletWheel(),
       gearRatio: L2GearRatio(),
-    ).toJson();
+    ).toJson());
+    Map<String, dynamic> drivetrain = SwerveDrivetrain.fromJson(
+            jsonDecode(prefs.getString("drivetrain") ?? defaultSwerve))
+        .toJson();
 
     if (kDebugMode) {
       print("Decoded Json  ${drivetrain.toString()}");

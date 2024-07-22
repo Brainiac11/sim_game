@@ -6,8 +6,15 @@ part 'l_2_gear_ratio.g.dart';
 @JsonSerializable(explicitToJson: true, anyMap: true)
 class L2GearRatio extends GearRatio {
   static const String kName = "L2";
+  static const double kAcceleration = 10;
+  static const double kMaxSpeed = 14;
+  static const double kExperience = 5;
   L2GearRatio()
-      : super(acceleration: 10, maxSpeed: 14, experience: 5, name: kName);
+      : super(
+            acceleration: kAcceleration,
+            maxSpeed: kMaxSpeed,
+            experience: kExperience,
+            name: kName);
 
   @override
   void updateMaxSpeed(WidgetRef ref, constants) {
