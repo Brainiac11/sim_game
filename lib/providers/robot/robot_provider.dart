@@ -36,4 +36,22 @@ class RobotProvider extends _$RobotProvider {
       kAngularIdleDeccelerationRate: 0,
     );
   }
+
+  void clear() {
+    state = state.copyWith(
+      kMaxTranslationalSpeed: 0,
+      kMaxAngularSpeed: 0,
+      kTranslationalAccelerationRate: 0,
+      kAngularAccelerationRate: 0,
+      kTranslationalDeccelerationRate: 0,
+      kTranslationalIdleDeccelerationRate: 0,
+      kAngularDeccelerationRate: 0,
+      kAngularIdleDeccelerationRate: 0,
+      kDensity: 1.5,
+      kFriction: 1,
+      kRestitution: 0.02,
+      kHalfWidth: 1.6 * const MediaQueryData().devicePixelRatio,
+      kHalfHeight: 1.6 * const MediaQueryData().devicePixelRatio,
+    );
+  }
 }

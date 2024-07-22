@@ -17,9 +17,7 @@ class L2GearRatio extends GearRatio {
             name: kName);
 
   @override
-  void updateMaxSpeed(WidgetRef ref, constants) {
-    // TODO: implement updateMaxSpeed
-  }
+  void updateMaxSpeed(WidgetRef ref, constants) {}
 
   @override
   void updateTotalAcceleration(WidgetRef ref, constants) {

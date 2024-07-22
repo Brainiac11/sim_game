@@ -8,6 +8,8 @@ import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
+import 'package:player_move/providers/robot/customization/robot_customization.dart';
+import 'package:player_move/providers/robot/robot_provider.dart';
 part 'swerve_drivetrain.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
@@ -26,7 +28,7 @@ class SwerveDrivetrain extends Drivetrain {
     body.applyLinearImpulse(value * constants.kTranslationalAccelerationRate);
 
     if (kDebugMode) {
-      print(value.length);
+      print(constants.kMaxTranslationalSpeed);
     }
     body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
     if (body.linearVelocity.length >
@@ -59,9 +61,15 @@ class SwerveDrivetrain extends Drivetrain {
 
   @override
   void updateRobotConstants(WidgetRef ref) {
-    wheel.updateTotalAcceleration(ref, "");
+    // ref.read(robotProviderProvider.notifier).clear();
+    if (kDebugMode) {
+      print("WOWOWOW ${motors.toJson()}");
+      print(ref.read(robotCustomizationProvider).drivetrain.toJson());
+    }
     motors.updateTotalAcceleration(ref, "");
     motors.updateTotalMaxSpeed(ref, "");
+    wheel.updateTotalAcceleration(ref, "");
+
     // gearRatio.updateTotalAcceleration(ref, constants);
   }
 
