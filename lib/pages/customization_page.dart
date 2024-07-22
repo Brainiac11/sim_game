@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
 import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
-import 'package:player_move/pages/cards/Swerve.card.dart';
+import 'package:player_move/pages/cards/drivetrain/Swerve.card.dart';
+import 'package:player_move/pages/cards/drivetrain/drivetrain.card.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -33,7 +35,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
           print("Swerve");
         }
 
-        return const SwervePage();
+        return const DrivetrainPage();
       default:
         if (kDebugMode) {
           print("defaulting ${c.toString()}");
@@ -45,7 +47,9 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    cardIndexList = [ref.read(robotCustomizationProvider).drivetrain];
+    cardIndexList = [
+      ref.read(robotCustomizationProvider).drivetrain as Drivetrain,
+    ];
     // final settings = ref.watch(settingsNotifierProvider);
     // final robot = ref.watch(robotProviderProvider);
 
@@ -68,9 +72,9 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
               generateCards,
             ),
             options: CarouselOptions(
-              height: MediaQuery.of(context).size.height / 1.2,
+              height: MediaQuery.of(context).size.height / 1.15,
               aspectRatio: 3 / 2,
-              viewportFraction: 0.4,
+              viewportFraction: 0.5,
               initialPage: 0,
               enableInfiniteScroll: false,
               reverse: false,

@@ -6,7 +6,7 @@ class CustomizationCard extends StatelessWidget {
     required this.widgetsList,
   });
 
-  List<Widget> widgetsList;
+  final List<Widget> widgetsList;
 
   @override
   Widget build(BuildContext context) {

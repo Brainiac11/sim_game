@@ -27,8 +27,8 @@ class GriplockWheel extends Wheel {
   static Image toImage(BuildContext context) {
     return Image.asset(
       "assets/images/vex_griplock_wheel.png",
-      height: MediaQuery.of(context).size.shortestSide / 7,
-      width: MediaQuery.of(context).size.shortestSide / 7,
+      height: MediaQuery.of(context).size.shortestSide / 8,
+      width: MediaQuery.of(context).size.shortestSide / 8,
     );
   }
 

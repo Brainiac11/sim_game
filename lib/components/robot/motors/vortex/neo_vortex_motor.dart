@@ -29,8 +29,8 @@ class VortexMotor extends Motor {
   static Image toImage(BuildContext context) {
     return Image.asset(
       "assets/images/neo_vortex_motor.png",
-      height: MediaQuery.of(context).size.shortestSide / 7,
-      width: MediaQuery.of(context).size.shortestSide / 7,
+      height: MediaQuery.of(context).size.shortestSide / 8,
+      width: MediaQuery.of(context).size.shortestSide / 8,
     );
   }
 

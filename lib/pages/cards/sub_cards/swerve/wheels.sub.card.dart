@@ -24,14 +24,12 @@ class WheelSubCard extends ConsumerWidget {
             onPressedFunction(BilletWheel());
           },
           icon: returnImages(BilletWheel, context),
-          // iconSize: Theme.of(context).buttonTheme.minWidth,
         ),
         IconButton(
           onPressed: () {
             onPressedFunction(GriplockWheel());
           },
           icon: returnImages(GriplockWheel, context),
-          // iconSize: Theme.of(context).buttonTheme.minWidth,
         ),
       ],
     );
