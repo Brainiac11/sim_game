@@ -28,7 +28,7 @@ class DrivetrainPageState extends ConsumerState<DrivetrainPage> {
     return CustomizationCard(
       widgetsList: [
         const Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.only(top: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

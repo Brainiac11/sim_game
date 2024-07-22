@@ -1,5 +1,7 @@
 import 'package:flame/components.dart';
+import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forge2d/src/dynamics/body.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
@@ -52,7 +54,16 @@ class SwerveDrivetrain extends Drivetrain {
   factory SwerveDrivetrain.fromJson(Map<String, dynamic> json) =>
       _$SwerveDrivetrainFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$SwerveDrivetrainToJson(this);
+
+  @override
+  void updateRobotConstants(WidgetRef ref) {
+    wheel.updateTotalAcceleration(ref, "");
+    motors.updateTotalAcceleration(ref, "");
+    motors.updateTotalMaxSpeed(ref, "");
+    // gearRatio.updateTotalAcceleration(ref, constants);
+  }
 
   // @override
   // dynamic toJson() {

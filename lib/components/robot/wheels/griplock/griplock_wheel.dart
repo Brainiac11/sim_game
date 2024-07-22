@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
+import 'package:player_move/providers/robot/robot_provider.dart';
 part 'griplock_wheel.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -15,7 +16,10 @@ class GriplockWheel extends Wheel {
   /// Need to update
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic provider) {
-    ref.read(provider);
+    final robot = ref.read(robotProviderProvider);
+    robot.kTranslationalAccelerationRate += kAcceleration;
+    robot.kAngularAccelerationRate += kAcceleration / 10;
+    robot.kAngularDeccelerationRate += 1 / kAcceleration;
   }
 
   factory GriplockWheel.fromJson(Map<String, dynamic> json) =>

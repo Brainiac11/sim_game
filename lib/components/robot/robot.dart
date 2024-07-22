@@ -1,4 +1,3 @@
-
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +58,7 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
       ..friction = constants.kFriction
       ..restitution = constants.kRestitution;
     drivetrain = ref.watch(robotCustomizationProvider).drivetrain;
+    drivetrain.updateRobotConstants(ref);
     return world.createBody(robotDef)..createFixture(fixtureDef!);
   }
 

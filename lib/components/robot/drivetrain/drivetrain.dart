@@ -1,4 +1,5 @@
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
@@ -15,6 +16,9 @@ abstract class Drivetrain {
 
   @mustBeOverridden
   void secondJoystickMovement(Vector2 value, Body body, dynamic constants);
+
+  @mustBeOverridden
+  void updateRobotConstants(WidgetRef ref);
 
   factory Drivetrain.fromJson(Map<String, dynamic> json) {
     switch (json["name"]) {

@@ -72,7 +72,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
               generateCards,
             ),
             options: CarouselOptions(
-              height: MediaQuery.of(context).size.height / 1.15,
+              height: MediaQuery.of(context).size.height / 1.2,
               aspectRatio: 3 / 2,
               viewportFraction: 0.5,
               initialPage: 0,
