@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
+import 'package:player_move/components/robot/wheels/griplock/griplock_wheel.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 import 'package:player_move/helpers/return_images.dart';
 import 'package:player_move/pages/customization_page.dart';
@@ -23,6 +24,13 @@ class WheelSubCard extends ConsumerWidget {
             onPressedFunction(BilletWheel());
           },
           icon: returnImages(BilletWheel, context),
+          // iconSize: Theme.of(context).buttonTheme.minWidth,
+        ),
+        IconButton(
+          onPressed: () {
+            onPressedFunction(GriplockWheel());
+          },
+          icon: returnImages(GriplockWheel, context),
           // iconSize: Theme.of(context).buttonTheme.minWidth,
         ),
       ],
