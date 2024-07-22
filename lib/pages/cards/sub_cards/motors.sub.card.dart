@@ -4,7 +4,6 @@ import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
 import 'package:player_move/components/robot/motors/vortex/neo_vortex_motor.dart';
 import 'package:player_move/helpers/return_images.dart';
-import 'package:player_move/pages/customization_page.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 
 class MotorSubCard extends ConsumerWidget {

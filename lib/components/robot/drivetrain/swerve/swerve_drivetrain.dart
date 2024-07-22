@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forge2d/src/dynamics/body.dart';
@@ -9,7 +8,6 @@ import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
-import 'package:player_move/providers/robot/robot_provider.dart';
 part 'swerve_drivetrain.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)

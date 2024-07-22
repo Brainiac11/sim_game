@@ -1,16 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
-import 'package:player_move/components/robot/gear_ratios/L2/l_2_gear_ratio.dart';
-import 'package:player_move/components/robot/gear_ratios/L3/l_3_gear_ratio.dart';
-import 'package:player_move/components/robot/gear_ratios/L4/l_4_gear_ratio.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
-import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
-import 'package:player_move/custom_widgets/customization_card.dart';
 import 'package:player_move/pages/cards/sub_cards/motors.sub.card.dart';
 import 'package:player_move/pages/cards/sub_cards/swerve/gear_ratio.sub.dart';
 import 'package:player_move/pages/cards/sub_cards/swerve/wheels.sub.card.dart';

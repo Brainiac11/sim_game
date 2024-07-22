@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomizationCard extends StatelessWidget {
-  CustomizationCard({
+  const CustomizationCard({
     super.key,
     required this.widgetsList,
   });

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/custom_widgets/customization_card.dart';
 import 'package:player_move/pages/cards/drivetrain/swerve.card.dart';
 

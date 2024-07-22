@@ -24,84 +24,32 @@ class RobotCustomization extends _$RobotCustomization {
 
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    String defaultSwerve = jsonEncode(SwerveDrivetrain(
+    Map<String, dynamic> defaultSwerve = SwerveDrivetrain(
       motors: NeoMotor(),
       wheel: BilletWheel(),
       gearRatio: L2GearRatio(),
-    ).toJson());
-    Map<String, dynamic> drivetrain = SwerveDrivetrain.fromJson(
-            jsonDecode(prefs.getString("drivetrain") ?? defaultSwerve))
-        .toJson();
+    ).toJson();
+    // Map<String, dynamic> drivetrain = SwerveDrivetrain.fromJson(
+    //     json.decode(prefs.getString("drivetrain")!.replaceAll("\n", ""))
+    //             as Map<String, dynamic> ??
+    //         defaultSwerve) as Map<String, dynamic>;
+    if (kDebugMode) {
+      print("Drivetrain:  ${prefs.getString('drivetrain') ?? ""}");
+    }
+    late Map<String, dynamic> drivetrain;
+
+    String? jsonString = prefs.getString('drivetrain');
+    if (jsonString != null) {
+      drivetrain = jsonDecode(jsonString);
+    } else {
+      drivetrain = defaultSwerve;
+    }
 
     if (kDebugMode) {
       print("Decoded Json  ${drivetrain.toString()}");
       print("Json runtime type ${drivetrain.runtimeType}");
     }
     Drivetrain dt = SwerveDrivetrain.fromJson(drivetrain);
-    // switch (dtL[0]) {
-    //   case "SwerveDrivetrain":
-    //     dt = SwerveDrivetrain(
-    //         motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio());
-    //     break;
-    //   default:
-    //     if (kDebugMode) {
-    //       print("defaulting drivetrain");
-    //     }
-    //     dt = SwerveDrivetrain(
-    //         motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio());
-    // }
-    // switch (dtL[1]) {
-    //   case "NEO":
-    //     dt.motors = NeoMotor();
-    //     break;
-    //   default:
-    //     dt.motors = NeoMotor();
-    // }
-
-    // if (dt.runtimeType == SwerveDrivetrain) {
-    //   switch (dtL[2]) {
-    //     case "Billet":
-    //       dt = SwerveDrivetrain(
-    //         motors: dt.motors,
-    //         wheel: BilletWheel(),
-    //         gearRatio: (dt as SwerveDrivetrain).gearRatio,
-    //       );
-    //   }
-    //   switch (dtL[3]) {
-    //     case "L2":
-    //       if (kDebugMode) {
-    //         print("Boo");
-    //       }
-    //       dt = SwerveDrivetrain(
-    //         motors: dt.motors,
-    //         wheel: (dt as SwerveDrivetrain).wheel,
-    //         gearRatio: L2GearRatio(),
-    //       );
-    //       break;
-    //     case "L3":
-    //       dt = SwerveDrivetrain(
-    //         motors: dt.motors,
-    //         wheel: (dt as SwerveDrivetrain).wheel,
-    //         gearRatio: L3GearRatio(),
-    //       );
-    //       break;
-    //     case "L4":
-    //       dt = SwerveDrivetrain(
-    //         motors: dt.motors,
-    //         wheel: (dt as SwerveDrivetrain).wheel,
-    //         gearRatio: L4GearRatio(),
-    //       );
-    //       break;
-    //     default:
-    //       print(dtL[3]);
-    //       dt = SwerveDrivetrain(
-    //         motors: dt.motors,
-    //         wheel: (dt as SwerveDrivetrain).wheel,
-    //         gearRatio: L2GearRatio(),
-    //       );
-    //       break;
-    //   }
-    // }
 
     if (kDebugMode) {
       print(
@@ -118,10 +66,10 @@ class RobotCustomization extends _$RobotCustomization {
     state = state.copyWith(drivetrain: drivetrain);
     final prefs = await SharedPreferences.getInstance();
 
-    prefs.setString('drivetrain', jsonEncode(state.drivetrain));
+    prefs.setString('drivetrain', drivetrain.toString());
 
     if (kDebugMode) {
-      print("Drivetrain in Prefs: ${prefs.getString('drivetrain')}");
+      print("Drivetrain in Prefs: ${drivetrain.toJson().toString()}");
     }
     ref.notifyListeners();
   }

@@ -4,7 +4,6 @@ import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
 import 'package:player_move/components/robot/wheels/griplock/griplock_wheel.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
 import 'package:player_move/helpers/return_images.dart';
-import 'package:player_move/pages/customization_page.dart';
 
 class WheelSubCard extends ConsumerWidget {
   const WheelSubCard({
