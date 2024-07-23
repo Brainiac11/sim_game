@@ -21,7 +21,7 @@ class NeoMotor extends Motor {
 
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {
-    final robot = ref.read(robotProviderProvider);
+    final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
     robot.kTranslationalDeccelerationRate += kAcceleration / 5;
     robot.kTranslationalIdleDeccelerationRate += kAcceleration / 10;
@@ -32,7 +32,7 @@ class NeoMotor extends Motor {
 
   @override
   void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {
-    final robot = ref.read(robotProviderProvider);
+    final robot = ref.watch(robotProviderProvider);
     robot.kMaxTranslationalSpeed += kMaximumSpeed;
     robot.kMaxAngularSpeed += kMaximumSpeed / 10;
   }

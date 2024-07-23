@@ -20,7 +20,7 @@ class L4GearRatio extends GearRatio {
 
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {
-    final robot = ref.read(robotProviderProvider);
+    final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
     robot.kAngularAccelerationRate += kAcceleration / 2;
     if (kDebugMode) {
@@ -30,7 +30,7 @@ class L4GearRatio extends GearRatio {
 
   @override
   void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {
-    final robot = ref.read(robotProviderProvider);
+    final robot = ref.watch(robotProviderProvider);
     robot.kMaxTranslationalSpeed += kMaximumSpeed;
     robot.kMaxAngularSpeed += kMaximumSpeed / 10;
   }

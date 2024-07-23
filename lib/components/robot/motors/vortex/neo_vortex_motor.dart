@@ -21,7 +21,7 @@ class VortexMotor extends Motor {
 
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {
-    final robot = ref.read(robotProviderProvider);
+    final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
     robot.kTranslationalDeccelerationRate += kAcceleration / 2;
     robot.kTranslationalIdleDeccelerationRate += kAcceleration / 10;
@@ -32,7 +32,7 @@ class VortexMotor extends Motor {
 
   @override
   void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {
-    final robot = ref.read(robotProviderProvider);
+    final robot = ref.watch(robotProviderProvider);
     robot.kMaxTranslationalSpeed += kMaximumSpeed;
     robot.kMaxAngularSpeed += kMaximumSpeed / 10;
   }

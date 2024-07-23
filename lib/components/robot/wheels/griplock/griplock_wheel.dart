@@ -17,12 +17,12 @@ class GriplockWheel extends Wheel {
   /// Need to update
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic provider) {
-    final robot = ref.read(robotProviderProvider);
+    final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
     robot.kTranslationalDeccelerationRate += kAcceleration / 4;
     robot.kTranslationalIdleDeccelerationRate += kAcceleration / 2;
     robot.kAngularIdleDeccelerationRate += kAcceleration / 20;
-    robot.kAngularAccelerationRate += kAcceleration / 4;
+    // robot.kAngularAccelerationRate += kAcceleration / 4;
     robot.kAngularDeccelerationRate += kAcceleration / 10;
   }
 

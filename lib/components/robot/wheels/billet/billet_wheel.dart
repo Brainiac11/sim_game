@@ -15,7 +15,7 @@ class BilletWheel extends Wheel {
   /// Need to update
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic provider) {
-    final robot = ref.read(robotProviderProvider);
+    final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
     robot.kTranslationalDeccelerationRate += kAcceleration / 10;
     robot.kAngularAccelerationRate += kAcceleration / 10;

@@ -37,6 +37,10 @@ class RobotProvider extends _$RobotProvider {
     );
   }
 
+  void updateConstants(RobotConstants newConstants) {
+    state = newConstants;
+  }
+
   void clear() {
     state = state.copyWith(
       kMaxTranslationalSpeed: 0,
