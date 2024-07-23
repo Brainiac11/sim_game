@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
+import 'package:player_move/components/robot/motors/vortex/neo_vortex_motor.dart';
 // part 'motor.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
@@ -45,6 +46,8 @@ abstract class Motor {
     switch (json["name"]) {
       case "NEO":
         return NeoMotor.fromJson(json);
+      case "Vortex":
+        return VortexMotor.fromJson(json);
       default:
         return NeoMotor.fromJson(json);
     }

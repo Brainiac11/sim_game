@@ -22,7 +22,7 @@ abstract class GearRatio {
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
 
   @mustBeOverridden
-  void updateMaxSpeed(WidgetRef ref, dynamic constants) {}
+  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {}
 
   @mustBeOverridden
   void updateTotalExperience(WidgetRef ref, dynamic constants) {}
@@ -35,7 +35,6 @@ abstract class GearRatio {
         return L3GearRatio.fromJson(json);
       case "L4":
         return L4GearRatio.fromJson(json);
-
       default:
         return L2GearRatio.fromJson(json);
     }

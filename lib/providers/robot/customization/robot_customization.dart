@@ -45,10 +45,6 @@ class RobotCustomization extends _$RobotCustomization {
       drivetrain = defaultSwerve;
     }
 
-    if (kDebugMode) {
-      print("Decoded Json  ${drivetrain.toString()}");
-      print("Json runtime type ${drivetrain.runtimeType}");
-    }
     Drivetrain dt = SwerveDrivetrain.fromJson(drivetrain);
 
     if (kDebugMode) {
@@ -66,7 +62,7 @@ class RobotCustomization extends _$RobotCustomization {
     state = state.copyWith(drivetrain: drivetrain);
     final prefs = await SharedPreferences.getInstance();
 
-    prefs.setString('drivetrain', drivetrain.toString());
+    prefs.setString('drivetrain', jsonEncode(drivetrain.toJson()));
 
     if (kDebugMode) {
       print("Drivetrain in Prefs: ${drivetrain.toJson().toString()}");
