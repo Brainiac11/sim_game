@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -18,8 +19,11 @@ class GriplockWheel extends Wheel {
   void updateTotalAcceleration(WidgetRef ref, dynamic provider) {
     final robot = ref.read(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
-    robot.kAngularAccelerationRate += kAcceleration / 10;
-    robot.kAngularDeccelerationRate += 1 / kAcceleration;
+    robot.kTranslationalDeccelerationRate += kAcceleration / 4;
+    robot.kTranslationalIdleDeccelerationRate += kAcceleration / 2;
+    robot.kAngularIdleDeccelerationRate += kAcceleration / 20;
+    robot.kAngularAccelerationRate += kAcceleration / 4;
+    robot.kAngularDeccelerationRate += kAcceleration / 10;
   }
 
   factory GriplockWheel.fromJson(Map<String, dynamic> json) =>

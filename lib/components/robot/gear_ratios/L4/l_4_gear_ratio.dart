@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
@@ -7,9 +8,9 @@ part 'l_4_gear_ratio.g.dart';
 @JsonSerializable(explicitToJson: true, anyMap: true)
 class L4GearRatio extends GearRatio {
   static const String kName = "L4";
-  static const double kAcceleration = 10;
-  static const double kMaximumSpeed = 14;
-  static const double kExperience = 5;
+  static const double kAcceleration = 15;
+  static const double kMaximumSpeed = 20;
+  static const double kExperience = 15;
   L4GearRatio()
       : super(
             acceleration: kAcceleration,
@@ -21,11 +22,10 @@ class L4GearRatio extends GearRatio {
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {
     final robot = ref.read(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
-    robot.kTranslationalDeccelerationRate += kAcceleration / 10;
-    robot.kTranslationalIdleDeccelerationRate += 1 / kAcceleration;
-    robot.kAngularAccelerationRate += kAcceleration / 10;
-    robot.kAngularDeccelerationRate += kAcceleration;
-    robot.kAngularIdleDeccelerationRate += kAcceleration / 4;
+    robot.kAngularAccelerationRate += kAcceleration / 2;
+    if (kDebugMode) {
+      print("Updating ${robot.kTranslationalDeccelerationRate}");
+    }
   }
 
   @override

@@ -8,7 +8,7 @@ part 'neo_1.1_motor.g.dart';
 @JsonSerializable(explicitToJson: true)
 class NeoMotor extends Motor {
   static const double kAcceleration = 14;
-  static const double kMaximumSpeed = 10;
+  static const double kMaximumSpeed = 20;
   static const double kCost = 10;
   static const String kName = "NEO";
   NeoMotor()
@@ -23,9 +23,9 @@ class NeoMotor extends Motor {
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {
     final robot = ref.read(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
-    robot.kTranslationalDeccelerationRate += kAcceleration / 10;
-    robot.kTranslationalIdleDeccelerationRate += 1 / kAcceleration;
-    robot.kAngularAccelerationRate += kAcceleration / 10;
+    robot.kTranslationalDeccelerationRate += kAcceleration / 5;
+    robot.kTranslationalIdleDeccelerationRate += kAcceleration / 10;
+    robot.kAngularAccelerationRate += kAcceleration / 4;
     robot.kAngularDeccelerationRate += kAcceleration;
     robot.kAngularIdleDeccelerationRate += kAcceleration / 4;
   }

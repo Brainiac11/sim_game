@@ -34,6 +34,12 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
 
   @override
   void onMount() {
+    drivetrain = ref.watch(robotCustomizationProvider).drivetrain;
+    if (kDebugMode) {
+      print("Direvetrain ${drivetrain.toJson()}");
+    }
+    // ref.read(robotProviderProvider.notifier).clear();
+    drivetrain.updateRobotConstants(ref);
     addToGameWidgetBuild(() {});
     super.onMount();
   }
@@ -58,11 +64,7 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
       ..density = constants.kDensity
       ..friction = constants.kFriction
       ..restitution = constants.kRestitution;
-    drivetrain = ref.watch(robotCustomizationProvider).drivetrain;
-    if (kDebugMode) {
-      print("Direvetrain ${drivetrain.toJson()}");
-    }
-    drivetrain.updateRobotConstants(ref);
+
     return world.createBody(robotDef)..createFixture(fixtureDef!);
   }
 
