@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
@@ -8,8 +9,8 @@ part 'l_2_gear_ratio.g.dart';
 class L2GearRatio extends GearRatio {
   static const String kName = "L2";
   static const double kAcceleration = 8;
-  static const double kMaximumSpeed = 12;
-  static const double kExperience = 0;
+  static const double kMaximumSpeed = 10;
+  static const double kExperience = 8;
   L2GearRatio()
       : super(
             acceleration: kAcceleration,
@@ -19,18 +20,17 @@ class L2GearRatio extends GearRatio {
 
   @override
   void updateTotalAcceleration(WidgetRef ref, dynamic constants) {
-    final robot = ref.read(robotProviderProvider);
+    final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
-    robot.kTranslationalDeccelerationRate += kAcceleration / 10;
-    robot.kTranslationalIdleDeccelerationRate += 1 / kAcceleration;
-    robot.kAngularAccelerationRate += kAcceleration / 10;
-    robot.kAngularDeccelerationRate += kAcceleration;
-    robot.kAngularIdleDeccelerationRate += kAcceleration / 4;
+    robot.kAngularAccelerationRate += kAcceleration / 2;
+    if (kDebugMode) {
+      print("Updating ${robot.kMaxTranslationalSpeed}");
+    }
   }
 
   @override
   void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {
-    final robot = ref.read(robotProviderProvider);
+    final robot = ref.watch(robotProviderProvider);
     robot.kMaxTranslationalSpeed += kMaximumSpeed;
     robot.kMaxAngularSpeed += kMaximumSpeed / 10;
   }

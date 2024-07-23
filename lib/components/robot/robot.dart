@@ -34,13 +34,16 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
 
   @override
   void onMount() {
-    drivetrain = ref.watch(robotCustomizationProvider).drivetrain;
-    if (kDebugMode) {
-      print("Direvetrain ${drivetrain.toJson()}");
-    }
-    // ref.read(robotProviderProvider.notifier).clear();
-    drivetrain.updateRobotConstants(ref);
-    addToGameWidgetBuild(() {});
+    addToGameWidgetBuild(() {
+      drivetrain = ref.watch(robotCustomizationProvider).drivetrain;
+      if (kDebugMode) {
+        print(
+            "Direvetrain ${drivetrain.toJson()} \n ${drivetrain.motors.toJson()}");
+      }
+      // ref.read(robotProviderProvider.notifier).clear();
+      drivetrain.updateRobotConstants(ref);
+    });
+
     super.onMount();
   }
 

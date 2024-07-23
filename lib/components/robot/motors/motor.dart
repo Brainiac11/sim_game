@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,13 +44,16 @@ abstract class Motor {
   }
 
   factory Motor.fromJson(Map<String, dynamic> json) {
-    switch (json["name"]) {
+    if (kDebugMode) {
+      print(json['name'] + " Motor Name " + json.toString());
+    }
+    switch (json['name']) {
       case "NEO":
         return NeoMotor.fromJson(json);
       case "Vortex":
         return VortexMotor.fromJson(json);
       default:
-        return NeoMotor.fromJson(json);
+        throw (Error());
     }
   }
   @mustBeOverridden

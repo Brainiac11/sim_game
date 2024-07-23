@@ -8,7 +8,7 @@ part 'billet_wheel.g.dart';
 @JsonSerializable(explicitToJson: true)
 class BilletWheel extends Wheel {
   static const String kName = "Billet";
-  static const double kAcceleration = 10;
+  static const double kAcceleration = 8;
   static const double kCost = 4;
   BilletWheel() : super(acceleration: kAcceleration, cost: kCost, name: kName);
 
@@ -17,8 +17,10 @@ class BilletWheel extends Wheel {
   void updateTotalAcceleration(WidgetRef ref, dynamic provider) {
     final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
-    robot.kTranslationalDeccelerationRate += kAcceleration / 10;
-    robot.kAngularAccelerationRate += kAcceleration / 10;
+    robot.kTranslationalDeccelerationRate += kAcceleration / 4;
+    robot.kTranslationalIdleDeccelerationRate += kAcceleration / 2;
+    robot.kAngularIdleDeccelerationRate += kAcceleration / 20;
+    robot.kAngularAccelerationRate += kAcceleration / 4;
     robot.kAngularDeccelerationRate += kAcceleration / 10;
   }
 
