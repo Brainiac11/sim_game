@@ -70,6 +70,7 @@ class MatchPageState extends State<MatchPage> {
                 iconColor: WidgetStateProperty.all(Colors.white),
               ),
               onPressed: () {
+                game.onDispose();
                 context.go('/');
               },
             ),

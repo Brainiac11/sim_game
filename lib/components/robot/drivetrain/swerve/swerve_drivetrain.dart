@@ -60,6 +60,7 @@ class SwerveDrivetrain extends Drivetrain {
 
   @override
   void updateRobotConstants(WidgetRef ref) {
+    super.updateRobotConstants(ref);
     // ref.read(robotProviderProvider.notifier).clear();
     if (kDebugMode) {
       print("Called Updated Robot Constants");
