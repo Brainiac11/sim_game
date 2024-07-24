@@ -27,7 +27,7 @@ class SwerveDrivetrain extends Drivetrain {
     body.applyLinearImpulse(value * constants.kTranslationalAccelerationRate);
 
     if (kDebugMode) {
-      print(constants.kTranslationalDeccelerationRate);
+      print(body.linearVelocity.length);
     }
     body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
     if (body.linearVelocity.length >

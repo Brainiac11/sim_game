@@ -14,6 +14,8 @@ abstract class Motor {
   double cost = 0;
   String name = "";
 
+  static const double kMotorDecceleration = 100;
+
   /// Optional for now, will integrate down the line
   final double energy = 0;
 

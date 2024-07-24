@@ -10,7 +10,7 @@ abstract class Wheel {
   double acceleration = 0;
   double cost = 0;
   String name = "";
-
+  static const double kWheelDecceleration = 10;
   // will implement later
   final double endurance = 0;
 
