@@ -30,6 +30,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+    getImageSize();
     if (kDebugMode) {
       print("Screen Size: (${super.size.x} , ${super.size.y})");
     }
@@ -72,50 +73,20 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   }
 }
 
-Widget backgroundBuilder(BuildContext context) {
-  final screenSize = MediaQuery.of(context).size;
-  final worldWidth = screenSize.width / ppm;
-  final worldHeight = screenSize.height / ppm;
-
-  return Container(
-    width: screenSize.width,
-    height: screenSize.height,
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage(
-            'assets/images/dark_field_updated.png'), // Your image path
-        fit: BoxFit.contain,
-      ),
-    ),
-    child: CustomPaint(
-      painter: BackgroundPainter(worldWidth, worldHeight),
-    ),
-  );
-}
-
-class BackgroundPainter extends CustomPainter {
-  final double worldWidth;
-  final double worldHeight;
-
-  BackgroundPainter(this.worldWidth, this.worldHeight);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Translate canvas to match the Forge2D world size
-    final scale = size.width / worldWidth;
-    canvas.scale(scale, -scale); // Flip Y-axis for correct orientation
-    canvas.translate(0, -worldHeight);
-
-    final paint = Paint()
-      ..color = Colors.green
-      ..style = PaintingStyle.fill;
-
-    // Example: Draw a background rectangle representing the world (if needed)
-    // canvas.drawRect(Rect.fromLTWH(0, 0, worldWidth, worldHeight), paint);
+Size getImageSize() {
+  try {
+    Image image = Image.asset('assets/images/dark_field_updated.png');
+    if (kDebugMode) {
+      print(3072 / 1420);
+    }
+    // hard coded sizes need to update later on to support dynamic sizes
+    return Size(3072, 1420);
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+    return Size(0, 0);
   }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
 // Helper component that paints a black background
