@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
+import 'package:player_move/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'robot_provider.g.dart';
 
@@ -22,10 +23,12 @@ class RobotProvider extends _$RobotProvider {
       // kAngularDeccelerationRate: 12,
       // kAngularIdleDeccelerationRate: 5,
       kDensity: 1.5,
-      kFriction: 1,
+      kFriction: 0.5,
       kRestitution: 0.02,
-      kHalfWidth: 1.6 * const MediaQueryData().devicePixelRatio,
-      kHalfHeight: 1.6 * const MediaQueryData().devicePixelRatio,
+      // kHalfWidth: (1556 / 3840) * 1.6,
+      // kHalfHeight: (1556 / 3840) * 1.6,
+      kHalfWidth: kWorldSize.x / 50,
+      kHalfHeight: kWorldSize.x / 50,
       kMaxTranslationalSpeed: 0,
       kMaxAngularSpeed: 0,
       kTranslationalAccelerationRate: 0,

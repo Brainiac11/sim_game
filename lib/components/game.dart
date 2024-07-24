@@ -37,7 +37,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     await add(fps);
     await add(totalBodies);
 
-    await add(_Background(size: kScreenSize));
+    // await add(_Background(size: kScreenSize));
     await world.add(BorderEdge(borderKey: const ValueKey("Top")));
     await world.add(BorderEdge(borderKey: const ValueKey("Bottom")));
     await world.add(BorderEdge(borderKey: const ValueKey("Right")));
@@ -71,67 +71,67 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
 }
 
 // Helper component that paints a black background
-class _Background extends PositionComponent with RiverpodComponentMixin {
-  _Background({super.size});
-  late AppSettings settings;
-  ThemeMode themeMode = ThemeMode.dark;
+// class _Background extends PositionComponent with RiverpodComponentMixin {
+//   _Background({super.size});
+//   late AppSettings settings;
+//   ThemeMode themeMode = ThemeMode.dark;
 
-  Future<ui.Image> loadImage(String asset) async {
-    ByteData data = await rootBundle.load(asset);
-    ui.Codec codec = await ui.instantiateImageCodec(
-      allowUpscaling: true,
-      data.buffer.asUint8List(),
-      targetHeight: kScreenSize.y.toInt(),
-      targetWidth: kScreenSize.x.toInt(),
-    );
-    ui.FrameInfo fi = await codec.getNextFrame();
-    return fi.image;
-  }
+//   Future<ui.Image> loadImage(String asset) async {
+//     ByteData data = await rootBundle.load(asset);
+//     ui.Codec codec = await ui.instantiateImageCodec(
+//       allowUpscaling: false,
+//       data.buffer.asUint8List(),
+//       targetHeight: kScreenSize.y.toInt(),
+//       targetWidth: kScreenSize.x.toInt(),
+//     );
+//     ui.FrameInfo fi = await codec.getNextFrame();
+//     return fi.image;
+//   }
 
-  ui.Image? loadSyncImage(String asset) {
-    loadImage(asset).then((value) {
-      return value;
-    });
-    return null;
-  }
+//   ui.Image? loadSyncImage(String asset) {
+//     loadImage(asset).then((value) {
+//       return value;
+//     });
+//     return null;
+//   }
 
-  FutureOr<void> updateFieldImage(ThemeMode themeMode) async {
-    if (kDebugMode) {
-      print("Field Image Theme Mode: ${themeMode.toString()}");
-    }
-    fieldImage = await loadImage(themeMode == ThemeMode.dark
-        ? "assets/images/dark_field.png"
-        : "assets/images/light_field.png");
-    // fieldImage = await fieldImage.resize(Vector2(
-    //     ,
-    // const MediaQueryData().devicePixelRatio * fieldImage.height));
-  }
+//   FutureOr<void> updateFieldImage(ThemeMode themeMode) async {
+//     if (kDebugMode) {
+//       print("Field Image Theme Mode: ${themeMode.toString()}");
+//     }
+//     fieldImage = await loadImage(themeMode == ThemeMode.dark
+//         ? "assets/images/dark_field.png"
+//         : "assets/images/light_field.png");
+//     // fieldImage = await fieldImage.resize(Vector2(
+//     //     ,
+//     // const MediaQueryData().devicePixelRatio * fieldImage.height));
+//   }
 
-  late ui.Image fieldImage;
+//   late ui.Image fieldImage;
 
-  @override
-  void onMount() {
-    addToGameWidgetBuild(() {
-      themeMode = ref.watch(settingsNotifierProvider).themeMode;
-      updateFieldImage(themeMode);
-    });
+//   @override
+//   void onMount() {
+//     addToGameWidgetBuild(() {
+//       themeMode = ref.watch(settingsNotifierProvider).themeMode;
+//       updateFieldImage(themeMode);
+//     });
 
-    super.onMount();
-  }
+//     super.onMount();
+//   }
 
-  @override
-  FutureOr<void> onLoad() async {
-    // updateFieldImage(ThemeMode.dark);
+//   @override
+//   FutureOr<void> onLoad() async {
+//     // updateFieldImage(ThemeMode.dark);
 
-    return super.onLoad();
-  }
+//     return super.onLoad();
+//   }
 
-  @override
-  FutureOr<void> render(Canvas canvas) async {
-// Find a better way to implement this
-// Currently just a bandaid
-    try {
-      canvas.drawImage(fieldImage, Offset.zero, Paint());
-    } catch (e) {}
-  }
-}
+//   @override
+//   FutureOr<void> render(Canvas canvas) async {
+// // Find a better way to implement this
+// // Currently just a bandaid
+//     try {
+//       canvas.drawImage(fieldImage, Offset.zero, Paint());
+//     } catch (e) {}
+//   }
+// }
