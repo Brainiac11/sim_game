@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -51,16 +53,7 @@ class MatchPageState extends State<MatchPage> {
           RiverpodAwareGameWidget(
             game: game,
             key: gameWidgetKey,
-            backgroundBuilder: (context) {
-              return Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/dark_field_updated.png"),
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
-              );
-            },
+            backgroundBuilder: (context) => backgroundBuilder(context),
           ),
           Align(
             alignment: Alignment.topLeft,

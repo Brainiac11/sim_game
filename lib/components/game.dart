@@ -16,6 +16,8 @@ import 'package:player_move/providers/settings/settings.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 
+const double ppm = 10.0; // Pixels per meter
+
 class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   // final Robot _robot = Robot(drivetrain: SwerveDrivetrain());
   final fps = FpsTextComponent(position: Vector2(5, kWorldSize.y));
@@ -29,7 +31,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   Future<void> onLoad() async {
     await super.onLoad();
     if (kDebugMode) {
-      print("Screen Size: (${kScreenSize.x} , ${kScreenSize.y})");
+      print("Screen Size: (${super.size.x} , ${super.size.y})");
     }
 
     camera.viewport = FixedResolutionViewport(resolution: kScreenSize);
@@ -58,7 +60,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   @override
   Color backgroundColor() {
     // Paints the background red
-    return Colors.red;
+    return Colors.transparent;
   }
 
   void linearMovement(Vector2 value) {
@@ -68,6 +70,52 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   void angularMovement(Vector2 value) {
     robot.angularMovement(value);
   }
+}
+
+Widget backgroundBuilder(BuildContext context) {
+  final screenSize = MediaQuery.of(context).size;
+  final worldWidth = screenSize.width / ppm;
+  final worldHeight = screenSize.height / ppm;
+
+  return Container(
+    width: screenSize.width,
+    height: screenSize.height,
+    decoration: BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage(
+            'assets/images/dark_field_updated.png'), // Your image path
+        fit: BoxFit.contain,
+      ),
+    ),
+    child: CustomPaint(
+      painter: BackgroundPainter(worldWidth, worldHeight),
+    ),
+  );
+}
+
+class BackgroundPainter extends CustomPainter {
+  final double worldWidth;
+  final double worldHeight;
+
+  BackgroundPainter(this.worldWidth, this.worldHeight);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Translate canvas to match the Forge2D world size
+    final scale = size.width / worldWidth;
+    canvas.scale(scale, -scale); // Flip Y-axis for correct orientation
+    canvas.translate(0, -worldHeight);
+
+    final paint = Paint()
+      ..color = Colors.green
+      ..style = PaintingStyle.fill;
+
+    // Example: Draw a background rectangle representing the world (if needed)
+    // canvas.drawRect(Rect.fromLTWH(0, 0, worldWidth, worldHeight), paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
 // Helper component that paints a black background
