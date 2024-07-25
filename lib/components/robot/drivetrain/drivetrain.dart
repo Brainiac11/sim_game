@@ -1,6 +1,7 @@
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/constants.dart';
@@ -14,17 +15,21 @@ abstract class Drivetrain {
   Drivetrain({required this.motors, required this.name});
 
   @mustBeOverridden
-  void firstJoystickMovement(Vector2 value, Body body, dynamic constants);
+  void firstJoystickMovement(
+      Vector2 value, Body body, RobotConstants constants);
 
   @mustBeOverridden
-  void secondJoystickMovement(Vector2 value, Body body, dynamic constants);
+  void secondJoystickMovement(
+      Vector2 value, Body body, RobotConstants constants);
 
   @mustBeOverridden
   @mustCallSuper
   void updateRobotConstants(WidgetRef ref) {
-    ref.watch(robotProviderProvider)
+    final robotConstants = ref.watch(robotProviderProvider)
       ..kHalfHeight = kWorldSize.x / 51
       ..kHalfWidth = kWorldSize.x / 51;
+    robotConstants.kMultiplier = kRobotMass.mass /
+        (robotConstants.kHalfHeight * robotConstants.kHalfWidth);
   }
 
   factory Drivetrain.fromJson(Map<String, dynamic> json) {

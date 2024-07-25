@@ -26,6 +26,8 @@ mixin _$RobotConstants {
   set kFriction(double value) => throw _privateConstructorUsedError;
   double get kRestitution => throw _privateConstructorUsedError;
   set kRestitution(double value) => throw _privateConstructorUsedError;
+  double get kMultiplier => throw _privateConstructorUsedError;
+  set kMultiplier(double value) => throw _privateConstructorUsedError;
   double get kHalfWidth => throw _privateConstructorUsedError;
   set kHalfWidth(double value) => throw _privateConstructorUsedError;
   double get kHalfHeight => throw _privateConstructorUsedError;
@@ -74,6 +76,7 @@ abstract class $RobotConstantsCopyWith<$Res> {
       {double kDensity,
       double kFriction,
       double kRestitution,
+      double kMultiplier,
       double kHalfWidth,
       double kHalfHeight,
       double kMaxTranslationalSpeed,
@@ -102,6 +105,7 @@ class _$RobotConstantsCopyWithImpl<$Res, $Val extends RobotConstants>
     Object? kDensity = null,
     Object? kFriction = null,
     Object? kRestitution = null,
+    Object? kMultiplier = null,
     Object? kHalfWidth = null,
     Object? kHalfHeight = null,
     Object? kMaxTranslationalSpeed = null,
@@ -125,6 +129,10 @@ class _$RobotConstantsCopyWithImpl<$Res, $Val extends RobotConstants>
       kRestitution: null == kRestitution
           ? _value.kRestitution
           : kRestitution // ignore: cast_nullable_to_non_nullable
+              as double,
+      kMultiplier: null == kMultiplier
+          ? _value.kMultiplier
+          : kMultiplier // ignore: cast_nullable_to_non_nullable
               as double,
       kHalfWidth: null == kHalfWidth
           ? _value.kHalfWidth
@@ -183,6 +191,7 @@ abstract class _$$RobotConstantsImplCopyWith<$Res>
       {double kDensity,
       double kFriction,
       double kRestitution,
+      double kMultiplier,
       double kHalfWidth,
       double kHalfHeight,
       double kMaxTranslationalSpeed,
@@ -209,6 +218,7 @@ class __$$RobotConstantsImplCopyWithImpl<$Res>
     Object? kDensity = null,
     Object? kFriction = null,
     Object? kRestitution = null,
+    Object? kMultiplier = null,
     Object? kHalfWidth = null,
     Object? kHalfHeight = null,
     Object? kMaxTranslationalSpeed = null,
@@ -232,6 +242,10 @@ class __$$RobotConstantsImplCopyWithImpl<$Res>
       kRestitution: null == kRestitution
           ? _value.kRestitution
           : kRestitution // ignore: cast_nullable_to_non_nullable
+              as double,
+      kMultiplier: null == kMultiplier
+          ? _value.kMultiplier
+          : kMultiplier // ignore: cast_nullable_to_non_nullable
               as double,
       kHalfWidth: null == kHalfWidth
           ? _value.kHalfWidth
@@ -285,6 +299,7 @@ class _$RobotConstantsImpl implements _RobotConstants {
       {required this.kDensity,
       required this.kFriction,
       required this.kRestitution,
+      required this.kMultiplier,
       required this.kHalfWidth,
       required this.kHalfHeight,
       required this.kMaxTranslationalSpeed,
@@ -305,6 +320,8 @@ class _$RobotConstantsImpl implements _RobotConstants {
   double kFriction;
   @override
   double kRestitution;
+  @override
+  double kMultiplier;
   @override
   double kHalfWidth;
   @override
@@ -328,7 +345,7 @@ class _$RobotConstantsImpl implements _RobotConstants {
 
   @override
   String toString() {
-    return 'RobotConstants(kDensity: $kDensity, kFriction: $kFriction, kRestitution: $kRestitution, kHalfWidth: $kHalfWidth, kHalfHeight: $kHalfHeight, kMaxTranslationalSpeed: $kMaxTranslationalSpeed, kMaxAngularSpeed: $kMaxAngularSpeed, kTranslationalAccelerationRate: $kTranslationalAccelerationRate, kAngularAccelerationRate: $kAngularAccelerationRate, kTranslationalDeccelerationRate: $kTranslationalDeccelerationRate, kTranslationalIdleDeccelerationRate: $kTranslationalIdleDeccelerationRate, kAngularDeccelerationRate: $kAngularDeccelerationRate, kAngularIdleDeccelerationRate: $kAngularIdleDeccelerationRate)';
+    return 'RobotConstants(kDensity: $kDensity, kFriction: $kFriction, kRestitution: $kRestitution, kMultiplier: $kMultiplier, kHalfWidth: $kHalfWidth, kHalfHeight: $kHalfHeight, kMaxTranslationalSpeed: $kMaxTranslationalSpeed, kMaxAngularSpeed: $kMaxAngularSpeed, kTranslationalAccelerationRate: $kTranslationalAccelerationRate, kAngularAccelerationRate: $kAngularAccelerationRate, kTranslationalDeccelerationRate: $kTranslationalDeccelerationRate, kTranslationalIdleDeccelerationRate: $kTranslationalIdleDeccelerationRate, kAngularDeccelerationRate: $kAngularDeccelerationRate, kAngularIdleDeccelerationRate: $kAngularIdleDeccelerationRate)';
   }
 
   @JsonKey(ignore: true)
@@ -351,6 +368,7 @@ abstract class _RobotConstants implements RobotConstants {
       {required double kDensity,
       required double kFriction,
       required double kRestitution,
+      required double kMultiplier,
       required double kHalfWidth,
       required double kHalfHeight,
       required double kMaxTranslationalSpeed,
@@ -374,6 +392,9 @@ abstract class _RobotConstants implements RobotConstants {
   @override
   double get kRestitution;
   set kRestitution(double value);
+  @override
+  double get kMultiplier;
+  set kMultiplier(double value);
   @override
   double get kHalfWidth;
   set kHalfWidth(double value);

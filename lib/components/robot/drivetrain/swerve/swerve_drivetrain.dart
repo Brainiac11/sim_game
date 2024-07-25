@@ -3,10 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forge2d/src/dynamics/body.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
+import 'package:player_move/constants.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
 part 'swerve_drivetrain.g.dart';
@@ -23,32 +25,43 @@ class SwerveDrivetrain extends Drivetrain {
   }) : super(name: kName);
 
   @override
-  void firstJoystickMovement(Vector2 value, Body body, dynamic constants) {
-    body.applyLinearImpulse(value * constants.kTranslationalAccelerationRate);
+  void firstJoystickMovement(
+      Vector2 value, Body body, RobotConstants constants) {
+    body.applyLinearImpulse(value *
+        constants.kTranslationalAccelerationRate *
+        constants.kMultiplier);
 
     if (kDebugMode) {
-      print(body.linearVelocity.length);
+      // print(body.linearVelocity.length);
+
+      print(constants.kDensity);
     }
     body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
     if (body.linearVelocity.length >
         value.length * constants.kTranslationalAccelerationRate) {
-      body.linearDamping = constants.kTranslationalDeccelerationRate;
+      body.linearDamping =
+          constants.kTranslationalDeccelerationRate * constants.kMultiplier;
     } else {
-      body.linearDamping = constants.kTranslationalIdleDeccelerationRate;
+      body.linearDamping = constants.kTranslationalIdleDeccelerationRate *
+          constants.kMultiplier /
+          4;
     }
   }
 
   @override
-  void secondJoystickMovement(Vector2 value, Body body, dynamic constants) {
+  void secondJoystickMovement(
+      Vector2 value, Body body, RobotConstants constants) {
     body.angularVelocity
         .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
-    body.applyAngularImpulse(value.x * constants.kAngularAccelerationRate);
+    body.applyAngularImpulse(
+        value.x * constants.kAngularAccelerationRate * constants.kMultiplier);
 
     if (body.angularVelocity >
         value.x.abs() * constants.kAngularAccelerationRate) {
       body.angularDamping = constants.kAngularDeccelerationRate;
     } else {
-      body.angularDamping = constants.kAngularIdleDeccelerationRate;
+      body.angularDamping =
+          constants.kAngularIdleDeccelerationRate * constants.kMultiplier / 6;
     }
   }
 

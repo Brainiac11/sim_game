@@ -9,6 +9,7 @@ abstract class RobotConstants with _$RobotConstants {
     required double kDensity,
     required double kFriction,
     required double kRestitution,
+    required double kMultiplier,
     required double kHalfWidth,
     required double kHalfHeight,
     required double kMaxTranslationalSpeed,

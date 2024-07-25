@@ -11,6 +11,7 @@ _$RobotConstantsImpl _$$RobotConstantsImplFromJson(Map<String, dynamic> json) =>
       kDensity: (json['kDensity'] as num).toDouble(),
       kFriction: (json['kFriction'] as num).toDouble(),
       kRestitution: (json['kRestitution'] as num).toDouble(),
+      kMultiplier: (json['kMultiplier'] as num).toDouble(),
       kHalfWidth: (json['kHalfWidth'] as num).toDouble(),
       kHalfHeight: (json['kHalfHeight'] as num).toDouble(),
       kMaxTranslationalSpeed:
@@ -36,6 +37,7 @@ Map<String, dynamic> _$$RobotConstantsImplToJson(
       'kDensity': instance.kDensity,
       'kFriction': instance.kFriction,
       'kRestitution': instance.kRestitution,
+      'kMultiplier': instance.kMultiplier,
       'kHalfWidth': instance.kHalfWidth,
       'kHalfHeight': instance.kHalfHeight,
       'kMaxTranslationalSpeed': instance.kMaxTranslationalSpeed,
