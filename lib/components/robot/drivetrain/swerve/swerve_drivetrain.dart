@@ -8,9 +8,6 @@ import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
-import 'package:player_move/constants.dart';
-import 'package:player_move/providers/robot/customization/robot_customization.dart';
-import 'package:player_move/providers/robot/robot_provider.dart';
 part 'swerve_drivetrain.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)

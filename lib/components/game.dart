@@ -1,20 +1,14 @@
 import 'dart:async';
-import 'dart:ui' as ui;
-import 'dart:ui';
 
-import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
-import 'package:player_move/providers/settings/settings.dart';
-import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 
 // const double ppm = 10.0; // Pixels per meter
@@ -100,12 +94,12 @@ Size getImageSize() {
       print(3072 / 1420);
     }
     // hard coded sizes need to update later on to support dynamic sizes
-    return Size(3072, 1420);
+    return const Size(3072, 1420);
   } catch (e) {
     if (kDebugMode) {
       print(e);
     }
-    return Size(0, 0);
+    return const Size(0, 0);
   }
 }
 
