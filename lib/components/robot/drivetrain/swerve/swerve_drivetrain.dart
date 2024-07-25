@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,8 +24,8 @@ class SwerveDrivetrain extends Drivetrain {
   }) : super(name: kName);
 
   @override
-  void firstJoystickMovement(
-      Vector2 value, Body body, RobotConstants constants) {
+  FutureOr<void> firstJoystickMovement(
+      Vector2 value, Body body, RobotConstants constants) async {
     body.applyLinearImpulse(value *
         constants.kTranslationalAccelerationRate *
         constants.kMultiplier);
@@ -46,8 +48,8 @@ class SwerveDrivetrain extends Drivetrain {
   }
 
   @override
-  void secondJoystickMovement(
-      Vector2 value, Body body, RobotConstants constants) {
+  FutureOr<void> secondJoystickMovement(
+      Vector2 value, Body body, RobotConstants constants) async {
     body.angularVelocity
         .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
     body.applyAngularImpulse(
@@ -72,18 +74,18 @@ class SwerveDrivetrain extends Drivetrain {
   Map<String, dynamic> toJson() => _$SwerveDrivetrainToJson(this);
 
   @override
-  void updateRobotConstants(WidgetRef ref) {
-    super.updateRobotConstants(ref);
+  FutureOr<void> updateRobotConstants(WidgetRef ref) async {
+    await super.updateRobotConstants(ref);
     // ref.read(robotProviderProvider.notifier).clear();
     if (kDebugMode) {
       print("Called Updated Robot Constants");
       print(toJson());
     }
-    super.motors.updateTotalAcceleration(ref, "");
-    super.motors.updateTotalMaxSpeed(ref, "");
-    gearRatio.updateTotalAcceleration(ref, "");
-    gearRatio.updateTotalMaxSpeed(ref, "");
-    wheel.updateTotalAcceleration(ref, "");
+    await super.motors.updateTotalAcceleration(ref, "");
+    await super.motors.updateTotalMaxSpeed(ref, "");
+    await gearRatio.updateTotalAcceleration(ref, "");
+    await gearRatio.updateTotalMaxSpeed(ref, "");
+    await wheel.updateTotalAcceleration(ref, "");
 
     // gearRatio.updateTotalAcceleration(ref, constants);
   }

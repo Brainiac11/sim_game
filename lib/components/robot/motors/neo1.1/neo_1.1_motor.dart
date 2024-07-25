@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -18,9 +20,9 @@ class NeoMotor extends Motor {
           cost: kCost,
           name: kName,
         );
-
   @override
-  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {
+  FutureOr<void> updateTotalAcceleration(
+      WidgetRef ref, dynamic constants) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
     robot.kTranslationalDeccelerationRate +=
@@ -34,7 +36,7 @@ class NeoMotor extends Motor {
   }
 
   @override
-  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {
+  FutureOr<void> updateTotalMaxSpeed(WidgetRef ref, dynamic constants) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kMaxTranslationalSpeed += kMaximumSpeed;
     robot.kMaxAngularSpeed += kMaximumSpeed / 10;

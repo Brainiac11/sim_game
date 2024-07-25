@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -15,7 +17,8 @@ class GriplockWheel extends Wheel {
 
   /// Need to update
   @override
-  void updateTotalAcceleration(WidgetRef ref, dynamic provider) {
+  FutureOr<void> updateTotalAcceleration(
+      WidgetRef ref, dynamic provider) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
     robot.kTranslationalDeccelerationRate += Wheel.kWheelDecceleration;

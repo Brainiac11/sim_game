@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -17,10 +19,11 @@ abstract class Wheel {
   Wheel({required this.acceleration, required this.cost, required this.name});
 
   @mustBeOverridden
-  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
+  FutureOr<void> updateTotalAcceleration(
+      WidgetRef ref, dynamic constants) async {}
 
   /// will implement later
-  void updateTotalCost(WidgetRef ref, dynamic constants) {}
+  FutureOr<void> updateTotalCost(WidgetRef ref, dynamic constants) async {}
 
   static Image toImage(BuildContext context) {
     return Image.asset("");

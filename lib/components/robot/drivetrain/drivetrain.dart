@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -15,16 +17,16 @@ abstract class Drivetrain {
   Drivetrain({required this.motors, required this.name});
 
   @mustBeOverridden
-  void firstJoystickMovement(
+  FutureOr<void> firstJoystickMovement(
       Vector2 value, Body body, RobotConstants constants);
 
   @mustBeOverridden
-  void secondJoystickMovement(
+  FutureOr<void> secondJoystickMovement(
       Vector2 value, Body body, RobotConstants constants);
 
   @mustBeOverridden
   @mustCallSuper
-  void updateRobotConstants(WidgetRef ref) {
+  FutureOr<void> updateRobotConstants(WidgetRef ref) async {
     final robotConstants = ref.watch(robotProviderProvider)
       ..kHalfHeight = kWorldSize.x / 51
       ..kHalfWidth = kWorldSize.x / 51;

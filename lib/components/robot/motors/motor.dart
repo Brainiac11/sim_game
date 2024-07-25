@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -29,17 +31,18 @@ abstract class Motor {
   });
 
   @mustBeOverridden
-  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {
+  FutureOr<void> updateTotalAcceleration(
+      WidgetRef ref, dynamic constants) async {
     // TODO: implement updateTotalAcceleration
   }
 
   @mustBeOverridden
-  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {
+  FutureOr<void> updateTotalMaxSpeed(WidgetRef ref, dynamic constants) async {
     // TODO: implement updateTotalMaxSpeed
   }
 
   /// Will integrate later
-  void updateTotalCost(WidgetRef ref, dynamic constants) {
+  FutureOr<void> updateTotalCost(WidgetRef ref, dynamic constants) async {
     // TODO: implement updateTotalCost
   }
 

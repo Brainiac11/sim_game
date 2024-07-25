@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -19,24 +21,25 @@ class L4GearRatio extends GearRatio {
             name: kName);
 
   @override
-  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {
+  FutureOr<void> updateTotalAcceleration(
+      WidgetRef ref, dynamic constants) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
-    robot.kAngularAccelerationRate += kAcceleration;
+    robot.kAngularAccelerationRate += kAcceleration / 2;
     if (kDebugMode) {
       print("Updating ${robot.kMaxTranslationalSpeed}");
     }
   }
 
   @override
-  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {
+  FutureOr<void> updateTotalMaxSpeed(WidgetRef ref, dynamic constants) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kMaxTranslationalSpeed += kMaximumSpeed;
     robot.kMaxAngularSpeed += kMaximumSpeed / 10;
   }
 
   @override
-  void updateTotalExperience(WidgetRef ref, constants) {
+  FutureOr<void> updateTotalExperience(WidgetRef ref, constants) async {
     // TODO: implement updateTotalExperience
   }
 

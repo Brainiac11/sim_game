@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/gear_ratios/L2/l_2_gear_ratio.dart';
@@ -19,13 +21,15 @@ abstract class GearRatio {
 
   String name = "";
 
-  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {}
+  FutureOr<void> updateTotalAcceleration(
+      WidgetRef ref, dynamic constants) async {}
 
   @mustBeOverridden
-  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {}
+  FutureOr<void> updateTotalMaxSpeed(WidgetRef ref, dynamic constants) async {}
 
   @mustBeOverridden
-  void updateTotalExperience(WidgetRef ref, dynamic constants) {}
+  FutureOr<void> updateTotalExperience(
+      WidgetRef ref, dynamic constants) async {}
 
   factory GearRatio.fromJson(Map<String, dynamic> json) {
     switch (json["name"]) {

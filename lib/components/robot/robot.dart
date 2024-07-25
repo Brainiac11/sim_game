@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/constants.dart';
+import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
@@ -21,7 +25,7 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
     //     type: BodyType.dynamic);
   }
 
-  late Drivetrain drivetrain;
+  Drivetrain? drivetrain;
 
   Vector2 acceleration = Vector2.zero();
   late PolygonShape shape;
@@ -33,15 +37,18 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
   // BodyDef? get bodyDef => robotDef;
 
   @override
-  void onMount() {
-    addToGameWidgetBuild(() {
-      drivetrain = ref.watch(robotCustomizationProvider).drivetrain;
+  FutureOr<void> onMount() async {
+    addToGameWidgetBuild(() async {
+      ref.watch(robotCustomizationProvider).whenData((Customization cb) {
+        drivetrain = cb.drivetrain;
+      });
       if (kDebugMode) {
         print(
-            "Direvetrain ${drivetrain.toJson()} \n ${drivetrain.motors.toJson()}");
+            "Direvetrain ${drivetrain?.toJson()} \n ${drivetrain?.motors.toJson()}");
       }
       // ref.read(robotProviderProvider.notifier).clear();
-      drivetrain.updateRobotConstants(ref);
+      constants = ref.watch(robotProviderProvider);
+      await drivetrain?.updateRobotConstants(ref);
     });
 
     super.onMount();
@@ -71,12 +78,16 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
     return world.createBody(robotDef)..createFixture(fixtureDef!);
   }
 
-  void linearMovement(Vector2 value) {
-    drivetrain.firstJoystickMovement(value, body, constants);
+  FutureOr<void> linearMovement(Vector2 value) async {
+    if (kDebugMode) {
+      // print(drivetrain?.toJson());
+    }
+
+    await drivetrain?.firstJoystickMovement(value, body, constants);
   }
 
-  void angularMovement(Vector2 value) {
-    drivetrain.secondJoystickMovement(value, body, constants);
+  FutureOr<void> angularMovement(Vector2 value) async {
+    await drivetrain?.secondJoystickMovement(value, body, constants);
   }
 
   @override

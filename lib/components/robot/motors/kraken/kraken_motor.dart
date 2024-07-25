@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -7,8 +9,8 @@ part 'kraken_motor.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class KrakenMotor extends Motor {
-  static const double kAcceleration = 12;
-  static const double kMaximumSpeed = 18;
+  static const double kAcceleration = 11;
+  static const double kMaximumSpeed = 17;
   static const double kCost = 23;
   static const String kName = "Kraken";
   KrakenMotor()
@@ -20,7 +22,8 @@ class KrakenMotor extends Motor {
         );
 
   @override
-  void updateTotalAcceleration(WidgetRef ref, dynamic constants) {
+  FutureOr<void> updateTotalAcceleration(
+      WidgetRef ref, dynamic constants) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
     robot.kTranslationalDeccelerationRate +=
@@ -34,7 +37,7 @@ class KrakenMotor extends Motor {
   }
 
   @override
-  void updateTotalMaxSpeed(WidgetRef ref, dynamic constants) {
+  FutureOr<void> updateTotalMaxSpeed(WidgetRef ref, dynamic constants) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kMaxTranslationalSpeed += kMaximumSpeed;
     robot.kMaxAngularSpeed += kMaximumSpeed / 10;

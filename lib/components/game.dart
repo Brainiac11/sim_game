@@ -45,11 +45,13 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     //     FixedResolutionViewport(resolution: MediaQueryData().size.toVector2());
     // camera.backdrop.add(_Background());
 
-    await add(fps);
-    await add(totalBodies);
-    await add(TextComponent(
-        text: super.size.toString(),
-        position: Vector2(kWorldSize.x / 2, kWorldSize.y / 2)));
+    if (kDebugMode) {
+      await add(fps);
+      await add(totalBodies);
+      await add(TextComponent(
+          text: super.size.toString(),
+          position: Vector2(kWorldSize.x / 2, kWorldSize.y / 2)));
+    }
 
     // await add(_Background(size: kScreenSize));
     await world.add(BorderEdge(borderKey: const ValueKey("Top")));
