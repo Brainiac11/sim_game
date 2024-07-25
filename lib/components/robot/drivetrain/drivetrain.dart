@@ -28,8 +28,9 @@ abstract class Drivetrain {
     final robotConstants = ref.watch(robotProviderProvider)
       ..kHalfHeight = kWorldSize.x / 51
       ..kHalfWidth = kWorldSize.x / 51;
-    robotConstants.kMultiplier = kRobotMass.mass /
-        (robotConstants.kHalfHeight * robotConstants.kHalfWidth);
+    robotConstants.kMultiplier =
+        (robotConstants.kHalfHeight * 2 * robotConstants.kHalfWidth * 2) /
+            kRobotMass.mass;
   }
 
   factory Drivetrain.fromJson(Map<String, dynamic> json) {

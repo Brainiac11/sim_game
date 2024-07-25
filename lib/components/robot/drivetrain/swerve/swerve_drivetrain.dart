@@ -32,19 +32,19 @@ class SwerveDrivetrain extends Drivetrain {
         constants.kMultiplier);
 
     if (kDebugMode) {
-      // print(body.linearVelocity.length);
+      print(body.linearVelocity.length);
 
-      print(constants.kDensity);
+      // print(constants.kMultiplier);
     }
     body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
     if (body.linearVelocity.length >
         value.length * constants.kTranslationalAccelerationRate) {
-      body.linearDamping =
-          constants.kTranslationalDeccelerationRate * constants.kMultiplier;
+      body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
       body.linearDamping = constants.kTranslationalIdleDeccelerationRate *
+          2 *
           constants.kMultiplier /
-          4;
+          (constants.kHalfHeight * constants.kHalfWidth);
     }
   }
 
@@ -56,12 +56,15 @@ class SwerveDrivetrain extends Drivetrain {
     body.applyAngularImpulse(
         value.x * constants.kAngularAccelerationRate * constants.kMultiplier);
 
-    if (body.angularVelocity >
+    if (body.angularVelocity.abs() >
         value.x.abs() * constants.kAngularAccelerationRate) {
-      body.angularDamping = constants.kAngularDeccelerationRate;
-    } else {
       body.angularDamping =
-          constants.kAngularIdleDeccelerationRate * constants.kMultiplier / 6;
+          constants.kAngularDeccelerationRate * constants.kMultiplier;
+    } else {
+      body.angularDamping = constants.kAngularIdleDeccelerationRate *
+          1 *
+          constants.kMultiplier /
+          (constants.kHalfHeight * constants.kHalfWidth);
     }
   }
 

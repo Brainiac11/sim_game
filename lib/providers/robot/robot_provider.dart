@@ -59,8 +59,8 @@ class RobotProvider extends _$RobotProvider {
       kFriction: 1,
       kRestitution: 0.02,
       kMultiplier: 0.0,
-      kHalfWidth: kWorldSize.x / 51,
-      kHalfHeight: kWorldSize.x / 51,
+      kHalfWidth: kWorldSize.x / 52,
+      kHalfHeight: kWorldSize.x / 52,
       // kHalfWidth: 1.6 * const MediaQueryData().devicePixelRatio,
       // kHalfHeight: 1.6 * const MediaQueryData().devicePixelRatio,
     );
