@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:player_move/components/robot/motors/falcon/falcon_motor.dart';
+import 'package:player_move/components/robot/motors/kraken/kraken_motor.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
 import 'package:player_move/components/robot/motors/vortex/neo_vortex_motor.dart';
 // part 'motor.g.dart';
@@ -54,6 +56,10 @@ abstract class Motor {
         return NeoMotor.fromJson(json);
       case "Vortex":
         return VortexMotor.fromJson(json);
+      case "Falcon":
+        return FalconMotor.fromJson(json);
+      case "Kraken":
+        return KrakenMotor.fromJson(json);
       default:
         throw (Error());
     }
