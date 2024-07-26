@@ -94,8 +94,8 @@ class SpriteBackground extends SpriteComponent with RiverpodComponentMixin {
 
   // HALL OF FAMMEEEEE
   final Vector2 rawSize = Size(3072, 1420).toVector2() /
-      (MediaQuery.of(universalContext).size.height / 1420);
-  // Robot robotToMatch;
+      (MediaQuery.of(universalContext).size.height / (1420 * 10));
+  Vector2 followPosition = Vector2.zero();
   SpriteBackground();
   @override
   FutureOr<void> onMount() async {
@@ -113,13 +113,15 @@ class SpriteBackground extends SpriteComponent with RiverpodComponentMixin {
     });
     print("RawSize " + rawSize.toString());
     sprite?.srcSize = rawSize;
+    // sprite?.srcPosition = followPosition;
+    super.anchor = Anchor.topLeft;
 
-    // sprite?.srcPosition = robotToMatch.position;
+    super.position = Vector2(-kWorldSize.x / 2, -kWorldSize.y / 2);
   }
 
   @override
   void render(Canvas canvas) {
-    // sprite?.srcPosition = robotToMatch.position;
+    // sprite?.srcPosition = followPosition * 0;
     super.render(canvas);
   }
 }

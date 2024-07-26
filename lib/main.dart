@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:json_theme/json_theme.dart';
+import 'package:player_move/components/game.dart';
 import 'package:player_move/pages/customization_page.dart';
 import 'package:player_move/pages/home_page.dart';
 import 'package:player_move/pages/match_page.dart';
@@ -60,6 +61,7 @@ void main() async {
 class App extends ConsumerWidget {
   final ThemeData themeData;
   final ThemeData darkThemeData;
+
   App({super.key, required this.themeData, required this.darkThemeData});
   GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -95,6 +97,7 @@ class App extends ConsumerWidget {
   );
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    universalContext = context;
     final settings = ref.watch(settingsNotifierProvider);
     // final robotCustomizations = ref.watch(robotCustomizationProvider);
     final notifier = ref.read(settingsNotifierProvider.notifier);
