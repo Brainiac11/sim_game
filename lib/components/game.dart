@@ -10,7 +10,9 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:player_move/components/border/border.dart';
+import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
@@ -24,21 +26,33 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   final totalBodies =
       TextComponent(position: Vector2(5, kWorldSize.x * 2), priority: 1);
   late Robot robot;
-  RoboticsGame()
+  BuildContext context;
+  final Viewfinder viewfinder = Viewfinder();
+  // static const double zoom = 30;
+  RoboticsGame({required this.context})
       : super(
-          zoom: 35,
+          zoom: 10,
           gravity: Vector2.zero(),
-          camera: CameraComponent.withFixedResolution(
-              width: getImageSize().width, height: getImageSize().height),
+          // camera: CameraComponent.withFixedResolution(
+          //     width: getImageSize().width, height: getImageSize().height),
+          camera: CameraComponent(
+              viewport: FixedAspectRatioViewport(aspectRatio: 3072 / 1440),
+              viewfinder: Viewfinder),
         );
 
   // _Background background = _Background(size: kWorldSize);
 
-  // @override
-  // void handleResize(Vector2 size) {
-  //   // background.size = size;
-  //   super.handleResize(size);
-  // }
+  @override
+  void handleResize(Vector2 size) {
+    if (kDebugMode) {
+      print(camera.viewport.virtualSize);
+    }
+    super.handleResize(size);
+    // kWorldSize = size;
+    // background.size = size;
+    // camera.viewport =
+    //     FixedResolutionViewport(resolution: getImageSize().toVector2());
+  }
 
   @override
   Future<void> onLoad() async {
@@ -51,6 +65,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     // );
     getImageSize();
     if (kDebugMode) {
+      // kWorldSize = size;
       print("Screen Size: (${super.size.x} , ${super.size.y})");
       print("World size: (${kWorldSize.x} , ${kWorldSize.y})");
     }
@@ -81,6 +96,8 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     await world.add(BorderEdge(borderKey: const ValueKey("Left")));
     robot = Robot(ref: ref);
     await world.add(robot);
+
+    // await world.add(GamePiece(position: Vector2(100, 100)));
     if (kDebugMode) {
       print(robot.constants.kDensity);
     }
@@ -89,7 +106,8 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   @override
   void update(double dt) {
     super.update(dt);
-    // camera.viewport = getCurrentImageSize().toVector2();
+    // camera.viewport =
+    //     FixedResolutionViewport(resolution: getCurrentImageSize().toVector2());
 
     // Updated the number of bodies in the world
     totalBodies.text = 'Bodies: ${world.children.length}';

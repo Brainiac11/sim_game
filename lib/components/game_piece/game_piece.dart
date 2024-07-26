@@ -30,7 +30,7 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
   Future<void> onLoad() async {
     await super.onLoad();
 // Image image = Image.asset("game_piece.png");
-    await Sprite.load("assets/images/game_piece.png").then((value) {
+    await Sprite.load("game_piece.png").then((value) {
       sprite = value;
     });
     renderBody = false;

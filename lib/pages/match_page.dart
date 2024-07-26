@@ -1,4 +1,3 @@
-
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ class MatchPage extends StatefulWidget {
 }
 
 class MatchPageState extends State<MatchPage> {
-  RoboticsGame game = RoboticsGame();
+  late RoboticsGame game;
 
   @override
   void activate() {
@@ -42,6 +41,7 @@ class MatchPageState extends State<MatchPage> {
 
   @override
   Widget build(BuildContext context) {
+    game = RoboticsGame(context: context);
     final GlobalKey<RiverpodAwareGameWidgetState> gameWidgetKey =
         GlobalKey<RiverpodAwareGameWidgetState>();
     return Scaffold(
