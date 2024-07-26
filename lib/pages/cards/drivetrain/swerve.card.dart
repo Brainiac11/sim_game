@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
@@ -29,9 +30,10 @@ class SwervePage extends ConsumerWidget {
           const Text("Motors"),
           MotorSubCard(
             onPressedFunction: (Motor motor) {
-              SwerveDrivetrain swerve = ref
-                  .read(robotCustomizationProvider)
-                  .drivetrain as SwerveDrivetrain;
+              SwerveDrivetrain? swerve = ref
+                  .watch(robotCustomizationProvider)
+                  .value
+                  ?.drivetrain as SwerveDrivetrain;
               ref
                   .watch(robotCustomizationProvider.notifier)
                   .updateDrivetrain(swerve..motors = motor);
@@ -47,9 +49,10 @@ class SwervePage extends ConsumerWidget {
           const Text("Gearing"),
           GearRatioSubCard(
             onPressedFunction: (GearRatio gearRatioType) {
-              SwerveDrivetrain swerve = ref
-                  .read(robotCustomizationProvider)
-                  .drivetrain as SwerveDrivetrain;
+              SwerveDrivetrain? swerve = ref
+                  .watch(robotCustomizationProvider)
+                  .value
+                  ?.drivetrain as SwerveDrivetrain;
               ref
                   .watch(robotCustomizationProvider.notifier)
                   .updateDrivetrain(swerve..gearRatio = gearRatioType);
@@ -64,10 +67,12 @@ class SwervePage extends ConsumerWidget {
           ),
           const Text("Wheel"),
           WheelSubCard(
-            onPressedFunction: (Wheel wheelType) {
-              SwerveDrivetrain swerve = ref
-                  .read(robotCustomizationProvider)
-                  .drivetrain as SwerveDrivetrain;
+            onPressedFunction: (Wheel wheelType) async {
+              SwerveDrivetrain? swerve = ref
+                  .watch(robotCustomizationProvider)
+                  .value
+                  ?.drivetrain as SwerveDrivetrain;
+
               ref
                   .watch(robotCustomizationProvider.notifier)
                   .updateDrivetrain(swerve..wheel = wheelType);

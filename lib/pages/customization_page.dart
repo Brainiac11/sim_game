@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
+import 'package:player_move/components/robot/gear_ratios/L2/l_2_gear_ratio.dart';
+import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
+import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
 import 'package:player_move/pages/cards/drivetrain/drivetrain.card.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -43,8 +47,17 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Drivetrain? dt;
+    ref.watch(robotCustomizationProvider.future).then((value) {
+      dt = value.drivetrain;
+    });
     cardIndexList = [
-      ref.read(robotCustomizationProvider).drivetrain,
+      dt ??
+          SwerveDrivetrain(
+            motors: NeoMotor(),
+            wheel: BilletWheel(),
+            gearRatio: L2GearRatio(),
+          ),
     ];
     // final settings = ref.watch(settingsNotifierProvider);
     // final robot = ref.watch(robotProviderProvider);

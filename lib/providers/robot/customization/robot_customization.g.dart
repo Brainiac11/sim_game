@@ -7,12 +7,12 @@ part of 'robot_customization.dart';
 // **************************************************************************
 
 String _$robotCustomizationHash() =>
-    r'98fd19c34d0252e9b361bfdc878dcd1bee2c6248';
+    r'079308e36dd7bfdd379afcb7d0daaebb47eb6f8d';
 
 /// See also [RobotCustomization].
 @ProviderFor(RobotCustomization)
-final robotCustomizationProvider =
-    AutoDisposeNotifierProvider<RobotCustomization, Customization>.internal(
+final robotCustomizationProvider = AutoDisposeAsyncNotifierProvider<
+    RobotCustomization, Customization>.internal(
   RobotCustomization.new,
   name: r'robotCustomizationProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final robotCustomizationProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$RobotCustomization = AutoDisposeNotifier<Customization>;
+typedef _$RobotCustomization = AutoDisposeAsyncNotifier<Customization>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

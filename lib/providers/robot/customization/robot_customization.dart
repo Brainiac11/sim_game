@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
@@ -14,15 +15,33 @@ part 'robot_customization.g.dart';
 @riverpod
 class RobotCustomization extends _$RobotCustomization {
   @override
-  Customization build() {
-    _loadSettings();
-    return Customization(
-      drivetrain: SwerveDrivetrain(
-          motors: NeoMotor(), wheel: BilletWheel(), gearRatio: L2GearRatio()),
-    );
+  Future<Customization> build() async {
+    return await _loadSettings();
+    // if (state.value == null) {
+    //   state.whenData((Customization cb) {
+    //     return cb;
+    //   });
+    // } else {
+    //   return state.value!;
+    // }
+
+    // return Customization(
+    //   drivetrain: SwerveDrivetrain(
+    //     motors: NeoMotor(),
+    //     wheel: BilletWheel(),
+    //     gearRatio: L2GearRatio(),
+    //   ),
+    // );
   }
 
-  Future<void> _loadSettings() async {
+  // SharedPreferences? getPrefs() {
+  //   SharedPreferences.getInstance().then((value) {
+  //     return value;
+  //   });
+  //   return null;
+  // }
+
+  Future<Customization> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     Map<String, dynamic> defaultSwerve = SwerveDrivetrain(
       motors: NeoMotor(),
@@ -33,15 +52,21 @@ class RobotCustomization extends _$RobotCustomization {
     //     json.decode(prefs.getString("drivetrain")!.replaceAll("\n", ""))
     //             as Map<String, dynamic> ??
     //         defaultSwerve) as Map<String, dynamic>;
-    if (kDebugMode) {
-      print("Drivetrain:  ${prefs.getString('drivetrain') ?? ""}");
-    }
+    // if (kDebugMode) {
+    //   print("Drivetrain:  ${prefs.getString('drivetrain') ?? ""}");
+    // }
     late Map<String, dynamic> drivetrain;
 
     String? jsonString = prefs.getString('drivetrain');
     if (jsonString != null) {
+      if (kDebugMode) {
+        print(jsonString);
+      }
       drivetrain = jsonDecode(jsonString);
     } else {
+      if (kDebugMode) {
+        print("Drivetrain prefs null");
+      }
       drivetrain = defaultSwerve;
     }
 
@@ -53,13 +78,17 @@ class RobotCustomization extends _$RobotCustomization {
       print("Gear Ratio Config: ${dt.runtimeType}");
     }
 
-    state = state.copyWith(drivetrain: dt);
+    // state = state.copyWith(drivetrain: dt);
+    // state.value?.drivetrain = dt;
+
+    // ref.notifyListeners();
+    return Customization(drivetrain: dt);
 
     // state.drivetrain = dt;
   }
 
   void updateDrivetrain(Drivetrain drivetrain) async {
-    state = state.copyWith(drivetrain: drivetrain);
+    state.value?.drivetrain = drivetrain;
     final prefs = await SharedPreferences.getInstance();
 
     prefs.setString('drivetrain', jsonEncode(drivetrain.toJson()));
