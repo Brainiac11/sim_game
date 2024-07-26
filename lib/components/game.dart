@@ -1,15 +1,19 @@
 import 'dart:async';
+import 'dart:ui';
 
+import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
+import 'package:player_move/providers/settings/settings.dart';
 
 // const double ppm = 10.0; // Pixels per meter
 
@@ -26,8 +30,11 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
 
   @override
   void handleResize(Vector2 size) {
-    // background.size = size;
     super.handleResize(size);
+    // background.size = size;
+    // super.handleResize(size);
+    camera.viewport =
+        FixedAspectRatioViewport(aspectRatio: getImageSize().aspectRatio);
   }
 
   @override
@@ -35,11 +42,20 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     Flame.device.fullScreen();
     Flame.device.setLandscape();
     await super.onLoad();
+    // camera = CameraComponent(
+    //   world: world,
+    //   viewport: FixedResolutionViewport(resolution: size / 10),
+    // );
     getImageSize();
     if (kDebugMode) {
       print("Screen Size: (${super.size.x} , ${super.size.y})");
       print("World size: (${kWorldSize.x} , ${kWorldSize.y})");
     }
+    camera = CameraComponent(
+      world: world,
+      viewport:
+          FixedAspectRatioViewport(aspectRatio: getImageSize().aspectRatio),
+    );
 
     // camera.viewport =
     //     FixedResolutionViewport(resolution: MediaQueryData().size.toVector2());
@@ -68,6 +84,8 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   @override
   void update(double dt) {
     super.update(dt);
+    // camera.viewport = getCurrentImageSize().toVector2();
+
     // Updated the number of bodies in the world
     totalBodies.text = 'Bodies: ${world.children.length}';
 
@@ -89,20 +107,31 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   }
 }
 
-Size getImageSize() {
-  try {
-    Image image = Image.asset('assets/images/dark_field_updated.png');
-    if (kDebugMode) {
-      print(3072 / 1420);
-    }
-    // hard coded sizes need to update later on to support dynamic sizes
-    return const Size(3072, 1420);
-  } catch (e) {
-    if (kDebugMode) {
-      print(e);
-    }
-    return const Size(0, 0);
+Size getCurrentImageSize() {
+  Size defaultImageSize = getImageSize();
+  Size windowSize = const MediaQueryData().size;
+  Size currentImageSize;
+
+  if (windowSize.aspectRatio > defaultImageSize.aspectRatio) {
+    // Window is wider relative to the image's aspect ratio
+    currentImageSize = Size(
+        (windowSize.height * defaultImageSize.aspectRatio.toInt()),
+        windowSize.height);
+  } else {
+    // Window is taller relative to the image's aspect ratio
+    currentImageSize = Size(windowSize.width,
+        (windowSize.width / defaultImageSize.aspectRatio.toInt()));
   }
+  return currentImageSize;
+}
+
+Size getImageSize() {
+  // Image image = Image.asset('assets/images/dark_field_updated.png');
+  if (kDebugMode) {
+    // print(image.height.toString() + image.width!.toString());
+  }
+  // hard coded sizes need to update later on to support dynamic sizes
+  return const Size(3072, 1420);
 }
 
 // // Helper component that paints a black background

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -27,8 +28,10 @@ class RobotProvider extends _$RobotProvider {
       kMultiplier: 1.0,
       // kHalfWidth: (1556 / 3840) * 1.6,
       // kHalfHeight: (1556 / 3840) * 1.6,
-      kHalfWidth: kWorldSize.x / 50,
-      kHalfHeight: kWorldSize.x / 50,
+      // kHalfWidth: kWorldSize.x / 50,
+      // kHalfHeight: kWorldSize.x / 50,
+      kHalfWidth: kWorldSize.x / 50 * const MediaQueryData().devicePixelRatio,
+      kHalfHeight: kWorldSize.x * const MediaQueryData().devicePixelRatio / 50,
       kMaxTranslationalSpeed: 0,
       kMaxAngularSpeed: 0,
       kTranslationalAccelerationRate: 0,
@@ -58,8 +61,8 @@ class RobotProvider extends _$RobotProvider {
       kFriction: 1,
       kRestitution: 0.02,
       kMultiplier: 0.0,
-      kHalfWidth: kWorldSize.x / 50,
-      kHalfHeight: kWorldSize.x / 50,
+      kHalfWidth: kWorldSize.x / 50 / const MediaQueryData().devicePixelRatio,
+      kHalfHeight: kWorldSize.y * const MediaQueryData().devicePixelRatio / 50,
       // kHalfWidth: 1.6 * const MediaQueryData().devicePixelRatio,
       // kHalfHeight: 1.6 * const MediaQueryData().devicePixelRatio,
     );
