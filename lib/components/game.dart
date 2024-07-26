@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
@@ -20,15 +21,20 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
       TextComponent(position: Vector2(5, kWorldSize.x * 2), priority: 1);
   late Robot robot;
 
-  RoboticsGame() : super(zoom: 10, gravity: Vector2.zero());
+  RoboticsGame()
+      : super(
+            zoom: 30,
+            gravity: Vector2.zero(),
+            camera: CameraComponent.withFixedResolution(
+                width: getImageSize().width, height: getImageSize().height));
 
   // _Background background = _Background(size: kWorldSize);
 
-  @override
-  void handleResize(Vector2 size) {
-    // background.size = size;
-    super.handleResize(size);
-  }
+  // @override
+  // void handleResize(Vector2 size) {
+  //   // background.size = size;
+  //   super.handleResize(size);
+  // }
 
   @override
   Future<void> onLoad() async {
@@ -44,6 +50,8 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     // camera.viewport =
     //     FixedResolutionViewport(resolution: MediaQueryData().size.toVector2());
     // camera.backdrop.add(_Background());
+
+    // camera.viewport = FixedResolutionViewport(resolution: size);
 
     if (kDebugMode) {
       await add(fps);
@@ -91,7 +99,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
 
 Size getImageSize() {
   try {
-    Image image = Image.asset('assets/images/dark_field_updated.png');
+    // Image image = Image.asset('assets/images/dark_field_updated.png');
     if (kDebugMode) {
       print(3072 / 1420);
     }
