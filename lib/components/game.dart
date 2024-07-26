@@ -24,7 +24,6 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   final totalBodies =
       TextComponent(position: Vector2(5, kWorldSize.x * 2), priority: 1);
   late Robot robot;
-+-
   RoboticsGame()
       : super(
           zoom: 35,
