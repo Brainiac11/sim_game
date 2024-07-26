@@ -12,9 +12,11 @@ import 'package:player_move/pages/match_page.dart';
 import 'package:player_move/pages/settings_page.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:shared_preferences_tools/shared_preferences_tools.dart';
+import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
   var themeStr =
       await rootBundle.loadString('assets/appainter_theme_light.json');
   var themeJson = jsonDecode(themeStr);
@@ -23,6 +25,23 @@ void main() async {
   themeJson = jsonDecode(themeStr);
   final themeDark = ThemeDecoder.decodeThemeData(themeJson)!;
   await SharedPreferencesToolsDebug.init();
+
+  WindowOptions windowOptions = const WindowOptions(
+    minimumSize: Size(3072 / 2, 1440 / 2),
+    center: true,
+    backgroundColor: Colors.transparent,
+    skipTaskbar: false,
+    titleBarStyle: TitleBarStyle.normal,
+  );
+  await windowManager.setResizable(true);
+  // await windowManager.
+  await windowManager.maximize();
+
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    // await windowManager.setMovable(true);
+    await windowManager.focus();
+  });
   runApp(
     ProviderScope(
       child: App(

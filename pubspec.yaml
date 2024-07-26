@@ -26,6 +26,7 @@ dependencies:
   json_theme: ^6.4.1
   dartx: any
   shared_preferences_tools: ^1.0.3
+  window_manager: ^0.3.9
   # image: ^4.2.0
 dev_dependencies:
   flutter_test:

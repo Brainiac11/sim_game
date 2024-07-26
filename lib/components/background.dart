@@ -83,7 +83,7 @@ class Background extends PositionComponent with RiverpodComponentMixin {
 }
 
 class SpriteBackground extends SpriteComponent with RiverpodComponentMixin {
-  final Vector2 rawSize = const Size(3072, 1440).toVector2() * 3;
+  final Vector2 rawSize = const Size(3072, 1440).toVector2() * 2;
   Vector2 robotPosition = Vector2.zero();
   SpriteBackground();
   @override
