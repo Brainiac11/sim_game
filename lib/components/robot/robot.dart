@@ -92,6 +92,8 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
 
   @override
   void render(Canvas canvas) {
+    // constants.kHalfHeight = camera.viewport.size.y;
+    // constants.kHalfWidth = camera.viewport.size.y;
     super.paint.color =
         themeMode == ThemeMode.dark ? Colors.white : Colors.black;
     super.render(canvas);
