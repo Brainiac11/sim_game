@@ -41,7 +41,7 @@ class MatchPageState extends State<MatchPage> {
 
   @override
   Widget build(BuildContext context) {
-    game = RoboticsGame(context: context);
+    game = RoboticsGame();
     final GlobalKey<RiverpodAwareGameWidgetState> gameWidgetKey =
         GlobalKey<RiverpodAwareGameWidgetState>();
     return Scaffold(
@@ -51,14 +51,14 @@ class MatchPageState extends State<MatchPage> {
           RiverpodAwareGameWidget(
             game: game,
             key: gameWidgetKey,
-            backgroundBuilder: (context) => Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/dark_field_updated.png"),
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
+            // backgroundBuilder: (context) => Container(
+            //   decoration: const BoxDecoration(
+            //     image: DecorationImage(
+            //       image: AssetImage("assets/images/dark_field_updated.png"),
+            //       fit: BoxFit.contain,
+            //     ),
+            //   ),
+            // ),
           ),
           Align(
             alignment: Alignment.topLeft,

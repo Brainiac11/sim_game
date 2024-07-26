@@ -10,7 +10,6 @@ import 'package:player_move/pages/customization_page.dart';
 import 'package:player_move/pages/home_page.dart';
 import 'package:player_move/pages/match_page.dart';
 import 'package:player_move/pages/settings_page.dart';
-import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:shared_preferences_tools/shared_preferences_tools.dart';
 

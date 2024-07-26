@@ -2,10 +2,10 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 
 final Vector2 gamePieceSize = Vector2(10, 10);
 
-final double SpeakerScorePoints = 2;
+const double SpeakerScorePoints = 2;
 
-final double AmpScorePoints = 1;
+const double AmpScorePoints = 1;
 
-final double AmplifiedSpeakerScorePoints = 5;
+const double AmplifiedSpeakerScorePoints = 5;
 
-final double AutonSpeakerScorePoints = 5;
+const double AutonSpeakerScorePoints = 5;
