@@ -42,6 +42,7 @@ class MatchPageState extends State<MatchPage> {
   @override
   Widget build(BuildContext context) {
     game = RoboticsGame();
+    universalContext = context;
     final GlobalKey<RiverpodAwareGameWidgetState> gameWidgetKey =
         GlobalKey<RiverpodAwareGameWidgetState>();
     return Scaffold(

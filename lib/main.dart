@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,25 @@ import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
+  if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
+    await windowManager.ensureInitialized();
+    WindowOptions windowOptions = const WindowOptions(
+      minimumSize: Size(3072 / 2, 1440 / 2),
+      center: true,
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      titleBarStyle: TitleBarStyle.normal,
+    );
+    await windowManager.setResizable(true);
+    // await windowManager.
+    await windowManager.maximize();
+
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      // await windowManager.setMovable(true);
+      await windowManager.focus();
+    });
+  }
   var themeStr =
       await rootBundle.loadString('assets/appainter_theme_light.json');
   var themeJson = jsonDecode(themeStr);
@@ -26,22 +45,6 @@ void main() async {
   final themeDark = ThemeDecoder.decodeThemeData(themeJson)!;
   await SharedPreferencesToolsDebug.init();
 
-  WindowOptions windowOptions = const WindowOptions(
-    minimumSize: Size(3072 / 2, 1440 / 2),
-    center: true,
-    backgroundColor: Colors.transparent,
-    skipTaskbar: false,
-    titleBarStyle: TitleBarStyle.normal,
-  );
-  await windowManager.setResizable(true);
-  // await windowManager.
-  await windowManager.maximize();
-
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    // await windowManager.setMovable(true);
-    await windowManager.focus();
-  });
   runApp(
     ProviderScope(
       child: App(

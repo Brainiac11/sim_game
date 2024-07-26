@@ -7,6 +7,10 @@ import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_settings_ui/flutter_settings_ui.dart';
+import 'package:player_move/components/game.dart';
+import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/providers/settings/settings.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
@@ -83,8 +87,15 @@ class Background extends PositionComponent with RiverpodComponentMixin {
 }
 
 class SpriteBackground extends SpriteComponent with RiverpodComponentMixin {
-  final Vector2 rawSize = const Size(3072, 1440).toVector2() * 2;
-  Vector2 robotPosition = Vector2.zero();
+  void updateRawSize() {
+    Size current = getCurrentImageSize();
+    current = MediaQuery.of(universalContext).size;
+  }
+
+  // HALL OF FAMMEEEEE
+  final Vector2 rawSize = Size(3072, 1420).toVector2() /
+      (MediaQuery.of(universalContext).size.height / 1420);
+  // Robot robotToMatch;
   SpriteBackground();
   @override
   FutureOr<void> onMount() async {
@@ -100,7 +111,15 @@ class SpriteBackground extends SpriteComponent with RiverpodComponentMixin {
     await Sprite.load("dark_field_updated.png").then((value) {
       sprite = value;
     });
+    print("RawSize " + rawSize.toString());
     sprite?.srcSize = rawSize;
-    sprite?.srcPosition = robotPosition;
+
+    // sprite?.srcPosition = robotToMatch.position;
+  }
+
+  @override
+  void render(Canvas canvas) {
+    // sprite?.srcPosition = robotToMatch.position;
+    super.render(canvas);
   }
 }

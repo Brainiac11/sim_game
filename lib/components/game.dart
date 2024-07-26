@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
@@ -13,6 +14,8 @@ import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 // const double ppm = 10.0; // Pixels per meter
+
+late BuildContext universalContext;
 
 class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   // final Robot _robot = Robot(drivetrain: SwerveDrivetrain());
@@ -75,7 +78,6 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
 
     // camera.viewport =
     //     FixedResolutionViewport(resolution: MediaQueryData().size.toVector2());
-    camera.backdrop.add(SpriteBackground());
 
     // camera.viewport = FixedResolutionViewport(resolution: size);
 
@@ -86,16 +88,21 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
           text: super.size.toString(),
           position: Vector2(kWorldSize.x / 2, kWorldSize.y / 2)));
     }
-
+    SpriteBackground background = SpriteBackground();
     // await add(Background());
-    // await add(SpriteBackground());
+    await super.add(background..priority = 0);
     await world.add(BorderEdge(borderKey: const ValueKey("Top")));
     await world.add(BorderEdge(borderKey: const ValueKey("Bottom")));
     await world.add(BorderEdge(borderKey: const ValueKey("Right")));
     await world.add(BorderEdge(borderKey: const ValueKey("Left")));
     robot = Robot(ref: ref);
     await world.add(robot);
-    camera.viewfinder.position = robot.position;
+    // camera.backdrop.add(SpriteBackground(robotToMatch: robot));
+    // camera.viewfinder.position = robot.position;
+    camera.viewfinder.anchor = Anchor.center;
+    camera.follow(robot);
+    // camera.setBounds(
+    //     Rectangle.fromCenter(center: background.center, size: background.size));
     // camera.viewfinder.anchor = Anchor(robot.position.x, robot.position.y);
     // await world.add(GamePiece(position: Vector2(100, 100)));
     if (kDebugMode) {
@@ -132,7 +139,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
 
 Size getCurrentImageSize() {
   Size defaultImageSize = getImageSize();
-  Size windowSize = const MediaQueryData().size;
+  Size windowSize = MediaQuery.of(universalContext).size;
   Size currentImageSize;
 
   if (windowSize.aspectRatio > defaultImageSize.aspectRatio) {
