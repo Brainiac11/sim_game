@@ -24,13 +24,14 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   final totalBodies =
       TextComponent(position: Vector2(5, kWorldSize.x * 2), priority: 1);
   late Robot robot;
-
++-
   RoboticsGame()
       : super(
-            zoom: 30,
-            gravity: Vector2.zero(),
-            camera: CameraComponent.withFixedResolution(
-                width: getImageSize().width, height: getImageSize().height));
+          zoom: 35,
+          gravity: Vector2.zero(),
+          camera: CameraComponent.withFixedResolution(
+              width: getImageSize().width, height: getImageSize().height),
+        );
 
   // _Background background = _Background(size: kWorldSize);
 
@@ -54,11 +55,11 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
       print("Screen Size: (${super.size.x} , ${super.size.y})");
       print("World size: (${kWorldSize.x} , ${kWorldSize.y})");
     }
-    camera = CameraComponent(
-      world: world,
-      viewport:
-          FixedAspectRatioViewport(aspectRatio: getImageSize().aspectRatio),
-    );
+    // camera = CameraComponent(
+    //   world: world,
+    //   viewport:
+    //       FixedAspectRatioViewport(aspectRatio: getImageSize().aspectRatio),
+    // );
 
     // camera.viewport =
     //     FixedResolutionViewport(resolution: MediaQueryData().size.toVector2());

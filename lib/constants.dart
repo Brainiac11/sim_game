@@ -25,6 +25,7 @@ Vector2 kWorldSize = Vector2(widthDP / 10, heightDP / 10);
 
 MassData kRobotMass = MassData()..mass = 60;
 const kRotationalScale = 1;
+
 // const kMaxTranslationalSpeed = 40.0;
 // const kMaxRotationalSpeed = 8.0;
 
