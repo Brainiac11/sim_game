@@ -1,9 +1,13 @@
 import 'dart:async';
 
+import 'package:flame/collisions.dart';
+import 'package:flame/components.dart';
+import 'package:flame/game.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
@@ -13,7 +17,8 @@ import 'package:player_move/providers/robot/customization/robot_customization.da
 import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
-class Robot extends BodyComponent with RiverpodComponentMixin {
+class Robot extends BodyComponent
+    with RiverpodComponentMixin, CollisionCallbacks {
   @override
   ComponentRef ref;
 
@@ -24,6 +29,14 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
     //     isAwake: true,
     //     position: Vector2(-1000, -1000),
     //     type: BodyType.dynamic);
+  }
+
+  @override
+  void onCollision(Set<Vector2> points, PositionComponent other) {
+    HapticFeedback.lightImpact();
+    if (other is ScreenHitbox) {
+      super.onCollision(points, other);
+    }
   }
 
   Drivetrain? drivetrain;
