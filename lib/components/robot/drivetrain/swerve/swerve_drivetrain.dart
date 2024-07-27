@@ -41,7 +41,7 @@ class SwerveDrivetrain extends Drivetrain {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
       body.linearDamping = constants.kTranslationalIdleDeccelerationRate *
-          2 *
+          2.2 *
           constants.kMultiplier /
           (constants.kHalfHeight * constants.kHalfWidth);
     }
@@ -61,7 +61,7 @@ class SwerveDrivetrain extends Drivetrain {
           constants.kAngularDeccelerationRate * constants.kMultiplier;
     } else {
       body.angularDamping = constants.kAngularIdleDeccelerationRate *
-          1 *
+          1.2 *
           constants.kMultiplier /
           (constants.kHalfHeight * constants.kHalfWidth);
     }

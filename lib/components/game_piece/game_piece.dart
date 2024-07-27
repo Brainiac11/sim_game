@@ -21,7 +21,10 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
   @override
   Future<void> onMount() {
     super.onMount();
-    addToGameWidgetBuild(() {});
+    addToGameWidgetBuild(() {
+      body.angularDamping = GamePieceDampening;
+      body.linearDamping = GamePieceDampening;
+    });
 
     return super.onLoad();
   }
@@ -53,11 +56,13 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
     BodyDef gamePieceDef = BodyDef(
       position: position,
       type: BodyType.dynamic,
+      angularDamping: GamePieceDampening,
+      linearDamping: GamePieceDampening,
       bullet: true,
     );
     shape = CircleShape()..radius = .9;
     fixtureDef = FixtureDef(shape)
-      ..density = 1
+      ..density = 0.5
       ..friction = 1.0
       ..restitution = .1;
 

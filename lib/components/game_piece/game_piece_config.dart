@@ -9,3 +9,5 @@ const double AmpScorePoints = 1;
 const double AmplifiedSpeakerScorePoints = 5;
 
 const double AutonSpeakerScorePoints = 5;
+
+const double GamePieceDampening = 100;
