@@ -1,9 +1,10 @@
-
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
+import 'package:flutter/foundation.dart';
 // import 'package:flutter/material.dart';
 import 'package:player_move/components/game_piece/game_piece_config.dart';
+import 'package:player_move/constants.dart';
 
 class GamePiece extends BodyComponent with RiverpodComponentMixin {
   final Vector2 size = gamePieceSize;
@@ -21,6 +22,7 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
   Future<void> onMount() {
     super.onMount();
     addToGameWidgetBuild(() {});
+
     return super.onLoad();
   }
 
@@ -31,11 +33,16 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
     await Sprite.load("game_piece.png").then((value) {
       sprite = value;
     });
-    renderBody = false;
-    await add(
+    if (kDebugMode) {
+      renderBody = true;
+    } else {
+      renderBody = false;
+    }
+    await super.add(
       SpriteComponent(
         sprite: sprite,
         size: size,
+        scale: Vector2(kWorldSize.length / 400, kWorldSize.length / 400),
         anchor: Anchor.center,
       ),
     );
@@ -43,16 +50,17 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
 
   @override
   Body createBody() {
-    BodyDef robotDef = BodyDef(
+    BodyDef gamePieceDef = BodyDef(
       position: position,
       type: BodyType.dynamic,
+      bullet: true,
     );
-    shape = CircleShape()..radius = 10;
+    shape = CircleShape()..radius = .9;
     fixtureDef = FixtureDef(shape)
-      ..density = 0.5
+      ..density = 1
       ..friction = 1.0
-      ..restitution = 0;
+      ..restitution = .1;
 
-    return world.createBody(robotDef)..createFixture(fixtureDef);
+    return world.createBody(gamePieceDef)..createFixture(fixtureDef);
   }
 }

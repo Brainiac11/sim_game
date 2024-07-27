@@ -16,6 +16,7 @@ import 'package:player_move/providers/settings/settings_notifier.dart';
 class Robot extends BodyComponent with RiverpodComponentMixin {
   @override
   ComponentRef ref;
+
   Robot({super.key, required this.ref}) {
     super.rebuildOnMountWhen(ref);
     // super.bodyDef = BodyDef(
@@ -57,8 +58,9 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
   @override
   Body createBody() {
     BodyDef robotDef = BodyDef(
-      position: Vector2(kWorldSize.x / 100, kWorldSize.y / 100),
+      // position: Vector2(kWorldSize.x / 100, kWorldSize.y / 100),
       type: BodyType.dynamic,
+      bullet: true,
     );
     // ref.listen(settingsProvider, (settings, setting) {
     //   setting.settings.isDarkMode
