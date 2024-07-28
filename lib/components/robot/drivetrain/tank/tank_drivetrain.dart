@@ -21,9 +21,12 @@ class TankDrivetrain extends Drivetrain {
   @override
   FutureOr<void> firstJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    body.applyLinearImpulse(value
-      ..x =
-          0 * constants.kTranslationalAccelerationRate * constants.kMultiplier);
+    Vector2 robotRelativeTranslation = Vector2(0, -value.y);
+    // robotRelativeTranslation.length = value.y;
+    robotRelativeTranslation.rotate(body.angle);
+    body.applyLinearImpulse(robotRelativeTranslation *
+        constants.kTranslationalAccelerationRate *
+        constants.kMultiplier);
 
     if (kDebugMode) {
       print(body.linearVelocity.length);
@@ -32,7 +35,7 @@ class TankDrivetrain extends Drivetrain {
     }
     body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
     if (body.linearVelocity.length >
-        value.y * constants.kTranslationalAccelerationRate) {
+        value.y.abs() * constants.kTranslationalAccelerationRate) {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
       body.linearDamping = constants.kTranslationalIdleDeccelerationRate *
