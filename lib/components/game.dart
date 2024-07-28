@@ -90,6 +90,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     gamePiece = GamePiece(position: Vector2(10, 10));
 
     await world.add(gamePiece);
+    robot.intializeSprite();
     if (kDebugMode) {
       print("Visible Game size ${camera.viewfinder.visibleGameSize}");
     }

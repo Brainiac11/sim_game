@@ -15,6 +15,7 @@ import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/constants.dart';
+import 'package:player_move/helpers/robot_sprite_manager.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
@@ -26,6 +27,7 @@ class Robot extends BodyComponent
   ComponentRef ref;
   late BodyDef robotDef;
   late Sprite sprite;
+  late RobotSpriteManager spriteManager;
   Robot({super.key, required this.ref}) {
     super.rebuildOnMountWhen(ref);
     // super.bodyDef = BodyDef(
@@ -37,35 +39,16 @@ class Robot extends BodyComponent
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-// Image image = Image.asset("game_piece.png");
-    if (ref.watch(settingsNotifierProvider).themeMode == ThemeMode.dark) {
-      if (ref.watch(robotCustomizationProvider).value?.drivetrain.runtimeType ==
-              SwerveDrivetrain ||
-          ref.watch(robotCustomizationProvider).value == null) {
-        await Sprite.load("robot_dark_swerve.png").then((value) {
-          sprite = value;
-        });
-      } else {
-        await Sprite.load("robot_dark.png").then((value) {
-          sprite = value;
-        });
-      }
-    }
+    spriteManager = RobotSpriteManager(ref: ref);
+    // await spriteManager.setCurrentSprite();
+    // sprite = await spriteManager.getCurrentSprite();
+    // spriteManager = RobotSpriteManager(drivetrain: drivetrain!, ref: ref);
+    // await spriteManager.setCurrentSprite();
     if (kDebugMode) {
       renderBody = false;
     } else {
       renderBody = false;
     }
-    await add(
-      SpriteComponent(
-        sprite: sprite,
-        size: Vector2(
-            pow(ref.read(robotProviderProvider).kHalfWidth, 4.7).toDouble(),
-            pow(ref.read(robotProviderProvider).kHalfHeight, 4.7).toDouble()),
-        scale: Vector2(kWorldSize.length / 400, kWorldSize.length / 400),
-        anchor: Anchor.center,
-      ),
-    );
   }
 
   @override
@@ -88,20 +71,36 @@ class Robot extends BodyComponent
 
   @override
   FutureOr<void> onMount() async {
+    ref.watch(robotCustomizationProvider).whenData((Customization cb) {
+      drivetrain = cb.drivetrain;
+    });
     addToGameWidgetBuild(() async {
-      ref.watch(robotCustomizationProvider).whenData((Customization cb) {
-        drivetrain = cb.drivetrain;
-      });
       if (kDebugMode) {
         print(
             "Direvetrain ${drivetrain?.toJson()} \n ${drivetrain?.motors.toJson()}");
       }
-      // ref.read(robotProviderProvider.notifier).clear();
+
       constants = ref.watch(robotProviderProvider);
       await drivetrain?.updateRobotConstants(ref);
     });
 
     super.onMount();
+  }
+
+  FutureOr<void> intializeSprite() async {
+    spriteManager.drivetrain = drivetrain!;
+
+    sprite = (await spriteManager.getCurrentSprite())!;
+    await add(
+      SpriteComponent(
+        sprite: sprite,
+        size: Vector2(
+            pow(ref.read(robotProviderProvider).kHalfWidth, 4.7).toDouble(),
+            pow(ref.read(robotProviderProvider).kHalfHeight, 4.7).toDouble()),
+        scale: Vector2(kWorldSize.length / 400, kWorldSize.length / 400),
+        anchor: Anchor.center,
+      ),
+    );
   }
 
   @override
