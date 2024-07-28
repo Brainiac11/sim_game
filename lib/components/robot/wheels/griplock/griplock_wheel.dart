@@ -10,7 +10,7 @@ part 'griplock_wheel.g.dart';
 @JsonSerializable(explicitToJson: true)
 class GriplockWheel extends Wheel {
   static const String kName = "Griplock";
-  static const double kAcceleration = 9;
+  static const double kAcceleration = 8;
   static const double kCost = 4;
   GriplockWheel()
       : super(acceleration: kAcceleration, cost: kCost, name: kName);

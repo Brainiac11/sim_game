@@ -9,8 +9,8 @@ part 'falcon_motor.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class FalconMotor extends Motor {
-  static const double kAcceleration = 10;
-  static const double kMaximumSpeed = 17;
+  static const double kAcceleration = 9;
+  static const double kMaximumSpeed = 15;
   static const double kCost = 20;
   static const String kName = "Falcon";
   FalconMotor()

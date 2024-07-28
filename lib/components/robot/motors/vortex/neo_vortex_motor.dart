@@ -9,8 +9,8 @@ part 'neo_vortex_motor.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class VortexMotor extends Motor {
-  static const double kAcceleration = 8;
-  static const double kMaximumSpeed = 15;
+  static const double kAcceleration = 7;
+  static const double kMaximumSpeed = 14;
   static const double kCost = 15;
   static const String kName = "Vortex";
   VortexMotor()

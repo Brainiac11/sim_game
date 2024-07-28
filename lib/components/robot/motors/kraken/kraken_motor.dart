@@ -9,8 +9,8 @@ part 'kraken_motor.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class KrakenMotor extends Motor {
-  static const double kAcceleration = 11;
-  static const double kMaximumSpeed = 17;
+  static const double kAcceleration = 10;
+  static const double kMaximumSpeed = 16;
   static const double kCost = 23;
   static const String kName = "Kraken";
   KrakenMotor()
