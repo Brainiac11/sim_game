@@ -1,3 +1,4 @@
+import 'package:dartx/dartx.dart';
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
@@ -10,7 +11,7 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
   final Vector2 size = gamePieceSize;
   late Shape shape;
   late FixtureDef fixtureDef;
-
+  late BodyDef gamePieceDef;
   late final Sprite sprite;
   @override
   Vector2 position;
@@ -19,14 +20,12 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
     required this.position,
   });
   @override
-  Future<void> onMount() {
-    super.onMount();
+  Future<void> onMount() async {
     addToGameWidgetBuild(() {
       body.angularDamping = GamePieceDampening;
       body.linearDamping = GamePieceDampening;
     });
-
-    return super.onLoad();
+    super.onMount();
   }
 
   @override
@@ -41,7 +40,7 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
     } else {
       renderBody = false;
     }
-    await super.add(
+    await add(
       SpriteComponent(
         sprite: sprite,
         size: size,
@@ -53,12 +52,13 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
 
   @override
   Body createBody() {
-    BodyDef gamePieceDef = BodyDef(
+    gamePieceDef = BodyDef(
       position: position,
       type: BodyType.dynamic,
       angularDamping: GamePieceDampening,
       linearDamping: GamePieceDampening,
       bullet: true,
+      userData: this,
     );
     shape = CircleShape()..radius = .9;
     fixtureDef = FixtureDef(shape)

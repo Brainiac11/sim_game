@@ -18,14 +18,14 @@ import 'package:flame_riverpod/flame_riverpod.dart';
 
 late BuildContext universalContext;
 
-class RoboticsGame extends Forge2DGame
-    with RiverpodGameMixin, HasCollisionDetection {
+class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   // final Robot _robot = Robot(drivetrain: SwerveDrivetrain());
   final fps = FpsTextComponent(position: Vector2(5, kWorldSize.y));
   final totalBodies =
       TextComponent(position: Vector2(5, kWorldSize.x * 2), priority: 1);
   late Robot robot;
   SpriteBackground background = SpriteBackground();
+  late GamePiece gamePiece;
   // static const double zoom = 30;
   RoboticsGame()
       : super(
@@ -87,12 +87,11 @@ class RoboticsGame extends Forge2DGame
     camera.follow(robot, maxSpeed: 28, snap: false);
     camera.setBounds(
         Rectangle.fromCenter(center: background.center, size: background.size));
-    GamePiece gamePiece = GamePiece(position: Vector2(10, 10));
+    gamePiece = GamePiece(position: Vector2(10, 10));
 
     await world.add(gamePiece);
     if (kDebugMode) {
-      print(
-          "Visible Game size " + camera.viewfinder.visibleGameSize.toString());
+      print("Visible Game size ${camera.viewfinder.visibleGameSize}");
     }
   }
 

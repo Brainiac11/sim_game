@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
 import 'package:player_move/constants.dart';
@@ -18,10 +19,10 @@ import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
 class Robot extends BodyComponent
-    with RiverpodComponentMixin, CollisionCallbacks {
+    with RiverpodComponentMixin, ContactCallbacks {
   @override
   ComponentRef ref;
-
+  late BodyDef robotDef;
   Robot({super.key, required this.ref}) {
     super.rebuildOnMountWhen(ref);
     // super.bodyDef = BodyDef(
@@ -32,10 +33,9 @@ class Robot extends BodyComponent
   }
 
   @override
-  void onCollision(Set<Vector2> points, PositionComponent other) {
-    HapticFeedback.lightImpact();
-    if (other is ScreenHitbox) {
-      super.onCollision(points, other);
+  void beginContact(Object other, Contact contact) {
+    if (other.runtimeType == GamePiece) {
+      super.beginContact(other, contact);
     }
   }
 
@@ -70,10 +70,11 @@ class Robot extends BodyComponent
 
   @override
   Body createBody() {
-    BodyDef robotDef = BodyDef(
+    robotDef = BodyDef(
       // position: Vector2(kWorldSize.x / 100, kWorldSize.y / 100),
       type: BodyType.dynamic,
       bullet: true,
+      userData: this,
     );
     // ref.listen(settingsProvider, (settings, setting) {
     //   setting.settings.isDarkMode
