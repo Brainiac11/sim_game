@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/drivetrain/tank/tank_drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/L2/l_2_gear_ratio.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
@@ -42,11 +43,13 @@ class RobotCustomization extends _$RobotCustomization {
 
   Future<Customization> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    Map<String, dynamic> defaultSwerve = SwerveDrivetrain(
-      motors: NeoMotor(),
-      wheel: BilletWheel(),
-      gearRatio: L2GearRatio(),
-    ).toJson();
+    // Map<String, dynamic> defaultSwerve = SwerveDrivetrain(
+    //   motors: NeoMotor(),
+    //   wheel: BilletWheel(),
+    //   gearRatio: L2GearRatio(),
+    // ).toJson();
+    Map<String, dynamic> defaultTank =
+        TankDrivetrain(motors: NeoMotor()).toJson();
     // Map<String, dynamic> drivetrain = SwerveDrivetrain.fromJson(
     //     json.decode(prefs.getString("drivetrain")!.replaceAll("\n", ""))
     //             as Map<String, dynamic> ??
@@ -66,15 +69,14 @@ class RobotCustomization extends _$RobotCustomization {
       if (kDebugMode) {
         print("Drivetrain prefs null");
       }
-      drivetrain = defaultSwerve;
+      drivetrain = defaultTank;
     }
 
-    Drivetrain dt = SwerveDrivetrain.fromJson(drivetrain);
+    Drivetrain dt = Drivetrain.fromJson(drivetrain);
 
     if (kDebugMode) {
-      print(
-          "Drivetrain Config: ${(dt as SwerveDrivetrain).motors.runtimeType}");
-      print("Gear Ratio Config: ${dt.runtimeType}");
+      print("Drivetrain Config: ${(dt).motors.runtimeType}");
+      print("Drivetrain Type: ${dt.runtimeType}");
     }
 
     // state = state.copyWith(drivetrain: dt);

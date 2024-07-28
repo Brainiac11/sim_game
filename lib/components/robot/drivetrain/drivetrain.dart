@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
+import 'package:player_move/components/robot/drivetrain/tank/tank_drivetrain.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
@@ -39,8 +40,10 @@ abstract class Drivetrain {
     switch (json["name"]) {
       case "SwerveDrivetrain":
         return SwerveDrivetrain.fromJson(json);
+      case "TankDrivetrain":
+        return TankDrivetrain.fromJson(json);
       default:
-        return SwerveDrivetrain.fromJson(json);
+        throw (Exception("Drivetrain not recognized"));
     }
   }
   Map<String, dynamic> toJson();
