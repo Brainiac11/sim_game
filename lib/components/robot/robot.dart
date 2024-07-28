@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -23,6 +24,7 @@ class Robot extends BodyComponent
   @override
   ComponentRef ref;
   late BodyDef robotDef;
+  late Sprite sprite;
   Robot({super.key, required this.ref}) {
     super.rebuildOnMountWhen(ref);
     // super.bodyDef = BodyDef(
@@ -30,6 +32,29 @@ class Robot extends BodyComponent
     //     isAwake: true,
     //     position: Vector2(-1000, -1000),
     //     type: BodyType.dynamic);
+  }
+  @override
+  Future<void> onLoad() async {
+    await super.onLoad();
+// Image image = Image.asset("game_piece.png");
+    await Sprite.load("robot_dark.png").then((value) {
+      sprite = value;
+    });
+    if (kDebugMode) {
+      renderBody = false;
+    } else {
+      renderBody = false;
+    }
+    await add(
+      SpriteComponent(
+        sprite: sprite,
+        size: Vector2(
+            pow(ref.read(robotProviderProvider).kHalfWidth, 5).toDouble(),
+            pow(ref.read(robotProviderProvider).kHalfHeight, 5).toDouble()),
+        scale: Vector2(kWorldSize.length / 400, kWorldSize.length / 400),
+        anchor: Anchor.center,
+      ),
+    );
   }
 
   @override
