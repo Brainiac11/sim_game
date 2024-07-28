@@ -13,6 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
@@ -37,9 +38,19 @@ class Robot extends BodyComponent
   Future<void> onLoad() async {
     await super.onLoad();
 // Image image = Image.asset("game_piece.png");
-    await Sprite.load("robot_dark.png").then((value) {
-      sprite = value;
-    });
+    if (ref.watch(settingsNotifierProvider).themeMode == ThemeMode.dark) {
+      if (ref.watch(robotCustomizationProvider).value?.drivetrain.runtimeType ==
+              SwerveDrivetrain ||
+          ref.watch(robotCustomizationProvider).value == null) {
+        await Sprite.load("robot_dark_swerve.png").then((value) {
+          sprite = value;
+        });
+      } else {
+        await Sprite.load("robot_dark.png").then((value) {
+          sprite = value;
+        });
+      }
+    }
     if (kDebugMode) {
       renderBody = false;
     } else {
@@ -49,8 +60,8 @@ class Robot extends BodyComponent
       SpriteComponent(
         sprite: sprite,
         size: Vector2(
-            pow(ref.read(robotProviderProvider).kHalfWidth, 5).toDouble(),
-            pow(ref.read(robotProviderProvider).kHalfHeight, 5).toDouble()),
+            pow(ref.read(robotProviderProvider).kHalfWidth, 4.7).toDouble(),
+            pow(ref.read(robotProviderProvider).kHalfHeight, 4.7).toDouble()),
         scale: Vector2(kWorldSize.length / 400, kWorldSize.length / 400),
         anchor: Anchor.center,
       ),
