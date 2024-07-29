@@ -11,15 +11,15 @@ import 'package:player_move/providers/settings/settings_notifier.dart';
 
 class RobotSpriteManager {
   Sprite? sprite;
-  Drivetrain? drivetrain;
+  Drivetrain drivetrain;
   String themeMode = "dark";
   ComponentRef ref;
 
-  RobotSpriteManager({required this.ref});
+  RobotSpriteManager({required this.ref, required this.drivetrain});
 
-  Future<Sprite?> getCurrentSprite() async {
+  Future<Sprite> getCurrentSprite() async {
     await _setCurrentSprite();
-    return sprite;
+    return sprite!;
   }
 
   FutureOr<void> _setCurrentSprite() async {

@@ -35,7 +35,7 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
       sprite = value;
     });
     if (kDebugMode) {
-      renderBody = true;
+      renderBody = false;
     } else {
       renderBody = false;
     }
