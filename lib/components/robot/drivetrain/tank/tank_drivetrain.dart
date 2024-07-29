@@ -21,7 +21,7 @@ class TankDrivetrain extends Drivetrain {
   @override
   FutureOr<void> firstJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    Vector2 robotRelativeTranslation = Vector2(0, -value.y);
+    Vector2 robotRelativeTranslation = Vector2(0, value.y);
     // robotRelativeTranslation.length = value.y;
     robotRelativeTranslation.rotate(body.angle);
     body.applyLinearImpulse(robotRelativeTranslation *

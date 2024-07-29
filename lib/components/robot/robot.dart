@@ -6,10 +6,14 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/drivetrain/tank/tank_drivetrain.dart';
+import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/helpers/robot_sprite_manager.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
@@ -22,8 +26,8 @@ class Robot extends BodyComponent
   @override
   ComponentRef ref;
   late BodyDef robotDef;
-  late Sprite sprite;
-  late RobotSpriteManager spriteManager;
+  Sprite? sprite;
+  RobotSpriteManager? spriteManager;
   Robot({super.key, required this.ref}) {
     super.rebuildOnMountWhen(ref);
     // super.bodyDef = BodyDef(
@@ -35,7 +39,7 @@ class Robot extends BodyComponent
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    spriteManager = RobotSpriteManager(ref: ref);
+
     // await spriteManager.setCurrentSprite();
     // sprite = await spriteManager.getCurrentSprite();
     // spriteManager = RobotSpriteManager(drivetrain: drivetrain!, ref: ref);
@@ -50,6 +54,9 @@ class Robot extends BodyComponent
   @override
   void beginContact(Object other, Contact contact) {
     if (other.runtimeType == GamePiece) {
+      if (ref.read(settingsNotifierProvider).haptics) {
+        HapticFeedback.selectionClick();
+      }
       super.beginContact(other, contact);
     }
   }
@@ -67,36 +74,42 @@ class Robot extends BodyComponent
 
   @override
   FutureOr<void> onMount() async {
-    ref.watch(robotCustomizationProvider).whenData((Customization cb) async {
-      drivetrain = cb.drivetrain;
-      spriteManager.drivetrain = drivetrain!;
-      await intializeSprite();
-    });
     addToGameWidgetBuild(() async {
-      if (kDebugMode) {
-        print(
-            "Direvetrain ${drivetrain?.toJson()} \n ${drivetrain?.motors.toJson()}");
-      }
+      ref.watch(robotCustomizationProvider).whenData((Customization cb) async {
+        drivetrain = cb.drivetrain;
+        if (kDebugMode) {
+          print(
+              "Direvetrain ${drivetrain?.toJson()} \n ${drivetrain?.motors.toJson()}");
+        }
+        await drivetrain?.updateRobotConstants(ref);
+        spriteManager = RobotSpriteManager(ref: ref, drivetrain: drivetrain!);
+        await intializeSprite();
+      });
 
       constants = ref.watch(robotProviderProvider);
-      await drivetrain?.updateRobotConstants(ref);
     });
 
     super.onMount();
   }
 
-  FutureOr<void> intializeSprite() async {
-    sprite = (await spriteManager.getCurrentSprite())!;
+  Future<void> intializeSprite() async {
+    sprite = await spriteManager!.getCurrentSprite();
     await add(
       SpriteComponent(
         sprite: sprite,
-        size: Vector2(
-            pow(ref.read(robotProviderProvider).kHalfWidth, 4.7).toDouble(),
-            pow(ref.read(robotProviderProvider).kHalfHeight, 4.7).toDouble()),
-        scale: Vector2(kWorldSize.length / 400, kWorldSize.length / 400),
+        size: Vector2(ref.read(robotProviderProvider).kHalfWidth * 2.25,
+            ref.read(robotProviderProvider).kHalfHeight * 2.25),
+        // scale: Vector2(kWorldSize.length / 75, kWorldSize.length / 75),
         anchor: Anchor.center,
       ),
     );
+    await add(SpriteComponent(
+      sprite: await Sprite.load("underbumper_intake.png"),
+      size: Vector2(
+          pow(ref.read(robotProviderProvider).kHalfWidth, 2.3).toDouble(),
+          pow(ref.read(robotProviderProvider).kHalfHeight, 2.3).toDouble()),
+      anchor: Anchor.center,
+    ));
   }
 
   @override
