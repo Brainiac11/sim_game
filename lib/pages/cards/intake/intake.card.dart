@@ -5,8 +5,6 @@ import 'package:player_move/components/robot/subsystems/intake/intake.dart';
 import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
 import 'package:player_move/custom_widgets/customization_card.dart';
-import 'package:player_move/pages/cards/drivetrain/swerve.card.dart';
-import 'package:player_move/pages/cards/drivetrain/tank.card.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 
 class IntakePage extends ConsumerStatefulWidget {

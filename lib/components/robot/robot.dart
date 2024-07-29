@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
@@ -8,18 +7,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
-import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_drivetrain.dart';
-import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
 import 'package:player_move/components/robot/subsystems/intake/intake.dart';
 import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper.dart';
 import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper_sprite.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper_sprite.dart';
-import 'package:player_move/constants.dart';
 import 'package:player_move/helpers/robot_sprite_manager.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
