@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
-import 'package:player_move/components/robot/drivetrain/tank/tank_drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_drivetrain.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/pages/cards/sub_cards/motors.sub.card.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';

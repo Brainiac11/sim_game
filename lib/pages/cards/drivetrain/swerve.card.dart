@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
-import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/L2/l_2_gear_ratio.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
 import 'package:player_move/components/robot/motors/motor.dart';

@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forge2d/src/dynamics/body.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
-import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
 part 'tank_drivetrain.g.dart';

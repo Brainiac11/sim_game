@@ -9,7 +9,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/L2/l_2_gear_ratio.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
 import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';

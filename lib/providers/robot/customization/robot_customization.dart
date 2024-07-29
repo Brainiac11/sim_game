@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
-import 'package:player_move/components/robot/drivetrain/tank/tank_drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_drivetrain.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

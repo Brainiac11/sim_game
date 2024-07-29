@@ -1,4 +1,4 @@
-import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'customization.freezed.dart';
 part 'customization.g.dart';

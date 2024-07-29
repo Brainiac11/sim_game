@@ -42,8 +42,7 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
     await add(
       SpriteComponent(
         sprite: sprite,
-        size: size,
-        scale: Vector2(kWorldSize.length / 400, kWorldSize.length / 400),
+        scale: Vector2(kWorldSize.length / 14500, kWorldSize.length / 14500),
         anchor: Anchor.center,
       ),
     );

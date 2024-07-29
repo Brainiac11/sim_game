@@ -4,9 +4,9 @@ import 'package:flame/components.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
-import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
-import 'package:player_move/components/robot/drivetrain/tank/tank_drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/swerve/swerve_drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_drivetrain.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
 class RobotSpriteManager {
