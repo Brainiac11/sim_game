@@ -7,8 +7,13 @@ import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.da
 import 'package:player_move/components/robot/subsystems/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/L2/l_2_gear_ratio.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
+import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_drivetrain.dart';
+import 'package:player_move/components/robot/subsystems/intake/intake.dart';
+import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper.dart';
+import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
 import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
 import 'package:player_move/pages/cards/drivetrain/drivetrain.card.dart';
+import 'package:player_move/pages/cards/intake/intake.card.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -36,6 +41,16 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
         }
 
         return const DrivetrainPage();
+      case TankDrivetrain:
+        if (kDebugMode) {
+          print("Tank");
+        }
+
+        return const DrivetrainPage();
+      case UnderBumperIntake:
+        return const IntakePage();
+      case OverBumperIntake:
+        return const IntakePage();
       default:
         if (kDebugMode) {
           print("defaulting ${c.toString()}");
@@ -48,8 +63,10 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
   @override
   Widget build(BuildContext context) {
     Drivetrain? dt;
+    Intake? ik;
     ref.watch(robotCustomizationProvider.future).then((value) {
       dt = value.drivetrain;
+      ik = value.intake;
     });
     cardIndexList = [
       dt ??
@@ -58,6 +75,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
             wheel: BilletWheel(),
             gearRatio: L2GearRatio(),
           ),
+      ik ?? UnderBumperIntake(),
     ];
     // final settings = ref.watch(settingsNotifierProvider);
     // final robot = ref.watch(robotProviderProvider);

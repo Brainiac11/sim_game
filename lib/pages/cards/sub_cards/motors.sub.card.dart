@@ -28,8 +28,8 @@ class MotorSubCard extends ConsumerWidget {
           icon: returnImages(NeoMotor, context),
           padding: const EdgeInsets.all(0),
           style: Theme.of(context).iconButtonTheme.style,
-          isSelected: ref.watch(robotCustomizationProvider).isLoading
-              ? false
+          isSelected: ref.watch(robotCustomizationProvider).hasValue
+              ? true
               : ref
                       .watch(robotCustomizationProvider)
                       .value

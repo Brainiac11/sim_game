@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_drivetrain.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
+import 'package:player_move/components/robot/subsystems/intake/intake.dart';
+import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,29 +16,7 @@ class RobotCustomization extends _$RobotCustomization {
   @override
   Future<Customization> build() async {
     return await _loadSettings();
-    // if (state.value == null) {
-    //   state.whenData((Customization cb) {
-    //     return cb;
-    //   });
-    // } else {
-    //   return state.value!;
-    // }
-
-    // return Customization(
-    //   drivetrain: SwerveDrivetrain(
-    //     motors: NeoMotor(),
-    //     wheel: BilletWheel(),
-    //     gearRatio: L2GearRatio(),
-    //   ),
-    // );
   }
-
-  // SharedPreferences? getPrefs() {
-  //   SharedPreferences.getInstance().then((value) {
-  //     return value;
-  //   });
-  //   return null;
-  // }
 
   Future<Customization> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
@@ -47,21 +27,14 @@ class RobotCustomization extends _$RobotCustomization {
     // ).toJson();
     Map<String, dynamic> defaultTank =
         TankDrivetrain(motors: NeoMotor()).toJson();
-    // Map<String, dynamic> drivetrain = SwerveDrivetrain.fromJson(
-    //     json.decode(prefs.getString("drivetrain")!.replaceAll("\n", ""))
-    //             as Map<String, dynamic> ??
-    //         defaultSwerve) as Map<String, dynamic>;
-    // if (kDebugMode) {
-    //   print("Drivetrain:  ${prefs.getString('drivetrain') ?? ""}");
-    // }
     late Map<String, dynamic> drivetrain;
 
-    String? jsonString = prefs.getString('drivetrain');
-    if (jsonString != null) {
+    String? jsonDrivetrainString = prefs.getString('drivetrain');
+    if (jsonDrivetrainString != null) {
       if (kDebugMode) {
-        print(jsonString);
+        print(jsonDrivetrainString);
       }
-      drivetrain = jsonDecode(jsonString);
+      drivetrain = jsonDecode(jsonDrivetrainString);
     } else {
       if (kDebugMode) {
         print("Drivetrain prefs null");
@@ -71,18 +44,25 @@ class RobotCustomization extends _$RobotCustomization {
 
     Drivetrain dt = Drivetrain.fromJson(drivetrain);
 
-    if (kDebugMode) {
-      print("Drivetrain Config: ${(dt).motors.runtimeType}");
-      print("Drivetrain Type: ${dt.runtimeType}");
+    Map<String, dynamic> defaultIntake = UnderBumperIntake().toJson();
+    late Map<String, dynamic> intake;
+
+    String? jsonIntakeString = prefs.getString('intake');
+    if (jsonIntakeString != null) {
+      if (kDebugMode) {
+        print(jsonIntakeString);
+      }
+      drivetrain = jsonDecode(jsonIntakeString);
+    } else {
+      if (kDebugMode) {
+        print("Intake prefs null");
+      }
+      intake = defaultIntake;
     }
 
-    // state = state.copyWith(drivetrain: dt);
-    // state.value?.drivetrain = dt;
+    Intake ik = Intake.fromJson(intake);
 
-    // ref.notifyListeners();
-    return Customization(drivetrain: dt);
-
-    // state.drivetrain = dt;
+    return Customization(drivetrain: dt, intake: ik);
   }
 
   void updateDrivetrain(Drivetrain drivetrain) async {
@@ -93,6 +73,18 @@ class RobotCustomization extends _$RobotCustomization {
 
     if (kDebugMode) {
       print("Drivetrain in Prefs: ${drivetrain.toJson().toString()}");
+    }
+    ref.notifyListeners();
+  }
+
+  void updateIntake(Intake intake) async {
+    state.value?.intake = intake;
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('intake', jsonEncode(intake.toJson()));
+
+    if (kDebugMode) {
+      print("Intake in Prefs: ${intake.toJson().toString()}");
     }
     ref.notifyListeners();
   }

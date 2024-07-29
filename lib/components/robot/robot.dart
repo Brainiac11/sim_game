@@ -14,6 +14,10 @@ import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_drivetrain.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
+import 'package:player_move/components/robot/subsystems/intake/intake.dart';
+import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper.dart';
+import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper_sprite.dart';
+import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper_sprite.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/helpers/robot_sprite_manager.dart';
@@ -29,6 +33,15 @@ class Robot extends BodyComponent
   late BodyDef robotDef;
   Sprite? sprite;
   RobotSpriteManager? spriteManager;
+  Drivetrain? drivetrain;
+  Intake? intake;
+
+  Vector2 acceleration = Vector2.zero();
+  late PolygonShape shape;
+  FixtureDef? fixtureDef;
+
+  ThemeMode themeMode = ThemeMode.system;
+  late RobotConstants constants;
   Robot({super.key, required this.ref}) {
     super.rebuildOnMountWhen(ref);
     // super.bodyDef = BodyDef(
@@ -62,22 +75,12 @@ class Robot extends BodyComponent
     }
   }
 
-  Drivetrain? drivetrain;
-
-  Vector2 acceleration = Vector2.zero();
-  late PolygonShape shape;
-  FixtureDef? fixtureDef;
-
-  ThemeMode themeMode = ThemeMode.system;
-  late RobotConstants constants;
-  // @override
-  // BodyDef? get bodyDef => robotDef;
-
   @override
   FutureOr<void> onMount() async {
     addToGameWidgetBuild(() async {
-      ref.read(robotCustomizationProvider).whenData((Customization cb) async {
+      ref.watch(robotCustomizationProvider).whenData((Customization cb) async {
         drivetrain = cb.drivetrain;
+        intake = cb.intake;
         if (kDebugMode) {
           print(
               "Direvetrain ${drivetrain?.toJson()} \n ${drivetrain?.motors.toJson()}");
@@ -95,6 +98,16 @@ class Robot extends BodyComponent
 
   Future<void> intializeSprite() async {
     sprite = await spriteManager!.getCurrentSprite();
+    switch (intake.runtimeType) {
+      case UnderBumperIntake:
+        await add(UnderBumperSprite(ref: ref));
+        break;
+      case OverBumperIntake:
+        await add(OverBumperSprite(ref: ref));
+        break;
+      default:
+        throw (Exception("Intake not recognized"));
+    }
     await add(
       SpriteComponent(
         sprite: sprite,
@@ -104,7 +117,6 @@ class Robot extends BodyComponent
         anchor: Anchor.center,
       ),
     );
-    await add(UnderBumperSprite(ref: ref));
   }
 
   @override
