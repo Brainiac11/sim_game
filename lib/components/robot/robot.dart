@@ -14,6 +14,7 @@ import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_drivetrain.dart';
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
+import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper_sprite.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/helpers/robot_sprite_manager.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
@@ -75,7 +76,7 @@ class Robot extends BodyComponent
   @override
   FutureOr<void> onMount() async {
     addToGameWidgetBuild(() async {
-      ref.watch(robotCustomizationProvider).whenData((Customization cb) async {
+      ref.read(robotCustomizationProvider).whenData((Customization cb) async {
         drivetrain = cb.drivetrain;
         if (kDebugMode) {
           print(
@@ -103,13 +104,7 @@ class Robot extends BodyComponent
         anchor: Anchor.center,
       ),
     );
-    await add(SpriteComponent(
-      sprite: await Sprite.load("underbumper_intake.png"),
-      size: Vector2(
-          pow(ref.read(robotProviderProvider).kHalfWidth, 2.3).toDouble(),
-          pow(ref.read(robotProviderProvider).kHalfHeight, 2.3).toDouble()),
-      anchor: Anchor.center,
-    ));
+    await add(UnderBumperSprite(ref: ref));
   }
 
   @override
