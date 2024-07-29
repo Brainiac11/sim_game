@@ -7,10 +7,7 @@ import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:player_move/components/game.dart';
-import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/providers/settings/settings.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
@@ -93,7 +90,7 @@ class SpriteBackground extends SpriteComponent with RiverpodComponentMixin {
   }
 
   // HALL OF FAMMEEEEE
-  final Vector2 rawSize = Size(3072, 1420).toVector2() /
+  final Vector2 rawSize = const Size(3072, 1420).toVector2() /
       (MediaQuery.of(universalContext).size.height / (1420 * 10));
   Vector2 followPosition = Vector2.zero();
   SpriteBackground();
@@ -111,7 +108,7 @@ class SpriteBackground extends SpriteComponent with RiverpodComponentMixin {
     await Sprite.load("dark_field_updated.png").then((value) {
       sprite = value;
     });
-    print("RawSize " + rawSize.toString());
+    print("RawSize $rawSize");
     sprite?.srcSize = rawSize;
     // sprite?.srcPosition = followPosition;
     super.anchor = Anchor.topLeft;

@@ -1,19 +1,15 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/game.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/drivetrain/drivetrain.dart';
-import 'package:player_move/components/robot/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/helpers/robot_sprite_manager.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
@@ -71,8 +67,10 @@ class Robot extends BodyComponent
 
   @override
   FutureOr<void> onMount() async {
-    ref.watch(robotCustomizationProvider).whenData((Customization cb) {
+    ref.watch(robotCustomizationProvider).whenData((Customization cb) async {
       drivetrain = cb.drivetrain;
+      spriteManager.drivetrain = drivetrain!;
+      await intializeSprite();
     });
     addToGameWidgetBuild(() async {
       if (kDebugMode) {
@@ -88,8 +86,6 @@ class Robot extends BodyComponent
   }
 
   FutureOr<void> intializeSprite() async {
-    spriteManager.drivetrain = drivetrain!;
-
     sprite = (await spriteManager.getCurrentSprite())!;
     await add(
       SpriteComponent(
