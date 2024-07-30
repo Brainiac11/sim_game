@@ -94,6 +94,12 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     super.update(dt);
     totalBodies.text = 'Bodies: ${world.children.length}';
 
+    for (Fixture fixture in robot.fixturesToDelete) {
+      fixture.body.destroyFixture(fixture);
+    }
+
+    robot.fixturesToDelete.clear();
+
     // background.followPosition = robot.position;
     if (kDebugMode) {}
   }

@@ -22,7 +22,8 @@ import 'package:player_move/providers/robot/customization/robot_customization.da
 import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
-class Robot extends BodyComponent with RiverpodComponentMixin {
+class Robot extends BodyComponent
+    with RiverpodComponentMixin, ContactCallbacks {
   late BodyDef robotDef;
   Sprite? sprite;
   RobotSpriteManager? spriteManager;
@@ -31,6 +32,7 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
   SpriteComponent? intakeSprite;
 
   ComponentRef ref;
+  List<Fixture> fixturesToDelete = [];
 
   Vector2 acceleration = Vector2.zero();
   late PolygonShape shape;
@@ -39,22 +41,11 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
   ThemeMode themeMode = ThemeMode.system;
   late RobotConstants constants;
   Robot({super.key, required this.ref}) {
-    // super.rebuildOnMountWhen(ref);
-
-    // super.bodyDef = BodyDef(
-    //     active: true,
-    //     isAwake: true,
-    //     position: Vector2(-1000, -1000),
-    //     type: BodyType.dynamic);
+    super.rebuildOnMountWhen(ref);
   }
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-
-    // await spriteManager.setCurrentSprite();
-    // sprite = await spriteManager.getCurrentSprite();
-    // spriteManager = RobotSpriteManager(drivetrain: drivetrain!, ref: ref);
-    // await spriteManager.setCurrentSprite();
 
     if (kDebugMode) {
       renderBody = false;
@@ -63,26 +54,26 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
     }
   }
 
-  // @override
-  // void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-  //   HapticFeedback.heavyImpact();
-  //   if (other.runtimeType == GamePiece) {
-  //     // if (ref.read(settingsNotifierProvider).haptics) {
-  //     //   HapticFeedback.selectionClick();
-  //     // }
-  //   }
-  //   super.onCollision(intersectionPoints, other);
-  // }
+  @override
+  void beginContact(Object other, Contact contact) {
+    if (other.runtimeType == GamePiece) {
+      if (ref.read(settingsNotifierProvider).haptics) {
+        HapticFeedback.selectionClick();
+      }
+      if (kDebugMode) {
+        // print(contact.bodyA.angle );
+        // print();
+      }
 
-  // @override
-  // void beginContact(Object other, Contact contact) {
-  //   if (other.runtimeType == GamePiece) {
-  //     if (ref.read(settingsNotifierProvider).haptics) {
-  //       HapticFeedback.selectionClick();
-  //     }
-  //     super.beginContact(other, contact);
-  //   }
-  // }
+      if ((contact.bodyA.localPoint(contact.bodyB.position).screenAngle() *
+                  radians2Degrees)
+              .abs() <
+          12) {
+        fixturesToDelete.addAll(contact.bodyB.fixtures);
+      }
+    }
+    super.beginContact(other, contact);
+  }
 
   @override
   FutureOr<void> onMount() async {
@@ -102,7 +93,6 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
       constants = ref.watch(robotProviderProvider);
       spriteManager = RobotSpriteManager(drivetrain: drivetrain!);
       await intializeSprite();
-      // await add(spriteManager!);
       if (spriteManager != null && !super.children.contains(spriteManager)) {
         spriteManager!.scale = Vector2(
             ref.read(robotProviderProvider).kHalfWidth * 2.25,
