@@ -83,7 +83,7 @@ class Background extends PositionComponent with RiverpodComponentMixin {
   }
 }
 
-class SpriteBackground extends SpriteComponent with RiverpodComponentMixin {
+class SpriteBackground extends SpriteComponent {
   void updateRawSize() {
     Size current = getCurrentImageSize();
     current = MediaQuery.of(universalContext).size;
@@ -94,12 +94,12 @@ class SpriteBackground extends SpriteComponent with RiverpodComponentMixin {
       (MediaQuery.of(universalContext).size.height / (1420 * 10));
   Vector2 followPosition = Vector2.zero();
   SpriteBackground();
-  @override
-  FutureOr<void> onMount() async {
-    super.onMount();
-    addToGameWidgetBuild(() {});
-    return super.onLoad();
-  }
+  // @override
+  // FutureOr<void> onMount() async {
+  //   super.onMount();
+  //   addToGameWidgetBuild(() {});
+  //   return super.onLoad();
+  // }
 
   @override
   Future<void> onLoad() async {
@@ -108,7 +108,9 @@ class SpriteBackground extends SpriteComponent with RiverpodComponentMixin {
     await Sprite.load("dark_field_updated.png").then((value) {
       sprite = value;
     });
-    print("RawSize $rawSize");
+    if (kDebugMode) {
+      print("RawSize $rawSize");
+    }
     sprite?.srcSize = rawSize;
     // sprite?.srcPosition = followPosition;
     super.anchor = Anchor.topLeft;

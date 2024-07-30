@@ -6,8 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:player_move/components/game_piece/game_piece_config.dart';
 import 'package:player_move/constants.dart';
 
-class GamePiece extends BodyComponent
-    with RiverpodComponentMixin, HasCollisionDetection {
+class GamePiece extends BodyComponent with RiverpodComponentMixin {
   final Vector2 size = gamePieceSize;
   late Shape shape;
   late FixtureDef fixtureDef;

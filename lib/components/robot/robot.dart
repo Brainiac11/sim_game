@@ -22,15 +22,14 @@ import 'package:player_move/providers/robot/customization/robot_customization.da
 import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
-class Robot extends BodyComponent
-    with RiverpodComponentMixin, CollisionCallbacks {
-  @override
-  ComponentRef ref;
+class Robot extends BodyComponent with RiverpodComponentMixin {
   late BodyDef robotDef;
   Sprite? sprite;
   RobotSpriteManager? spriteManager;
   Drivetrain? drivetrain;
-  Intake? intake;
+  // Intake? intake;
+
+  ComponentRef ref;
 
   Vector2 acceleration = Vector2.zero();
   late PolygonShape shape;
@@ -39,7 +38,8 @@ class Robot extends BodyComponent
   ThemeMode themeMode = ThemeMode.system;
   late RobotConstants constants;
   Robot({super.key, required this.ref}) {
-    super.rebuildOnMountWhen(ref);
+    // super.rebuildOnMountWhen(ref);
+
     // super.bodyDef = BodyDef(
     //     active: true,
     //     isAwake: true,
@@ -55,22 +55,22 @@ class Robot extends BodyComponent
     // spriteManager = RobotSpriteManager(drivetrain: drivetrain!, ref: ref);
     // await spriteManager.setCurrentSprite();
     if (kDebugMode) {
-      renderBody = false;
+      renderBody = true;
     } else {
       renderBody = false;
     }
   }
 
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    HapticFeedback.heavyImpact();
-    if (other.runtimeType == GamePiece) {
-      // if (ref.read(settingsNotifierProvider).haptics) {
-      //   HapticFeedback.selectionClick();
-      // }
-    }
-    super.onCollision(intersectionPoints, other);
-  }
+  // @override
+  // void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+  //   HapticFeedback.heavyImpact();
+  //   if (other.runtimeType == GamePiece) {
+  //     // if (ref.read(settingsNotifierProvider).haptics) {
+  //     //   HapticFeedback.selectionClick();
+  //     // }
+  //   }
+  //   super.onCollision(intersectionPoints, other);
+  // }
 
   // @override
   // void beginContact(Object other, Contact contact) {
@@ -83,48 +83,48 @@ class Robot extends BodyComponent
   // }
 
   @override
-  FutureOr<void> onMount() async {
-    addToGameWidgetBuild(() async {
+  FutureOr<void> onMount() {
+    super.addToGameWidgetBuild(() {
       ref.watch(robotCustomizationProvider).whenData((Customization cb) async {
         drivetrain = cb.drivetrain;
-        intake = cb.intake;
+        // intake = cb.intake;
         if (kDebugMode) {
           print(
               "Direvetrain ${drivetrain?.toJson()} \n ${drivetrain?.motors.toJson()}");
         }
-        await drivetrain?.updateRobotConstants(ref);
-        spriteManager = RobotSpriteManager(ref: ref, drivetrain: drivetrain!);
-        await intializeSprite();
-      });
 
-      constants = ref.read(robotProviderProvider);
+        spriteManager = RobotSpriteManager(ref: ref, drivetrain: drivetrain!);
+        // await intializeSprite();
+      });
+      drivetrain?.updateRobotConstants(ref);
+      constants = ref.watch(robotProviderProvider);
     });
 
     super.onMount();
   }
 
-  Future<void> intializeSprite() async {
-    sprite = await spriteManager!.getCurrentSprite();
-    switch (intake.runtimeType) {
-      case UnderBumperIntake:
-        await add(UnderBumperSprite(ref: ref));
-        break;
-      case OverBumperIntake:
-        await add(OverBumperSprite(ref: ref));
-        break;
-      default:
-        throw (Exception("Intake not recognized"));
-    }
-    await add(
-      SpriteComponent(
-        sprite: sprite,
-        size: Vector2(ref.read(robotProviderProvider).kHalfWidth * 2.25,
-            ref.read(robotProviderProvider).kHalfHeight * 2.25),
-        // scale: Vector2(kWorldSize.length / 75, kWorldSize.length / 75),
-        anchor: Anchor.center,
-      ),
-    );
-  }
+  // Future<void> intializeSprite() async {
+  //   sprite = await spriteManager!.getCurrentSprite();
+  //   switch (intake.runtimeType) {
+  //     case UnderBumperIntake:
+  //       await add(UnderBumperSprite(ref: ref));
+  //       break;
+  //     case OverBumperIntake:
+  //       await add(OverBumperSprite(ref: ref));
+  //       break;
+  //     default:
+  //       throw (Exception("Intake not recognized"));
+  //   }
+  //   add(
+  //     SpriteComponent(
+  //       sprite: sprite,
+  //       size: Vector2(ref.read(robotProviderProvider).kHalfWidth * 2.25,
+  //           ref.read(robotProviderProvider).kHalfHeight * 2.25),
+  //       // scale: Vector2(kWorldSize.length / 75, kWorldSize.length / 75),
+  //       anchor: Anchor.center,
+  //     ),
+  //   );
+  // }
 
   @override
   Body createBody() {
@@ -162,10 +162,6 @@ class Robot extends BodyComponent
 
   FutureOr<void> angularMovement(Vector2 value) async {
     await drivetrain?.secondJoystickMovement(value, body, constants);
-  }
-
-  FutureOr<void> readyIntake() {
-    intake?.whenActive();
   }
 
   @override

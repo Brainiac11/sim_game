@@ -25,6 +25,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   late Robot robot;
   SpriteBackground background = SpriteBackground();
   late GamePiece gamePiece;
+  double x = 0;
   // static const double zoom = 30;
   RoboticsGame()
       : super(
@@ -40,19 +41,13 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
         );
 
   // _Background background = _Background(size: kWorldSize);
-
   @override
-  void handleResize(Vector2 size) {
-    if (kDebugMode) {
-      print(camera.viewport.virtualSize);
-    }
-
-    // camera.viewfinder.anchor = Anchor(robot.position.x, robot.position.y);
-    super.handleResize(size);
-    // kWorldSize = size;
-    // background.size = size;
-    // camera.viewport =
-    //     FixedResolutionViewport(resolution: getImageSize().toVector2());
+  void onRemove() {
+    // Optional based on your game needs.
+    // removeAll(children);
+    Flame.images.clearCache();
+    Flame.assets.clearCache();
+    // Any other code that you want to run when the game is removed.
   }
 
   @override
@@ -60,7 +55,6 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     Flame.device.fullScreen();
     Flame.device.setLandscape();
     await super.onLoad();
-    getImageSize();
     if (kDebugMode) {
       // kWorldSize = size;
       print("Screen Size: (${super.size.x} , ${super.size.y})");
@@ -83,12 +77,13 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     robot = Robot(ref: ref);
     await world.add(robot);
     camera.viewfinder.anchor = Anchor.center;
-    camera.follow(robot, maxSpeed: 25, snap: false);
-    camera.setBounds(
-        Rectangle.fromCenter(center: background.center, size: background.size));
     gamePiece = GamePiece(position: Vector2(10, 10));
 
     await world.add(gamePiece);
+    // camera.follow(robot, maxSpeed: 25, snap: false);
+    camera.setBounds(
+        Rectangle.fromCenter(center: background.center, size: background.size));
+
     if (kDebugMode) {
       print("Visible Game size ${camera.viewfinder.visibleGameSize}");
     }
@@ -99,7 +94,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     super.update(dt);
     totalBodies.text = 'Bodies: ${world.children.length}';
 
-    background.followPosition = robot.position;
+    // background.followPosition = robot.position;
     if (kDebugMode) {}
   }
 
@@ -150,5 +145,3 @@ Size getImageSize() {
     return const Size(0, 0);
   }
 }
-
-// Helper component that paints a black background

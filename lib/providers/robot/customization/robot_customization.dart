@@ -14,7 +14,7 @@ part 'robot_customization.g.dart';
 @riverpod
 class RobotCustomization extends _$RobotCustomization {
   @override
-  Future<Customization> build() async {
+  FutureOr<Customization> build() async {
     return await _loadSettings();
   }
 
@@ -62,7 +62,8 @@ class RobotCustomization extends _$RobotCustomization {
 
     Intake ik = Intake.fromJson(intake);
 
-    return Customization(drivetrain: dt, intake: ik);
+    // return Customization(drivetrain: dt, intake: ik);
+    return Customization(drivetrain: dt);
   }
 
   void updateDrivetrain(Drivetrain drivetrain) async {
@@ -78,7 +79,7 @@ class RobotCustomization extends _$RobotCustomization {
   }
 
   void updateIntake(Intake intake) async {
-    state.value?.intake = intake;
+    // state.value?.intake = intake;
     final prefs = await SharedPreferences.getInstance();
 
     prefs.setString('intake', jsonEncode(intake.toJson()));
