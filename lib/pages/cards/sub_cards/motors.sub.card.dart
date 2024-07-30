@@ -29,14 +29,14 @@ class MotorSubCard extends ConsumerWidget {
           padding: const EdgeInsets.all(0),
           style: Theme.of(context).iconButtonTheme.style,
           isSelected: ref.watch(robotCustomizationProvider).hasValue
-              ? true
-              : ref
+              ? ref
                       .watch(robotCustomizationProvider)
                       .value
                       ?.drivetrain
                       .motors
                       .runtimeType ==
-                  NeoMotor,
+                  NeoMotor
+              : true,
           disabledColor: Colors.black38,
           // iconSize: Theme.of(context).buttonTheme.minWidth,
         ),
@@ -50,7 +50,7 @@ class MotorSubCard extends ConsumerWidget {
           isSelected: ref.watch(robotCustomizationProvider).isLoading
               ? false
               : ref
-                      .watch(robotCustomizationProvider)
+                      .read(robotCustomizationProvider)
                       .value
                       ?.drivetrain
                       .motors

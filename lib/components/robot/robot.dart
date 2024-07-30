@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
@@ -22,7 +23,7 @@ import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
 class Robot extends BodyComponent
-    with RiverpodComponentMixin, ContactCallbacks {
+    with RiverpodComponentMixin, CollisionCallbacks {
   @override
   ComponentRef ref;
   late BodyDef robotDef;
@@ -61,14 +62,25 @@ class Robot extends BodyComponent
   }
 
   @override
-  void beginContact(Object other, Contact contact) {
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    HapticFeedback.heavyImpact();
     if (other.runtimeType == GamePiece) {
-      if (ref.read(settingsNotifierProvider).haptics) {
-        HapticFeedback.selectionClick();
-      }
-      super.beginContact(other, contact);
+      // if (ref.read(settingsNotifierProvider).haptics) {
+      //   HapticFeedback.selectionClick();
+      // }
     }
+    super.onCollision(intersectionPoints, other);
   }
+
+  // @override
+  // void beginContact(Object other, Contact contact) {
+  //   if (other.runtimeType == GamePiece) {
+  //     if (ref.read(settingsNotifierProvider).haptics) {
+  //       HapticFeedback.selectionClick();
+  //     }
+  //     super.beginContact(other, contact);
+  //   }
+  // }
 
   @override
   FutureOr<void> onMount() async {
@@ -85,7 +97,7 @@ class Robot extends BodyComponent
         await intializeSprite();
       });
 
-      constants = ref.watch(robotProviderProvider);
+      constants = ref.read(robotProviderProvider);
     });
 
     super.onMount();
@@ -150,6 +162,10 @@ class Robot extends BodyComponent
 
   FutureOr<void> angularMovement(Vector2 value) async {
     await drivetrain?.secondJoystickMovement(value, body, constants);
+  }
+
+  FutureOr<void> readyIntake() {
+    intake?.whenActive();
   }
 
   @override

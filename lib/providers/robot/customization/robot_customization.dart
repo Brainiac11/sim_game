@@ -52,7 +52,7 @@ class RobotCustomization extends _$RobotCustomization {
       if (kDebugMode) {
         print(jsonIntakeString);
       }
-      drivetrain = jsonDecode(jsonIntakeString);
+      intake = jsonDecode(jsonIntakeString);
     } else {
       if (kDebugMode) {
         print("Intake prefs null");

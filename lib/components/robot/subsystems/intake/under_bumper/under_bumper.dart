@@ -1,4 +1,3 @@
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/subsystems/intake/intake.dart';
 part 'under_bumper.g.dart';
@@ -12,9 +11,7 @@ class UnderBumperIntake extends Intake {
       : super(name: kName, experience: kExperience, space: kSpace);
 
   @override
-  void whenActive() {
-    // TODO: implement whenActive
-  }
+  void whenActive() {}
 
   @override
   void whenInactive() {

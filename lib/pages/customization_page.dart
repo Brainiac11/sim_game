@@ -100,7 +100,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
             ),
             options: CarouselOptions(
               height: MediaQuery.of(context).size.height / 1.2,
-              aspectRatio: 3 / 2,
+              aspectRatio: 16 / 9,
               viewportFraction: 0.5,
               initialPage: 0,
               enableInfiniteScroll: false,
@@ -110,7 +110,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
               enlargeCenterPage: true,
-              enlargeFactor: 0.5,
+              enlargeFactor: 0.2,
               onPageChanged: onPageChanged,
               scrollDirection: Axis.horizontal,
               // clipBehavior: Clip.antiAlias,
