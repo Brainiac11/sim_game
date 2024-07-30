@@ -80,7 +80,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     gamePiece = GamePiece(position: Vector2(10, 10));
 
     await world.add(gamePiece);
-    // camera.follow(robot, maxSpeed: 25, snap: false);
+    camera.follow(robot, maxSpeed: 25, snap: false);
     camera.setBounds(
         Rectangle.fromCenter(center: background.center, size: background.size));
 

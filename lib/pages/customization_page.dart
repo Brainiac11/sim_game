@@ -48,9 +48,9 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
 
         return const DrivetrainPage();
       case UnderBumperIntake:
-      // return const IntakePage();
+        return const IntakePage();
       case OverBumperIntake:
-      // return const IntakePage();
+        return const IntakePage();
       default:
         if (kDebugMode) {
           print("defaulting ${c.toString()}");
@@ -66,7 +66,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
     Intake? ik;
     ref.watch(robotCustomizationProvider.future).then((value) {
       dt = value.drivetrain;
-      // ik = value.intake;
+      ik = value.intake;
     });
     cardIndexList = [
       dt ??
@@ -75,7 +75,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
             wheel: BilletWheel(),
             gearRatio: L2GearRatio(),
           ),
-      // ik ?? UnderBumperIntake(),
+      ik ?? UnderBumperIntake(),
     ];
     // final settings = ref.watch(settingsNotifierProvider);
     // final robot = ref.watch(robotProviderProvider);

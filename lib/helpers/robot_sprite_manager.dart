@@ -4,23 +4,18 @@ import 'package:flame/components.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_drivetrain.dart';
+import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
-class RobotSpriteManager {
-  Sprite? sprite;
+class RobotSpriteManager extends SpriteComponent with RiverpodComponentMixin {
   Drivetrain drivetrain;
   String themeMode = "dark";
-  ComponentRef ref;
 
-  RobotSpriteManager({required this.ref, required this.drivetrain});
-
-  Future<Sprite> getCurrentSprite() async {
-    await _setCurrentSprite();
-    return sprite!;
-  }
+  RobotSpriteManager({required this.drivetrain});
 
   FutureOr<void> _setCurrentSprite() async {
     setThemeModeName();
@@ -37,11 +32,27 @@ class RobotSpriteManager {
     }
   }
 
+  @override
+  Future<void> onMount() async {
+    addToGameWidgetBuild(() async {
+      size = Vector2(ref.read(robotProviderProvider).kHalfWidth * 2.25,
+          ref.read(robotProviderProvider).kHalfHeight * 2.25);
+    });
+    anchor = Anchor.center;
+    super.onMount();
+  }
+
+  @override
+  Future<void> onLoad() async {
+    setThemeModeName();
+    _setCurrentSprite();
+  }
+
   void setThemeModeName() {
-    if (ref.read(settingsNotifierProvider).themeMode == ThemeMode.dark) {
-      themeMode = "dark";
-    } else {
-      themeMode = "light";
-    }
+    // if (super.key == ThemeMode.dark) {
+    themeMode = "dark";
+    // } else {
+    // themeMode = "light";
+    // }
   }
 }

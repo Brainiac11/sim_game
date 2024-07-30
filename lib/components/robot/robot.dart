@@ -27,7 +27,8 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
   Sprite? sprite;
   RobotSpriteManager? spriteManager;
   Drivetrain? drivetrain;
-  // Intake? intake;
+  Intake? intake;
+  SpriteComponent? intakeSprite;
 
   ComponentRef ref;
 
@@ -54,6 +55,7 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
     // sprite = await spriteManager.getCurrentSprite();
     // spriteManager = RobotSpriteManager(drivetrain: drivetrain!, ref: ref);
     // await spriteManager.setCurrentSprite();
+
     if (kDebugMode) {
       renderBody = true;
     } else {
@@ -84,47 +86,44 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
 
   @override
   FutureOr<void> onMount() {
-    super.addToGameWidgetBuild(() {
-      ref.watch(robotCustomizationProvider).whenData((Customization cb) async {
-        drivetrain = cb.drivetrain;
-        // intake = cb.intake;
-        if (kDebugMode) {
-          print(
-              "Direvetrain ${drivetrain?.toJson()} \n ${drivetrain?.motors.toJson()}");
-        }
-
-        spriteManager = RobotSpriteManager(ref: ref, drivetrain: drivetrain!);
-        // await intializeSprite();
-      });
+    addToGameWidgetBuild(() async {
+      final value =
+          await ref.read(robotCustomizationProvider.selectAsync((p) => p));
+      drivetrain = value.drivetrain;
+      intake = value.intake;
+      if (kDebugMode) {
+        print(
+            "Direvetrain ${drivetrain?.toJson()} \n ${drivetrain?.motors.toJson()}");
+      }
+      if (kDebugMode) {
+        print(drivetrain.runtimeType);
+      }
       drivetrain?.updateRobotConstants(ref);
       constants = ref.watch(robotProviderProvider);
+      spriteManager = RobotSpriteManager(drivetrain: drivetrain!);
+      await intializeSprite();
     });
-
     super.onMount();
+
+    // add(spriteManager!);
   }
 
-  // Future<void> intializeSprite() async {
-  //   sprite = await spriteManager!.getCurrentSprite();
-  //   switch (intake.runtimeType) {
-  //     case UnderBumperIntake:
-  //       await add(UnderBumperSprite(ref: ref));
-  //       break;
-  //     case OverBumperIntake:
-  //       await add(OverBumperSprite(ref: ref));
-  //       break;
-  //     default:
-  //       throw (Exception("Intake not recognized"));
-  //   }
-  //   add(
-  //     SpriteComponent(
-  //       sprite: sprite,
-  //       size: Vector2(ref.read(robotProviderProvider).kHalfWidth * 2.25,
-  //           ref.read(robotProviderProvider).kHalfHeight * 2.25),
-  //       // scale: Vector2(kWorldSize.length / 75, kWorldSize.length / 75),
-  //       anchor: Anchor.center,
-  //     ),
-  //   );
-  // }
+  FutureOr<void> intializeSprite() async {
+    switch (intake.runtimeType) {
+      case UnderBumperIntake:
+        intakeSprite = UnderBumperSprite();
+        break;
+      case OverBumperIntake:
+        intakeSprite = OverBumperSprite();
+        break;
+      default:
+        throw (Exception(
+            "Intake not recognized ${intake.runtimeType.toString()}"));
+    }
+    // add(
+    //   spriteManager!,
+    // );
+  }
 
   @override
   Body createBody() {

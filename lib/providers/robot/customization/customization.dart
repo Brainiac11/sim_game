@@ -8,7 +8,7 @@ part 'customization.g.dart';
 class Customization with _$Customization {
   factory Customization({
     required Drivetrain drivetrain,
-    // required Intake intake,
+    required Intake intake,
   }) = _Customization;
 
   factory Customization.fromJson(Map<String, dynamic> json) =>
