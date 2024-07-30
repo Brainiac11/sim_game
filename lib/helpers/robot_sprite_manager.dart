@@ -11,7 +11,7 @@ import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_dri
 import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
-class RobotSpriteManager extends SpriteComponent with RiverpodComponentMixin {
+class RobotSpriteManager extends SpriteComponent {
   Drivetrain drivetrain;
   String themeMode = "dark";
 
@@ -33,20 +33,19 @@ class RobotSpriteManager extends SpriteComponent with RiverpodComponentMixin {
   }
 
   @override
-  Future<void> onMount() async {
-    addToGameWidgetBuild(() async {
-      size = Vector2(ref.read(robotProviderProvider).kHalfWidth * 2.25,
-          ref.read(robotProviderProvider).kHalfHeight * 2.25);
-    });
+  FutureOr<void> onMount() async {
+    size = Vector2(1, 1);
+    setThemeModeName();
+    await _setCurrentSprite();
     anchor = Anchor.center;
     super.onMount();
   }
 
-  @override
-  Future<void> onLoad() async {
-    setThemeModeName();
-    _setCurrentSprite();
-  }
+  // @override
+  // Future<void> onLoad() async {
+  //   setThemeModeName();
+  //   _setCurrentSprite();
+  // }
 
   void setThemeModeName() {
     // if (super.key == ThemeMode.dark) {

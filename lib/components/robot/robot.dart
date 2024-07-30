@@ -57,7 +57,7 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
     // await spriteManager.setCurrentSprite();
 
     if (kDebugMode) {
-      renderBody = true;
+      renderBody = false;
     } else {
       renderBody = false;
     }
@@ -103,6 +103,12 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
       spriteManager = RobotSpriteManager(drivetrain: drivetrain!);
       await intializeSprite();
       // await add(spriteManager!);
+      if (spriteManager != null && !super.children.contains(spriteManager)) {
+        spriteManager!.scale = Vector2(
+            ref.read(robotProviderProvider).kHalfWidth * 2.25,
+            ref.read(robotProviderProvider).kHalfHeight * 2.25);
+        await add(spriteManager!);
+      }
     });
 
     super.onMount();
@@ -118,18 +124,18 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
   FutureOr<void> intializeSprite() async {
     switch (intake.runtimeType) {
       case UnderBumperIntake:
-        intakeSprite = UnderBumperSprite();
+        intakeSprite = UnderBumperSprite(ref: ref);
         break;
       case OverBumperIntake:
-        intakeSprite = OverBumperSprite();
+        intakeSprite = OverBumperSprite(ref: ref);
         break;
       default:
         throw (Exception(
             "Intake not recognized ${intake.runtimeType.toString()}"));
     }
-    // add(
-    //   spriteManager!,
-    // );
+    add(
+      intakeSprite!,
+    );
   }
 
   @override
