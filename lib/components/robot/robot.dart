@@ -85,7 +85,7 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
   // }
 
   @override
-  FutureOr<void> onMount() {
+  FutureOr<void> onMount() async {
     addToGameWidgetBuild(() async {
       final value =
           await ref.read(robotCustomizationProvider.selectAsync((p) => p));
@@ -102,10 +102,17 @@ class Robot extends BodyComponent with RiverpodComponentMixin {
       constants = ref.watch(robotProviderProvider);
       spriteManager = RobotSpriteManager(drivetrain: drivetrain!);
       await intializeSprite();
+      // await add(spriteManager!);
     });
-    super.onMount();
 
-    // add(spriteManager!);
+    super.onMount();
+  }
+
+  @override
+  FutureOr<void> add(Component component) async {
+    if (!children.contains(component)) {
+      return super.add(component);
+    }
   }
 
   FutureOr<void> intializeSprite() async {
