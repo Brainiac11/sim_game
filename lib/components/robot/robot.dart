@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/game.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
@@ -17,10 +16,10 @@ import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper_sprite.dart';
 import 'package:player_move/helpers/robot_sprite_manager.dart';
-import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
+import 'package:forge2d/src/common/transform.dart' as bb;
 
 class Robot extends BodyComponent
     with RiverpodComponentMixin, ContactCallbacks {
@@ -31,9 +30,11 @@ class Robot extends BodyComponent
   Intake? intake;
   SpriteComponent? intakeSprite;
 
+  @override
   ComponentRef ref;
   List<Fixture> fixturesToDelete = [];
-
+  List<bb.Transform> transformsToNote = [];
+  GamePiece? gamePiece;
   Vector2 acceleration = Vector2.zero();
   late PolygonShape shape;
   FixtureDef? fixtureDef;
@@ -43,6 +44,28 @@ class Robot extends BodyComponent
   Robot({super.key, required this.ref}) {
     super.rebuildOnMountWhen(ref);
   }
+
+  @override
+  void update(double dt) {
+    for (Fixture fixture in fixturesToDelete) {
+      fixture.body.destroyFixture(fixture);
+    }
+
+    if (gamePiece != null) {
+      // for (bb.Transform transform in transformsToNote) {
+      //   gamePiece!.body.setTransform(transform.p, transform.q.getAngle());
+      // }
+
+      if (gamePiece!.spriteComponent != null) {
+        super.add(gamePiece!.spriteComponent!);
+      }
+    }
+    transformsToNote.clear();
+    fixturesToDelete.clear();
+
+    super.update(dt);
+  }
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
@@ -70,6 +93,11 @@ class Robot extends BodyComponent
               .abs() <
           12) {
         fixturesToDelete.addAll(contact.bodyB.fixtures);
+        // gamePiece = GamePiece(position: contact.bodyA.position)
+        //   ..body = contact.bodyB;
+        gamePiece = contact.bodyB.userData as GamePiece;
+        // transformsToNote.add(bb.Transform.from(
+        //     contact.bodyA.position, Rot.withAngle(contact.bodyA.angle)));
       }
     }
     super.beginContact(other, contact);

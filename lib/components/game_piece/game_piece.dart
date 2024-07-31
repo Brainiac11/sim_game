@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
@@ -6,12 +8,14 @@ import 'package:flutter/foundation.dart';
 import 'package:player_move/components/game_piece/game_piece_config.dart';
 import 'package:player_move/constants.dart';
 
-class GamePiece extends BodyComponent with RiverpodComponentMixin {
+class GamePiece extends BodyComponent {
   final Vector2 size = gamePieceSize;
   late Shape shape;
   late FixtureDef fixtureDef;
   late BodyDef gamePieceDef;
   late final Sprite sprite;
+
+  SpriteComponent? spriteComponent;
   @override
   Vector2 position;
 
@@ -19,33 +23,33 @@ class GamePiece extends BodyComponent with RiverpodComponentMixin {
     required this.position,
   });
   @override
-  Future<void> onMount() async {
-    addToGameWidgetBuild(() {
-      body.angularDamping = GamePieceDampening;
-      body.linearDamping = GamePieceDampening;
-    });
+  FutureOr<void> onMount() {
+    body.angularDamping = GamePieceDampening;
+    body.linearDamping = GamePieceDampening;
     super.onMount();
   }
 
+  // @override
+  // void update(double dt) {
+  //   super.update(dt);
+  // }
+
   @override
   Future<void> onLoad() async {
-    await super.onLoad();
 // Image image = Image.asset("game_piece.png");
-    await Sprite.load("game_piece.png").then((value) {
-      sprite = value;
-    });
+    sprite = await Sprite.load("game_piece.png");
     if (kDebugMode) {
       renderBody = false;
     } else {
       renderBody = false;
     }
-    await add(
-      SpriteComponent(
-        sprite: sprite,
-        scale: Vector2(kWorldSize.length / 14500, kWorldSize.length / 14500),
-        anchor: Anchor.center,
-      ),
+    spriteComponent = SpriteComponent(
+      sprite: sprite,
+      scale: Vector2(kWorldSize.length / 14500, kWorldSize.length / 14500),
+      anchor: Anchor.center,
     );
+    await add(spriteComponent!);
+    await super.onLoad();
   }
 
   @override
