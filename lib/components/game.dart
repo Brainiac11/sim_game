@@ -110,6 +110,10 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   void angularMovement(Vector2 value) {
     robot.angularMovement(value);
   }
+
+  void robotIntake(bool active) {
+    robot.intakeGamePiece(active);
+  }
 }
 
 Size getCurrentImageSize() {

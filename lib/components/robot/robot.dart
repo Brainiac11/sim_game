@@ -33,11 +33,11 @@ class Robot extends BodyComponent
   @override
   ComponentRef ref;
   List<Fixture> fixturesToDelete = [];
-  List<bb.Transform> transformsToNote = [];
   GamePiece? gamePiece;
   Vector2 acceleration = Vector2.zero();
   late PolygonShape shape;
   FixtureDef? fixtureDef;
+  bool isIntakeActive = false;
 
   ThemeMode themeMode = ThemeMode.system;
   late RobotConstants constants;
@@ -60,7 +60,6 @@ class Robot extends BodyComponent
         super.add(gamePiece!.spriteComponent!);
       }
     }
-    transformsToNote.clear();
     fixturesToDelete.clear();
 
     super.update(dt);
@@ -89,18 +88,19 @@ class Robot extends BodyComponent
       }
 
       if ((contact.bodyA.localPoint(contact.bodyB.position).screenAngle() *
-                  radians2Degrees)
-              .abs() <
-          12) {
+                      radians2Degrees)
+                  .abs() <
+              12 &&
+          isIntakeActive) {
         fixturesToDelete.addAll(contact.bodyB.fixtures);
-        // gamePiece = GamePiece(position: contact.bodyA.position)
-        //   ..body = contact.bodyB;
         gamePiece = contact.bodyB.userData as GamePiece;
-        // transformsToNote.add(bb.Transform.from(
-        //     contact.bodyA.position, Rot.withAngle(contact.bodyA.angle)));
       }
     }
     super.beginContact(other, contact);
+  }
+
+  void intakeGamePiece(bool isActive) {
+    isIntakeActive = isActive;
   }
 
   @override
