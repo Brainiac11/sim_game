@@ -1,7 +1,10 @@
+import 'package:flame/components.dart';
+import 'package:flame/widgets.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:player_move/helpers/button.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:provider/provider.dart';
 import '../helpers/joypad.dart';
@@ -96,7 +99,17 @@ class MatchPageState extends State<MatchPage> {
               ),
             ),
           ),
-          Align()
+          Align(
+            alignment: Alignment.centerLeft,
+            child: SpriteButton.asset(
+              path: "intake_button.png",
+              pressedPath: "intake_button.png",
+              onPressed: game.robotIntake,
+              width: 100,
+              height: 100,
+              label: const Text("Intake Button"),
+            ),
+          ),
         ],
       ),
     );

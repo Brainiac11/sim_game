@@ -111,8 +111,8 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     robot.angularMovement(value);
   }
 
-  void robotIntake(bool active) {
-    robot.intakeGamePiece(active);
+  void robotIntake() {
+    robot.intakeGamePiece(true);
   }
 }
 
