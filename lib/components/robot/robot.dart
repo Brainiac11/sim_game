@@ -58,6 +58,7 @@ class Robot extends BodyComponent
 
       if (gamePiece!.spriteComponent != null) {
         super.add(gamePiece!.spriteComponent!);
+        isIntakeActive = false;
       }
     }
     fixturesToDelete.clear();
@@ -100,7 +101,11 @@ class Robot extends BodyComponent
   }
 
   void intakeGamePiece(bool isActive) {
-    isIntakeActive = isActive;
+    if (!children.contains(gamePiece?.spriteComponent)) {
+      isIntakeActive = isActive;
+    } else {
+      isActive = false;
+    }
   }
 
   @override

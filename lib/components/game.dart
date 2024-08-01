@@ -25,6 +25,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   late Robot robot;
   SpriteBackground background = SpriteBackground();
   late GamePiece gamePiece;
+  late GamePiece gamePiece2;
   double x = 0;
   // static const double zoom = 30;
   RoboticsGame()
@@ -78,7 +79,8 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     await world.add(robot);
     camera.viewfinder.anchor = Anchor.center;
     gamePiece = GamePiece(position: Vector2(10, 10));
-
+    gamePiece2 = GamePiece(position: Vector2(20, 10));
+    await world.add(gamePiece2);
     await world.add(gamePiece);
     camera.follow(robot, maxSpeed: 25, snap: false);
     camera.setBounds(
@@ -111,8 +113,8 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     robot.angularMovement(value);
   }
 
-  void robotIntake() {
-    robot.intakeGamePiece(true);
+  void robotIntake(bool isActive) {
+    robot.intakeGamePiece(isActive);
   }
 }
 

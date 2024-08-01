@@ -45,9 +45,17 @@ class MatchPageState extends State<MatchPage> {
     super.dispose();
   }
 
+  void onIntakeButtonPressed() {
+    game.robotIntake(!game.robot.isIntakeActive);
+  }
+
+  late RobotButton intakeButton;
+
   @override
   Widget build(BuildContext context) {
     game = RoboticsGame();
+    intakeButton = RobotButton(isActive: game.robotIntake);
+    intakeButton.updateSprite("intake_button.png");
 
     return Scaffold(
       // backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
@@ -100,14 +108,30 @@ class MatchPageState extends State<MatchPage> {
             ),
           ),
           Align(
-            alignment: Alignment.centerLeft,
-            child: SpriteButton.asset(
-              path: "intake_button.png",
-              pressedPath: "intake_button.png",
-              onPressed: game.robotIntake,
-              width: 100,
-              height: 100,
-              label: const Text("Intake Button"),
+            alignment: Alignment.bottomCenter,
+            // child: SpriteButton.asset(
+            //   path: "intake_button.png",
+            //   pressedPath: "intake_button.png",
+            //   onPressed: game.robotIntake,
+            //   width: 100,
+            //   height: 100,
+            //   label: const Text("Intake Button"),
+            // ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                child: SpriteButton.future(
+                  sprite: Sprite.load("intake_button.png"),
+                  pressedSprite: Sprite.load("intake_button.png").then((value) {
+                    value.paint.invertColors = true;
+                    return value;
+                  }),
+                  onPressed: onIntakeButtonPressed,
+                  width: 50,
+                  height: 50,
+                  label: const Text(""),
+                ),
+              ),
             ),
           ),
         ],
