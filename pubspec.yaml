@@ -27,6 +27,7 @@ dependencies:
   dartx: any
   shared_preferences_tools: ^1.0.3
   window_manager: ^0.3.9
+  animate_gradient: ^0.0.3
   # image: ^4.2.0
 dev_dependencies:
   flutter_test:

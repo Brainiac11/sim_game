@@ -4,15 +4,18 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
+import 'package:flame/game.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:player_move/components/background.dart';
 import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
+import 'package:player_move/custom_widgets/gradient_widget.dart';
 // const double ppm = 10.0; // Pixels per meter
 
 late BuildContext universalContext;
@@ -82,13 +85,22 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     gamePiece2 = GamePiece(position: Vector2(20, 10));
     await world.add(gamePiece2);
     await world.add(gamePiece);
-    camera.follow(robot, maxSpeed: 25, snap: false);
+    overlays.addEntry(const GradientWidget().name, _gradientBuilder);
+    overlays.add(const GradientWidget().name);
+    // camera.follow(robot, maxSpeed: 25, snap: false);
     camera.setBounds(
         Rectangle.fromCenter(center: background.center, size: background.size));
 
     if (kDebugMode) {
       print("Visible Game size ${camera.viewfinder.visibleGameSize}");
     }
+  }
+
+  Widget _gradientBuilder(BuildContext context, Game game) {
+    return const GradientWidget()
+        .animate()
+        .addEffect(BlurEffect())
+        .addEffect(FadeEffect());
   }
 
   @override

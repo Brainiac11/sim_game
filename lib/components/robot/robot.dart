@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
-import 'package:flame/game.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
@@ -19,7 +18,6 @@ import 'package:player_move/helpers/robot_sprite_manager.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
-import 'package:forge2d/src/common/transform.dart' as bb;
 
 class Robot extends BodyComponent
     with RiverpodComponentMixin, ContactCallbacks {

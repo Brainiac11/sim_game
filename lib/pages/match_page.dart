@@ -1,3 +1,4 @@
+import 'package:animate_gradient/animate_gradient.dart';
 import 'package:flame/components.dart';
 import 'package:flame/widgets.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
@@ -5,8 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:player_move/helpers/button.dart';
-import 'package:player_move/providers/settings/settings_notifier.dart';
-import 'package:provider/provider.dart';
 import '../helpers/joypad.dart';
 
 import '../components/game.dart';
@@ -108,18 +107,12 @@ class MatchPageState extends State<MatchPage> {
             ),
           ),
           Align(
-            alignment: Alignment.bottomCenter,
-            // child: SpriteButton.asset(
-            //   path: "intake_button.png",
-            //   pressedPath: "intake_button.png",
-            //   onPressed: game.robotIntake,
-            //   width: 100,
-            //   height: 100,
-            //   label: const Text("Intake Button"),
-            // ),
+            alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
+                maxRadius: 30,
+                foregroundColor: Colors.blue[900]!,
                 child: SpriteButton.future(
                   sprite: Sprite.load("intake_button.png"),
                   pressedSprite: Sprite.load("intake_button.png").then((value) {
@@ -127,8 +120,8 @@ class MatchPageState extends State<MatchPage> {
                     return value;
                   }),
                   onPressed: onIntakeButtonPressed,
-                  width: 50,
-                  height: 50,
+                  width: 75,
+                  height: 75,
                   label: const Text(""),
                 ),
               ),
