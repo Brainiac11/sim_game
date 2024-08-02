@@ -3,6 +3,7 @@ import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:player_move/components/robot/states/robot_states.dart';
 import 'package:player_move/helpers/button.dart';
 import '../helpers/joypad.dart';
 
@@ -43,7 +44,7 @@ class MatchPageState extends State<MatchPage> {
   }
 
   void onIntakeButtonPressed() {
-    game.robotIntake(!game.robot.isIntakeActive);
+    game.robotIntake();
   }
 
   late RobotButton intakeButton;
@@ -51,8 +52,8 @@ class MatchPageState extends State<MatchPage> {
   @override
   Widget build(BuildContext context) {
     game = RoboticsGame();
-    intakeButton = RobotButton(isActive: game.robotIntake);
-    intakeButton.updateSprite("intake_button.png");
+    // intakeButton = RobotButton(isActive: game.robotIntake);
+    // intakeButton.updateSprite("intake_button.png");
 
     return Scaffold(
       // backgroundColor: const Color.fromRGBO(0, 0, 0, 1),

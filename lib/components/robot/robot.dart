@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
+import 'package:player_move/components/robot/states/robot_states.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/subsystems/intake/intake.dart';
 import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper.dart';
@@ -30,6 +31,8 @@ class Robot extends BodyComponent
   Intake? intake;
   SpriteComponent? intakeSprite;
 
+  RobotStates state = RobotStates.normal;
+
   @override
   ComponentRef ref;
   List<Fixture> fixturesToDelete = [];
@@ -37,7 +40,6 @@ class Robot extends BodyComponent
   Vector2 acceleration = Vector2.zero();
   late PolygonShape shape;
   FixtureDef? fixtureDef;
-  bool isIntakeActive = false;
 
   ThemeMode themeMode = ThemeMode.system;
   late RobotConstants constants;
@@ -58,7 +60,7 @@ class Robot extends BodyComponent
 
       if (gamePiece!.spriteComponent != null) {
         super.add(gamePiece!.spriteComponent!);
-        isIntakeActive = false;
+        state = RobotStates.hasGamePiece;
       }
       if (GradientHud.gradientEnum == GradientEnum.intaking &&
           children.contains(gamePiece?.spriteComponent)) {
@@ -96,7 +98,7 @@ class Robot extends BodyComponent
                       radians2Degrees)
                   .abs() <
               12 &&
-          isIntakeActive) {
+          state == RobotStates.intaking) {
         fixturesToDelete.addAll(contact.bodyB.fixtures);
         gamePiece = contact.bodyB.userData as GamePiece;
       }
@@ -104,12 +106,17 @@ class Robot extends BodyComponent
     super.beginContact(other, contact);
   }
 
-  void intakeGamePiece(bool isActive) {
-    if (!children.contains(gamePiece?.spriteComponent)) {
-      isIntakeActive = isActive;
+  void intakeGamePiece() {
+    if (!children.contains(gamePiece?.spriteComponent) &&
+        state != RobotStates.intaking) {
+      state = RobotStates.intaking;
       GradientHud.gradientEnum = GradientEnum.intaking;
-    } else {
-      isActive = false;
+    } else if (state == RobotStates.intaking) {
+      state = RobotStates.normal;
+      GradientHud.gradientEnum = GradientEnum.alliance;
+    }
+    if (kDebugMode) {
+      print(state);
     }
   }
 

@@ -12,8 +12,10 @@ import 'package:player_move/components/background.dart';
 import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/robot.dart';
+import 'package:player_move/components/robot/states/robot_states.dart';
 import 'package:player_move/constants.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
+import 'package:player_move/custom_widgets/gradient/gradient_enum.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_widget.dart';
 // const double ppm = 10.0; // Pixels per meter
 
@@ -88,9 +90,8 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     gradientHud = GradientHud()
       ..size = Vector2(size.x, size.y)
       ..position = Vector2.zero();
+    GradientHud.gradientEnum = GradientEnum.alliance;
     camera.viewport.add(gradientHud);
-    // overlays.addEntry(const GradientWidget().name, _gradientBuilder);
-    // overlays.add(const GradientWidget().name);
     camera.follow(robot, maxSpeed: 25, snap: false);
     camera.setBounds(
         Rectangle.fromCenter(center: background.center, size: background.size));
@@ -99,10 +100,6 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
       print("Visible Game size ${camera.viewfinder.visibleGameSize}");
     }
   }
-
-  // Widget _gradientBuilder(BuildContext context, Game game) {
-  //   return GradientHud();
-  // }
 
   @override
   void update(double dt) {
@@ -126,8 +123,8 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     robot.angularMovement(value);
   }
 
-  void robotIntake(bool isActive) {
-    robot.intakeGamePiece(isActive);
+  void robotIntake() {
+    robot.intakeGamePiece();
   }
 }
 
