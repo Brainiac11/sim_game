@@ -86,7 +86,7 @@ class Background extends PositionComponent with RiverpodComponentMixin {
       Paint paint = Paint()
         ..shader = ui.ImageShader(fieldImage, TileMode.clamp, TileMode.clamp,
             Matrix4.identity().storage)
-        ..brighten(10);
+        ..brighten(1000);
       //       ShaderMask shaderMask = ShaderMask(
       //   child: fieldImage,
       //   shaderCallback: (Rect bounds) {

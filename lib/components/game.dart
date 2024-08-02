@@ -84,6 +84,9 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     gamePiece2 = GamePiece(position: Vector2(20, 10));
     await world.add(gamePiece2);
     await world.add(gamePiece);
+    camera.viewport.add(GradientHud(color: Color.fromRGBO(245, 75, 28, 0.6))
+      ..size = Vector2(size.x, size.y)
+      ..position = Vector2.zero());
     // overlays.addEntry(const GradientWidget().name, _gradientBuilder);
     // overlays.add(const GradientWidget().name);
     camera.follow(robot, maxSpeed: 25, snap: false);
@@ -95,9 +98,9 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     }
   }
 
-  Widget _gradientBuilder(BuildContext context, Game game) {
-    return const GradientWidget();
-  }
+  // Widget _gradientBuilder(BuildContext context, Game game) {
+  //   return GradientHud();
+  // }
 
   @override
   void update(double dt) {
