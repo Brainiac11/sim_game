@@ -14,6 +14,8 @@ import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_
 import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper_sprite.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper_sprite.dart';
+import 'package:player_move/custom_widgets/gradient/gradient_enum.dart';
+import 'package:player_move/custom_widgets/gradient/gradient_widget.dart';
 import 'package:player_move/helpers/robot_sprite_manager.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
@@ -58,6 +60,10 @@ class Robot extends BodyComponent
         super.add(gamePiece!.spriteComponent!);
         isIntakeActive = false;
       }
+      if (GradientHud.gradientEnum == GradientEnum.intaking &&
+          children.contains(gamePiece?.spriteComponent)) {
+        GradientHud.gradientEnum = GradientEnum.hasNote;
+      }
     }
     fixturesToDelete.clear();
 
@@ -101,6 +107,7 @@ class Robot extends BodyComponent
   void intakeGamePiece(bool isActive) {
     if (!children.contains(gamePiece?.spriteComponent)) {
       isIntakeActive = isActive;
+      GradientHud.gradientEnum = GradientEnum.intaking;
     } else {
       isActive = false;
     }

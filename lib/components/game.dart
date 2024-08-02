@@ -14,7 +14,7 @@ import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
-import 'package:player_move/custom_widgets/gradient_widget.dart';
+import 'package:player_move/custom_widgets/gradient/gradient_widget.dart';
 // const double ppm = 10.0; // Pixels per meter
 
 late BuildContext universalContext;
@@ -28,6 +28,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   SpriteBackground background = SpriteBackground();
   late GamePiece gamePiece;
   late GamePiece gamePiece2;
+  late GradientHud gradientHud;
   double x = 0;
   // static const double zoom = 30;
   RoboticsGame()
@@ -84,9 +85,10 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     gamePiece2 = GamePiece(position: Vector2(20, 10));
     await world.add(gamePiece2);
     await world.add(gamePiece);
-    camera.viewport.add(GradientHud(color: Color.fromRGBO(245, 75, 28, 0.6))
+    gradientHud = GradientHud()
       ..size = Vector2(size.x, size.y)
-      ..position = Vector2.zero());
+      ..position = Vector2.zero();
+    camera.viewport.add(gradientHud);
     // overlays.addEntry(const GradientWidget().name, _gradientBuilder);
     // overlays.add(const GradientWidget().name);
     camera.follow(robot, maxSpeed: 25, snap: false);
