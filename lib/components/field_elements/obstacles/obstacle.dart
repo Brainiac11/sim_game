@@ -1,4 +1,5 @@
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flutter/material.dart';
 
 class Obstacle extends BodyComponent {
   late FixtureDef fixtureDef;
@@ -21,6 +22,8 @@ class Obstacle extends BodyComponent {
       friction: 0.5,
       // filter: Filter()..groupIndex = 1,
     );
+
+    debugMode = true;
 
     return world.createBody(obstacleDef)..createFixture(fixtureDef);
   }

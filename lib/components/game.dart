@@ -78,6 +78,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
       await add(TextComponent(
           text: super.size.toString(),
           position: Vector2(kWorldSize.x / 2, kWorldSize.y / 2)));
+      world.debugMode = true;
     }
     obstacles = List.empty(growable: true);
     for (Shape obstacleShape in obstaclesShapesList) {
