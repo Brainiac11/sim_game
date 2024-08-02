@@ -1,4 +1,3 @@
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
@@ -10,9 +9,11 @@ abstract class Intake {
   double experience;
   Intake({required this.name, required this.space, required this.experience});
 
+  /// What happens to the Intake Sprite when active
   @mustBeOverridden
   void whenActive();
 
+  /// What happens to the Intake Sprite when inactive
   @mustBeOverridden
   void whenInactive();
 

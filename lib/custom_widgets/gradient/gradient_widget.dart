@@ -16,11 +16,11 @@ final class GradientHud extends PositionComponent {
       case GradientEnum.alliance:
         _color = Colors.blue[900]!.withOpacity(0.6);
         break;
-      case GradientEnum.hasNote:
+      case GradientEnum.hasGamePiece:
         _color = const Color.fromRGBO(245, 75, 28, 0.6);
         break;
       case GradientEnum.intaking:
-        _color = Colors.purple[900]!.withOpacity(0.6);
+        _color = const Color.fromARGB(255, 115, 0, 255).withOpacity(0.6);
         break;
       case GradientEnum.targeting:
         _color = Colors.green[900]!.withOpacity(0.6);

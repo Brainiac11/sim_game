@@ -27,6 +27,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   final totalBodies =
       TextComponent(position: Vector2(5, kWorldSize.x * 2), priority: 1);
   late Robot robot;
+  late Robot robot2;
   SpriteBackground background = SpriteBackground();
   late GamePiece gamePiece;
   late GamePiece gamePiece2;
@@ -81,7 +82,9 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     await world.add(BorderEdge(borderKey: const ValueKey("Right")));
     await world.add(BorderEdge(borderKey: const ValueKey("Left")));
     robot = Robot(ref: ref);
+    robot2 = Robot(ref: ref);
     await world.add(robot);
+    // await world.add(robot2);
     camera.viewfinder.anchor = Anchor.center;
     gamePiece = GamePiece(position: Vector2(10, 10));
     gamePiece2 = GamePiece(position: Vector2(20, 10));

@@ -1,6 +1,6 @@
 enum GradientEnum {
   intaking,
-  hasNote,
+  hasGamePiece,
   targeting,
   alliance,
 }

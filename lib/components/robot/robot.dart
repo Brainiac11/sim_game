@@ -7,6 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
+import 'package:player_move/components/robot/actions/action.dart';
+import 'package:player_move/components/robot/actions/robot_intake.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/states/robot_states.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
@@ -56,10 +58,7 @@ class Robot extends BodyComponent
       if (gamePiece!.spriteComponent != null) {
         super.add(gamePiece!.spriteComponent!);
         state = RobotStates.hasGamePiece;
-      }
-      if (GradientHud.gradientEnum == GradientEnum.intaking &&
-          children.contains(gamePiece?.spriteComponent)) {
-        GradientHud.gradientEnum = GradientEnum.hasNote;
+        GradientHud.gradientEnum = GradientEnum.hasGamePiece;
       }
     }
     fixturesToDelete.clear();
@@ -92,6 +91,10 @@ class Robot extends BodyComponent
           state == RobotStates.intaking) {
         fixturesToDelete.addAll(contact.bodyB.fixtures);
         gamePiece = contact.bodyB.userData as GamePiece;
+      }
+    } else if (other.runtimeType == Robot) {
+      if (ref.read(settingsNotifierProvider).haptics) {
+        HapticFeedback.mediumImpact();
       }
     }
     super.beginContact(other, contact);
@@ -131,8 +134,8 @@ class Robot extends BodyComponent
       await intializeSprite();
       if (spriteManager != null && !super.children.contains(spriteManager)) {
         spriteManager!.scale = Vector2(
-            ref.read(robotProviderProvider).kHalfWidth * 2.25,
-            ref.read(robotProviderProvider).kHalfHeight * 2.25);
+            ref.read(robotProviderProvider).kHalfWidth * 2.3,
+            ref.read(robotProviderProvider).kHalfHeight * 2.3);
         await add(spriteManager!);
       }
     });
