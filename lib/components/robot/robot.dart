@@ -71,7 +71,7 @@ class Robot extends BodyComponent
     await super.onLoad();
 
     if (kDebugMode) {
-      renderBody = false;
+      renderBody = true;
     } else {
       renderBody = false;
     }

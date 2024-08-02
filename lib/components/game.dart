@@ -1,15 +1,18 @@
 import 'dart:async';
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
-import 'package:flame/experimental.dart';
+import 'package:flame/experimental.dart' as experimental;
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/background.dart';
 import 'package:player_move/components/border/border.dart';
+import 'package:player_move/components/field_elements/obstacles/obstacle.dart';
+import 'package:player_move/components/field_elements/obstacles/obstacles_constants.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/components/robot/states/robot_states.dart';
@@ -32,6 +35,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   late GamePiece gamePiece;
   late GamePiece gamePiece2;
   late GradientHud gradientHud;
+  late List<Obstacle> obstacles;
   double x = 0;
   // static const double zoom = 30;
   RoboticsGame()
@@ -75,12 +79,17 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
           text: super.size.toString(),
           position: Vector2(kWorldSize.x / 2, kWorldSize.y / 2)));
     }
+    obstacles = List.empty(growable: true);
+    for (Shape obstacleShape in obstaclesShapesList) {
+      obstacles.add(Obstacle(obstacleShape: obstacleShape));
+    }
 
     await world.add(background..priority = 0);
     await world.add(BorderEdge(borderKey: const ValueKey("Top")));
     await world.add(BorderEdge(borderKey: const ValueKey("Bottom")));
     await world.add(BorderEdge(borderKey: const ValueKey("Right")));
     await world.add(BorderEdge(borderKey: const ValueKey("Left")));
+    await world.addAll(obstacles);
     robot = Robot(ref: ref);
     robot2 = Robot(ref: ref);
     await world.add(robot);
@@ -96,8 +105,8 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     GradientHud.gradientEnum = GradientEnum.alliance;
     camera.viewport.add(gradientHud);
     camera.follow(robot, maxSpeed: 25, snap: false);
-    camera.setBounds(
-        Rectangle.fromCenter(center: background.center, size: background.size));
+    camera.setBounds(experimental.Rectangle.fromCenter(
+        center: background.center, size: background.size));
 
     if (kDebugMode) {
       print("Visible Game size ${camera.viewfinder.visibleGameSize}");

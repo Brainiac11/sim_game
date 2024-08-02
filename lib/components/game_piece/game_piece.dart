@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 // import 'package:flutter/material.dart';
 import 'package:player_move/components/game_piece/game_piece_config.dart';
 import 'package:player_move/constants.dart';
@@ -38,7 +39,7 @@ class GamePiece extends BodyComponent {
 // Image image = Image.asset("game_piece.png");
     sprite = await Sprite.load("game_piece.png");
     if (kDebugMode) {
-      renderBody = false;
+      renderBody = true;
     } else {
       renderBody = false;
     }
@@ -61,7 +62,9 @@ class GamePiece extends BodyComponent {
       bullet: true,
       userData: this,
     );
-    shape = CircleShape()..radius = .9;
+    shape = CircleShape()
+      ..radius =
+          Vector2(kWorldSize.length / 145, kWorldSize.length / 145).length;
     fixtureDef = FixtureDef(shape)
       ..density = 0.5
       ..friction = 1.0
