@@ -81,8 +81,22 @@ class Background extends PositionComponent with RiverpodComponentMixin {
   FutureOr<void> render(Canvas canvas) async {
 // Find a better way to implement this
 // Currently just a bandaid
+
     try {
-      canvas.drawImage(fieldImage, Offset.zero, Paint());
+      Paint paint = Paint()
+        ..shader = ui.ImageShader(fieldImage, TileMode.clamp, TileMode.clamp,
+            Matrix4.identity().storage)
+        ..brighten(10);
+      //       ShaderMask shaderMask = ShaderMask(
+      //   child: fieldImage,
+      //   shaderCallback: (Rect bounds) {
+      //     return LinearGradient(
+      //       colors: [Colors.orange, Colors.deepOrange],
+      //     ).createShader(bounds);
+      //   },
+      //   blendMode: BlendMode.lighten,
+      // );
+      canvas.drawImage(fieldImage, Offset.zero, paint);
     } catch (e) {}
   }
 }

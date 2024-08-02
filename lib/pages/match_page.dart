@@ -1,5 +1,3 @@
-import 'package:animate_gradient/animate_gradient.dart';
-import 'package:flame/components.dart';
 import 'package:flame/widgets.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
