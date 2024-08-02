@@ -33,7 +33,6 @@ class Robot extends BodyComponent
 
   RobotStates state = RobotStates.normal;
 
-  @override
   ComponentRef ref;
   List<Fixture> fixturesToDelete = [];
   GamePiece? gamePiece;
@@ -54,10 +53,6 @@ class Robot extends BodyComponent
     }
 
     if (gamePiece != null) {
-      // for (bb.Transform transform in transformsToNote) {
-      //   gamePiece!.body.setTransform(transform.p, transform.q.getAngle());
-      // }
-
       if (gamePiece!.spriteComponent != null) {
         super.add(gamePiece!.spriteComponent!);
         state = RobotStates.hasGamePiece;
@@ -88,10 +83,6 @@ class Robot extends BodyComponent
     if (other.runtimeType == GamePiece) {
       if (ref.read(settingsNotifierProvider).haptics) {
         HapticFeedback.selectionClick();
-      }
-      if (kDebugMode) {
-        // print(contact.bodyA.angle );
-        // print();
       }
 
       if ((contact.bodyA.localPoint(contact.bodyB.position).screenAngle() *
@@ -158,10 +149,10 @@ class Robot extends BodyComponent
 
   FutureOr<void> intializeSprite() async {
     switch (intake.runtimeType) {
-      case UnderBumperIntake:
+      case const (UnderBumperIntake):
         intakeSprite = UnderBumperSprite(ref: ref);
         break;
-      case OverBumperIntake:
+      case const (OverBumperIntake):
         intakeSprite = OverBumperSprite(ref: ref);
         break;
       default:
@@ -190,7 +181,6 @@ class Robot extends BodyComponent
     themeMode = ref.watch(settingsNotifierProvider).themeMode;
     shape = PolygonShape()
       ..setAsBox(constants.kHalfWidth, constants.kHalfHeight, Vector2(0, 0), 0);
-    // RectangleComponent shape2 = RectangleComponent.square(size: 10, anchor: Anchor.center);
     fixtureDef = FixtureDef(shape)
       ..density = constants.kDensity
       ..friction = constants.kFriction
@@ -200,10 +190,6 @@ class Robot extends BodyComponent
   }
 
   FutureOr<void> linearMovement(Vector2 value) async {
-    if (kDebugMode) {
-      // print(drivetrain?.toJson());
-    }
-
     await drivetrain?.firstJoystickMovement(value, body, constants);
   }
 
@@ -213,8 +199,6 @@ class Robot extends BodyComponent
 
   @override
   void render(Canvas canvas) {
-    // constants.kHalfHeight = camera.viewport.size.y;
-    // constants.kHalfWidth = camera.viewport.size.y;
     super.paint.color =
         themeMode == ThemeMode.dark ? Colors.white : Colors.black;
     super.render(canvas);
