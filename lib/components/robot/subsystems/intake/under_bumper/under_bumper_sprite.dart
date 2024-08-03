@@ -10,8 +10,8 @@ class UnderBumperSprite extends SpriteComponent {
   @override
   Future<void> onMount() async {
     size = Vector2(
-      ref.read(robotProviderProvider).kHalfWidth * 1.9,
-      ref.read(robotProviderProvider).kHalfHeight * 1.9,
+      ref.read(robotProviderProvider).kHalfWidth * 2,
+      ref.read(robotProviderProvider).kHalfHeight * 2,
     );
     anchor = Anchor.center;
     super.onMount();

@@ -25,7 +25,7 @@ void main() async {
       center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
-      titleBarStyle: TitleBarStyle.normal,
+      titleBarStyle: TitleBarStyle.hidden,
     );
     await windowManager.setResizable(false);
     await windowManager.setAspectRatio(3072 / 1420);

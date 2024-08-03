@@ -21,6 +21,7 @@ import 'package:player_move/constants.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_enum.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_widget.dart';
+import 'package:player_move/providers/robot/robot_provider.dart';
 // const double ppm = 10.0; // Pixels per meter
 
 late BuildContext universalContext;
@@ -125,7 +126,9 @@ class RoboticsGame extends Forge2DGame
       ..position = Vector2.zero();
     GradientHud.gradientEnum = GradientEnum.alliance;
     camera.viewport.add(gradientHud);
-    camera.follow(robot, maxSpeed: 25, snap: false);
+    camera.follow(robot,
+        maxSpeed: 25 * ref.watch(robotProviderProvider).kMultiplier,
+        snap: false);
     camera.setBounds(experimental.Rectangle.fromCenter(
         center: background.center, size: background.size));
 

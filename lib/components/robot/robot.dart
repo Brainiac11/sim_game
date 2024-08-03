@@ -17,6 +17,7 @@ import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_
 import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper_sprite.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper_sprite.dart';
+import 'package:player_move/constants.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_enum.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_widget.dart';
 import 'package:player_move/helpers/robot_sprite_manager.dart';
@@ -129,13 +130,19 @@ class Robot extends BodyComponent
         print(drivetrain.runtimeType);
       }
       drivetrain?.updateRobotConstants(ref);
-      constants = ref.watch(robotProviderProvider);
+      // constants = ref.watch(robotProviderProvider);
+      constants = ref.watch(robotProviderProvider)
+        ..kHalfHeight = (super.findGame() as Forge2DGame).size.x / 440
+        ..kHalfWidth = (super.findGame() as Forge2DGame).size.x / 440;
+      constants.kMultiplier =
+          (constants.kHalfHeight * 2 * constants.kHalfWidth * 2.5) /
+              kRobotMass.mass;
       spriteManager = RobotSpriteManager(drivetrain: drivetrain!);
       await intializeSprite();
       if (spriteManager != null && !super.children.contains(spriteManager)) {
         spriteManager!.scale = Vector2(
-            ref.read(robotProviderProvider).kHalfWidth * 2.3,
-            ref.read(robotProviderProvider).kHalfHeight * 2.3);
+            ref.read(robotProviderProvider).kHalfWidth * 2.2,
+            ref.read(robotProviderProvider).kHalfHeight * 2.2);
         await add(spriteManager!);
       }
     });

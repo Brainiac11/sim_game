@@ -27,14 +27,7 @@ abstract class Drivetrain {
 
   @mustBeOverridden
   @mustCallSuper
-  FutureOr<void> updateRobotConstants(WidgetRef ref) async {
-    final robotConstants = ref.watch(robotProviderProvider)
-      ..kHalfHeight = kWorldSize.x / 51
-      ..kHalfWidth = kWorldSize.x / 51;
-    robotConstants.kMultiplier =
-        (robotConstants.kHalfHeight * 2 * robotConstants.kHalfWidth * 2) /
-            kRobotMass.mass;
-  }
+  FutureOr<void> updateRobotConstants(WidgetRef ref) async {}
 
   factory Drivetrain.fromJson(Map<String, dynamic> json) {
     switch (json["name"]) {

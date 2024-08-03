@@ -35,20 +35,15 @@ class SwerveDrivetrain extends Drivetrain {
 
       // print(constants.kMultiplier);
     }
-    body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
+    body.linearVelocity.clampLength(
+        0, constants.kMaxTranslationalSpeed * constants.kMultiplier);
     if (body.linearVelocity.length >
         value.length * constants.kTranslationalAccelerationRate) {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
-      if (constants.kMultiplier > 0.5) {
-        body.linearDamping = constants.kTranslationalIdleDeccelerationRate /
-            (constants.kMultiplier *
-                (constants.kHalfHeight * 2 * constants.kHalfWidth * 2));
-      } else {
-        body.linearDamping = constants.kTranslationalIdleDeccelerationRate *
-            constants.kMultiplier *
-            (0.5 - constants.kMultiplier);
-      }
+      body.linearDamping = constants.kTranslationalIdleDeccelerationRate /
+          (constants.kMultiplier *
+              (constants.kHalfHeight * 2 * constants.kHalfWidth * 2));
     }
   }
 
