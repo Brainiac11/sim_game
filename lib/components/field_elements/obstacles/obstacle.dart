@@ -1,5 +1,6 @@
+import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 class Obstacle extends BodyComponent {
   late FixtureDef fixtureDef;
@@ -16,6 +17,13 @@ class Obstacle extends BodyComponent {
       userData: this,
       allowSleep: false,
     );
+    List<Vector2> vertices = (obstacleShape as PolygonShape).vertices;
+
+    for (Vector2 vertex in vertices) {
+      if (kDebugMode) {
+        print((findGame() as Forge2DGame).worldToScreen(vertex));
+      }
+    }
     fixtureDef = FixtureDef(
       obstacleShape,
       userData: this,

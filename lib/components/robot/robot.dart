@@ -72,7 +72,7 @@ class Robot extends BodyComponent
     await super.onLoad();
 
     if (kDebugMode) {
-      renderBody = false;
+      renderBody = true;
     } else {
       renderBody = false;
     }
@@ -187,7 +187,9 @@ class Robot extends BodyComponent
     //       ? themeMode = ThemeMode.dark
     //       : themeMode = ThemeMode.light;
     // });
-    constants = ref.watch(robotProviderProvider);
+    constants = ref.watch(robotProviderProvider)
+      ..kHalfHeight = (super.findGame() as Forge2DGame).size.x / 440
+      ..kHalfWidth = (super.findGame() as Forge2DGame).size.x / 440;
     themeMode = ref.watch(settingsNotifierProvider).themeMode;
     shape = PolygonShape()
       ..setAsBox(constants.kHalfWidth, constants.kHalfHeight, Vector2(0, 0), 0);

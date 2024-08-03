@@ -57,13 +57,11 @@ class SwerveDrivetrain extends Drivetrain {
 
     if (body.angularVelocity.abs() >
         value.x.abs() * constants.kAngularAccelerationRate) {
-      body.angularDamping =
-          constants.kAngularDeccelerationRate * constants.kMultiplier;
+      body.angularDamping = constants.kAngularDeccelerationRate;
     } else {
-      body.angularDamping = constants.kAngularIdleDeccelerationRate *
-          1.2 *
-          constants.kMultiplier /
-          (constants.kHalfHeight * constants.kHalfWidth);
+      body.angularDamping = constants.kAngularIdleDeccelerationRate /
+          (constants.kMultiplier *
+              (constants.kHalfHeight * 2 * constants.kHalfWidth * 2));
     }
   }
 

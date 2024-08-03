@@ -29,10 +29,10 @@ class NeoMotor extends Motor {
         Motor.kMotorDecceleration / kAcceleration;
     robot.kTranslationalIdleDeccelerationRate +=
         Motor.kMotorDecceleration / (kAcceleration * 1.5);
-    robot.kAngularAccelerationRate += kAcceleration / 3;
+    robot.kAngularAccelerationRate += kAcceleration / 2;
     robot.kAngularDeccelerationRate += Motor.kMotorDecceleration / 2;
     robot.kAngularIdleDeccelerationRate +=
-        Motor.kMotorDecceleration / (kAcceleration * 1.5);
+        Motor.kMotorDecceleration / (kAcceleration * 2);
   }
 
   @override

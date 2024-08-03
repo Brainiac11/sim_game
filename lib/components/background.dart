@@ -109,8 +109,16 @@ class SpriteBackground extends SpriteComponent {
   }
 
   // HALL OF FAMMEEEEE
-  final Vector2 rawSize = const Size(3072, 1420).toVector2() /
-      (MediaQuery.of(universalContext).size.height / (1420 * 10));
+  // final Vector2 rawSize = const Size(3072, 1420).toVector2() /
+  //     (MediaQuery.of(universalContext).size.toVector2().length *
+  //         MediaQuery.of(universalContext).size.aspectRatio /
+  //         (1420 * 3072));
+
+  // final Vector2 rawSize = const Size(3072, 1420).toVector2() *
+  //     10000000 *
+  //     MediaQuery.of(universalContext).size.aspectRatio /
+  //     (MediaQuery.of(universalContext).size.height *
+  //         MediaQuery.of(universalContext).size.width);
   SpriteBackground();
   // @override
   // FutureOr<void> onMount() async {
@@ -127,16 +135,16 @@ class SpriteBackground extends SpriteComponent {
       sprite = value;
     });
     if (kDebugMode) {
-      print("RawSize $rawSize");
+      // print("RawSize $rawSize");
     }
-    sprite?.srcSize = rawSize;
+    // sprite?.srcSize = rawSize;
     // sprite?.srcPosition = followPosition;
     super.anchor = Anchor.topLeft;
     // print((super.findGame() as Forge2DGame).size);
 
-    // super.position = Vector2((findGame() as Forge2DGame).size.x / -20,
-    //     (findGame() as Forge2DGame).size.y / -20);
-    super.position = Vector2(-kWorldSize.x / 2, -kWorldSize.y / 2);
+    super.position = Vector2((findGame() as Forge2DGame).size.x / -20,
+        (findGame() as Forge2DGame).size.y / -20);
+    // super.position = Vector2(-kWorldSize.x / 2, -kWorldSize.y / 2);
   }
 
   @override

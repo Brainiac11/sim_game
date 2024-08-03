@@ -6,6 +6,7 @@ import 'package:flame/experimental.dart' as experimental;
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/widgets.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,9 @@ class RoboticsGame extends Forge2DGame
   late List<Obstacle> obstacles;
   double x = 0;
   static double zoomLevel = 10;
+
+  double referenceWidth = 3072 / 1;
+  double referenceHeight = 1420 / 1;
   // static const double zoom = 30;
 
   @override
@@ -47,6 +51,10 @@ class RoboticsGame extends Forge2DGame
     final worldCoordinates = screenToWorld(info.eventPosition.widget);
     if (kDebugMode) {
       print('World Coordinates: $worldCoordinates');
+      // print("Screen Coordinates: ${worldToScreen(worldCoordinates)}");
+      // print(
+      //     "Aspect Ratio: ${MediaQuery.of(universalContext).size.aspectRatio}");
+      print("World Size: ${size.toString()}");
     }
   }
 
@@ -59,9 +67,12 @@ class RoboticsGame extends Forge2DGame
           zoom: zoomLevel,
           gravity: Vector2.zero(),
           // camera: CameraComponent.withFixedResolution(
-          //     width: getImageSize().width, height: getImageSize().height),
+          //     width: 3072 / 2, height: 1420 / 2),
           // camera: CameraComponent(
           //   viewport: FixedAspectRatioViewport(aspectRatio: 3072 / 1440),
+          // camera: CameraComponent(
+          //   viewport: FixedAspectRatioViewport(aspectRatio: 3072 / 1420),
+          // ),
           camera: CameraComponent(
             viewport: MaxViewport(),
           ),
@@ -81,15 +92,20 @@ class RoboticsGame extends Forge2DGame
   Future<void> onLoad() async {
     Flame.device.fullScreen();
     Flame.device.setLandscape();
-    await super.onLoad();
+    double scaleX = camera.viewport.size.x / referenceWidth;
+    double scaleY = camera.viewport.size.y / referenceHeight;
 
+    // double scaleX = kWorldSize.x / referenceWidth;
+    // double scaleY = kWorldSize.y / referenceHeight;
+
+    await super.onLoad();
     fps = FpsTextComponent(position: Vector2(5, (worldToScreen(size) * 3).x));
     totalBodies = TextComponent(
         position: Vector2(5, (worldToScreen(size) * 2).y), priority: 1);
+    kWorldSize = super.size / 10;
     if (kDebugMode) {
-      // kWorldSize = size;
       print("Screen Size: (${super.size.x} , ${super.size.y})");
-      // print("World size: (${kWorldSize.x} , ${kWorldSize.y})");
+      print("World size: (${kWorldSize.x} , ${kWorldSize.y})");
     }
 
     if (kDebugMode) {
@@ -97,16 +113,20 @@ class RoboticsGame extends Forge2DGame
       await add(totalBodies);
       await add(TextComponent(
           text: super.size.toString(),
-          position: Vector2(MediaQueryData().size.width / 2,
-              MediaQueryData().size.height / 2)));
+          position: Vector2(const MediaQueryData().size.width / 2,
+              const MediaQueryData().size.height / 2)));
       // world.debugMode = true;
     }
     obstacles = List.empty(growable: true);
     for (Shape obstacleShape in obstaclesShapesList) {
       obstacles.add(Obstacle(obstacleShape: obstacleShape));
     }
-
+    resizeBackground(kScreenSize);
     await world.add(background..priority = 0);
+    // AspectRatio(
+    //   aspectRatio: 3072 / 1420,
+    //   child: SpriteWidget(sprite: background.sprite!),
+    // );
     await world.add(BorderEdge(borderKey: const ValueKey("Top")));
     await world.add(BorderEdge(borderKey: const ValueKey("Bottom")));
     await world.add(BorderEdge(borderKey: const ValueKey("Right")));
@@ -126,11 +146,9 @@ class RoboticsGame extends Forge2DGame
       ..position = Vector2.zero();
     GradientHud.gradientEnum = GradientEnum.alliance;
     camera.viewport.add(gradientHud);
-    camera.follow(robot,
-        maxSpeed: 25 * ref.watch(robotProviderProvider).kMultiplier,
-        snap: false);
-    camera.setBounds(experimental.Rectangle.fromCenter(
-        center: background.center, size: background.size));
+    camera.follow(robot, snap: true);
+    // camera.setBounds(experimental.Rectangle.fromCenter(
+    //     center: background.center, size: background.size));
 
     if (kDebugMode) {
       print("Visible Game size ${camera.viewfinder.visibleGameSize}");
@@ -168,6 +186,22 @@ class RoboticsGame extends Forge2DGame
 
   void robotIntake() {
     robot.intakeGamePiece();
+  }
+
+  void resizeBackground(Vector2 screenSize) {
+    // Calculate scale factors
+    double scaleX = screenSize.x / 3072;
+    double scaleY = screenSize.y / 1420;
+
+    // Use the smaller scale factor to fit the image within the screen
+    double scale = scaleX <= scaleY ? scaleX : scaleY;
+
+    // Calculate new dimensions
+    double scaledWidth = 3072 * scale;
+    double scaledHeight = 1420 * scale;
+
+    // Set the size and position of the background sprite
+    background.size = Vector2(3072, 1420) * scale / 10;
   }
 }
 

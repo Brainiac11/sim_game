@@ -59,17 +59,20 @@ class MatchPageState extends State<MatchPage> {
       // backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
       body: Stack(
         children: [
-          RiverpodAwareGameWidget(
-            game: game,
-            key: gameWidgetKey,
-            // backgroundBuilder: (context) => Container(
-            //   decoration: const BoxDecoration(
-            //     image: DecorationImage(
-            //       image: AssetImage("assets/images/dark_field_updated.png"),
-            //       fit: BoxFit.contain,
-            //     ),
-            //   ),
-            // ),
+          AspectRatio(
+            aspectRatio: 3072 / 1420,
+            child: RiverpodAwareGameWidget(
+              game: game,
+              key: gameWidgetKey,
+              // backgroundBuilder: (context) => Container(
+              //   decoration: const BoxDecoration(
+              //     image: DecorationImage(
+              //       image: AssetImage("assets/images/dark_field_updated.png"),
+              //       fit: BoxFit.contain,
+              //     ),
+              //   ),
+              // ),
+            ),
           ),
           // GameWidget(game: game),
           Align(
