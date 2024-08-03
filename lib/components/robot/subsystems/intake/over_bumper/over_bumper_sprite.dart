@@ -10,8 +10,8 @@ class OverBumperSprite extends SpriteComponent {
   @override
   Future<void> onMount() async {
     size = Vector2(
-        pow(ref.read(robotProviderProvider).kHalfWidth, 2.3).toDouble(),
-        pow(ref.read(robotProviderProvider).kHalfHeight, 2.3).toDouble());
+        pow(ref.read(robotProviderProvider).kHalfWidth, 1.9).toDouble(),
+        pow(ref.read(robotProviderProvider).kHalfHeight, 1.9).toDouble());
     anchor = Anchor.center;
     super.onMount();
   }

@@ -40,10 +40,15 @@ class SwerveDrivetrain extends Drivetrain {
         value.length * constants.kTranslationalAccelerationRate) {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
-      body.linearDamping = constants.kTranslationalIdleDeccelerationRate *
-          2.2 *
-          constants.kMultiplier /
-          (constants.kHalfHeight * constants.kHalfWidth);
+      if (constants.kMultiplier > 0.5) {
+        body.linearDamping = constants.kTranslationalIdleDeccelerationRate /
+            (constants.kMultiplier *
+                (constants.kHalfHeight * 2 * constants.kHalfWidth * 2));
+      } else {
+        body.linearDamping = constants.kTranslationalIdleDeccelerationRate *
+            constants.kMultiplier *
+            (0.5 - constants.kMultiplier);
+      }
     }
   }
 

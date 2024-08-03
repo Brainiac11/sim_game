@@ -28,9 +28,8 @@ late BuildContext universalContext;
 class RoboticsGame extends Forge2DGame
     with RiverpodGameMixin, TapDetector, ScrollDetector {
   // final Robot _robot = Robot(drivetrain: SwerveDrivetrain());
-  final fps = FpsTextComponent(position: Vector2(5, kWorldSize.y));
-  final totalBodies =
-      TextComponent(position: Vector2(5, kWorldSize.x * 2), priority: 1);
+  late final fps;
+  late final totalBodies;
   late Robot robot;
   late Robot robot2;
   SpriteBackground background = SpriteBackground();
@@ -44,7 +43,7 @@ class RoboticsGame extends Forge2DGame
 
   @override
   void onTapDown(TapDownInfo info) {
-    final worldCoordinates = screenToWorld(info.eventPosition.global);
+    final worldCoordinates = screenToWorld(info.eventPosition.widget);
     if (kDebugMode) {
       print('World Coordinates: $worldCoordinates');
     }
@@ -82,10 +81,14 @@ class RoboticsGame extends Forge2DGame
     Flame.device.fullScreen();
     Flame.device.setLandscape();
     await super.onLoad();
+
+    fps = FpsTextComponent(position: Vector2(5, (worldToScreen(size) * 3).x));
+    totalBodies = TextComponent(
+        position: Vector2(5, (worldToScreen(size) * 2).y), priority: 1);
     if (kDebugMode) {
       // kWorldSize = size;
       print("Screen Size: (${super.size.x} , ${super.size.y})");
-      print("World size: (${kWorldSize.x} , ${kWorldSize.y})");
+      // print("World size: (${kWorldSize.x} , ${kWorldSize.y})");
     }
 
     if (kDebugMode) {
@@ -93,7 +96,8 @@ class RoboticsGame extends Forge2DGame
       await add(totalBodies);
       await add(TextComponent(
           text: super.size.toString(),
-          position: Vector2(kWorldSize.x / 2, kWorldSize.y / 2)));
+          position: Vector2(MediaQueryData().size.width / 2,
+              MediaQueryData().size.height / 2)));
       // world.debugMode = true;
     }
     obstacles = List.empty(growable: true);

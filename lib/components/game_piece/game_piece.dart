@@ -45,7 +45,8 @@ class GamePiece extends BodyComponent {
     }
     spriteComponent = SpriteComponent(
       sprite: sprite,
-      scale: Vector2(kWorldSize.length / 14500, kWorldSize.length / 14500),
+      scale: Vector2((super.findGame() as Forge2DGame).size.length / 145000,
+          (super.findGame() as Forge2DGame).size.length / 145000),
       anchor: Anchor.center,
     );
     await add(spriteComponent!);
@@ -63,8 +64,9 @@ class GamePiece extends BodyComponent {
       userData: this,
     );
     shape = CircleShape()
-      ..radius =
-          Vector2(kWorldSize.length / 145, kWorldSize.length / 145).length;
+      ..radius = Vector2((super.findGame() as Forge2DGame).size.length / 1450,
+              (super.findGame() as Forge2DGame).size.length / 1450)
+          .length;
     fixtureDef = FixtureDef(shape)
       ..density = 0.5
       ..friction = 1.0

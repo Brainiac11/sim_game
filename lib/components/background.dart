@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -110,7 +111,6 @@ class SpriteBackground extends SpriteComponent {
   // HALL OF FAMMEEEEE
   final Vector2 rawSize = const Size(3072, 1420).toVector2() /
       (MediaQuery.of(universalContext).size.height / (1420 * 10));
-  Vector2 followPosition = Vector2.zero();
   SpriteBackground();
   // @override
   // FutureOr<void> onMount() async {
@@ -132,7 +132,10 @@ class SpriteBackground extends SpriteComponent {
     sprite?.srcSize = rawSize;
     // sprite?.srcPosition = followPosition;
     super.anchor = Anchor.topLeft;
+    // print((super.findGame() as Forge2DGame).size);
 
+    // super.position = Vector2((findGame() as Forge2DGame).size.x / -20,
+    //     (findGame() as Forge2DGame).size.y / -20);
     super.position = Vector2(-kWorldSize.x / 2, -kWorldSize.y / 2);
   }
 
