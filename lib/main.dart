@@ -21,13 +21,14 @@ void main() async {
   if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
     await windowManager.ensureInitialized();
     WindowOptions windowOptions = const WindowOptions(
-      minimumSize: Size(3072 / 2, 1440 / 2),
+      minimumSize: Size(3072 / 2, 1420 / 2),
       center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
       titleBarStyle: TitleBarStyle.normal,
     );
-    await windowManager.setResizable(true);
+    await windowManager.setResizable(false);
+    await windowManager.setAspectRatio(3072 / 1420);
     // await windowManager.
     await windowManager.maximize();
 

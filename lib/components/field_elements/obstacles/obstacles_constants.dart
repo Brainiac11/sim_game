@@ -8,10 +8,10 @@ List<Shape> obstaclesShapesList = List.from(
       ..set(
         List.from(
           [
-            Vector2(40, -10)..multiply(kWorldSize / 100),
-            Vector2(35, -7)..multiply(kWorldSize / 100),
-            Vector2(30, -5)..multiply(kWorldSize / 100),
-            Vector2(40, 0)..multiply(kWorldSize / 100),
+            Vector2(40, -10),
+            Vector2(35, -7),
+            Vector2(30, -5),
+            Vector2(40, 0),
           ],
         ),
       ),

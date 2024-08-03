@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/experimental.dart' as experimental;
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
@@ -24,7 +25,8 @@ import 'package:player_move/custom_widgets/gradient/gradient_widget.dart';
 
 late BuildContext universalContext;
 
-class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
+class RoboticsGame extends Forge2DGame
+    with RiverpodGameMixin, TapDetector, ScrollDetector {
   // final Robot _robot = Robot(drivetrain: SwerveDrivetrain());
   final fps = FpsTextComponent(position: Vector2(5, kWorldSize.y));
   final totalBodies =
@@ -37,10 +39,24 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
   late GradientHud gradientHud;
   late List<Obstacle> obstacles;
   double x = 0;
+  static double zoomLevel = 10;
   // static const double zoom = 30;
+
+  @override
+  void onTapDown(TapDownInfo info) {
+    final worldCoordinates = screenToWorld(info.eventPosition.global);
+    if (kDebugMode) {
+      print('World Coordinates: $worldCoordinates');
+    }
+  }
+
+  // Vector2 screenToWorld(Vector2 screenPosition) {
+  //   // Implement your conversion logic if necessary
+  //   return screenPosition; // Assuming 1:1 mapping for simplicity
+  // }
   RoboticsGame()
       : super(
-          zoom: 10,
+          zoom: zoomLevel,
           gravity: Vector2.zero(),
           // camera: CameraComponent.withFixedResolution(
           //     width: getImageSize().width, height: getImageSize().height),
@@ -78,7 +94,7 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
       await add(TextComponent(
           text: super.size.toString(),
           position: Vector2(kWorldSize.x / 2, kWorldSize.y / 2)));
-      world.debugMode = true;
+      // world.debugMode = true;
     }
     obstacles = List.empty(growable: true);
     for (Shape obstacleShape in obstaclesShapesList) {
@@ -112,6 +128,13 @@ class RoboticsGame extends Forge2DGame with RiverpodGameMixin {
     if (kDebugMode) {
       print("Visible Game size ${camera.viewfinder.visibleGameSize}");
     }
+  }
+
+  @override
+  void onScroll(PointerScrollInfo info) {
+    zoomLevel += info.scrollDelta.global.y * -0.005;
+    zoomLevel = zoomLevel.clamp(0.5, 15.0);
+    camera.viewfinder.zoom = zoomLevel;
   }
 
   @override

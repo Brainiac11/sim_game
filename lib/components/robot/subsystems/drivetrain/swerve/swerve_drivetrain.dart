@@ -31,7 +31,7 @@ class SwerveDrivetrain extends Drivetrain {
         constants.kMultiplier);
 
     if (kDebugMode) {
-      // print(body.linearVelocity.length);
+      print(body.linearVelocity.length);
 
       // print(constants.kMultiplier);
     }

@@ -39,7 +39,7 @@ class GamePiece extends BodyComponent {
 // Image image = Image.asset("game_piece.png");
     sprite = await Sprite.load("game_piece.png");
     if (kDebugMode) {
-      renderBody = true;
+      renderBody = false;
     } else {
       renderBody = false;
     }
