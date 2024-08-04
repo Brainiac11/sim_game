@@ -2,22 +2,17 @@ import 'dart:async';
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:flame/experimental.dart' as experimental;
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
-import 'package:flame/game.dart';
-import 'package:flame/widgets.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/background.dart';
 import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/field_elements/obstacles/obstacle.dart';
 import 'package:player_move/components/field_elements/obstacles/obstacles_constants.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/robot.dart';
-import 'package:player_move/components/robot/states/robot_states.dart';
 import 'package:player_move/constants.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_enum.dart';
@@ -58,10 +53,6 @@ class RoboticsGame extends Forge2DGame
     }
   }
 
-  // Vector2 screenToWorld(Vector2 screenPosition) {
-  //   // Implement your conversion logic if necessary
-  //   return screenPosition; // Assuming 1:1 mapping for simplicity
-  // }
   RoboticsGame()
       : super(
           zoom: zoomLevel,
@@ -78,14 +69,12 @@ class RoboticsGame extends Forge2DGame
           ),
         );
 
-  // _Background background = _Background(size: kWorldSize);
   @override
   void onRemove() {
     // Optional based on your game needs.
     // removeAll(children);
     Flame.images.clearCache();
     Flame.assets.clearCache();
-    // Any other code that you want to run when the game is removed.
   }
 
   @override
@@ -94,9 +83,6 @@ class RoboticsGame extends Forge2DGame
     Flame.device.setLandscape();
     double scaleX = camera.viewport.size.x / referenceWidth;
     double scaleY = camera.viewport.size.y / referenceHeight;
-
-    // double scaleX = kWorldSize.x / referenceWidth;
-    // double scaleY = kWorldSize.y / referenceHeight;
 
     await super.onLoad();
     fps = FpsTextComponent(position: Vector2(5, (worldToScreen(size) * 3).x));
@@ -123,10 +109,6 @@ class RoboticsGame extends Forge2DGame
     }
     resizeBackground(kScreenSize);
     await world.add(background..priority = 0);
-    // AspectRatio(
-    //   aspectRatio: 3072 / 1420,
-    //   child: SpriteWidget(sprite: background.sprite!),
-    // );
     await world.add(BorderEdge(borderKey: const ValueKey("Top")));
     await world.add(BorderEdge(borderKey: const ValueKey("Bottom")));
     await world.add(BorderEdge(borderKey: const ValueKey("Right")));
@@ -189,18 +171,14 @@ class RoboticsGame extends Forge2DGame
   }
 
   void resizeBackground(Vector2 screenSize) {
-    // Calculate scale factors
     double scaleX = screenSize.x / 3072;
     double scaleY = screenSize.y / 1420;
 
-    // Use the smaller scale factor to fit the image within the screen
     double scale = scaleX <= scaleY ? scaleX : scaleY;
 
-    // Calculate new dimensions
-    double scaledWidth = 3072 * scale;
-    double scaledHeight = 1420 * scale;
+    // double scaledWidth = 3072 * scale;
+    // double scaledHeight = 1420 * scale;
 
-    // Set the size and position of the background sprite
     background.size = Vector2(3072, 1420) * scale / 10;
   }
 }

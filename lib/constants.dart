@@ -24,6 +24,8 @@ Vector2 kScreenSize = Vector2(widthDP, heightDP);
 Vector2 kWorldSize = Vector2(widthDP / 10, heightDP / 10);
 // Vector2 kWorldSize = Vector2(3072, 1420) / 2;
 
+double kPixelScale = kScreenSize.length / Vector2(3072, 1420).length;
+
 MassData kRobotMass = MassData()..mass = 60;
 const kRotationalScale = 1;
 

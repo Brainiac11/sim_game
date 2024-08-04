@@ -5,15 +5,10 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:player_move/components/game.dart';
-import 'package:player_move/constants.dart';
 import 'package:player_move/providers/settings/settings.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 

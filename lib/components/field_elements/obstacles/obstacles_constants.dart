@@ -1,6 +1,4 @@
-import 'package:flame/game.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:player_move/constants.dart';
 
 List<Shape> obstaclesShapesList = List.from(
   [

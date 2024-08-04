@@ -10,6 +10,7 @@ import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.da
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
+import 'package:player_move/constants.dart';
 part 'swerve_drivetrain.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
@@ -23,6 +24,48 @@ class SwerveDrivetrain extends Drivetrain {
     required this.gearRatio,
   }) : super(name: kName);
 
+  // @override
+  // FutureOr<void> firstJoystickMovement(
+  //     Vector2 value, Body body, RobotConstants constants) async {
+  //   body.applyLinearImpulse(value *
+  //       constants.kTranslationalAccelerationRate *
+  //       constants.kMultiplier);
+
+  //   if (kDebugMode) {
+  //     print(body.linearVelocity.length);
+
+  //     // print(constants.kMultiplier);
+  //   }
+  //   body.linearVelocity.clampLength(
+  //       0, constants.kMaxTranslationalSpeed * constants.kMultiplier);
+  //   if (body.linearVelocity.length >
+  //       value.length * constants.kTranslationalAccelerationRate) {
+  //     body.linearDamping = constants.kTranslationalDeccelerationRate;
+  //   } else {
+  //     body.linearDamping = constants.kTranslationalIdleDeccelerationRate /
+  //         (constants.kMultiplier *
+  //             (constants.kHalfHeight * 2 * constants.kHalfWidth * 2));
+  //   }
+  // }
+
+  // @override
+  // FutureOr<void> secondJoystickMovement(
+  //     Vector2 value, Body body, RobotConstants constants) async {
+  //   body.angularVelocity
+  //       .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
+  //   body.applyAngularImpulse(
+  //       value.x * constants.kAngularAccelerationRate * constants.kMultiplier);
+
+  //   if (body.angularVelocity.abs() >
+  //       value.x.abs() * constants.kAngularAccelerationRate) {
+  //     body.angularDamping = constants.kAngularDeccelerationRate;
+  //   } else {
+  //     body.angularDamping = constants.kAngularIdleDeccelerationRate /
+  //         (constants.kMultiplier *
+  //             (constants.kHalfHeight * 2 * constants.kHalfWidth * 2));
+  //   }
+  // }
+
   @override
   FutureOr<void> firstJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
@@ -31,19 +74,19 @@ class SwerveDrivetrain extends Drivetrain {
         constants.kMultiplier);
 
     if (kDebugMode) {
-      print(body.linearVelocity.length);
+      // print(body.linearVelocity.length * 1 / kPixelScale);
 
-      // print(constants.kMultiplier);
+      print(constants.kMultiplier);
     }
-    body.linearVelocity.clampLength(
-        0, constants.kMaxTranslationalSpeed * constants.kMultiplier);
+    body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
     if (body.linearVelocity.length >
         value.length * constants.kTranslationalAccelerationRate) {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
-      body.linearDamping = constants.kTranslationalIdleDeccelerationRate /
-          (constants.kMultiplier *
-              (constants.kHalfHeight * 2 * constants.kHalfWidth * 2));
+      body.linearDamping = constants.kTranslationalIdleDeccelerationRate / 10;
+      // 2.2 *
+      // constants.kMultiplier /
+      // (constants.kHalfHeight * constants.kHalfWidth);
     }
   }
 
@@ -55,13 +98,17 @@ class SwerveDrivetrain extends Drivetrain {
     body.applyAngularImpulse(
         value.x * constants.kAngularAccelerationRate * constants.kMultiplier);
 
+    if (kDebugMode) {
+      print(body.angularVelocity * 1 / kPixelScale);
+    }
     if (body.angularVelocity.abs() >
         value.x.abs() * constants.kAngularAccelerationRate) {
       body.angularDamping = constants.kAngularDeccelerationRate;
+    } else if (body.angularVelocity.abs() >= constants.kMaxAngularSpeed * 5) {
+      body.angularDamping = constants.kAngularDeccelerationRate / 15;
     } else {
-      body.angularDamping = constants.kAngularIdleDeccelerationRate /
-          (constants.kMultiplier *
-              (constants.kHalfHeight * 2 * constants.kHalfWidth * 2));
+      body.angularDamping =
+          constants.kMultiplier / constants.kAngularIdleDeccelerationRate;
     }
   }
 

@@ -35,7 +35,7 @@ class L2GearRatio extends GearRatio {
   FutureOr<void> updateTotalMaxSpeed(WidgetRef ref, dynamic constants) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kMaxTranslationalSpeed += kMaximumSpeed;
-    robot.kMaxAngularSpeed += kMaximumSpeed / 10;
+    robot.kMaxAngularSpeed += kMaximumSpeed / 20;
   }
 
   factory L2GearRatio.fromJson(Map<String, dynamic> json) =>

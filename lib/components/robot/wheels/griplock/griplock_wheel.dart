@@ -26,7 +26,7 @@ class GriplockWheel extends Wheel {
         Wheel.kWheelDecceleration / kAcceleration;
     robot.kAngularAccelerationRate += kAcceleration / 4;
     robot.kAngularDeccelerationRate += Wheel.kWheelDecceleration;
-    robot.kAngularIdleDeccelerationRate +=
+    robot.kAngularIdleDeccelerationRate -=
         Wheel.kWheelDecceleration / kAcceleration;
   }
 

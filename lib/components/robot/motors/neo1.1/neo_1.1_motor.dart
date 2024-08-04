@@ -31,7 +31,7 @@ class NeoMotor extends Motor {
         Motor.kMotorDecceleration / (kAcceleration * 1.5);
     robot.kAngularAccelerationRate += kAcceleration / 2;
     robot.kAngularDeccelerationRate += Motor.kMotorDecceleration / 2;
-    robot.kAngularIdleDeccelerationRate +=
+    robot.kAngularIdleDeccelerationRate -=
         Motor.kMotorDecceleration / (kAcceleration * 2);
   }
 
@@ -39,7 +39,7 @@ class NeoMotor extends Motor {
   FutureOr<void> updateTotalMaxSpeed(WidgetRef ref, dynamic constants) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kMaxTranslationalSpeed += kMaximumSpeed;
-    robot.kMaxAngularSpeed += kMaximumSpeed / 10;
+    robot.kMaxAngularSpeed += kMaximumSpeed / 20;
   }
 
   static Image toImage(BuildContext context) {

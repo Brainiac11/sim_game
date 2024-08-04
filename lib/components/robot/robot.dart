@@ -1,14 +1,13 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
-import 'package:player_move/components/robot/actions/action.dart';
-import 'package:player_move/components/robot/actions/robot_intake.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/states/robot_states.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
@@ -36,6 +35,7 @@ class Robot extends BodyComponent
 
   RobotStates state = RobotStates.normal;
 
+  @override
   ComponentRef ref;
   List<Fixture> fixturesToDelete = [];
   GamePiece? gamePiece;
@@ -130,13 +130,12 @@ class Robot extends BodyComponent
         print(drivetrain.runtimeType);
       }
       drivetrain?.updateRobotConstants(ref);
-      // constants = ref.watch(robotProviderProvider);
+      constants = ref.watch(robotProviderProvider);
       constants = ref.watch(robotProviderProvider)
         ..kHalfHeight = (super.findGame() as Forge2DGame).size.x / 440
         ..kHalfWidth = (super.findGame() as Forge2DGame).size.x / 440;
-      constants.kMultiplier =
-          (constants.kHalfHeight * 2 * constants.kHalfWidth * 2.5) /
-              kRobotMass.mass;
+
+      constants.kMultiplier = (body.mass / kRobotMass.mass) * kPixelScale;
       spriteManager = RobotSpriteManager(drivetrain: drivetrain!);
       await intializeSprite();
       if (spriteManager != null && !super.children.contains(spriteManager)) {
