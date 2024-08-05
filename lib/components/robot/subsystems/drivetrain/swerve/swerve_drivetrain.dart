@@ -82,7 +82,7 @@ class SwerveDrivetrain extends Drivetrain {
     if (kDebugMode) {
       print(body.linearVelocity.length * 1 / kPixelScale);
 
-      print(constants.kMultiplier);
+      // print(constants.kMultiplier);
     }
     body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
     if (body.linearVelocity.length >

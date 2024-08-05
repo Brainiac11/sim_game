@@ -142,8 +142,8 @@ class Robot extends BodyComponent
       await intializeSprite();
       if (spriteManager != null && !super.children.contains(spriteManager)) {
         spriteManager!.scale = Vector2(
-            ref.read(robotProviderProvider).kHalfWidth * 2.1,
-            ref.read(robotProviderProvider).kHalfHeight * 2.1);
+            ref.read(robotProviderProvider).kHalfWidth * 2,
+            ref.read(robotProviderProvider).kHalfHeight * 2);
         await add(spriteManager!);
       }
     });
