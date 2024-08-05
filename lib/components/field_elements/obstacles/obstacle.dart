@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class Obstacle extends BodyComponent {
   late FixtureDef fixtureDef;
@@ -30,7 +33,10 @@ class Obstacle extends BodyComponent {
       // filter: Filter()..groupIndex = 1,
     );
 
-    debugMode = true;
+    if (kDebugMode) {
+      debugMode = true;
+      super.setColor(Color.fromRGBO(255, 255, 255, 0.2));
+    }
 
     return world.createBody(obstacleDef)..createFixture(fixtureDef);
   }

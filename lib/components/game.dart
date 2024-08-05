@@ -46,10 +46,11 @@ class RoboticsGame extends Forge2DGame
     final worldCoordinates = screenToWorld(info.eventPosition.widget);
     if (kDebugMode) {
       print('World Coordinates: $worldCoordinates');
+      print("Scaled World Coordinates: ${worldCoordinates * 1 / kPixelScale}");
       // print("Screen Coordinates: ${worldToScreen(worldCoordinates)}");
       // print(
       //     "Aspect Ratio: ${MediaQuery.of(universalContext).size.aspectRatio}");
-      print("World Size: ${size.toString()}");
+      // print("World Size: ${size.toString()}");
     }
   }
 
@@ -149,7 +150,11 @@ class RoboticsGame extends Forge2DGame
   @override
   void onScroll(PointerScrollInfo info) {
     zoomLevel += info.scrollDelta.global.y * -0.005;
-    zoomLevel = zoomLevel.clamp(0.5, 15.0);
+    if (kDebugMode) {
+      zoomLevel = zoomLevel.clamp(0.01, 100.0);
+    } else {
+      zoomLevel = zoomLevel.clamp(0.5, 15.0);
+    }
     camera.viewfinder.zoom = zoomLevel;
   }
 
