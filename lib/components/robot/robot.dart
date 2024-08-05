@@ -135,7 +135,9 @@ class Robot extends BodyComponent
         ..kHalfHeight = (super.findGame() as Forge2DGame).size.x / 440
         ..kHalfWidth = (super.findGame() as Forge2DGame).size.x / 440;
 
-      constants.kMultiplier = (body.mass / kRobotMass.mass) * kPixelScale;
+      // constants.kMultiplier = body.mass / kRobotMass.mass;
+      // constants.kMultiplier = (body.mass / kRobotMass.mass) * kPixelScale;
+      constants.kMultiplier = kPixelScale;
       spriteManager = RobotSpriteManager(drivetrain: drivetrain!);
       await intializeSprite();
       if (spriteManager != null && !super.children.contains(spriteManager)) {

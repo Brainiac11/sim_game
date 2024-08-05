@@ -10,7 +10,7 @@ part 'l_4_gear_ratio.g.dart';
 @JsonSerializable(explicitToJson: true, anyMap: true)
 class L4GearRatio extends GearRatio {
   static const String kName = "L4";
-  static const double kAcceleration = 16;
+  static const double kAcceleration = 21;
   static const double kMaximumSpeed = 12;
   static const double kExperience = 15;
   L4GearRatio()
