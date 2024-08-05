@@ -99,8 +99,8 @@ class Background extends PositionComponent with RiverpodComponentMixin {
 
 class SpriteBackground extends SpriteComponent {
   void updateRawSize() {
-    Size current = getCurrentImageSize();
-    current = MediaQuery.of(universalContext).size;
+    // Size current = getCurrentImageSize();
+    // current = MediaQuery.of(universalContext).size;
   }
 
   // HALL OF FAMMEEEEE

@@ -57,8 +57,11 @@ class RoboticsGame extends Forge2DGame
       : super(
           zoom: zoomLevel,
           gravity: Vector2.zero(),
+          // camera: CameraComponent.withFixedResolution(width: 800, height: 600),
           // camera: CameraComponent.withFixedResolution(
-          //     width: 3072 / 2, height: 1420 / 2),
+          //   width: getCurrentImageSize().width,
+          //   height: getCurrentImageSize().height,
+          // ),
           // camera: CameraComponent(
           //   viewport: FixedAspectRatioViewport(aspectRatio: 3072 / 1440),
           // camera: CameraComponent(
@@ -83,15 +86,19 @@ class RoboticsGame extends Forge2DGame
     Flame.device.setLandscape();
     double scaleX = camera.viewport.size.x / referenceWidth;
     double scaleY = camera.viewport.size.y / referenceHeight;
-
+    // camera = CameraComponent.withFixedResolution(
+    //     width: getCurrentImageSize().width / 4,
+    //     height: getCurrentImageSize().height / 4);
     await super.onLoad();
+
     fps = FpsTextComponent(position: Vector2(5, (worldToScreen(size) * 3).x));
     totalBodies = TextComponent(
         position: Vector2(5, (worldToScreen(size) * 2).y), priority: 1);
-    kWorldSize = super.size / 10;
+    kWorldSize = camera.viewport.size / zoomLevel;
     if (kDebugMode) {
       print("Screen Size: (${super.size.x} , ${super.size.y})");
       print("World size: (${kWorldSize.x} , ${kWorldSize.y})");
+      print("Visible World Rectangle: ${camera.visibleWorldRect.size}");
     }
 
     if (kDebugMode) {
@@ -107,6 +114,7 @@ class RoboticsGame extends Forge2DGame
     for (Shape obstacleShape in obstaclesShapesList) {
       obstacles.add(Obstacle(obstacleShape: obstacleShape));
     }
+
     resizeBackground(kScreenSize);
     await world.add(background..priority = 0);
     await world.add(BorderEdge(borderKey: const ValueKey("Top")));
@@ -181,24 +189,28 @@ class RoboticsGame extends Forge2DGame
 
     background.size = Vector2(3072, 1420) * scale / 10;
   }
-}
 
-Size getCurrentImageSize() {
-  Size defaultImageSize = getImageSize();
-  Size windowSize = MediaQuery.of(universalContext).size;
-  Size currentImageSize;
+  Size getCurrentImageSize() {
+    Size defaultImageSize = getImageSize();
+    Size windowSize = MediaQuery.of(universalContext).size;
+    if (kDebugMode) {
+      print("Super size: ${super.size}");
+    }
+    // Size windowSize = super.size.toSize();
+    Size currentImageSize;
 
-  if (windowSize.aspectRatio > defaultImageSize.aspectRatio) {
-    // Window is wider relative to the image's aspect ratio
-    currentImageSize = Size(
-        (windowSize.height * defaultImageSize.aspectRatio.toInt()),
-        windowSize.height);
-  } else {
-    // Window is taller relative to the image's aspect ratio
-    currentImageSize = Size(windowSize.width,
-        (windowSize.width / defaultImageSize.aspectRatio.toInt()));
+    if (windowSize.aspectRatio >= defaultImageSize.aspectRatio) {
+      // Window is wider relative to the image's aspect ratio
+      currentImageSize = Size(
+          (windowSize.height * defaultImageSize.aspectRatio.toInt()),
+          windowSize.height);
+    } else {
+      // Window is taller relative to the image's aspect ratio
+      currentImageSize = Size(windowSize.width,
+          (windowSize.width / defaultImageSize.aspectRatio.toInt()));
+    }
+    return currentImageSize;
   }
-  return currentImageSize;
 }
 
 Size getImageSize() {
