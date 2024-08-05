@@ -69,14 +69,19 @@ class SwerveDrivetrain extends Drivetrain {
   @override
   FutureOr<void> firstJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    body.applyLinearImpulse(value *
+    body.applyForce(value *
         constants.kTranslationalAccelerationRate *
-        constants.kMultiplier);
+        constants.kTranslationalAccelerationRate *
+        constants.kMultiplier *
+        2);
+    // body.applyLinearImpulse(value *
+    //     constants.kTranslationalAccelerationRate *
+    //     constants.kMultiplier);
 
     if (kDebugMode) {
-      // print(body.linearVelocity.length * 1 / kPixelScale);
+      print(body.linearVelocity.length);
 
-      print(constants.kMultiplier);
+      // print(constants.kMultiplier);
     }
     body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
     if (body.linearVelocity.length >
@@ -84,22 +89,36 @@ class SwerveDrivetrain extends Drivetrain {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
       body.linearDamping = constants.kTranslationalIdleDeccelerationRate / 10;
-      // 2.2 *
-      // constants.kMultiplier /
-      // (constants.kHalfHeight * constants.kHalfWidth);
+      //   // 2.2 *
+      //   // constants.kMultiplier /
+      //   // (constants.kHalfHeight * constants.kHalfWidth);
     }
   }
 
   @override
   FutureOr<void> secondJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    body.angularVelocity
-        .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
+    body.angularVelocity.clamp(
+        -constants.kMaxAngularSpeed / 10, constants.kMaxAngularSpeed / 10);
     body.applyAngularImpulse(
         value.x * constants.kAngularAccelerationRate * constants.kMultiplier);
+    // body.applyTorque(value.x *
+    //     constants.kAngularAccelerationRate *
+    //     constants.kAngularAccelerationRate *
+    //     constants.kMultiplier);
+
+    // body.applyForce(
+    //     -value *
+    //         constants.kAngularAccelerationRate *
+    //         constants.kAngularAccelerationRate *
+    //         constants.kMultiplier /
+    //         2,
+    //     point: body.position
+    //       ..x += constants.kHalfHeight * 2
+    //       ..y = constants.kHalfWidth * 2);
 
     if (kDebugMode) {
-      print(body.angularVelocity * 1 / kPixelScale);
+      print(body.angularVelocity);
     }
     if (body.angularVelocity.abs() >
         value.x.abs() * constants.kAngularAccelerationRate) {

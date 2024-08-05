@@ -139,6 +139,7 @@ class SpriteBackground extends SpriteComponent {
 
     super.position = Vector2((findGame() as Forge2DGame).size.x / -20,
         (findGame() as Forge2DGame).size.y / -20);
+
     // super.position = Vector2(-kWorldSize.x / 2, -kWorldSize.y / 2);
   }
 

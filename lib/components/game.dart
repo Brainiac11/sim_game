@@ -57,7 +57,8 @@ class RoboticsGame extends Forge2DGame
       : super(
           zoom: zoomLevel,
           gravity: Vector2.zero(),
-          // camera: CameraComponent.withFixedResolution(width: 800, height: 600),
+          // camera:
+          // CameraComponent.withFixedResolution(width: 3072, height: 1420),
           // camera: CameraComponent.withFixedResolution(
           //   width: getCurrentImageSize().width,
           //   height: getCurrentImageSize().height,
