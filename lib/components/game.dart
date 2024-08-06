@@ -12,6 +12,7 @@ import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/field_elements/obstacles/obstacle.dart';
 import 'package:player_move/components/field_elements/obstacles/obstacles_constants.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
+import 'package:player_move/components/game_piece/game_piece_enum.dart';
 import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/constants.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
@@ -126,8 +127,10 @@ class RoboticsGame extends Forge2DGame
     await world.add(robot);
     // await world.add(robot2);
     camera.viewfinder.anchor = Anchor.center;
-    gamePiece = GamePiece(position: Vector2(10, 10));
-    gamePiece2 = GamePiece(position: Vector2(20, 10));
+    gamePiece = GamePiece(
+        position: Vector2(10, 10), gamePieceState: GamePieceEnum.normal);
+    gamePiece2 = GamePiece(
+        position: Vector2(20, 10), gamePieceState: GamePieceEnum.normal);
     await world.add(gamePiece2);
     await world.add(gamePiece);
     gradientHud = GradientHud()

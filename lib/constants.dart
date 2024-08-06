@@ -33,12 +33,12 @@ enum CollisionFilters {
   canCollide,
   cannotCollide;
 
-  final int everything = 0;
-  final int onlyShotGamePiece = 1;
-  final int onlyRobot = 2;
-  final int onlyFerryedGamePiece = 3;
-  final int shotAndFerryedGamePiece = 4;
-  final int none = 5;
+  final int everything = 0x0;
+  final int onlyShotGamePiece = 0x1;
+  final int onlyRobot = 0x2;
+  final int onlyFerryedGamePiece = 0x3;
+  final int shotAndFerryedGamePiece = 0x3 + 0x1;
+  final int none = 0x5;
 }
 
 // const kMaxTranslationalSpeed = 40.0;

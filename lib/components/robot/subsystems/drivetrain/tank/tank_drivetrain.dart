@@ -8,6 +8,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
+import 'package:player_move/constants.dart';
 import 'package:player_move/providers/robot/robot_provider.dart';
 part 'tank_drivetrain.g.dart';
 
@@ -18,18 +19,51 @@ class TankDrivetrain extends Drivetrain {
     required super.motors,
   }) : super(name: kName);
 
+  // @override
+  // FutureOr<void> firstJoystickMovement(
+  //     Vector2 value, Body body, RobotConstants constants) async {
+  //   Vector2 robotRelativeTranslation = Vector2(0, value.y);
+  //   // robotRelativeTranslation.length = value.y;
+  //   robotRelativeTranslation.rotate(body.angle);
+  //   body.applyLinearImpulse(robotRelativeTranslation *
+  //       constants.kTranslationalAccelerationRate *
+  //       constants.kMultiplier);
+
+  //   if (kDebugMode) {
+  //     print(body.linearVelocity.length);
+
+  //     // print(constants.kMultiplier);
+  //   }
+  //   body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
+  //   if (body.linearVelocity.length >
+  //       value.y.abs() * constants.kTranslationalAccelerationRate) {
+  //     body.linearDamping = constants.kTranslationalDeccelerationRate;
+  //   } else {
+  //     body.linearDamping = constants.kTranslationalIdleDeccelerationRate *
+  //         2.2 *
+  //         constants.kMultiplier /
+  //         (constants.kHalfHeight * constants.kHalfWidth);
+  //   }
+  // }
+
   @override
   FutureOr<void> firstJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
     Vector2 robotRelativeTranslation = Vector2(0, value.y);
-    // robotRelativeTranslation.length = value.y;
+    robotRelativeTranslation.length = value.y.abs();
     robotRelativeTranslation.rotate(body.angle);
-    body.applyLinearImpulse(robotRelativeTranslation *
-        constants.kTranslationalAccelerationRate *
-        constants.kMultiplier);
+    body.applyForce(
+      robotRelativeTranslation *
+          constants.kTranslationalAccelerationRate *
+          constants.kMultiplier *
+          body.inertia,
+    );
+    // body.applyLinearImpulse(value *
+    //     constants.kTranslationalAccelerationRate *
+    //     constants.kMultiplier);
 
     if (kDebugMode) {
-      print(body.linearVelocity.length);
+      print(body.linearVelocity.length * 1 / kPixelScale);
 
       // print(constants.kMultiplier);
     }
@@ -38,32 +72,68 @@ class TankDrivetrain extends Drivetrain {
         value.y.abs() * constants.kTranslationalAccelerationRate) {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
-      body.linearDamping = constants.kTranslationalIdleDeccelerationRate *
-          2.2 *
-          constants.kMultiplier /
-          (constants.kHalfHeight * constants.kHalfWidth);
+      body.linearDamping =
+          constants.kTranslationalIdleDeccelerationRate * constants.kMultiplier;
+      //   // 2.2 *
+      //   // constants.kMultiplier /
+      //   // (constants.kHalfHeight * constants.kHalfWidth);
     }
   }
 
   @override
   FutureOr<void> secondJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    body.angularVelocity
-        .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
+    body.angularVelocity.clamp(
+        -constants.kMaxAngularSpeed / 10, constants.kMaxAngularSpeed / 10);
     body.applyAngularImpulse(
         value.x * constants.kAngularAccelerationRate * constants.kMultiplier);
+    // body.applyTorque(value.x *
+    //     constants.kAngularAccelerationRate *
+    //     constants.kAngularAccelerationRate *
+    //     constants.kMultiplier);
 
+    // body.applyForce(
+    //     -value *
+    //         constants.kAngularAccelerationRate *
+    //         constants.kAngularAccelerationRate *
+    //         constants.kMultiplier /
+    //         2,
+    //     point: body.position
+    //       ..x += constants.kHalfHeight * 2
+    //       ..y = constants.kHalfWidth * 2);
+
+    if (kDebugMode) {
+      print(body.angularVelocity);
+    }
     if (body.angularVelocity.abs() >
         value.x.abs() * constants.kAngularAccelerationRate) {
-      body.angularDamping =
-          constants.kAngularDeccelerationRate * constants.kMultiplier;
+      body.angularDamping = constants.kAngularDeccelerationRate;
+    } else if (body.angularVelocity.abs() >= constants.kMaxAngularSpeed * 1) {
+      body.angularDamping = constants.kAngularDeccelerationRate / 15;
     } else {
-      body.angularDamping = constants.kAngularIdleDeccelerationRate *
-          1.2 *
-          constants.kMultiplier /
-          (constants.kHalfHeight * constants.kHalfWidth);
+      body.angularDamping =
+          constants.kMultiplier / constants.kAngularIdleDeccelerationRate;
     }
   }
+  // @override
+  // FutureOr<void> secondJoystickMovement(
+  //     Vector2 value, Body body, RobotConstants constants) async {
+  //   body.angularVelocity
+  //       .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
+  //   body.applyAngularImpulse(
+  //       value.x * constants.kAngularAccelerationRate * constants.kMultiplier);
+
+  //   if (body.angularVelocity.abs() >
+  //       value.x.abs() * constants.kAngularAccelerationRate) {
+  //     body.angularDamping =
+  //         constants.kAngularDeccelerationRate * constants.kMultiplier;
+  //   } else {
+  //     body.angularDamping = constants.kAngularIdleDeccelerationRate *
+  //         1.2 *
+  //         constants.kMultiplier /
+  //         (constants.kHalfHeight * constants.kHalfWidth);
+  //   }
+  // }
 
   factory TankDrivetrain.fromJson(Map<String, dynamic> json) =>
       _$TankDrivetrainFromJson(json);

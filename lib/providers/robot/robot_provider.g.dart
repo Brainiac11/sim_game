@@ -6,7 +6,7 @@ part of 'robot_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$robotProviderHash() => r'4e8762e1204b2d664d37eed6470ed2ceabb0e8b2';
+String _$robotProviderHash() => r'60089c709c3a97caca21538d175794998bb9e999';
 
 /// See also [RobotProvider].
 @ProviderFor(RobotProvider)

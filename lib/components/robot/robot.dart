@@ -7,6 +7,8 @@ import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:player_move/components/border/border.dart';
+import 'package:player_move/components/field_elements/obstacles/obstacle.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/states/robot_states.dart';
@@ -96,6 +98,11 @@ class Robot extends BodyComponent
     } else if (other.runtimeType == Robot) {
       if (ref.read(settingsNotifierProvider).haptics) {
         HapticFeedback.mediumImpact();
+      }
+    } else if (other.runtimeType == BorderEdge ||
+        other.runtimeType == Obstacle) {
+      if (ref.read(settingsNotifierProvider).haptics) {
+        HapticFeedback.lightImpact();
       }
     }
     super.beginContact(other, contact);

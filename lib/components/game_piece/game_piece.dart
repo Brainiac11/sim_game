@@ -5,6 +5,8 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 // import 'package:flutter/material.dart';
 import 'package:player_move/components/game_piece/game_piece_config.dart';
+import 'package:player_move/components/game_piece/game_piece_enum.dart';
+import 'package:player_move/constants.dart';
 
 class GamePiece extends BodyComponent {
   final Vector2 size = gamePieceSize;
@@ -12,13 +14,15 @@ class GamePiece extends BodyComponent {
   late FixtureDef fixtureDef;
   late BodyDef gamePieceDef;
   late final Sprite sprite;
-
+  GamePieceEnum gamePieceState;
+  late Filter collisionFilter;
   SpriteComponent? spriteComponent;
   @override
   Vector2 position;
 
   GamePiece({
     required this.position,
+    required this.gamePieceState,
   });
   @override
   FutureOr<void> onMount() {
@@ -71,5 +75,24 @@ class GamePiece extends BodyComponent {
       ..restitution = .1;
 
     return world.createBody(gamePieceDef)..createFixture(fixtureDef);
+  }
+
+  void setCollisionFilter() {
+    switch (gamePieceState) {
+      case GamePieceEnum.normal:
+        collisionFilter = Filter()
+          ..categoryBits = CollisionFilters.canCollide.everything;
+        break;
+      case GamePieceEnum.shot:
+        collisionFilter = Filter()
+          ..categoryBits = CollisionFilters.canCollide.onlyShotGamePiece;
+        break;
+      case GamePieceEnum.ferryed:
+        collisionFilter = Filter()
+          ..categoryBits = CollisionFilters.canCollide.onlyFerryedGamePiece;
+        break;
+      default:
+        throw (Exception("Error: GamePieceState is not recognized"));
+    }
   }
 }
