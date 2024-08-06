@@ -1,16 +1,12 @@
 import 'dart:async';
 
 import 'package:flame_forge2d/flame_forge2d.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
-import 'package:player_move/components/robot/robot.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/swerve/swerve_drivetrain.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_drivetrain.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
-import 'package:player_move/constants.dart';
-import 'package:player_move/providers/robot/robot_provider.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
 abstract class Drivetrain {

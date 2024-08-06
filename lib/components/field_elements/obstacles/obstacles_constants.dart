@@ -95,7 +95,7 @@ List<Shape> obstaclesShapesList = List.from(
       ..set(
         List.from(
           [
-            Vector2(140, 50) * kPixelScale,
+            Vector2(140, 51) * kPixelScale,
             Vector2(109, 70) * kPixelScale,
             Vector2(141, 70) * kPixelScale,
           ],
@@ -113,3 +113,17 @@ List<Shape> obstaclesShapesList = List.from(
       ),
   ],
 );
+
+// TODO
+List<Shape> filteredObstaclesShapeList = List.from([
+  PolygonShape()
+    ..set(
+      List.from(
+        [
+          Vector2(-140, 51) * kPixelScale,
+          Vector2(-109, 70) * kPixelScale,
+          Vector2(-140, 70) * kPixelScale,
+        ],
+      ),
+    ),
+]);

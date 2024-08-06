@@ -10,7 +10,9 @@ class Obstacle extends BodyComponent {
 
   Shape obstacleShape;
 
-  Obstacle({required this.obstacleShape});
+  int? collisionGroup = 0;
+
+  Obstacle({required this.obstacleShape, this.collisionGroup});
 
   @override
   Body createBody() {
@@ -30,12 +32,12 @@ class Obstacle extends BodyComponent {
       obstacleShape,
       userData: this,
       friction: 0.5,
-      // filter: Filter()..groupIndex = 1,
+      filter: Filter()..groupIndex = collisionGroup ?? 0,
     );
 
     if (kDebugMode) {
       debugMode = true;
-      super.setColor(Color.fromRGBO(255, 255, 255, 0.2));
+      super.setColor(const Color.fromRGBO(255, 255, 255, 0.2));
     }
 
     return world.createBody(obstacleDef)..createFixture(fixtureDef);

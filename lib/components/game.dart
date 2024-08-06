@@ -17,7 +17,6 @@ import 'package:player_move/constants.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_enum.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_widget.dart';
-import 'package:player_move/providers/robot/robot_provider.dart';
 // const double ppm = 10.0; // Pixels per meter
 
 late BuildContext universalContext;
