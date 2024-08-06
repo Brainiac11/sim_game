@@ -85,8 +85,6 @@ class RoboticsGame extends Forge2DGame
   Future<void> onLoad() async {
     Flame.device.fullScreen();
     Flame.device.setLandscape();
-    double scaleX = camera.viewport.size.x / referenceWidth;
-    double scaleY = camera.viewport.size.y / referenceHeight;
     // camera = CameraComponent.withFixedResolution(
     //     width: getCurrentImageSize().width / 4,
     //     height: getCurrentImageSize().height / 4);
