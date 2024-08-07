@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/field_elements/obstacles/obstacle.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
+import 'package:player_move/components/game_piece/game_piece_config.dart';
+import 'package:player_move/components/game_piece/game_piece_enum.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/states/robot_states.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
@@ -208,7 +210,7 @@ class Robot extends BodyComponent
       ..density = constants.kDensity
       ..friction = constants.kFriction
       ..restitution = constants.kRestitution
-      ..filter = (Filter()..categoryBits = 0x2);
+      ..filter = (Filter()..maskBits = 0x4);
 
     return world.createBody(robotDef)..createFixture(fixtureDef!);
   }
@@ -228,5 +230,13 @@ class Robot extends BodyComponent
     super.render(canvas);
   }
 
-  void shootGamePiece() {}
+  void shootGamePiece() async {
+    GamePiece gamePiece =
+        GamePiece(position: position, gamePieceState: GamePieceEnum.shot);
+
+    await world.add(gamePiece);
+    gamePiece
+      ..body.applyLinearImpulse(Vector2(2000, 0))
+      ..body.linearDamping = 0.0;
+  }
 }

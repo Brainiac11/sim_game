@@ -31,6 +31,9 @@ const kRotationalScale = 1;
 
 mixin CollisionCategoryFilters {
   final int everything = 0x1;
+  final int robot = 0x2;
+  final int shotGamePiece = 0x3;
+  final int ferryedGamePiece = 0x4;
   final int none = 0x0;
 }
 
@@ -40,6 +43,14 @@ mixin CollisionMaskFilters {
   final int onlyFerryedGamePiece = 0x3;
   final int shotAndFerryedGamePiece = 0x4;
   final int none = 0x0;
+}
+
+mixin EntityCategory {
+  final int boundary = 0x0001;
+  final int robot = 0x0002;
+  final int note = 0x0004;
+  final int shotNote = 0x0008;
+  final int ferryedNote = 0x0010;
 }
 
 // const kMaxTranslationalSpeed = 40.0;

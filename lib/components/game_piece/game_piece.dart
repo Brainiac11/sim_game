@@ -84,9 +84,8 @@ class GamePiece extends BodyComponent
         collisionFilter = Filter()..categoryBits = super.everything;
         break;
       case GamePieceEnum.shot:
-        collisionFilter = Filter()
-          ..categoryBits = super.everything
-          ..maskBits = super.onlyShotGamePiece;
+        collisionFilter = Filter()..categoryBits = 0x0;
+        // ..maskBits = super.everything;
         break;
       case GamePieceEnum.ferryed:
         collisionFilter = Filter()
