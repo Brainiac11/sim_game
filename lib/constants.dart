@@ -29,16 +29,17 @@ double kPixelScale = kScreenSize.length / Vector2(3072, 1420).length;
 MassData kRobotMass = MassData()..mass = 60;
 const kRotationalScale = 1;
 
-enum CollisionFilters {
-  canCollide,
-  cannotCollide;
+mixin CollisionCategoryFilters {
+  final int everything = 0x1;
+  final int none = 0x0;
+}
 
-  final int everything = 0x0;
+mixin CollisionMaskFilters {
   final int onlyShotGamePiece = 0x1;
   final int onlyRobot = 0x2;
   final int onlyFerryedGamePiece = 0x3;
-  final int shotAndFerryedGamePiece = 0x3 + 0x1;
-  final int none = 0x5;
+  final int shotAndFerryedGamePiece = 0x4;
+  final int none = 0x0;
 }
 
 // const kMaxTranslationalSpeed = 40.0;

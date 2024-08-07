@@ -3,8 +3,10 @@ import 'dart:ui';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:player_move/constants.dart';
 
-class Obstacle extends BodyComponent {
+class Obstacle extends BodyComponent
+    with CollisionCategoryFilters, CollisionMaskFilters {
   late FixtureDef fixtureDef;
   late BodyDef obstacleDef;
 
@@ -32,7 +34,10 @@ class Obstacle extends BodyComponent {
       obstacleShape,
       userData: this,
       friction: 0.5,
-      filter: Filter()..groupIndex = collisionGroup ?? 0,
+      // UPDATE
+      filter: Filter()
+        ..categoryBits = super.everything
+        ..maskBits = super.onlyFerryedGamePiece,
     );
 
     if (kDebugMode) {

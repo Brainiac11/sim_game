@@ -8,7 +8,8 @@ import 'package:player_move/components/game_piece/game_piece_config.dart';
 import 'package:player_move/components/game_piece/game_piece_enum.dart';
 import 'package:player_move/constants.dart';
 
-class GamePiece extends BodyComponent {
+class GamePiece extends BodyComponent
+    with CollisionCategoryFilters, CollisionMaskFilters {
   final Vector2 size = gamePieceSize;
   late Shape shape;
   late FixtureDef fixtureDef;
@@ -80,16 +81,17 @@ class GamePiece extends BodyComponent {
   void setCollisionFilter() {
     switch (gamePieceState) {
       case GamePieceEnum.normal:
-        collisionFilter = Filter()
-          ..categoryBits = CollisionFilters.canCollide.everything;
+        collisionFilter = Filter()..categoryBits = super.everything;
         break;
       case GamePieceEnum.shot:
         collisionFilter = Filter()
-          ..categoryBits = CollisionFilters.canCollide.onlyShotGamePiece;
+          ..categoryBits = super.everything
+          ..maskBits = super.onlyShotGamePiece;
         break;
       case GamePieceEnum.ferryed:
         collisionFilter = Filter()
-          ..categoryBits = CollisionFilters.canCollide.onlyFerryedGamePiece;
+          ..categoryBits = super.everything
+          ..maskBits = super.onlyFerryedGamePiece;
         break;
       default:
         throw (Exception("Error: GamePieceState is not recognized"));

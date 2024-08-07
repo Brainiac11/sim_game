@@ -94,6 +94,9 @@ class Robot extends BodyComponent
           state == RobotStates.intaking) {
         fixturesToDelete.addAll(contact.bodyB.fixtures);
         gamePiece = contact.bodyB.userData as GamePiece;
+        if (ref.read(settingsNotifierProvider).haptics) {
+          HapticFeedback.heavyImpact();
+        }
       }
     } else if (other.runtimeType == Robot) {
       if (ref.read(settingsNotifierProvider).haptics) {
@@ -204,7 +207,8 @@ class Robot extends BodyComponent
     fixtureDef = FixtureDef(shape)
       ..density = constants.kDensity
       ..friction = constants.kFriction
-      ..restitution = constants.kRestitution;
+      ..restitution = constants.kRestitution
+      ..filter = (Filter()..categoryBits = 0x2);
 
     return world.createBody(robotDef)..createFixture(fixtureDef!);
   }
