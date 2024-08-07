@@ -1,5 +1,4 @@
 import 'package:flame/game.dart';
-import 'package:flutter/widgets.dart';
 import 'package:player_move/constants.dart';
 
 /// 0th element is position

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -182,6 +183,10 @@ class RoboticsGame extends Forge2DGame
 
   void robotIntake() {
     robot.intakeGamePiece();
+  }
+
+  void robotShoot() {
+    robot.shootGamePiece();
   }
 
   void resizeBackground(Vector2 screenSize) {

@@ -46,7 +46,9 @@ class MatchPageState extends State<MatchPage> {
     game.robotIntake();
   }
 
-  late RobotButton intakeButton;
+  void onShootingButtonPressed() {
+    game.robotShoot();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +123,27 @@ class MatchPageState extends State<MatchPage> {
                     return value;
                   }),
                   onPressed: onIntakeButtonPressed,
+                  width: 75,
+                  height: 75,
+                  label: const Text(""),
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                maxRadius: 30,
+                foregroundColor: Colors.blue[900]!,
+                child: SpriteButton.future(
+                  sprite: Sprite.load("intake_button.png"),
+                  pressedSprite: Sprite.load("intake_button.png").then((value) {
+                    value.paint.invertColors = true;
+                    return value;
+                  }),
+                  onPressed: onShootingButtonPressed,
                   width: 75,
                   height: 75,
                   label: const Text(""),

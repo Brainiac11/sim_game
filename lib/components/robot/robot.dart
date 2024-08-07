@@ -227,4 +227,6 @@ class Robot extends BodyComponent
         themeMode == ThemeMode.dark ? Colors.white : Colors.black;
     super.render(canvas);
   }
+
+  void shootGamePiece() {}
 }
