@@ -8,11 +8,7 @@ import 'package:player_move/providers/settings/settings_notifier.dart';
 
 /// Border Edge can either have a borderKey for the field edges,
 /// or a manual position and size for field element obstacles
-class BorderEdge extends BodyComponent
-    with
-        RiverpodComponentMixin,
-        CollisionMaskFilters,
-        CollisionCategoryFilters {
+class BorderEdge extends BodyComponent with RiverpodComponentMixin {
   BorderEdge({this.borderKey, this.positionOfEdge, this.size});
   ValueKey<String>? borderKey;
   Vector2? positionOfEdge;
@@ -85,8 +81,13 @@ class BorderEdge extends BodyComponent
     //   type: BodyType.static,
     // );
     // shape = EdgeShape()..set(Vector2.zero(), Vector2(0, kWorldSize.y));
-    fixtureDef = FixtureDef(shape,
-        friction: 0.9, filter: Filter()..categoryBits = super.everything);
+    fixtureDef = FixtureDef(
+      shape,
+      friction: 0.9,
+      filter: Filter()
+        ..categoryBits = CollisionCategoryBits.bit.boundaries
+        ..maskBits = CollisionMaskBits.bit.boundaries,
+    );
     return world.createBody(borderDef)..createFixture(fixtureDef);
   }
 

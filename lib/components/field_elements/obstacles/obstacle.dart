@@ -5,8 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:player_move/constants.dart';
 
-class Obstacle extends BodyComponent
-    with CollisionCategoryFilters, CollisionMaskFilters {
+class Obstacle extends BodyComponent {
   late FixtureDef fixtureDef;
   late BodyDef obstacleDef;
 
@@ -36,8 +35,8 @@ class Obstacle extends BodyComponent
       friction: 0.5,
       // UPDATE
       filter: Filter()
-        ..categoryBits = super.everything
-        ..maskBits = super.onlyFerryedGamePiece,
+        ..categoryBits = CollisionCategoryBits.bit.general
+        ..maskBits = CollisionMaskBits.bit.general,
     );
 
     if (kDebugMode) {

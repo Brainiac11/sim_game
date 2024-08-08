@@ -26,8 +26,24 @@ class GamePiece extends BodyComponent {
   });
   @override
   FutureOr<void> onMount() {
-    body.angularDamping = GamePieceDampening;
-    body.linearDamping = GamePieceDampening;
+    switch (gamePieceState) {
+      case GamePieceEnum.normal:
+        body.angularDamping = GamePieceDampening;
+        body.linearDamping = GamePieceDampening;
+        break;
+
+      case GamePieceEnum.shot:
+        body.angularDamping = 0;
+        body.linearDamping = 0;
+        break;
+      case GamePieceEnum.ferryed:
+        body.angularDamping = 0;
+        body.linearDamping = 0;
+        break;
+      default:
+        throw (Exception("Error: GamePieceState not recognized"));
+    }
+
     super.onMount();
   }
 
@@ -65,6 +81,7 @@ class GamePiece extends BodyComponent {
       bullet: true,
       userData: this,
     );
+    setCollisionFilter();
     shape = CircleShape()
       ..radius = Vector2((super.findGame() as Forge2DGame).size.length / 1450,
               (super.findGame() as Forge2DGame).size.length / 1450)
@@ -72,7 +89,8 @@ class GamePiece extends BodyComponent {
     fixtureDef = FixtureDef(shape)
       ..density = 0.5
       ..friction = 1.0
-      ..restitution = .1;
+      ..restitution = .1
+      ..filter = collisionFilter;
 
     return world.createBody(gamePieceDef)..createFixture(fixtureDef);
   }
@@ -89,7 +107,6 @@ class GamePiece extends BodyComponent {
           ..categoryBits =
               CollisionCategoryBits.bit.shootingGamePieceInteractions
           ..maskBits = CollisionMaskBits.bit.shootingGamePieceInteractions;
-        // ..maskBits = super.everything;
         break;
       case GamePieceEnum.ferryed:
         collisionFilter = Filter()

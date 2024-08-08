@@ -50,10 +50,15 @@ enum CollisionCategory {
 enum CollisionMaskBits {
   bit;
 
-  final int boundaries = 0xFFFF;
-  final int general = 0xFFD3;
-  final int shootingGamePieceInteractions = 0xFF95;
-  final int ferryingGamePieceInteractions = 0xFFC9;
+  // final int boundaries = 0xFFFF;
+  // final int general = 0xFFD3;
+  // final int shootingGamePieceInteractions = 0xFF95;
+  // final int ferryingGamePieceInteractions = 0xFFC9;
+
+  final int boundaries = 65535;
+  final int general = 65491;
+  final int shootingGamePieceInteractions = 65429;
+  final int ferryingGamePieceInteractions = 65481;
 }
 // const kMaxTranslationalSpeed = 40.0;
 // const kMaxRotationalSpeed = 8.0;

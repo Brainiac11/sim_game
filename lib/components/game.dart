@@ -131,7 +131,7 @@ class RoboticsGame extends Forge2DGame
     gamePiece = GamePiece(
         position: Vector2(10, 10), gamePieceState: GamePieceEnum.normal);
     gamePiece2 = GamePiece(
-        position: Vector2(20, 10), gamePieceState: GamePieceEnum.normal);
+        position: Vector2(20, 10), gamePieceState: GamePieceEnum.shot);
     await world.add(gamePiece2);
     await world.add(gamePiece);
     gradientHud = GradientHud()

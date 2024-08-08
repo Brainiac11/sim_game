@@ -210,7 +210,9 @@ class Robot extends BodyComponent
       ..density = constants.kDensity
       ..friction = constants.kFriction
       ..restitution = constants.kRestitution
-      ..filter = (Filter()..maskBits = 0x4);
+      ..filter = (Filter()
+        ..categoryBits = CollisionCategoryBits.bit.general
+        ..maskBits = CollisionMaskBits.bit.general);
 
     return world.createBody(robotDef)..createFixture(fixtureDef!);
   }
@@ -235,8 +237,6 @@ class Robot extends BodyComponent
         GamePiece(position: position, gamePieceState: GamePieceEnum.shot);
 
     await world.add(gamePiece);
-    gamePiece
-      ..body.applyLinearImpulse(Vector2(2000, 0))
-      ..body.linearDamping = 0.0;
+    gamePiece.body.applyLinearImpulse(Vector2(1200, 0));
   }
 }
