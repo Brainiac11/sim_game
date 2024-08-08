@@ -29,30 +29,32 @@ double kPixelScale = kScreenSize.length / Vector2(3072, 1420).length;
 MassData kRobotMass = MassData()..mass = 60;
 const kRotationalScale = 1;
 
-mixin CollisionCategoryFilters {
-  final int everything = 0x1;
-  final int robot = 0x2;
-  final int shotGamePiece = 0x3;
-  final int ferryedGamePiece = 0x4;
-  final int none = 0x0;
+enum CollisionCategoryBits {
+  bit;
+
+  final int boundaries = 0x1;
+  final int general = 0x2;
+  final int shootingGamePieceInteractions = 0x4;
+  final int ferryingGamePieceInteractions = 0x8;
 }
 
-mixin CollisionMaskFilters {
-  final int onlyShotGamePiece = 0x1;
-  final int onlyRobot = 0x2;
-  final int onlyFerryedGamePiece = 0x3;
-  final int shotAndFerryedGamePiece = 0x4;
-  final int none = 0x0;
+enum CollisionCategory {
+  category;
+
+  final int boundaries = 1;
+  final int general = 2;
+  final int shootingGamePieceInteractions = 4;
+  final int ferryingGamePieceInteractions = 8;
 }
 
-mixin EntityCategory {
-  final int boundary = 0x0001;
-  final int robot = 0x0002;
-  final int note = 0x0004;
-  final int shotNote = 0x0008;
-  final int ferryedNote = 0x0010;
-}
+enum CollisionMaskBits {
+  bit;
 
+  final int boundaries = 0xFFFF;
+  final int general = 0xFFD3;
+  final int shootingGamePieceInteractions = 0xFF95;
+  final int ferryingGamePieceInteractions = 0xFFC9;
+}
 // const kMaxTranslationalSpeed = 40.0;
 // const kMaxRotationalSpeed = 8.0;
 
