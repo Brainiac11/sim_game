@@ -25,7 +25,27 @@ class GamePiece extends BodyComponent {
     required this.gamePieceState,
   });
   @override
+  void update(double dt) {
+    if (body.linearVelocity.length <= 1 &&
+        (gamePieceState == GamePieceEnum.shot ||
+            gamePieceState == GamePieceEnum.ferryed)) {
+      gamePieceState = GamePieceEnum.normal;
+
+      setCollisionFilter();
+      fixtureDef.filter = collisionFilter;
+      stateChanger();
+      createBody();
+    }
+    super.update(dt);
+  }
+
+  @override
   FutureOr<void> onMount() {
+    stateChanger();
+    super.onMount();
+  }
+
+  void stateChanger() {
     switch (gamePieceState) {
       case GamePieceEnum.normal:
         body.angularDamping = GamePieceDampening;
@@ -33,8 +53,8 @@ class GamePiece extends BodyComponent {
         break;
 
       case GamePieceEnum.shot:
-        body.angularDamping = 0;
-        body.linearDamping = 0;
+        body.angularDamping = 10;
+        body.linearDamping = 10;
         break;
       case GamePieceEnum.ferryed:
         body.angularDamping = 0;
@@ -43,8 +63,6 @@ class GamePiece extends BodyComponent {
       default:
         throw (Exception("Error: GamePieceState not recognized"));
     }
-
-    super.onMount();
   }
 
   // @override

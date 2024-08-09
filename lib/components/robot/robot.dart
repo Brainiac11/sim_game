@@ -237,6 +237,6 @@ class Robot extends BodyComponent
         GamePiece(position: position, gamePieceState: GamePieceEnum.shot);
 
     await world.add(gamePiece);
-    gamePiece.body.applyLinearImpulse(Vector2(1200, 0));
+    gamePiece.body.applyLinearImpulse(Vector2(0, 5000)..rotate(super.angle));
   }
 }
