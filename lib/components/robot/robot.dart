@@ -60,8 +60,8 @@ class Robot extends BodyComponent
     }
 
     if (gamePiece != null) {
-      if (gamePiece!.spriteComponent != null) {
-        super.add(gamePiece!.spriteComponent!);
+      if (gamePiece!.spriteComponent != null && state == RobotStates.intaking) {
+        add(gamePiece!.spriteComponent!);
         state = RobotStates.hasGamePiece;
         GradientHud.gradientEnum = GradientEnum.hasGamePiece;
       }
@@ -76,7 +76,7 @@ class Robot extends BodyComponent
     await super.onLoad();
 
     if (kDebugMode) {
-      renderBody = true;
+      renderBody = false;
     } else {
       renderBody = false;
     }
@@ -92,7 +92,7 @@ class Robot extends BodyComponent
       if ((contact.bodyA.localPoint(contact.bodyB.position).screenAngle() *
                       radians2Degrees)
                   .abs() <
-              12 &&
+              14 &&
           state == RobotStates.intaking) {
         fixturesToDelete.addAll(contact.bodyB.fixtures);
         gamePiece = contact.bodyB.userData as GamePiece;
@@ -233,10 +233,23 @@ class Robot extends BodyComponent
   }
 
   void shootGamePiece() async {
-    GamePiece gamePiece =
-        GamePiece(position: position, gamePieceState: GamePieceEnum.shot);
+    if (gamePiece?.spriteComponent != null &&
+        children.contains(gamePiece!.spriteComponent)) {
+      super.remove(gamePiece!.spriteComponent!);
+      gamePiece =
+          GamePiece(position: position, gamePieceState: GamePieceEnum.shot);
+      GradientHud.gradientEnum = GradientEnum.targeting;
+      state = RobotStates.shooting;
+      await world.add(gamePiece!);
 
-    await world.add(gamePiece);
-    gamePiece.body.applyLinearImpulse(Vector2(0, 5000)..rotate(super.angle));
+      gamePiece!.body.applyLinearImpulse(Vector2(0, 5000)..rotate(super.angle));
+      state = RobotStates.normal;
+      gamePiece = null;
+      GradientHud.gradientEnum = GradientEnum.alliance;
+    } else {
+      if (kDebugMode) {
+        print("Cannot Shoot: No Game Piece Present");
+      }
+    }
   }
 }

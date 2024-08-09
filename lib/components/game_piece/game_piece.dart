@@ -14,6 +14,7 @@ class GamePiece extends BodyComponent {
   late FixtureDef fixtureDef;
   late BodyDef gamePieceDef;
   late final Sprite sprite;
+  late Fixture fixture;
   GamePieceEnum gamePieceState;
   late Filter collisionFilter;
   SpriteComponent? spriteComponent;
@@ -32,9 +33,9 @@ class GamePiece extends BodyComponent {
       gamePieceState = GamePieceEnum.normal;
 
       setCollisionFilter();
-      fixtureDef.filter = collisionFilter;
+
       stateChanger();
-      createBody();
+      fixture.filterData = collisionFilter;
     }
     super.update(dt);
   }
@@ -110,7 +111,9 @@ class GamePiece extends BodyComponent {
       ..restitution = .1
       ..filter = collisionFilter;
 
-    return world.createBody(gamePieceDef)..createFixture(fixtureDef);
+    Body gamePieceBody = world.createBody(gamePieceDef);
+    fixture = gamePieceBody.createFixture(fixtureDef);
+    return gamePieceBody;
   }
 
   void setCollisionFilter() {
