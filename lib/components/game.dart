@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:player_move/components/background.dart';
 import 'package:player_move/components/border/border.dart';
 import 'package:player_move/components/field_elements/obstacles/obstacle.dart';
+import 'package:player_move/components/field_elements/obstacles/obstacle_config.dart';
 import 'package:player_move/components/field_elements/obstacles/obstacles_constants.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/game_piece/game_piece_enum.dart';
@@ -112,8 +113,8 @@ class RoboticsGame extends Forge2DGame
       // world.debugMode = true;
     }
     obstacles = List.empty(growable: true);
-    for (Shape obstacleShape in obstaclesShapesList) {
-      obstacles.add(Obstacle(obstacleShape: obstacleShape));
+    for (ObstacleConfig obstacleConfig in obstaclesShapesList) {
+      obstacles.add(Obstacle(obstacleConfig: obstacleConfig));
     }
 
     resizeBackground(kScreenSize);

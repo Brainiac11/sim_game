@@ -3,17 +3,21 @@ import 'dart:ui';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:player_move/components/field_elements/obstacles/obstacle_config.dart';
 import 'package:player_move/constants.dart';
 
-class Obstacle extends BodyComponent {
+class Obstacle extends BodyComponent with ContactCallbacks {
   late FixtureDef fixtureDef;
   late BodyDef obstacleDef;
 
-  Shape obstacleShape;
+  ObstacleConfig obstacleConfig;
 
-  int? collisionGroup = 0;
+  Obstacle({required this.obstacleConfig});
 
-  Obstacle({required this.obstacleShape, this.collisionGroup});
+  @override
+  void beginContact(Object other, Contact contact) {
+    super.beginContact(other, contact);
+  }
 
   @override
   Body createBody() {
@@ -22,7 +26,7 @@ class Obstacle extends BodyComponent {
       userData: this,
       allowSleep: false,
     );
-    List<Vector2> vertices = (obstacleShape as PolygonShape).vertices;
+    List<Vector2> vertices = (obstacleConfig.shape as PolygonShape).vertices;
 
     for (Vector2 vertex in vertices) {
       if (kDebugMode) {
@@ -30,13 +34,11 @@ class Obstacle extends BodyComponent {
       }
     }
     fixtureDef = FixtureDef(
-      obstacleShape,
+      obstacleConfig.shape,
       userData: this,
       friction: 0.5,
-      // UPDATE
-      filter: Filter()
-        ..categoryBits = CollisionCategoryBits.bit.general
-        ..maskBits = CollisionMaskBits.bit.general,
+      isSensor: obstacleConfig.isSensor,
+      filter: obstacleConfig.filter,
     );
 
     if (kDebugMode) {
