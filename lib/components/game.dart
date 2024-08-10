@@ -146,7 +146,7 @@ class RoboticsGame extends Forge2DGame
       ..position = Vector2.zero();
     GradientHud.gradientEnum = GradientEnum.alliance;
     camera.viewport.add(gradientHud);
-    // camera.follow(robot, snap: true);
+    camera.follow(robot, snap: true);
     // camera.setBounds(experimental.Rectangle.fromCenter(
     //     center: background.center, size: background.size));
 

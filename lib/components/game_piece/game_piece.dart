@@ -59,8 +59,8 @@ class GamePiece extends BodyComponent {
         break;
 
       case GamePieceEnum.shot:
-        body.angularDamping = 2;
-        body.linearDamping = 2;
+        body.angularDamping = GamePieceDampening / 10;
+        body.linearDamping = GamePieceDampening / 10;
         break;
       case GamePieceEnum.ferryed:
         body.angularDamping = 0;

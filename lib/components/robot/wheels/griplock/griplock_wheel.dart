@@ -10,7 +10,7 @@ part 'griplock_wheel.g.dart';
 @JsonSerializable(explicitToJson: true)
 class GriplockWheel extends Wheel {
   static const String kName = "Griplock";
-  static const double kAcceleration = 8;
+  static const double kAcceleration = 6;
   static const double kCost = 4;
   GriplockWheel()
       : super(acceleration: kAcceleration, cost: kCost, name: kName);
@@ -27,7 +27,7 @@ class GriplockWheel extends Wheel {
     robot.kAngularAccelerationRate += kAcceleration / 4;
     robot.kAngularDeccelerationRate += Wheel.kWheelDecceleration;
     robot.kAngularIdleDeccelerationRate +=
-        Wheel.kWheelDecceleration / kAcceleration;
+        Wheel.kWheelDecceleration / (kAcceleration * 5);
   }
 
   factory GriplockWheel.fromJson(Map<String, dynamic> json) =>

@@ -26,7 +26,7 @@ class BilletWheel extends Wheel {
     robot.kAngularAccelerationRate += kAcceleration / 4;
     robot.kAngularDeccelerationRate += Wheel.kWheelDecceleration;
     robot.kAngularIdleDeccelerationRate +=
-        Wheel.kWheelDecceleration / kAcceleration;
+        Wheel.kWheelDecceleration / (kAcceleration * 5);
   }
 
   factory BilletWheel.fromJson(Map<String, dynamic> json) =>

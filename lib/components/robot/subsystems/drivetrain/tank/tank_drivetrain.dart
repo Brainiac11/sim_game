@@ -49,66 +49,41 @@ class TankDrivetrain extends Drivetrain {
   @override
   FutureOr<void> firstJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    Vector2 robotRelativeTranslation = Vector2(0, value.y);
-    robotRelativeTranslation.length = value.y.abs();
-    robotRelativeTranslation.rotate(body.angle);
-    body.applyForce(
-      robotRelativeTranslation *
-          constants.kTranslationalAccelerationRate *
-          body.inertia,
-    );
-    // body.applyLinearImpulse(value *
-    //     constants.kTranslationalAccelerationRate *
-    //     constants.kMultiplier);
+    // body.applyForce(
+    //   value * constants.kTranslationalAccelerationRate * body.inertia,
+    // );
+    value.x = 0;
+    body.applyLinearImpulse((value..rotate(body.angle)) *
+        constants.kTranslationalAccelerationRate *
+        body.inertia);
 
-    if (kDebugMode) {
-      print(body.linearVelocity.length * 1 / kPixelScale);
-
-      // print(constants.kMultiplier);
-    }
-    body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
+    body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed / 2);
     if (body.linearVelocity.length >
-        value.y.abs() * constants.kTranslationalAccelerationRate) {
+        value.x * constants.kTranslationalAccelerationRate) {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
       body.linearDamping = constants.kTranslationalIdleDeccelerationRate;
-      //   // 2.2 *
-      //   // constants.kMultiplier /
-      //   // (constants.kHalfHeight * constants.kHalfWidth);
+    }
+    if (kDebugMode) {
+      print(body.linearVelocity.length);
     }
   }
 
   @override
   FutureOr<void> secondJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    body.angularVelocity.clamp(
-        -constants.kMaxAngularSpeed / 10, constants.kMaxAngularSpeed / 10);
     body.applyAngularImpulse(value.x * constants.kAngularAccelerationRate);
-    // body.applyTorque(value.x *
-    //     constants.kAngularAccelerationRate *
-    //     constants.kAngularAccelerationRate *
-    //     constants.kMultiplier);
-
-    // body.applyForce(
-    //     -value *
-    //         constants.kAngularAccelerationRate *
-    //         constants.kAngularAccelerationRate *
-    //         constants.kMultiplier /
-    //         2,
-    //     point: body.position
-    //       ..x += constants.kHalfHeight * 2
-    //       ..y = constants.kHalfWidth * 2);
-
-    if (kDebugMode) {
-      print(body.angularVelocity);
-    }
+    body.angularVelocity
+        .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
     if (body.angularVelocity.abs() >
         value.x.abs() * constants.kAngularAccelerationRate) {
       body.angularDamping = constants.kAngularDeccelerationRate;
-    } else if (body.angularVelocity.abs() >= constants.kMaxAngularSpeed * 1) {
-      body.angularDamping = constants.kAngularDeccelerationRate / 15;
     } else {
-      body.angularDamping = 1 / constants.kAngularIdleDeccelerationRate;
+      body.angularDamping = constants.kAngularIdleDeccelerationRate / 2;
+    }
+    if (kDebugMode) {
+      // print(constants.kAngularIdleDeccelerationRate);
+      print(body.angularVelocity);
     }
   }
   // @override
