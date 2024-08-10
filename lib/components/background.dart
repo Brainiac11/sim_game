@@ -8,6 +8,7 @@ import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:player_move/components/game.dart';
 import 'package:player_move/providers/settings/settings.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 
@@ -21,8 +22,8 @@ class Background extends PositionComponent with RiverpodComponentMixin {
     ui.Codec codec = await ui.instantiateImageCodec(
       allowUpscaling: true,
       data.buffer.asUint8List(),
-      targetHeight: 1420 ~/ 1,
-      targetWidth: 3072 ~/ 1,
+      targetHeight: 1420 ~/ RoboticsGame.zoomLevel,
+      targetWidth: 3072 ~/ RoboticsGame.zoomLevel,
     );
     ui.FrameInfo fi = await codec.getNextFrame();
     // ImageProvider imageProvider = ResizeImage(

@@ -38,7 +38,7 @@ class RoboticsGame extends Forge2DGame
   late GradientHud gradientHud;
   late List<Obstacle> obstacles;
   double x = 0;
-  static double zoomLevel = 1;
+  static double zoomLevel = 80;
 
   double referenceWidth = 3072 / 1;
   double referenceHeight = 1420 / 1;
@@ -118,7 +118,9 @@ class RoboticsGame extends Forge2DGame
     }
 
     // resizeBackground(kScreenSize);
-    await world.add(background..priority = 0);
+    await world.add(background
+      ..priority = 0
+      ..size = Vector2(3072, 1420) / zoomLevel);
     await world.add(BorderEdge(borderKey: const ValueKey("Top")));
     await world.add(BorderEdge(borderKey: const ValueKey("Bottom")));
     await world.add(BorderEdge(borderKey: const ValueKey("Right")));
@@ -126,21 +128,19 @@ class RoboticsGame extends Forge2DGame
     // await world.addAll(obstacles);
     robot = Robot(ref: ref);
     robot2 = Robot(ref: ref);
-    // await world.add(robot);
+    await world.add(robot);
     // await world.add(robot2);
     camera.viewfinder.anchor = Anchor.center;
     gamePiece = GamePiece(
-      position: Vector2(10, 10),
+      position: Vector2(5, 5),
       gamePieceState: GamePieceEnum.normal,
-      kMultiplier: ref.read(robotProviderProvider).kMultiplier,
     );
     gamePiece2 = GamePiece(
-      position: Vector2(20, 10),
+      position: Vector2(7, 7),
       gamePieceState: GamePieceEnum.shot,
-      kMultiplier: ref.read(robotProviderProvider).kMultiplier,
     );
-    // await world.add(gamePiece2);
-    // await world.add(gamePiece);
+    await world.add(gamePiece2);
+    await world.add(gamePiece);
     gradientHud = GradientHud()
       ..size = Vector2(size.x, size.y)
       ..position = Vector2.zero();

@@ -142,18 +142,19 @@ class Robot extends BodyComponent
         print(drivetrain.runtimeType);
       }
       drivetrain?.updateRobotConstants(ref);
-      constants = ref.watch(robotProviderProvider);
-      constants = ref.watch(robotProviderProvider)
-        ..kHalfHeight = (super.findGame() as Forge2DGame).size.x / 440
-        ..kHalfWidth = (super.findGame() as Forge2DGame).size.x / 440;
+      // constants = ref.watch(robotProviderProvider);
+      // constants = ref.watch(robotProviderProvider)
+      //   ..kHalfHeight = (super.findGame() as Forge2DGame).size.x / 440
+      //   ..kHalfWidth = (super.findGame() as Forge2DGame).size.x / 440;
 
       // constants.kMultiplier = body.mass / kRobotMass.mass;
       // constants.kMultiplier = (body.mass / kRobotMass.mass) * kPixelScale;
-      constants.kMultiplier = kPixelScale;
+      // constants.kMultiplier = kPixelScale;
       spriteManager = RobotSpriteManager(drivetrain: drivetrain!);
+
       await intializeSprite();
       if (spriteManager != null && !super.children.contains(spriteManager)) {
-        spriteManager!.scale = Vector2(
+        spriteManager!.size = Vector2(
             ref.read(robotProviderProvider).kHalfWidth * 2,
             ref.read(robotProviderProvider).kHalfHeight * 2);
         await add(spriteManager!);
@@ -201,8 +202,9 @@ class Robot extends BodyComponent
     //       : themeMode = ThemeMode.light;
     // });
     constants = ref.watch(robotProviderProvider)
-      ..kHalfHeight = (super.findGame() as Forge2DGame).size.x / 440
-      ..kHalfWidth = (super.findGame() as Forge2DGame).size.x / 440;
+      ..kHalfHeight = 1
+      ..kHalfWidth = 1
+      ..kDensity = kRobotMass.mass;
     themeMode = ref.watch(settingsNotifierProvider).themeMode;
     shape = PolygonShape()
       ..setAsBox(constants.kHalfWidth, constants.kHalfHeight, Vector2(0, 0), 0);
@@ -236,10 +238,8 @@ class Robot extends BodyComponent
     if (gamePiece?.spriteComponent != null &&
         children.contains(gamePiece!.spriteComponent)) {
       super.remove(gamePiece!.spriteComponent!);
-      gamePiece = GamePiece(
-          position: position,
-          gamePieceState: GamePieceEnum.shot,
-          kMultiplier: constants.kMultiplier);
+      gamePiece =
+          GamePiece(position: position, gamePieceState: GamePieceEnum.shot);
       GradientHud.gradientEnum = GradientEnum.targeting;
       state = RobotStates.shooting;
       await world.add(gamePiece!);

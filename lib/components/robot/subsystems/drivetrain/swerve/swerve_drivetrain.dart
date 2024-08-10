@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forge2d/src/dynamics/body.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:player_move/components/game.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
@@ -69,67 +70,41 @@ class SwerveDrivetrain extends Drivetrain {
   @override
   FutureOr<void> firstJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    body.applyForce(
-      value *
-          constants.kTranslationalAccelerationRate *
-          constants.kMultiplier *
-          body.inertia,
-    );
-    // body.applyLinearImpulse(value *
-    //     constants.kTranslationalAccelerationRate *
-    //     constants.kMultiplier);
+    // body.applyForce(
+    //   value * constants.kTranslationalAccelerationRate * body.inertia,
+    // );
+    body.applyLinearImpulse(
+        value * constants.kTranslationalAccelerationRate * body.inertia);
 
-    if (kDebugMode) {
-      print(body.linearVelocity.length * 1 / kPixelScale);
-
-      // print(constants.kMultiplier);
-    }
-    body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed);
+    body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed / 2);
     if (body.linearVelocity.length >
         value.length * constants.kTranslationalAccelerationRate) {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
-      body.linearDamping =
-          constants.kTranslationalIdleDeccelerationRate * constants.kMultiplier;
-      //   // 2.2 *
-      //   // constants.kMultiplier /
-      //   // (constants.kHalfHeight * constants.kHalfWidth);
+      body.linearDamping = constants.kTranslationalIdleDeccelerationRate;
+    }
+    if (kDebugMode) {
+      print(body.linearVelocity.length);
     }
   }
 
   @override
   FutureOr<void> secondJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    body.angularVelocity.clamp(
-        -constants.kMaxAngularSpeed / 10, constants.kMaxAngularSpeed / 10);
+    body.angularVelocity
+        .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
     body.applyAngularImpulse(
-        value.x * constants.kAngularAccelerationRate * constants.kMultiplier);
-    // body.applyTorque(value.x *
-    //     constants.kAngularAccelerationRate *
-    //     constants.kAngularAccelerationRate *
-    //     constants.kMultiplier);
+        value.x * constants.kAngularAccelerationRate * body.getInertia());
 
-    // body.applyForce(
-    //     -value *
-    //         constants.kAngularAccelerationRate *
-    //         constants.kAngularAccelerationRate *
-    //         constants.kMultiplier /
-    //         2,
-    //     point: body.position
-    //       ..x += constants.kHalfHeight * 2
-    //       ..y = constants.kHalfWidth * 2);
-
-    if (kDebugMode) {
-      print(body.angularVelocity);
-    }
     if (body.angularVelocity.abs() >
         value.x.abs() * constants.kAngularAccelerationRate) {
       body.angularDamping = constants.kAngularDeccelerationRate;
-    } else if (body.angularVelocity.abs() >= constants.kMaxAngularSpeed * 5) {
-      body.angularDamping = constants.kAngularDeccelerationRate / 15;
     } else {
-      body.angularDamping =
-          constants.kMultiplier / constants.kAngularIdleDeccelerationRate;
+      body.angularDamping = constants.kAngularIdleDeccelerationRate;
+    }
+    if (kDebugMode) {
+      // print(constants.kAngularIdleDeccelerationRate);
+      print(body.angularVelocity);
     }
   }
 

@@ -55,7 +55,6 @@ class TankDrivetrain extends Drivetrain {
     body.applyForce(
       robotRelativeTranslation *
           constants.kTranslationalAccelerationRate *
-          constants.kMultiplier *
           body.inertia,
     );
     // body.applyLinearImpulse(value *
@@ -72,8 +71,7 @@ class TankDrivetrain extends Drivetrain {
         value.y.abs() * constants.kTranslationalAccelerationRate) {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
-      body.linearDamping =
-          constants.kTranslationalIdleDeccelerationRate * constants.kMultiplier;
+      body.linearDamping = constants.kTranslationalIdleDeccelerationRate;
       //   // 2.2 *
       //   // constants.kMultiplier /
       //   // (constants.kHalfHeight * constants.kHalfWidth);
@@ -85,8 +83,7 @@ class TankDrivetrain extends Drivetrain {
       Vector2 value, Body body, RobotConstants constants) async {
     body.angularVelocity.clamp(
         -constants.kMaxAngularSpeed / 10, constants.kMaxAngularSpeed / 10);
-    body.applyAngularImpulse(
-        value.x * constants.kAngularAccelerationRate * constants.kMultiplier);
+    body.applyAngularImpulse(value.x * constants.kAngularAccelerationRate);
     // body.applyTorque(value.x *
     //     constants.kAngularAccelerationRate *
     //     constants.kAngularAccelerationRate *
@@ -111,8 +108,7 @@ class TankDrivetrain extends Drivetrain {
     } else if (body.angularVelocity.abs() >= constants.kMaxAngularSpeed * 1) {
       body.angularDamping = constants.kAngularDeccelerationRate / 15;
     } else {
-      body.angularDamping =
-          constants.kMultiplier / constants.kAngularIdleDeccelerationRate;
+      body.angularDamping = 1 / constants.kAngularIdleDeccelerationRate;
     }
   }
   // @override

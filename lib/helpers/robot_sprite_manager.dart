@@ -29,7 +29,7 @@ class RobotSpriteManager extends SpriteComponent {
 
   @override
   FutureOr<void> onMount() async {
-    size = Vector2(1, 1);
+    scale = Vector2(1, 1);
     setThemeModeName();
     await _setCurrentSprite();
     anchor = Anchor.center;

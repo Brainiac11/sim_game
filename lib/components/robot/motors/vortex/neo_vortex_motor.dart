@@ -9,8 +9,8 @@ part 'neo_vortex_motor.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class VortexMotor extends Motor {
-  static const double kAcceleration = 12;
-  static const double kMaximumSpeed = 14;
+  static const double kAcceleration = 9;
+  static const double kMaximumSpeed = 12;
   static const double kCost = 15;
   static const String kName = "Vortex";
   VortexMotor()
@@ -32,7 +32,7 @@ class VortexMotor extends Motor {
         Motor.kMotorDecceleration / (kAcceleration * 2);
     robot.kAngularAccelerationRate += kAcceleration / 2;
     robot.kAngularDeccelerationRate += Motor.kMotorDecceleration / 2;
-    robot.kAngularIdleDeccelerationRate -=
+    robot.kAngularIdleDeccelerationRate +=
         Motor.kMotorDecceleration / (kAcceleration * 2);
   }
 
@@ -40,7 +40,7 @@ class VortexMotor extends Motor {
   FutureOr<void> updateTotalMaxSpeed(WidgetRef ref, dynamic constants) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kMaxTranslationalSpeed += kMaximumSpeed;
-    robot.kMaxAngularSpeed += kMaximumSpeed / 20;
+    robot.kMaxAngularSpeed += kMaximumSpeed / 100;
   }
 
   static Image toImage(BuildContext context) {

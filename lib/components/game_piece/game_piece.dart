@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
+import 'package:player_move/components/game.dart';
 // import 'package:flutter/material.dart';
 import 'package:player_move/components/game_piece/game_piece_config.dart';
 import 'package:player_move/components/game_piece/game_piece_enum.dart';
@@ -23,16 +24,14 @@ class GamePiece extends BodyComponent {
   SpriteComponent? spriteComponent;
   @override
   Vector2 position;
-  double kMultiplier;
 
   GamePiece({
     required this.position,
     required this.gamePieceState,
-    required this.kMultiplier,
   });
   @override
   void update(double dt) {
-    if (body.linearVelocity.length <= 1 &&
+    if (body.linearVelocity.length <= 0.5 &&
         (gamePieceState == GamePieceEnum.shot ||
             gamePieceState == GamePieceEnum.ferryed)) {
       gamePieceState = GamePieceEnum.normal;
@@ -55,17 +54,17 @@ class GamePiece extends BodyComponent {
   FutureOr<void> stateChanger() async {
     switch (gamePieceState) {
       case GamePieceEnum.normal:
-        body.angularDamping = GamePieceDampening * kMultiplier;
-        body.linearDamping = GamePieceDampening * kMultiplier;
+        body.angularDamping = GamePieceDampening;
+        body.linearDamping = GamePieceDampening;
         break;
 
       case GamePieceEnum.shot:
-        body.angularDamping = 2 * kMultiplier;
-        body.linearDamping = 2 * kMultiplier;
+        body.angularDamping = 2;
+        body.linearDamping = 2;
         break;
       case GamePieceEnum.ferryed:
-        body.angularDamping = 0 / kMultiplier;
-        body.linearDamping = 0 / kMultiplier;
+        body.angularDamping = 0;
+        body.linearDamping = 0;
         break;
       default:
         throw (Exception("Error: GamePieceState not recognized"));
@@ -88,8 +87,9 @@ class GamePiece extends BodyComponent {
     }
     spriteComponent = SpriteComponent(
       sprite: sprite,
-      scale: Vector2((super.findGame() as Forge2DGame).size.length / 145000,
-          (super.findGame() as Forge2DGame).size.length / 145000),
+      // scale:
+      //     Vector2(0.5 / RoboticsGame.zoomLevel, 0.5 / RoboticsGame.zoomLevel),
+      size: Vector2(1, 1),
       anchor: Anchor.center,
     );
     await add(spriteComponent!);
@@ -107,10 +107,7 @@ class GamePiece extends BodyComponent {
       userData: this,
     );
     setCollisionFilter();
-    shape = CircleShape()
-      ..radius = Vector2((super.findGame() as Forge2DGame).size.length / 1450,
-              (super.findGame() as Forge2DGame).size.length / 1450)
-          .length;
+    shape = CircleShape()..radius = 0.4;
     fixtureDef = FixtureDef(shape)
       ..density = 0.5
       ..friction = 1.0
