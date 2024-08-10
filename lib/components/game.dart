@@ -20,6 +20,7 @@ import 'package:player_move/constants.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_enum.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_widget.dart';
+import 'package:player_move/providers/robot/robot_provider.dart';
 // const double ppm = 10.0; // Pixels per meter
 
 late BuildContext universalContext;
@@ -60,8 +61,8 @@ class RoboticsGame extends Forge2DGame
       : super(
           zoom: zoomLevel,
           gravity: Vector2.zero(),
-          // camera:
-          // CameraComponent.withFixedResolution(width: 3072, height: 1420),
+          // camera: CameraComponent.withFixedResolution(
+          //     width: 3072 / 4, height: 1420 / 4),
           // camera: CameraComponent.withFixedResolution(
           //   width: getCurrentImageSize().width,
           //   height: getCurrentImageSize().height,
@@ -130,9 +131,15 @@ class RoboticsGame extends Forge2DGame
     // await world.add(robot2);
     camera.viewfinder.anchor = Anchor.center;
     gamePiece = GamePiece(
-        position: Vector2(10, 10), gamePieceState: GamePieceEnum.normal);
+      position: Vector2(10, 10),
+      gamePieceState: GamePieceEnum.normal,
+      kMultiplier: ref.read(robotProviderProvider).kMultiplier,
+    );
     gamePiece2 = GamePiece(
-        position: Vector2(20, 10), gamePieceState: GamePieceEnum.shot);
+      position: Vector2(20, 10),
+      gamePieceState: GamePieceEnum.shot,
+      kMultiplier: ref.read(robotProviderProvider).kMultiplier,
+    );
     await world.add(gamePiece2);
     await world.add(gamePiece);
     gradientHud = GradientHud()

@@ -191,10 +191,10 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(140, -32) * kPixelScale,
-              Vector2(150, -32) * kPixelScale,
-              Vector2(150, -7) * kPixelScale,
-              Vector2(140, -7) * kPixelScale,
+              Vector2(132, -35) * kPixelScale,
+              Vector2(150, -35) * kPixelScale,
+              Vector2(150, -14) * kPixelScale,
+              Vector2(132, -14) * kPixelScale,
             ],
           ),
         ),
@@ -203,6 +203,24 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..maskBits = CollisionMaskBits.bit.shootingGamePieceInteractions,
       isSensor: true,
       key: const Key("Speaker Red Sensor"),
+    ),
+    ObstacleConfig(
+      shape: PolygonShape()
+        ..set(
+          List.from(
+            [
+              Vector2(-132, -35) * kPixelScale,
+              Vector2(-150, -35) * kPixelScale,
+              Vector2(-150, -14) * kPixelScale,
+              Vector2(-132, -14) * kPixelScale,
+            ],
+          ),
+        ),
+      filter: Filter()
+        ..categoryBits = CollisionCategoryBits.bit.shootingGamePieceInteractions
+        ..maskBits = CollisionMaskBits.bit.shootingGamePieceInteractions,
+      isSensor: true,
+      key: const Key("Speaker Blue Sensor"),
     ),
   ],
 );

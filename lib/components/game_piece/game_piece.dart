@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 // import 'package:flutter/material.dart';
 import 'package:player_move/components/game_piece/game_piece_config.dart';
 import 'package:player_move/components/game_piece/game_piece_enum.dart';
+import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/constants.dart';
+import 'package:player_move/providers/robot/robot_provider.dart';
 
 class GamePiece extends BodyComponent {
   final Vector2 size = gamePieceSize;
@@ -20,10 +23,12 @@ class GamePiece extends BodyComponent {
   SpriteComponent? spriteComponent;
   @override
   Vector2 position;
+  double kMultiplier;
 
   GamePiece({
     required this.position,
     required this.gamePieceState,
+    required this.kMultiplier,
   });
   @override
   void update(double dt) {
@@ -43,23 +48,24 @@ class GamePiece extends BodyComponent {
   @override
   FutureOr<void> onMount() {
     stateChanger();
+
     super.onMount();
   }
 
-  void stateChanger() {
+  FutureOr<void> stateChanger() async {
     switch (gamePieceState) {
       case GamePieceEnum.normal:
-        body.angularDamping = GamePieceDampening;
-        body.linearDamping = GamePieceDampening;
+        body.angularDamping = GamePieceDampening * kMultiplier;
+        body.linearDamping = GamePieceDampening * kMultiplier;
         break;
 
       case GamePieceEnum.shot:
-        body.angularDamping = 10;
-        body.linearDamping = 10;
+        body.angularDamping = 2 * kMultiplier;
+        body.linearDamping = 2 * kMultiplier;
         break;
       case GamePieceEnum.ferryed:
-        body.angularDamping = 0;
-        body.linearDamping = 0;
+        body.angularDamping = 0 / kMultiplier;
+        body.linearDamping = 0 / kMultiplier;
         break;
       default:
         throw (Exception("Error: GamePieceState not recognized"));

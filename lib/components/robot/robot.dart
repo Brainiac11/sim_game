@@ -236,13 +236,16 @@ class Robot extends BodyComponent
     if (gamePiece?.spriteComponent != null &&
         children.contains(gamePiece!.spriteComponent)) {
       super.remove(gamePiece!.spriteComponent!);
-      gamePiece =
-          GamePiece(position: position, gamePieceState: GamePieceEnum.shot);
+      gamePiece = GamePiece(
+          position: position,
+          gamePieceState: GamePieceEnum.shot,
+          kMultiplier: constants.kMultiplier);
       GradientHud.gradientEnum = GradientEnum.targeting;
       state = RobotStates.shooting;
       await world.add(gamePiece!);
 
-      gamePiece!.body.applyLinearImpulse(Vector2(0, 5000)..rotate(super.angle));
+      gamePiece!.body
+          .applyLinearImpulse((Vector2(0, 5000)..rotate(super.angle)));
       state = RobotStates.normal;
       gamePiece = null;
       GradientHud.gradientEnum = GradientEnum.alliance;
