@@ -21,8 +21,8 @@ class Background extends PositionComponent with RiverpodComponentMixin {
     ui.Codec codec = await ui.instantiateImageCodec(
       allowUpscaling: true,
       data.buffer.asUint8List(),
-      targetHeight: 1420 ~/ 3,
-      targetWidth: 3072 ~/ 3,
+      targetHeight: 1420 ~/ 1,
+      targetWidth: 3072 ~/ 1,
     );
     ui.FrameInfo fi = await codec.getNextFrame();
     // ImageProvider imageProvider = ResizeImage(
@@ -133,11 +133,12 @@ class SpriteBackground extends SpriteComponent {
     }
     // sprite?.srcSize = rawSize;
     // sprite?.srcPosition = followPosition;
-    super.anchor = Anchor.topLeft;
+    super.anchor = Anchor.center;
     // print((super.findGame() as Forge2DGame).size);
 
-    super.position = Vector2((findGame() as Forge2DGame).size.x / -20,
-        (findGame() as Forge2DGame).size.y / -20);
+    // super.position = Vector2((findGame() as Forge2DGame).size.x / -20,
+    //     (findGame() as Forge2DGame).size.y / -20);
+    super.position = Vector2(0, 0);
 
     // super.position = Vector2(-kWorldSize.x / 2, -kWorldSize.y / 2);
   }

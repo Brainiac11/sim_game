@@ -39,7 +39,9 @@ class BorderEdge extends BodyComponent with RiverpodComponentMixin {
           type: BodyType.static,
           allowSleep: false,
         );
-        shape = EdgeShape()..set(kRightBorder[1], kRightBorder[2]);
+        shape = EdgeShape()
+          ..set(kRightBorder[1], kRightBorder[2])
+          ..radius = 100;
         break;
       case "Left":
         borderDef = BodyDef(
@@ -47,7 +49,9 @@ class BorderEdge extends BodyComponent with RiverpodComponentMixin {
           type: BodyType.static,
           allowSleep: false,
         );
-        shape = EdgeShape()..set(kLeftBorder[1], kLeftBorder[2]);
+        shape = EdgeShape()
+          ..set(kLeftBorder[1], kLeftBorder[2])
+          ..radius = 100;
         break;
       case "Top":
         borderDef = BodyDef(
@@ -55,7 +59,9 @@ class BorderEdge extends BodyComponent with RiverpodComponentMixin {
           type: BodyType.static,
           allowSleep: false,
         );
-        shape = EdgeShape()..set(kTopBorder[1], kTopBorder[2]);
+        shape = EdgeShape()
+          ..set(kTopBorder[1], kTopBorder[2])
+          ..radius = 100;
         break;
       case "Bottom":
         borderDef = BodyDef(
@@ -63,7 +69,9 @@ class BorderEdge extends BodyComponent with RiverpodComponentMixin {
           type: BodyType.static,
           allowSleep: false,
         );
-        shape = EdgeShape()..set(kBottomBorder[1], kTopBorder[2]);
+        shape = EdgeShape()
+          ..set(kBottomBorder[1], kTopBorder[2])
+          ..radius = 100;
         break;
     }
   }
@@ -81,6 +89,9 @@ class BorderEdge extends BodyComponent with RiverpodComponentMixin {
     //   type: BodyType.static,
     // );
     // shape = EdgeShape()..set(Vector2.zero(), Vector2(0, kWorldSize.y));
+    debugColor = Colors.green;
+
+    debugMode = kDebugMode;
     fixtureDef = FixtureDef(
       shape,
       friction: 0.9,

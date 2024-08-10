@@ -18,26 +18,26 @@ import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
-    await windowManager.ensureInitialized();
-    WindowOptions windowOptions = const WindowOptions(
-      minimumSize: Size(3072 / 2, 1420 / 2),
-      center: true,
-      backgroundColor: Colors.transparent,
-      skipTaskbar: false,
-      titleBarStyle: TitleBarStyle.hidden,
-    );
-    await windowManager.setResizable(false);
-    await windowManager.setAspectRatio(3072 / 1420);
-    // await windowManager.
-    await windowManager.maximize();
+  // if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
+  //   await windowManager.ensureInitialized();
+  //   WindowOptions windowOptions = const WindowOptions(
+  //     minimumSize: Size(3072 / 2, 1420 / 2),
+  //     center: true,
+  //     backgroundColor: Colors.transparent,
+  //     skipTaskbar: false,
+  //     titleBarStyle: TitleBarStyle.hidden,
+  //   );
+  //   await windowManager.setResizable(false);
+  //   await windowManager.setAspectRatio(3072 / 1420);
+  //   // await windowManager.
+  //   await windowManager.maximize();
 
-    windowManager.waitUntilReadyToShow(windowOptions, () async {
-      await windowManager.show();
-      // await windowManager.setMovable(true);
-      await windowManager.focus();
-    });
-  }
+  //   windowManager.waitUntilReadyToShow(windowOptions, () async {
+  //     await windowManager.show();
+  //     // await windowManager.setMovable(true);
+  //     await windowManager.focus();
+  //   });
+  // }
   var themeStr =
       await rootBundle.loadString('assets/appainter_theme_light.json');
   var themeJson = jsonDecode(themeStr);
@@ -64,7 +64,7 @@ class App extends ConsumerWidget {
   final ThemeData darkThemeData;
 
   App({super.key, required this.themeData, required this.darkThemeData});
-  GoRouter router = GoRouter(
+  final GoRouter router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
         name: "Match Page",

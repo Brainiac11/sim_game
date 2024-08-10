@@ -38,7 +38,7 @@ class RoboticsGame extends Forge2DGame
   late GradientHud gradientHud;
   late List<Obstacle> obstacles;
   double x = 0;
-  static double zoomLevel = 10;
+  static double zoomLevel = 1;
 
   double referenceWidth = 3072 / 1;
   double referenceHeight = 1420 / 1;
@@ -61,8 +61,8 @@ class RoboticsGame extends Forge2DGame
       : super(
           zoom: zoomLevel,
           gravity: Vector2.zero(),
-          // camera: CameraComponent.withFixedResolution(
-          //     width: 3072 / 4, height: 1420 / 4),
+          camera: CameraComponent.withFixedResolution(
+              width: 3072 / 1, height: 1420 / 1),
           // camera: CameraComponent.withFixedResolution(
           //   width: getCurrentImageSize().width,
           //   height: getCurrentImageSize().height,
@@ -72,9 +72,9 @@ class RoboticsGame extends Forge2DGame
           // camera: CameraComponent(
           //   viewport: FixedAspectRatioViewport(aspectRatio: 3072 / 1420),
           // ),
-          camera: CameraComponent(
-            viewport: MaxViewport(),
-          ),
+          // camera: CameraComponent(
+          //   viewport: MaxViewport(),
+          // ),
         );
 
   @override
@@ -93,7 +93,6 @@ class RoboticsGame extends Forge2DGame
     //     width: getCurrentImageSize().width / 4,
     //     height: getCurrentImageSize().height / 4);
     await super.onLoad();
-
     fps = FpsTextComponent(position: Vector2(5, (worldToScreen(size) * 3).x));
     totalBodies = TextComponent(
         position: Vector2(5, (worldToScreen(size) * 2).y), priority: 1);
@@ -118,16 +117,16 @@ class RoboticsGame extends Forge2DGame
       obstacles.add(Obstacle(obstacleConfig: obstacleConfig));
     }
 
-    resizeBackground(kScreenSize);
+    // resizeBackground(kScreenSize);
     await world.add(background..priority = 0);
     await world.add(BorderEdge(borderKey: const ValueKey("Top")));
     await world.add(BorderEdge(borderKey: const ValueKey("Bottom")));
     await world.add(BorderEdge(borderKey: const ValueKey("Right")));
     await world.add(BorderEdge(borderKey: const ValueKey("Left")));
-    await world.addAll(obstacles);
+    // await world.addAll(obstacles);
     robot = Robot(ref: ref);
     robot2 = Robot(ref: ref);
-    await world.add(robot);
+    // await world.add(robot);
     // await world.add(robot2);
     camera.viewfinder.anchor = Anchor.center;
     gamePiece = GamePiece(
@@ -140,14 +139,14 @@ class RoboticsGame extends Forge2DGame
       gamePieceState: GamePieceEnum.shot,
       kMultiplier: ref.read(robotProviderProvider).kMultiplier,
     );
-    await world.add(gamePiece2);
-    await world.add(gamePiece);
+    // await world.add(gamePiece2);
+    // await world.add(gamePiece);
     gradientHud = GradientHud()
       ..size = Vector2(size.x, size.y)
       ..position = Vector2.zero();
     GradientHud.gradientEnum = GradientEnum.alliance;
     camera.viewport.add(gradientHud);
-    camera.follow(robot, snap: true);
+    // camera.follow(robot, snap: true);
     // camera.setBounds(experimental.Rectangle.fromCenter(
     //     center: background.center, size: background.size));
 
@@ -161,8 +160,9 @@ class RoboticsGame extends Forge2DGame
     zoomLevel += info.scrollDelta.global.y * -0.005;
     if (kDebugMode) {
       zoomLevel = zoomLevel.clamp(0.01, 100.0);
+      print(zoomLevel);
     } else {
-      zoomLevel = zoomLevel.clamp(0.5, 15.0);
+      zoomLevel = zoomLevel.clamp(0.5, 50.0);
     }
     camera.viewfinder.zoom = zoomLevel;
   }
@@ -206,7 +206,10 @@ class RoboticsGame extends Forge2DGame
     // double scaledWidth = 3072 * scale;
     // double scaledHeight = 1420 * scale;
 
+    // background.size = Vector2(3072, 1420) * scale / 10;
     background.size = Vector2(3072, 1420) * scale / 10;
+    camera.viewfinder.zoom = 23;
+    zoomLevel = camera.viewfinder.zoom;
   }
 
   Size getCurrentImageSize() {
