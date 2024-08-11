@@ -125,7 +125,7 @@ class RoboticsGame extends Forge2DGame
     await world.add(BorderEdge(borderKey: const ValueKey("Bottom")));
     await world.add(BorderEdge(borderKey: const ValueKey("Right")));
     await world.add(BorderEdge(borderKey: const ValueKey("Left")));
-    // await world.addAll(obstacles);
+    await world.addAll(obstacles);
     robot = Robot(ref: ref);
     robot2 = Robot(ref: ref);
     await world.add(robot);

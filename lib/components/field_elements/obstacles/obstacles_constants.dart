@@ -10,10 +10,10 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(140, -42) * kPixelScale,
-              Vector2(125, -33) * kPixelScale,
-              Vector2(125, -16) * kPixelScale,
-              Vector2(140, -7) * kPixelScale,
+              Vector2(140, -42) * 1,
+              Vector2(125, -33) * 1,
+              Vector2(125, -16) * 1,
+              Vector2(140, -7) * 1,
             ],
           ),
         ),
@@ -28,10 +28,10 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(-140, -42) * kPixelScale,
-              Vector2(-125, -33) * kPixelScale,
-              Vector2(-125, -16) * kPixelScale,
-              Vector2(-140, -7) * kPixelScale,
+              Vector2(-140, -42) * 1,
+              Vector2(-125, -33) * 1,
+              Vector2(-125, -16) * 1,
+              Vector2(-140, -7) * 1,
             ],
           ),
         ),
@@ -46,10 +46,10 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(43, -15) * kPixelScale,
-              Vector2(52, -20) * kPixelScale,
-              Vector2(47, -29) * kPixelScale,
-              Vector2(38, -24) * kPixelScale,
+              Vector2(43, -15) * 1,
+              Vector2(52, -20) * 1,
+              Vector2(47, -29) * 1,
+              Vector2(38, -24) * 1,
             ],
           ),
         ),
@@ -64,10 +64,10 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(88, 5) * kPixelScale,
-              Vector2(88, -5) * kPixelScale,
-              Vector2(78, -5) * kPixelScale,
-              Vector2(78, 5) * kPixelScale,
+              Vector2(88, 5) * 1,
+              Vector2(88, -5) * 1,
+              Vector2(78, -5) * 1,
+              Vector2(78, 5) * 1,
             ],
           ),
         ),
@@ -82,10 +82,10 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(38, 24) * kPixelScale,
-              Vector2(47, 29) * kPixelScale,
-              Vector2(52, 20) * kPixelScale,
-              Vector2(43, 15) * kPixelScale,
+              Vector2(38, 24) * 1,
+              Vector2(47, 29) * 1,
+              Vector2(52, 20) * 1,
+              Vector2(43, 15) * 1,
             ],
           ),
         ),
@@ -100,10 +100,10 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(-43, -15) * kPixelScale,
-              Vector2(-52, -20) * kPixelScale,
-              Vector2(-47, -29) * kPixelScale,
-              Vector2(-38, -24) * kPixelScale,
+              Vector2(-43, -15) * 1,
+              Vector2(-52, -20) * 1,
+              Vector2(-47, -29) * 1,
+              Vector2(-38, -24) * 1,
             ],
           ),
         ),
@@ -118,10 +118,10 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(-88, 5) * kPixelScale,
-              Vector2(-88, -5) * kPixelScale,
-              Vector2(-78, -5) * kPixelScale,
-              Vector2(-78, 5) * kPixelScale,
+              Vector2(-88, 5) * 1,
+              Vector2(-88, -5) * 1,
+              Vector2(-78, -5) * 1,
+              Vector2(-78, 5) * 1,
             ],
           ),
         ),
@@ -136,10 +136,10 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(-38, 24) * kPixelScale,
-              Vector2(-47, 29) * kPixelScale,
-              Vector2(-52, 20) * kPixelScale,
-              Vector2(-43, 15) * kPixelScale,
+              Vector2(-38, 24) * 1,
+              Vector2(-47, 29) * 1,
+              Vector2(-52, 20) * 1,
+              Vector2(-43, 15) * 1,
             ],
           ),
         ),
@@ -154,9 +154,9 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(140, 51) * kPixelScale,
-              Vector2(109, 70) * kPixelScale,
-              Vector2(141, 70) * kPixelScale,
+              Vector2(140, 51) * 1,
+              Vector2(109, 70) * 1,
+              Vector2(141, 70) * 1,
             ],
           ),
         ),
@@ -171,9 +171,9 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(-140, 51) * kPixelScale,
-              Vector2(-109, 70) * kPixelScale,
-              Vector2(-140, 70) * kPixelScale,
+              Vector2(-140, 51) * 1,
+              Vector2(-109, 70) * 1,
+              Vector2(-140, 70) * 1,
             ],
           ),
         ),
@@ -191,10 +191,10 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(132, -35) * kPixelScale,
-              Vector2(150, -35) * kPixelScale,
-              Vector2(150, -14) * kPixelScale,
-              Vector2(132, -14) * kPixelScale,
+              Vector2(132, -35) * 1,
+              Vector2(150, -35) * 1,
+              Vector2(150, -14) * 1,
+              Vector2(132, -14) * 1,
             ],
           ),
         ),
@@ -209,10 +209,10 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(-132, -35) * kPixelScale,
-              Vector2(-150, -35) * kPixelScale,
-              Vector2(-150, -14) * kPixelScale,
-              Vector2(-132, -14) * kPixelScale,
+              Vector2(-132, -35) * 1,
+              Vector2(-150, -35) * 1,
+              Vector2(-150, -14) * 1,
+              Vector2(-132, -14) * 1,
             ],
           ),
         ),

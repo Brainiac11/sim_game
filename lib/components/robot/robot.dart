@@ -195,6 +195,7 @@ class Robot extends BodyComponent
       type: BodyType.dynamic,
       bullet: true,
       userData: this,
+      allowSleep: false,
     );
     // ref.listen(settingsProvider, (settings, setting) {
     //   setting.settings.isDarkMode
@@ -209,7 +210,11 @@ class Robot extends BodyComponent
     shape = PolygonShape()
       ..setAsBox(constants.kHalfWidth, constants.kHalfHeight, Vector2(0, 0), 0);
     fixtureDef = FixtureDef(shape)
-      ..density = constants.kDensity
+      ..density = (kRobotMass.mass /
+          constants.kHalfHeight *
+          2 *
+          constants.kHalfWidth *
+          2)
       ..friction = constants.kFriction
       ..restitution = constants.kRestitution
       ..filter = (Filter()

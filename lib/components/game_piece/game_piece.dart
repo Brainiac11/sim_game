@@ -105,6 +105,7 @@ class GamePiece extends BodyComponent {
       linearDamping: GamePieceDampening,
       bullet: true,
       userData: this,
+      allowSleep: false,
     );
     setCollisionFilter();
     shape = CircleShape()..radius = 0.4;

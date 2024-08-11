@@ -23,7 +23,7 @@ class BilletWheel extends Wheel {
     robot.kTranslationalDeccelerationRate += Wheel.kWheelDecceleration;
     robot.kTranslationalIdleDeccelerationRate +=
         Wheel.kWheelDecceleration / kAcceleration;
-    robot.kAngularAccelerationRate += kAcceleration / 4;
+    robot.kAngularAccelerationRate += kAcceleration;
     robot.kAngularDeccelerationRate += Wheel.kWheelDecceleration;
     robot.kAngularIdleDeccelerationRate +=
         Wheel.kWheelDecceleration / (kAcceleration * 5);

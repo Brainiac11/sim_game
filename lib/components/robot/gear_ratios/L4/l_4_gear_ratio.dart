@@ -10,8 +10,8 @@ part 'l_4_gear_ratio.g.dart';
 @JsonSerializable(explicitToJson: true, anyMap: true)
 class L4GearRatio extends GearRatio {
   static const String kName = "L4";
-  static const double kAcceleration = 17;
-  static const double kMaximumSpeed = 11;
+  static const double kAcceleration = 16;
+  static const double kMaximumSpeed = 10;
   static const double kExperience = 15;
   L4GearRatio()
       : super(
@@ -25,7 +25,7 @@ class L4GearRatio extends GearRatio {
       WidgetRef ref, dynamic constants) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
-    robot.kAngularAccelerationRate += kAcceleration / 2;
+    robot.kAngularAccelerationRate += kAcceleration;
     if (kDebugMode) {
       print("Updating ${robot.kMaxTranslationalSpeed}");
     }

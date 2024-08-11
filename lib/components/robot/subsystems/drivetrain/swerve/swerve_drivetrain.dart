@@ -73,25 +73,27 @@ class SwerveDrivetrain extends Drivetrain {
     // body.applyForce(
     //   value * constants.kTranslationalAccelerationRate * body.inertia,
     // );
-    body.applyLinearImpulse(
-        value * constants.kTranslationalAccelerationRate * body.inertia);
+    body.applyForce(value *
+        constants.kTranslationalAccelerationRate *
+        body.inertia *
+        (body.mass / (constants.kDensity * 2)));
 
     body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed / 2);
+    if (kDebugMode) {
+      print(body.linearVelocity.length);
+    }
     if (body.linearVelocity.length >
         value.length * constants.kTranslationalAccelerationRate) {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
       body.linearDamping = constants.kTranslationalIdleDeccelerationRate;
     }
-    if (kDebugMode) {
-      print(body.linearVelocity.length);
-    }
   }
 
   @override
   FutureOr<void> secondJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    body.applyAngularImpulse(value.x * constants.kAngularAccelerationRate);
+    body.applyAngularImpulse(value.x * constants.kAngularAccelerationRate * 2);
     body.angularVelocity
         .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
     if (body.angularVelocity.abs() >

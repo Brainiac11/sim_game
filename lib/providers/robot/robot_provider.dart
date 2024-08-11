@@ -22,7 +22,7 @@ class RobotProvider extends _$RobotProvider {
       // kTranslationalIdleDeccelerationRate: 0.01,
       // kAngularDeccelerationRate: 12,
       // kAngularIdleDeccelerationRate: 5,
-      kDensity: 1,
+      kDensity: 2,
       kFriction: 0.5,
       kRestitution: 0.00,
       // kHalfWidth: (1556 / 3840) * 1.6,

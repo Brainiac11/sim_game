@@ -53,26 +53,27 @@ class TankDrivetrain extends Drivetrain {
     //   value * constants.kTranslationalAccelerationRate * body.inertia,
     // );
     value.x = 0;
-    body.applyLinearImpulse((value..rotate(body.angle)) *
+    body.applyForce((value..rotate(body.angle)) *
         constants.kTranslationalAccelerationRate *
-        body.inertia);
+        body.inertia *
+        (body.mass / (constants.kDensity * 4)));
 
     body.linearVelocity.clampLength(0, constants.kMaxTranslationalSpeed / 2);
+    if (kDebugMode) {
+      print(body.linearVelocity.length);
+    }
     if (body.linearVelocity.length >
-        value.x * constants.kTranslationalAccelerationRate) {
+        value.length * constants.kTranslationalAccelerationRate) {
       body.linearDamping = constants.kTranslationalDeccelerationRate;
     } else {
       body.linearDamping = constants.kTranslationalIdleDeccelerationRate;
-    }
-    if (kDebugMode) {
-      print(body.linearVelocity.length);
     }
   }
 
   @override
   FutureOr<void> secondJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    body.applyAngularImpulse(value.x * constants.kAngularAccelerationRate);
+    body.applyAngularImpulse(value.x * constants.kAngularAccelerationRate * 2);
     body.angularVelocity
         .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
     if (body.angularVelocity.abs() >

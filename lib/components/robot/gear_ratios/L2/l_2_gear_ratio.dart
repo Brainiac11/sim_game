@@ -25,7 +25,7 @@ class L2GearRatio extends GearRatio {
       WidgetRef ref, dynamic constants) async {
     final robot = ref.watch(robotProviderProvider);
     robot.kTranslationalAccelerationRate += kAcceleration;
-    robot.kAngularAccelerationRate += kAcceleration / 2;
+    robot.kAngularAccelerationRate += kAcceleration;
     if (kDebugMode) {
       print("Updating ${robot.kMaxTranslationalSpeed}");
     }

@@ -8,7 +8,8 @@ import 'package:player_move/providers/settings/settings_notifier.dart';
 
 /// Border Edge can either have a borderKey for the field edges,
 /// or a manual position and size for field element obstacles
-class BorderEdge extends BodyComponent with RiverpodComponentMixin {
+class BorderEdge extends BodyComponent
+    with RiverpodComponentMixin, ContactCallbacks {
   BorderEdge({this.borderKey, this.positionOfEdge, this.size});
   ValueKey<String>? borderKey;
   Vector2? positionOfEdge;
