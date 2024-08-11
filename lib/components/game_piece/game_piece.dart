@@ -105,12 +105,11 @@ class GamePiece extends BodyComponent {
       linearDamping: GamePieceDampening,
       bullet: true,
       userData: this,
-      allowSleep: false,
     );
     setCollisionFilter();
     shape = CircleShape()..radius = 0.4;
     fixtureDef = FixtureDef(shape)
-      ..density = 10
+      ..density = 5
       ..friction = 0.7
       ..restitution = .0
       ..filter = collisionFilter;

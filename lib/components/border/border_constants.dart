@@ -6,15 +6,15 @@ import 'package:player_move/constants.dart';
 /// 1st element is first parameter for EdgeShape()..set();
 /// 2nd element is second parameter for EdgeShape()..set();
 final kRightBorder = List.from(<Vector2>[
-  Vector2(
-      -3072 / 2 / RoboticsGame.zoomLevel, -1420 / 2 / RoboticsGame.zoomLevel),
+  Vector2((-3072) / 2 / RoboticsGame.zoomLevel + 1.6,
+      -1420 / 2 / RoboticsGame.zoomLevel),
   Vector2.zero(),
   Vector2(0, 1420 / RoboticsGame.zoomLevel),
 ]);
 
 final kLeftBorder = List.from(<Vector2>[
-  Vector2(
-      3072 / 2 / RoboticsGame.zoomLevel, -1420 / 2 / RoboticsGame.zoomLevel),
+  Vector2((3072) / 2 / RoboticsGame.zoomLevel - 1.6,
+      -1420 / 2 / RoboticsGame.zoomLevel),
   Vector2.zero(),
   Vector2(0, 1420 / RoboticsGame.zoomLevel),
 ]);

@@ -11,7 +11,7 @@ part 'l_2_gear_ratio.g.dart';
 class L2GearRatio extends GearRatio {
   static const String kName = "L2";
   static const double kAcceleration = 12;
-  static const double kMaximumSpeed = 6;
+  static const double kMaximumSpeed = 5;
   static const double kExperience = 8;
   L2GearRatio()
       : super(

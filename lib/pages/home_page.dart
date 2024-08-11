@@ -25,6 +25,7 @@ class HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsNotifierProvider.notifier);
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         leading: TextButton.icon(
           onPressed: goToSettings,
