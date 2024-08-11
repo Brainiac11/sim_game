@@ -37,7 +37,7 @@ class GamePiece extends BodyComponent {
       gamePieceState = GamePieceEnum.normal;
 
       setCollisionFilter();
-
+      setRestitution();
       stateChanger();
       fixture.filterData = collisionFilter;
     }
@@ -110,14 +110,30 @@ class GamePiece extends BodyComponent {
     setCollisionFilter();
     shape = CircleShape()..radius = 0.4;
     fixtureDef = FixtureDef(shape)
-      ..density = 0.5
-      ..friction = 1.0
-      ..restitution = .1
+      ..density = 10
+      ..friction = 0.7
+      ..restitution = .0
       ..filter = collisionFilter;
 
     Body gamePieceBody = world.createBody(gamePieceDef);
     fixture = gamePieceBody.createFixture(fixtureDef);
     return gamePieceBody;
+  }
+
+  void setRestitution() {
+    switch (gamePieceState) {
+      case GamePieceEnum.normal:
+        fixture.restitution = 0.1;
+        break;
+      case GamePieceEnum.shot:
+        fixture.restitution = 0.4;
+        break;
+      case GamePieceEnum.ferryed:
+        fixture.restitution = 0.4;
+        break;
+      default:
+        throw (Exception("Error: GamePieceState is not recognized"));
+    }
   }
 
   void setCollisionFilter() {

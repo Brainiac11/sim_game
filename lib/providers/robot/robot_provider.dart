@@ -24,7 +24,7 @@ class RobotProvider extends _$RobotProvider {
       // kAngularIdleDeccelerationRate: 5,
       kDensity: 2,
       kFriction: 0.5,
-      kRestitution: 0.00,
+      kRestitution: 0,
       // kHalfWidth: (1556 / 3840) * 1.6,
       // kHalfHeight: (1556 / 3840) * 1.6,
       // kHalfWidth: kWorldSize.x / 50,

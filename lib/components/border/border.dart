@@ -38,7 +38,7 @@ class BorderEdge extends BodyComponent
         borderDef = BodyDef(
           position: kRightBorder[0],
           type: BodyType.static,
-          allowSleep: false,
+          // allowSleep: false,
         );
         shape = EdgeShape()..set(kRightBorder[1], kRightBorder[2]);
         break;
@@ -46,7 +46,7 @@ class BorderEdge extends BodyComponent
         borderDef = BodyDef(
           position: kLeftBorder[0],
           type: BodyType.static,
-          allowSleep: false,
+          // allowSleep: false,
         );
         shape = EdgeShape()..set(kLeftBorder[1], kLeftBorder[2]);
         break;
@@ -54,7 +54,7 @@ class BorderEdge extends BodyComponent
         borderDef = BodyDef(
           position: kTopBorder[0],
           type: BodyType.static,
-          allowSleep: false,
+          // allowSleep: false,
         );
         shape = EdgeShape()..set(kTopBorder[1], kTopBorder[2]);
         break;
@@ -62,10 +62,12 @@ class BorderEdge extends BodyComponent
         borderDef = BodyDef(
           position: kBottomBorder[0],
           type: BodyType.static,
-          allowSleep: false,
+          // allowSleep: false,
         );
         shape = EdgeShape()..set(kBottomBorder[1], kTopBorder[2]);
         break;
+      default:
+        throw (ErrorSummary("Error: Unrecognized Border Key"));
     }
   }
 

@@ -193,7 +193,7 @@ class Robot extends BodyComponent
     robotDef = BodyDef(
       // position: Vector2(kWorldSize.x / 100, kWorldSize.y / 100),
       type: BodyType.dynamic,
-      bullet: true,
+      // bullet: true,
       userData: this,
       allowSleep: false,
     );
@@ -248,9 +248,9 @@ class Robot extends BodyComponent
       GradientHud.gradientEnum = GradientEnum.targeting;
       state = RobotStates.shooting;
       await world.add(gamePiece!);
-
+      HapticFeedback.vibrate();
       gamePiece!.body
-          .applyLinearImpulse((Vector2(0, 5000)..rotate(super.angle)));
+          .applyLinearImpulse((Vector2(0, 500)..rotate(super.angle)));
       state = RobotStates.normal;
       gamePiece = null;
       GradientHud.gradientEnum = GradientEnum.alliance;
