@@ -85,7 +85,7 @@ class GamePiece extends BodyComponent {
       sprite: sprite,
       // scale:
       //     Vector2(0.5 / RoboticsGame.zoomLevel, 0.5 / RoboticsGame.zoomLevel),
-      size: Vector2(1, 1),
+      size: Vector2(0.95, 0.95),
       anchor: Anchor.center,
     );
     await add(spriteComponent!);

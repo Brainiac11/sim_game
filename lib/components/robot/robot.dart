@@ -249,7 +249,7 @@ class Robot extends BodyComponent
       await world.add(gamePiece!);
       HapticFeedback.vibrate();
       gamePiece!.body
-          .applyLinearImpulse((Vector2(0, 500)..rotate(super.angle)));
+          .applyLinearImpulse((Vector2(0, 300)..rotate(super.angle)));
       state = RobotStates.normal;
       gamePiece = null;
       GradientHud.gradientEnum = GradientEnum.alliance;
