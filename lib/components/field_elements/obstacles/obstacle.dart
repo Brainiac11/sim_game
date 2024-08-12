@@ -4,18 +4,38 @@ import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:player_move/components/field_elements/obstacles/obstacle_config.dart';
+import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/constants.dart';
 
 class Obstacle extends BodyComponent with ContactCallbacks {
   late FixtureDef fixtureDef;
   late BodyDef obstacleDef;
+  late bool isSensor;
 
-  ObstacleConfig obstacleConfig;
+  ObstacleModel obstacleConfig;
+  List<Fixture> fixturesToDelete = [];
 
   Obstacle({required this.obstacleConfig});
 
   @override
+  void update(double dt) {
+    for (Fixture fixture in fixturesToDelete) {
+      fixture.body.destroyFixture(fixture);
+    }
+    fixturesToDelete.clear();
+
+    super.update(dt);
+  }
+
+  @override
   void beginContact(Object other, Contact contact) {
+    if (isSensor && other.runtimeType == GamePiece) {
+      if (kDebugMode) {
+        print("Destroying a gamepiece");
+      }
+      fixturesToDelete.addAll(contact.bodyB.fixtures);
+      (other as GamePiece).removeAll((other).children);
+    }
     super.beginContact(other, contact);
   }
 
@@ -33,11 +53,12 @@ class Obstacle extends BodyComponent with ContactCallbacks {
         print((findGame() as Forge2DGame).worldToScreen(vertex));
       }
     }
+    isSensor = obstacleConfig.isSensor;
     fixtureDef = FixtureDef(
       obstacleConfig.shape,
       userData: this,
       friction: 0.5,
-      isSensor: obstacleConfig.isSensor,
+      // isSensor: obstacleConfig.isSensor,
       filter: obstacleConfig.filter,
     );
 

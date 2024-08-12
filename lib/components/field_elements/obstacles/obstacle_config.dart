@@ -1,7 +1,7 @@
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/material.dart';
 
-class ObstacleConfig {
+class ObstacleModel {
   Shape shape;
   Filter filter;
   bool isSensor;
@@ -9,7 +9,7 @@ class ObstacleConfig {
   /// Used for sensor identification
   Key key;
 
-  ObstacleConfig(
+  ObstacleModel(
       {required this.shape,
       required this.filter,
       required this.isSensor,

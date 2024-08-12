@@ -113,7 +113,7 @@ class RoboticsGame extends Forge2DGame
       // world.debugMode = true;
     }
     obstacles = List.empty(growable: true);
-    for (ObstacleConfig obstacleConfig in obstaclesShapesList) {
+    for (ObstacleModel obstacleConfig in obstaclesShapesList) {
       obstacles.add(Obstacle(obstacleConfig: obstacleConfig));
     }
 

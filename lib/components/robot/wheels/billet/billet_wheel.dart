@@ -10,7 +10,7 @@ part 'billet_wheel.g.dart';
 @JsonSerializable(explicitToJson: true)
 class BilletWheel extends Wheel {
   static const String kName = "Billet";
-  static const double kAcceleration = 3;
+  static const double kAcceleration = 2;
   static const double kCost = 4;
   BilletWheel() : super(acceleration: kAcceleration, cost: kCost, name: kName);
 

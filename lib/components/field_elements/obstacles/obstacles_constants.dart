@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:player_move/components/field_elements/obstacles/obstacle_config.dart';
 import 'package:player_move/constants.dart';
 
-List<ObstacleConfig> obstaclesShapesList = List.from(
+List<ObstacleModel> obstaclesShapesList = List.from(
   [
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
@@ -23,7 +23,7 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
       isSensor: false,
       key: const Key("Speaker Red"),
     ),
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
@@ -41,7 +41,7 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
       isSensor: false,
       key: const Key("Speaker Blue"),
     ),
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
@@ -59,7 +59,7 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
       isSensor: false,
       key: const Key("Pillar Red Top"),
     ),
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
@@ -77,7 +77,7 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
       isSensor: false,
       key: const Key("Pillar Red Middle"),
     ),
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
@@ -95,7 +95,7 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
       isSensor: false,
       key: const Key("Pillar Red Bottom"),
     ),
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
@@ -113,7 +113,7 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
       isSensor: false,
       key: const Key("Pillar Blue Top"),
     ),
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
@@ -131,7 +131,7 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
       isSensor: false,
       key: const Key("Pillar Blue Middle"),
     ),
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
@@ -149,7 +149,7 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
       isSensor: false,
       key: const Key("Pillar Blue Bottom"),
     ),
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
@@ -166,7 +166,7 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
       isSensor: false,
       key: const Key("Source Red"),
     ),
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
@@ -186,7 +186,7 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
 
     // Sensors
 
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
@@ -204,15 +204,15 @@ List<ObstacleConfig> obstaclesShapesList = List.from(
       isSensor: true,
       key: const Key("Speaker Red Sensor"),
     ),
-    ObstacleConfig(
+    ObstacleModel(
       shape: PolygonShape()
         ..set(
           List.from(
             [
-              Vector2(-132, -35) / 8,
+              Vector2(-140, -35) / 8,
               Vector2(-150, -35) / 8,
               Vector2(-150, -14) / 8,
-              Vector2(-132, -14) / 8,
+              Vector2(-140, -14) / 8,
             ],
           ),
         ),
