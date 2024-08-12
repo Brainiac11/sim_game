@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:player_move/components/field_elements/obstacles/obstacle_config.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
-import 'package:player_move/constants.dart';
 
 class Obstacle extends BodyComponent with ContactCallbacks {
   late FixtureDef fixtureDef;
@@ -64,7 +63,7 @@ class Obstacle extends BodyComponent with ContactCallbacks {
 
     if (kDebugMode) {
       debugMode = true;
-      super.setColor(const Color.fromRGBO(255, 255, 255, 0.2));
+      isSensor ?  super.setColor(const Color.fromRGBO(100, 100, 100, 0.2)) : super.setColor(const Color.fromRGBO(255, 255, 255, 0.2));
     }
 
     return world.createBody(obstacleDef)..createFixture(fixtureDef);

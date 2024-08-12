@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ import 'package:player_move/pages/match_page.dart';
 import 'package:player_move/pages/settings_page.dart';
 import 'package:player_move/providers/settings/settings_notifier.dart';
 import 'package:shared_preferences_tools/shared_preferences_tools.dart';
-import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

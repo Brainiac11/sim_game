@@ -191,10 +191,10 @@ List<ObstacleModel> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(132, -35) / 8,
-              Vector2(150, -35) / 8,
-              Vector2(150, -14) / 8,
-              Vector2(132, -14) / 8,
+              Vector2(140, -30) / 8,
+              Vector2(150, -30) / 8,
+              Vector2(150, -19) / 8,
+              Vector2(140, -19) / 8,
             ],
           ),
         ),
@@ -209,10 +209,10 @@ List<ObstacleModel> obstaclesShapesList = List.from(
         ..set(
           List.from(
             [
-              Vector2(-140, -35) / 8,
+              Vector2(-132, -35) / 8,
               Vector2(-150, -35) / 8,
               Vector2(-150, -14) / 8,
-              Vector2(-140, -14) / 8,
+              Vector2(-132, -14) / 8,
             ],
           ),
         ),

@@ -1,6 +1,5 @@
 import 'package:flame/game.dart';
 import 'package:player_move/components/game.dart';
-import 'package:player_move/constants.dart';
 
 /// 0th element is position
 /// 1st element is first parameter for EdgeShape()..set();

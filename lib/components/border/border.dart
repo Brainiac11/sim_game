@@ -90,9 +90,13 @@ class BorderEdge extends BodyComponent
     fixtureDef = FixtureDef(
       shape,
       friction: 0.9,
+      // filter: Filter()
+      //   ..categoryBits = CollisionCategoryBits.bit.boundaries
+      //   ..maskBits = CollisionMaskBits.bit.boundaries,
+      // Might change this since currently I want ferryed and shot notes to go over the boundaries
       filter: Filter()
-        ..categoryBits = CollisionCategoryBits.bit.boundaries
-        ..maskBits = CollisionMaskBits.bit.boundaries,
+        ..categoryBits = CollisionCategoryBits.bit.general
+        ..maskBits = CollisionMaskBits.bit.general,
     );
     return world.createBody(borderDef)..createFixture(fixtureDef);
   }

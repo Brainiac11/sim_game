@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
-import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

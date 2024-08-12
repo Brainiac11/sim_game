@@ -5,13 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forge2d/src/dynamics/body.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:player_move/components/game.dart';
 import 'package:player_move/components/robot/constants/robot_constants.dart';
 import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
 import 'package:player_move/components/robot/gear_ratios/gear_ratio.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/components/robot/wheels/wheel.dart';
-import 'package:player_move/constants.dart';
 part 'swerve_drivetrain.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
@@ -19,11 +17,12 @@ class SwerveDrivetrain extends Drivetrain {
   Wheel wheel;
   GearRatio gearRatio;
   static const String kName = "SwerveDrivetrain";
+  static const double kExperience = 30;
   SwerveDrivetrain({
     required super.motors,
     required this.wheel,
     required this.gearRatio,
-  }) : super(name: kName);
+  }) : super(name: kName, experience: kExperience);
 
   // @override
   // FutureOr<void> firstJoystickMovement(

@@ -12,8 +12,12 @@ import 'package:player_move/components/robot/motors/motor.dart';
 abstract class Drivetrain {
   Motor motors;
   String name;
-
-  Drivetrain({required this.motors, required this.name});
+  double experience;
+  Drivetrain({
+    required this.motors,
+    required this.name,
+    required this.experience,
+  });
 
   @mustBeOverridden
   FutureOr<void> firstJoystickMovement(
