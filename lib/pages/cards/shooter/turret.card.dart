@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:player_move/components/robot/subsystems/drivetrain/drivetrain.dart';
-import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_drivetrain.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
-import 'package:player_move/components/robot/subsystems/shooter/fixed/fixed_shooter.dart';
-import 'package:player_move/components/robot/subsystems/shooter/pivot/pivot_shooter.dart';
 import 'package:player_move/components/robot/subsystems/shooter/shooter.dart';
 import 'package:player_move/components/robot/subsystems/shooter/turret/turret_shooter.dart';
 import 'package:player_move/pages/cards/sub_cards/motors.sub.card.dart';

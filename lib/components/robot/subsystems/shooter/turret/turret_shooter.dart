@@ -2,8 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/game_piece/game_piece_enum.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
-import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
-import 'package:player_move/components/robot/subsystems/intake/intake.dart';
 import 'package:player_move/components/robot/subsystems/shooter/shooter.dart';
 import 'package:vector_math/vector_math_64.dart';
 part 'turret_shooter.g.dart';
