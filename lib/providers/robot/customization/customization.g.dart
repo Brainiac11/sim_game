@@ -11,10 +11,12 @@ _$CustomizationImpl _$$CustomizationImplFromJson(Map<String, dynamic> json) =>
       drivetrain:
           Drivetrain.fromJson(json['drivetrain'] as Map<String, dynamic>),
       intake: Intake.fromJson(json['intake'] as Map<String, dynamic>),
+      shooter: Shooter.fromJson(json['shooter'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$CustomizationImplToJson(_$CustomizationImpl instance) =>
     <String, dynamic>{
       'drivetrain': instance.drivetrain,
       'intake': instance.intake,
+      'shooter': instance.shooter,
     };

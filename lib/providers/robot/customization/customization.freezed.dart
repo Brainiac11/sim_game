@@ -24,6 +24,8 @@ mixin _$Customization {
   set drivetrain(Drivetrain value) => throw _privateConstructorUsedError;
   Intake get intake => throw _privateConstructorUsedError;
   set intake(Intake value) => throw _privateConstructorUsedError;
+  Shooter get shooter => throw _privateConstructorUsedError;
+  set shooter(Shooter value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +39,7 @@ abstract class $CustomizationCopyWith<$Res> {
           Customization value, $Res Function(Customization) then) =
       _$CustomizationCopyWithImpl<$Res, Customization>;
   @useResult
-  $Res call({Drivetrain drivetrain, Intake intake});
+  $Res call({Drivetrain drivetrain, Intake intake, Shooter shooter});
 }
 
 /// @nodoc
@@ -55,6 +57,7 @@ class _$CustomizationCopyWithImpl<$Res, $Val extends Customization>
   $Res call({
     Object? drivetrain = null,
     Object? intake = null,
+    Object? shooter = null,
   }) {
     return _then(_value.copyWith(
       drivetrain: null == drivetrain
@@ -65,6 +68,10 @@ class _$CustomizationCopyWithImpl<$Res, $Val extends Customization>
           ? _value.intake
           : intake // ignore: cast_nullable_to_non_nullable
               as Intake,
+      shooter: null == shooter
+          ? _value.shooter
+          : shooter // ignore: cast_nullable_to_non_nullable
+              as Shooter,
     ) as $Val);
   }
 }
@@ -77,7 +84,7 @@ abstract class _$$CustomizationImplCopyWith<$Res>
       __$$CustomizationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Drivetrain drivetrain, Intake intake});
+  $Res call({Drivetrain drivetrain, Intake intake, Shooter shooter});
 }
 
 /// @nodoc
@@ -93,6 +100,7 @@ class __$$CustomizationImplCopyWithImpl<$Res>
   $Res call({
     Object? drivetrain = null,
     Object? intake = null,
+    Object? shooter = null,
   }) {
     return _then(_$CustomizationImpl(
       drivetrain: null == drivetrain
@@ -103,6 +111,10 @@ class __$$CustomizationImplCopyWithImpl<$Res>
           ? _value.intake
           : intake // ignore: cast_nullable_to_non_nullable
               as Intake,
+      shooter: null == shooter
+          ? _value.shooter
+          : shooter // ignore: cast_nullable_to_non_nullable
+              as Shooter,
     ));
   }
 }
@@ -110,7 +122,8 @@ class __$$CustomizationImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CustomizationImpl implements _Customization {
-  _$CustomizationImpl({required this.drivetrain, required this.intake});
+  _$CustomizationImpl(
+      {required this.drivetrain, required this.intake, required this.shooter});
 
   factory _$CustomizationImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomizationImplFromJson(json);
@@ -119,10 +132,12 @@ class _$CustomizationImpl implements _Customization {
   Drivetrain drivetrain;
   @override
   Intake intake;
+  @override
+  Shooter shooter;
 
   @override
   String toString() {
-    return 'Customization(drivetrain: $drivetrain, intake: $intake)';
+    return 'Customization(drivetrain: $drivetrain, intake: $intake, shooter: $shooter)';
   }
 
   @JsonKey(ignore: true)
@@ -142,7 +157,8 @@ class _$CustomizationImpl implements _Customization {
 abstract class _Customization implements Customization {
   factory _Customization(
       {required Drivetrain drivetrain,
-      required Intake intake}) = _$CustomizationImpl;
+      required Intake intake,
+      required Shooter shooter}) = _$CustomizationImpl;
 
   factory _Customization.fromJson(Map<String, dynamic> json) =
       _$CustomizationImpl.fromJson;
@@ -153,6 +169,9 @@ abstract class _Customization implements Customization {
   @override
   Intake get intake;
   set intake(Intake value);
+  @override
+  Shooter get shooter;
+  set shooter(Shooter value);
   @override
   @JsonKey(ignore: true)
   _$$CustomizationImplCopyWith<_$CustomizationImpl> get copyWith =>

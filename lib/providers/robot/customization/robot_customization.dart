@@ -6,6 +6,8 @@ import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_dri
 import 'package:player_move/components/robot/motors/neo1.1/neo_1.1_motor.dart';
 import 'package:player_move/components/robot/subsystems/intake/intake.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
+import 'package:player_move/components/robot/subsystems/shooter/fixed/fixed_shooter.dart';
+import 'package:player_move/components/robot/subsystems/shooter/shooter.dart';
 import 'package:player_move/providers/robot/customization/customization.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,7 +64,26 @@ class RobotCustomization extends _$RobotCustomization {
 
     Intake ik = Intake.fromJson(intake);
 
-    return Customization(drivetrain: dt, intake: ik);
+    Map<String, dynamic> defaultShooter =
+        FixedShooter(motors: NeoMotor()).toJson();
+    late Map<String, dynamic> shooter;
+
+    String? jsonShooterString = prefs.getString('shooter');
+    if (jsonShooterString != null) {
+      if (kDebugMode) {
+        print(jsonShooterString);
+      }
+      shooter = jsonDecode(jsonShooterString);
+    } else {
+      if (kDebugMode) {
+        print("Shooter prefs null");
+      }
+      shooter = defaultShooter;
+    }
+
+    Shooter st = Shooter.fromJson(shooter);
+
+    return Customization(drivetrain: dt, intake: ik, shooter: st);
     // return Customization(drivetrain: dt);
   }
 
@@ -74,6 +95,18 @@ class RobotCustomization extends _$RobotCustomization {
 
     if (kDebugMode) {
       print("Drivetrain in Prefs: ${drivetrain.toJson().toString()}");
+    }
+    ref.notifyListeners();
+  }
+
+  void updateShooter(Shooter shooter) async {
+    state.value?.shooter = shooter;
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('shooter', jsonEncode(shooter.toJson()));
+
+    if (kDebugMode) {
+      print("Shooter in Prefs: ${shooter.toJson().toString()}");
     }
     ref.notifyListeners();
   }

@@ -19,6 +19,7 @@ import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_
 import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper_sprite.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper_sprite.dart';
+import 'package:player_move/components/robot/subsystems/shooter/shooter.dart';
 import 'package:player_move/constants.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_enum.dart';
 import 'package:player_move/custom_widgets/gradient/gradient_widget.dart';
@@ -32,8 +33,9 @@ class Robot extends BodyComponent
   late BodyDef robotDef;
   Sprite? sprite;
   RobotSpriteManager? spriteManager;
-  Drivetrain? drivetrain;
-  Intake? intake;
+  late Drivetrain? drivetrain;
+  late Intake? intake;
+  late Shooter? shooter;
   SpriteComponent? intakeSprite;
 
   RobotStates state = RobotStates.normal;
@@ -133,6 +135,8 @@ class Robot extends BodyComponent
           await ref.read(robotCustomizationProvider.selectAsync((p) => p));
       drivetrain = value.drivetrain;
       intake = value.intake;
+      shooter = value.shooter;
+
       if (kDebugMode) {
         print(
             "Direvetrain ${drivetrain?.toJson()} \n ${drivetrain?.motors.toJson()}");

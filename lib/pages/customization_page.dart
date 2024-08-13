@@ -11,9 +11,12 @@ import 'package:player_move/components/robot/subsystems/drivetrain/tank/tank_dri
 import 'package:player_move/components/robot/subsystems/intake/intake.dart';
 import 'package:player_move/components/robot/subsystems/intake/over_bumper/over_bumper.dart';
 import 'package:player_move/components/robot/subsystems/intake/under_bumper/under_bumper.dart';
+import 'package:player_move/components/robot/subsystems/shooter/fixed/fixed_shooter.dart';
+import 'package:player_move/components/robot/subsystems/shooter/shooter.dart';
 import 'package:player_move/components/robot/wheels/billet/billet_wheel.dart';
 import 'package:player_move/pages/cards/drivetrain/drivetrain.card.dart';
 import 'package:player_move/pages/cards/intake/intake.card.dart';
+import 'package:player_move/pages/cards/shooter/shooter.card.dart';
 import 'package:player_move/providers/robot/customization/robot_customization.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -35,22 +38,24 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
   Widget generateCards(int index) {
     Object c = cardIndexList[index].runtimeType;
     switch (c) {
-      case SwerveDrivetrain:
+      case const (SwerveDrivetrain):
         if (kDebugMode) {
           print("Swerve");
         }
 
         return const DrivetrainPage();
-      case TankDrivetrain:
+      case const (TankDrivetrain):
         if (kDebugMode) {
           print("Tank");
         }
 
         return const DrivetrainPage();
-      case UnderBumperIntake:
+      case const (UnderBumperIntake):
         return const IntakePage();
-      case OverBumperIntake:
+      case const (OverBumperIntake):
         return const IntakePage();
+      case const (FixedShooter):
+        return const ShooterPage();
       default:
         if (kDebugMode) {
           print("defaulting ${c.toString()}");
@@ -64,9 +69,11 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
   Widget build(BuildContext context) {
     Drivetrain? dt;
     Intake? ik;
+    Shooter? st;
     ref.watch(robotCustomizationProvider.future).then((value) {
       dt = value.drivetrain;
       ik = value.intake;
+      st = value.shooter;
     });
     cardIndexList = [
       dt ??
@@ -76,6 +83,7 @@ class RobotCustomizationState extends ConsumerState<RobotCustomizationScreen> {
             gearRatio: L2GearRatio(),
           ),
       ik ?? UnderBumperIntake(),
+      st ?? FixedShooter(motors: NeoMotor()),
     ];
     // final settings = ref.watch(settingsNotifierProvider);
     // final robot = ref.watch(robotProviderProvider);
