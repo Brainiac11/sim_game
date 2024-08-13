@@ -15,18 +15,26 @@ class IntakePage extends ConsumerStatefulWidget {
 }
 
 class IntakePageState extends ConsumerState<IntakePage> {
+  String title_intake = "Under-Bumper Intake";
+
+  void updateTitle(String newTitle) {
+    setState(() {
+      title_intake = newTitle;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomizationCard(
       widgetsList: [
-        const Padding(
-          padding: EdgeInsets.only(top: 8.0),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                "Intake",
-                style: TextStyle(
+                title_intake,
+                style: const TextStyle(
                   fontSize: TextSelectionToolbar.kHandleSize,
                   fontFamily: appFlavor,
                 ),
@@ -51,6 +59,8 @@ class IntakePageState extends ConsumerState<IntakePage> {
                   //     .watch(robotCustomizationProvider.notifier)
                   //     .updateIntake(intake!..motors = motor);
                 }
+
+                updateTitle("Under-Bumper Intake");
               },
               child: const Text("Under Bumper"),
             ),
@@ -68,6 +78,7 @@ class IntakePageState extends ConsumerState<IntakePage> {
                   //     .watch(robotCustomizationProvider.notifier)
                   //     .updateIntake(intake!..motors = motor);
                 }
+                updateTitle("Over-Bumper Intake");
               },
               child: const Text("Over Bumper"),
             ),

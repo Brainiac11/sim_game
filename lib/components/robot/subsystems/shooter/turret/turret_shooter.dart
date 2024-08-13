@@ -12,10 +12,11 @@ part 'turret_shooter.g.dart';
 class TurretShooter extends Shooter {
   static const String kName = "TurretShooter";
   static const double kExperience = 30;
+  static const double kCost = 50;
   static const double kSpace = 20;
 
   TurretShooter({required super.motors})
-      : super(name: kName, experience: kExperience, space: kSpace);
+      : super(name: kName, experience: kExperience, space: kSpace, cost: kCost);
 
   factory TurretShooter.fromJson(Map<String, dynamic> json) =>
       _$TurretShooterFromJson(json);

@@ -92,7 +92,7 @@ class SwerveDrivetrain extends Drivetrain {
   @override
   FutureOr<void> secondJoystickMovement(
       Vector2 value, Body body, RobotConstants constants) async {
-    body.applyAngularImpulse(value.x * constants.kAngularAccelerationRate * 2);
+    body.applyAngularImpulse(value.x * constants.kAngularAccelerationRate * 3);
     body.angularVelocity
         .clamp(-constants.kMaxAngularSpeed, constants.kMaxAngularSpeed);
     if (body.angularVelocity.abs() >

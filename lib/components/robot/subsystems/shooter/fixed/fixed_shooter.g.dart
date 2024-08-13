@@ -12,6 +12,7 @@ FixedShooter _$FixedShooterFromJson(Map json) => FixedShooter(
       ..name = json['name'] as String
       ..space = (json['space'] as num).toDouble()
       ..experience = (json['experience'] as num).toDouble()
+      ..cost = (json['cost'] as num).toDouble()
       ..range = (json['range'] as num).toDouble();
 
 Map<String, dynamic> _$FixedShooterToJson(FixedShooter instance) =>
@@ -19,6 +20,7 @@ Map<String, dynamic> _$FixedShooterToJson(FixedShooter instance) =>
       'name': instance.name,
       'space': instance.space,
       'experience': instance.experience,
+      'cost': instance.cost,
       'range': instance.range,
       'motors': instance.motors.toJson(),
     };

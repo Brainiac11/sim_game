@@ -1,3 +1,4 @@
+import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,6 +6,8 @@ import 'package:player_move/custom_widgets/customization_card.dart';
 import 'package:player_move/pages/cards/drivetrain/swerve.card.dart';
 import 'package:player_move/pages/cards/drivetrain/tank.card.dart';
 import 'package:player_move/pages/cards/shooter/fixed.card.dart';
+import 'package:player_move/pages/cards/shooter/pivot.card.dart';
+import 'package:player_move/pages/cards/shooter/turret.card.dart';
 
 class ShooterPage extends ConsumerStatefulWidget {
   const ShooterPage({super.key});
@@ -26,14 +29,14 @@ class ShooterPageState extends ConsumerState<ShooterPage> {
   Widget build(BuildContext context) {
     return CustomizationCard(
       widgetsList: [
-        const Padding(
-          padding: EdgeInsets.only(top: 8.0),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                "Drivetrain",
-                style: TextStyle(
+                "${shooterPage.toString().removeSuffix("Page")} Shooter",
+                style: const TextStyle(
                   fontSize: TextSelectionToolbar.kHandleSize,
                   fontFamily: appFlavor,
                 ),
@@ -52,13 +55,13 @@ class ShooterPageState extends ConsumerState<ShooterPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                updateShooterPage(const FixedPage());
+                updateShooterPage(const PivotPage());
               },
               child: const Text("Pivot"),
             ),
             ElevatedButton(
               onPressed: () {
-                updateShooterPage(const FixedPage());
+                updateShooterPage(const TurretPage());
               },
               child: const Text("Turret"),
             ),

@@ -12,10 +12,11 @@ part 'fixed_shooter.g.dart';
 class FixedShooter extends Shooter {
   static const String kName = "FixedShooter";
   static const double kExperience = 0;
+  static const double kCost = 0;
   static const double kSpace = 10;
 
   FixedShooter({required super.motors})
-      : super(name: kName, experience: kExperience, space: kSpace);
+      : super(name: kName, experience: kExperience, space: kSpace, cost: kCost);
 
   factory FixedShooter.fromJson(Map<String, dynamic> json) =>
       _$FixedShooterFromJson(json);

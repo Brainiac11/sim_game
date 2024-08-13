@@ -12,12 +12,14 @@ abstract class Shooter {
   String name;
   double space;
   double experience;
+  double cost;
   double range = 0;
   Motor motors;
   Shooter({
     required this.name,
     required this.space,
     required this.experience,
+    required this.cost,
     required this.motors,
   });
 

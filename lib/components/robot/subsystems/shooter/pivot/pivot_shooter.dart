@@ -12,10 +12,11 @@ part 'pivot_shooter.g.dart';
 class PivotShooter extends Shooter {
   static const String kName = "PivotShooter";
   static const double kExperience = 10;
+  static const double kCost = 30;
   static const double kSpace = 15;
 
   PivotShooter({required super.motors})
-      : super(name: kName, experience: kExperience, space: kSpace);
+      : super(name: kName, experience: kExperience, space: kSpace, cost: kCost);
 
   factory PivotShooter.fromJson(Map<String, dynamic> json) =>
       _$PivotShooterFromJson(json);
