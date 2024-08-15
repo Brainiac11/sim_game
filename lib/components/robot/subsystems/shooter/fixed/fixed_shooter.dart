@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/game_piece/game_piece_enum.dart';

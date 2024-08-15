@@ -1,9 +1,9 @@
+import 'package:flame/components.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:player_move/components/game_piece/game_piece.dart';
 import 'package:player_move/components/game_piece/game_piece_enum.dart';
 import 'package:player_move/components/robot/motors/motor.dart';
 import 'package:player_move/components/robot/subsystems/shooter/shooter.dart';
-import 'package:vector_math/vector_math_64.dart';
 part 'turret_shooter.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
@@ -12,6 +12,10 @@ class TurretShooter extends Shooter {
   static const double kExperience = 30;
   static const double kCost = 50;
   static const double kSpace = 20;
+
+  Vector2 relativeTargetPosition = Vector2.zero();
+  Vector2 ferryShotTarget = Vector2(10, 10);
+  GamePiece? gamePiece;
 
   TurretShooter({required super.motors})
       : super(name: kName, experience: kExperience, space: kSpace, cost: kCost);
@@ -24,19 +28,28 @@ class TurretShooter extends Shooter {
 
   @override
   GamePieceEnum changeGamePieceState(GamePiece gamePiece) {
-    // TODO: implement changeGamePieceState
-    throw UnimplementedError();
+    this.gamePiece = gamePiece;
+    if (relativeTargetPosition.length >= range) {
+      gamePiece.gamePieceState = GamePieceEnum.ferryed;
+    } else {
+      gamePiece.gamePieceState = GamePieceEnum.shot;
+    }
+    return gamePiece.gamePieceState;
   }
 
   @override
   Vector2 gamePieceTrajectory(
       Vector2 robotPosition, Vector2 relativeTargetPosition) {
-    // TODO: implement gamePieceTrajectory
-    throw UnimplementedError();
+    if (gamePiece?.gamePieceState == GamePieceEnum.ferryed) {
+      return Vector2(0, 10 * motors.acceleration);
+    }
+    this.relativeTargetPosition = relativeTargetPosition;
+    return Vector2(0, 10 * motors.acceleration)
+      ..rotate(this.relativeTargetPosition.screenAngle());
   }
 
   @override
   void setRange() {
-    // TODO: implement setRange
+    range = motors.maximumSpeed + 6;
   }
 }
