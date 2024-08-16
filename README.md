@@ -12,6 +12,19 @@ The simulator has realistic physics on acceleration, inertia, and collisions.
 I hope you enjoy it!
 
 
+### Instructions to install ###
+- Download the ```APK``` below on an ```Android``` device
+- Open the ```APK``` on your ```Android``` device
+- Click ```Install```
+- Then open the app ```player_move``` (The app should have the flutter logo)
+- Then enjoy!
+
+### Controls ###
+1. The button on the left is the intake
+2. The Joystick on the left controls rotation
+3. The Joystick on the right controls translation
+4. The button on the right is shooting
+
 **Credits**
 Cresendo Field Images: https://www.chiefdelphi.com/t/2024-crescendo-top-down-field-renders/447764
 
