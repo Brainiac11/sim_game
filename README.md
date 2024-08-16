@@ -13,7 +13,7 @@ I hope you enjoy it!
 
 
 ### Instructions to install ###
-- Download the ```APK``` below on an ```Android``` device
+- Download the ```APK``` in the releases on an ```Android``` device
 - Open the ```APK``` on your ```Android``` device
 - Click ```Install```
 - Then open the app ```player_move``` (The app should have the flutter logo)
