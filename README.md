@@ -10,9 +10,13 @@ Currently, RiverPod is being actively implemented to allow for easier future dev
 
 The simulator has realistic physics on acceleration, inertia, and collisions. 
 I hope you enjoy it!
+https://github.com/user-attachments/assets/661e4ce0-1a04-406c-bf78-1a4c07c886ab
 
 
 ### Instructions to install ###
+
+
+
 - Download the ```APK``` in the releases on an ```Android``` device
 - Open the ```APK``` on your ```Android``` device
 - Click ```Install```
