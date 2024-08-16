@@ -11,6 +11,10 @@ class PivotPage extends ConsumerWidget {
   const PivotPage({
     super.key,
   });
+  @override
+  String toStringShort() {
+    return "Pivot Shooter";
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

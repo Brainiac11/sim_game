@@ -13,8 +13,11 @@ class TurretShooter extends Shooter {
   static const double kCost = 50;
   static const double kSpace = 20;
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   Vector2 relativeTargetPosition = Vector2.zero();
+  @JsonKey(includeFromJson: false, includeToJson: false)
   Vector2 ferryShotTarget = Vector2(10, 10);
+  @JsonKey(includeFromJson: false, includeToJson: false)
   GamePiece? gamePiece;
 
   TurretShooter({required super.motors})

@@ -33,7 +33,7 @@ class ShooterPageState extends ConsumerState<ShooterPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                "${shooterPage.toString().removeSuffix("Page")} Shooter",
+                shooterPage.toStringShort(),
                 style: const TextStyle(
                   fontSize: TextSelectionToolbar.kHandleSize,
                   fontFamily: appFlavor,

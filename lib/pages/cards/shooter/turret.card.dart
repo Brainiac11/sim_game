@@ -11,6 +11,10 @@ class TurretPage extends ConsumerWidget {
   const TurretPage({
     super.key,
   });
+  @override
+  String toStringShort() {
+    return "Turret Shooter";
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

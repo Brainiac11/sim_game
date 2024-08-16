@@ -13,6 +13,11 @@ class FixedPage extends ConsumerWidget {
   });
 
   @override
+  String toStringShort() {
+    return "Fixed Shooter";
+  }
+
+  @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: Column(

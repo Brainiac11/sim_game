@@ -63,7 +63,11 @@ class Obstacle extends BodyComponent with ContactCallbacks {
 
     if (kDebugMode) {
       debugMode = true;
-      isSensor ?  super.setColor(const Color.fromRGBO(100, 100, 100, 0.2)) : super.setColor(const Color.fromRGBO(255, 255, 255, 0.2));
+      isSensor
+          ? super.setColor(const Color.fromRGBO(100, 100, 100, 0.2))
+          : super.setColor(const Color.fromRGBO(255, 255, 255, 0.2));
+    } else {
+      super.setColor(Colors.transparent);
     }
 
     return world.createBody(obstacleDef)..createFixture(fixtureDef);
