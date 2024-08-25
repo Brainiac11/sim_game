@@ -11,7 +11,7 @@ Currently, RiverPod is being actively implemented to allow for easier future dev
 The simulator has realistic physics on acceleration, inertia, and collisions. 
 I hope you enjoy it!
 https://github.com/user-attachments/assets/661e4ce0-1a04-406c-bf78-1a4c07c886ab
-
+https://cloud-5grl480ij-hack-club-bot.vercel.app/0demo.mp4
 
 ### Instructions to install ###
 
